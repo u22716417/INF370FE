@@ -1,0 +1,40 @@
+
+ <div class="container">
+  <h5 style="text-align: center;">{{heading}}</h5>
+  <form #venueForm="ngForm" (ngSubmit)="addVenue(venueForm)" novalidate>
+    <div style="margin-bottom: 10px;">
+      <label for="venueName">Name</label>
+      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" required title="Please enter a venue name">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="venueDescription">Description</label>
+      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" required title="Please enter a description">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="venueAddress">Address</label>
+      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" required title="Please enter an address">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="venueCapacity">Capacity</label>
+      <input id="venueCapacity" class="form-control" type="text" name="capacity" [(ngModel)]="venue.venueCapacity" required title="Please enter a capacity">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="venueContactPerson">Contact Person</label>
+      <input placeholder="Contact Person" id="venueContactPerson" class="form-control" type="text" name="contact person" [(ngModel)]="venue.venueContactPerson" required title="Please enter a contact person">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="venueContactNumber">Contact Number</label>
+      <input id="venueContactNumber" class="form-control" type="text" name="contact number" [(ngModel)]="venue.venueContactNumber" required title="Please enter a contact number">
+    </div>
+
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+      <input type="submit" class="btn btn-primary" [disabled]="!venueForm.form.valid" name="Save"/> 
+    </div>
+  </form>
+</div>

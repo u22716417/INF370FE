@@ -1,0 +1,52 @@
+<div>
+  <br/>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <h1 style="color: #FF5F00;">Venues</h1>
+      </div>
+      <div class="col-md-2" style="padding-top: 1%;">
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary" routerLink="create-update/0" routerLinkActive="active" >
+          Add New
+        </a>
+      </div>
+      <div class="col-md-4 offset-md-3" style="padding-top: 1%;">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search"
+          [(ngModel)]="searchTerm"
+          (input)="filterVenues()">
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+
+  <div class="container">
+  <table id="datatableexample" datatable class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Contact Person</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let venue of filterVenue">
+        <td>{{ venue.venueName}}</td>
+        <td>{{ venue.venueAddress }}</td>
+        <td>{{ venue.venueContactPerson }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/manageVenues', venue.venueId]" >Edit</a>
+          <button (click)="deleteById(venue.venueId)" type="button" class="btn btn-danger" style="margin-left:10%;">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+

@@ -1,0 +1,29 @@
+<div class="container">
+    <h5 style="text-align: center;">{{ heading }}</h5>
+    <form #sponsorForm="ngForm" (ngSubmit)="addSponsor(sponsorForm)" novalidate>
+        <div style="margin-bottom: 10px;">
+            <label for="sponsorName">Name</label>
+            <input id="sponsorName" class="form-control" type="text" name="name" [(ngModel)]="newSponsor.sponsorName" required title="Please enter a sponsor name">
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <label for="sponsorDescription">Description</label>
+            <input id="sponsorDescription" class="form-control" type="text" name="description" [(ngModel)]="newSponsor.sponsorDescription" required title="Please enter a description">
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <label for="sponsorEmail">Email</label>
+            <input id="sponsorEmail" class="form-control" type="email" name="email" [(ngModel)]="newSponsor.sponsorEmail" required title="Please enter an email">
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <label for="sponsorPhone">Phone</label>
+            <input id="sponsorPhone" class="form-control" type="text" name="phone" [(ngModel)]="newSponsor.sponsorPhone" required pattern="[0-9]+" title="Please enter a valid phone number">
+        </div>
+
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!sponsorForm.form.valid">Save</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+<div>
+  <br/>
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <h1 style="color: #FF5F00;">Service</h1>
+      </div>
+      <div class="col-md-2" style="padding-top: 1%;">
+       <!-- Button trigger modal -->
+        <a class="btn btn-primary" routerLink="manageServices/0" routerLinkActive="active" >
+          Add New
+        </a>
+      </div>
+      <div class="col-md-4 offset-md-3" style="padding-top: 1%;">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search"
+          [(ngModel)]="searchTerm"
+          (input)="filterServices()">
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
+
+  <div class="container">
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Service Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredService">
+        <td>{{ item.serviceName}}</td>
+        <td>{{ item.serviceDescription }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/manageServices', item.serviceId]" >Edit</a>
+          <button (click)="deleteById(item.serviceId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>

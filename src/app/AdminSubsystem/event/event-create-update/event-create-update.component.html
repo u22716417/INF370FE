@@ -1,0 +1,53 @@
+<div class="container">
+    <h5 style="text-align: center;">{{ heading }}</h5>
+    <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" novalidate>
+      <div style="margin-bottom: 10px;">
+        <label for="eventName">Name</label>
+        <input id="eventName" class="form-control" type="text" name="name" [(ngModel)]="newEvent.eventName" required title="Please enter an event name">
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label for="eventDate">Date</label>
+        <input id="eventDate" class="form-control" type="date" name="date" [(ngModel)]="newEvent.eventDate" required title="Please enter a date">
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label for="eventTime">Time</label>
+        <input id="eventTime" class="form-control" type="time" name="time" [(ngModel)]="newEvent.eventTime" required title="Please enter a time">
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label for="eventDescription">Description</label>
+        <input id="eventDescription" class="form-control" type="text" name="description" [(ngModel)]="newEvent.eventDescription" required title="Please enter a description">
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label for="eventType">Type</label>
+        <input id="eventType" class="form-control" type="text" name="type" [(ngModel)]="newEvent.eventType" required title="Please enter an event type">
+      </div>
+  
+      <div style="margin-bottom: 10px;">
+        <label for="eventLocation">Location</label>
+        <input id="eventLocation" class="form-control" type="text" name="location" [(ngModel)]="newEvent.eventLocation" required title="Please enter a location">
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="eventLocation">Location</label>
+        <input id="eventLocation" class="form-control" type="text" name="location" [(ngModel)]="newEvent.eventLocation" required title="Please enter a location">
+      </div>
+  
+      <div class="form-outline mb-4">
+        <label  class="form-label" for="eventImage" style="padding-right: 75%;">Image</label>
+        <input formControlName="file" type="file" id="image" #file placeholder="Choose file" (change)="uploadFile(file.files)"  accept="image/*"  class="form-control" required/>
+        
+        <span *ngIf="fileNameUploaded.length > 0"> {{fileNameUploaded}}</span>
+      </div>
+
+
+      <div style="text-align: center;">
+        <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+        <input type="submit" class="btn btn-primary" [disabled]="!eventForm.form.valid" name="Save"/> 
+      </div>
+    </form>
+  </div>
+  

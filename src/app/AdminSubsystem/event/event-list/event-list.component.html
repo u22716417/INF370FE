@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Event List</h2>
+    <a class="btn btn-primary" routerLink="/manageEvents/0" routerLinkActive="active" >
+      Add New
+    </a>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Event ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.eventId }}</td>
+          <td>{{ event.eventName }}</td>
+          <td>{{ event.eventDate }}</td>
+          <td>{{ event.eventTime }}</td>
+          <td>{{ event.eventDescription }}</td>
+          <td>{{ event.eventType }}</td>
+          <td>{{ event.eventLocation }}</td>
+          <td>
+            <a class="btn btn-primary" [routerLink]="['/manageEvents', event.eventId]" >Edit</a> |
+            <button class="btn btn-danger btn-sm" (click)="deleteEvent(event.eventId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

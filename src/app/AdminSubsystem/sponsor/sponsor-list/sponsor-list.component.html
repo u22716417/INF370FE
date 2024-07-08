@@ -1,0 +1,34 @@
+<div>
+  <h2>Sponsor List</h2>
+
+  <a class="btn btn-primary" routerLink="/managesponsors/0" routerLinkActive="active" >
+    Add New
+  </a>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sponsor of sponsors">
+        <td>{{ sponsor.sponsorId }}</td>
+        <td>{{ sponsor.sponsorName }}</td>
+        <td>{{ sponsor.sponsorDescription }}</td>
+        <td>{{ sponsor.sponsorEmail }}</td>
+        <td>{{ sponsor.sponsorPhone }}</td>
+        <td>
+            <a class="btn btn-primary" [routerLink]="['/managesponsors', sponsor.sponsorId]" >Edit</a> |
+            <button class="btn btn-primary" (click)="deleteSponsor(sponsor.sponsorId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  

@@ -1,0 +1,63 @@
+<!-- Overlay -->
+<div id="overlay" *ngIf="isPopupVisible" class="overlay">
+  <div  style="margin-left: 35%; margin-top: 10%; width: 30%; height: 35%;" class="popup" class="card">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Enter OTP</h5>
+          <br/>
+          <br/>
+        </div>
+        <div class="modal-body">
+          <input type="number"  [(ngModel)]="number"  id="otpInput" class="form-control" placeholder="Enter OTP">
+        </div>
+      </div>
+    </div>
+    <br/>
+    <br/>
+ 
+    <div class="modal-footer">
+      <h2>{{this.message}}</h2>
+      <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>  |
+      <button type="button" class="btn btn-primary" (click)="verifyOTP()">Verify</button>
+    </div>
+  </div>
+</div>
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+          <!-- Username input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input [(ngModel)]="username" type="text" id="form3Example3" class="form-control form-control-lg"
+              placeholder="Enter your username" />
+            <label class="form-label" for="form3Example3">Username</label>
+          </div>
+          
+
+          <!-- Password input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input  [(ngModel)]="password" type="password" id="form3Example4" class="form-control form-control-lg"
+              placeholder="Enter password" />
+            <label class="form-label" for="form3Example4">Password</label>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+          
+            <a href="#!" class="text-body">Forgot password?</a>
+          </div>
+          <h1>{{this.message}}</h1>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button (click)="authenticate()"  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+                class="link-danger">Register</a></p>
+          </div>
+
+      </div>
+    </div>
+  </div>
+</section>
