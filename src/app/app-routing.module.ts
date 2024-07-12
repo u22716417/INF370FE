@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
-import { CreatUsersComponent } from './Users/creat-users/creat-users.component';
+import { RegisterComponent } from './UserSubsystem/user/register/register.component';
 
 export const Approutes: Routes = [
   {
@@ -26,7 +26,7 @@ export const Approutes: Routes = [
   },
   {
     path:'AddUser',
-    component: CreatUsersComponent
+    component: RegisterComponent
   },
   {
     path: '**',

@@ -4,7 +4,7 @@ import { User, UserManagementService, UserViewModel } from '../Admin/user-manage
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent   implements OnInit{
   message: string = '';
