@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SponsorServiceService } from '../service/sponsor-service.service';
 import { Sponsor } from '../sponsor';
+import { RouterLink } from '@angular/router';
 
 @Component({
+  standalone:true,
+  imports:[RouterLink],
   selector: 'app-sponsor-list',
   templateUrl: './sponsor-list.component.html',
   styleUrls: ['./sponsor-list.component.css']

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Equipment } from '../equipmentClass';
 import { EquipmentServiceService } from '../service/equipment-service.service';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
+  standalone: true,
+  imports: [RouterLink],
   selector: 'app-equipment-list',
   templateUrl: './equipment-list.component.html',
   styleUrls: ['./equipment-list.component.css']
