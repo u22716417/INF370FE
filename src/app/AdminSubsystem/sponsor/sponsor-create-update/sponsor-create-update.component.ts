@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Sponsor } from '../sponsor';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { SponsorServiceService } from '../service/sponsor-service.service';
 
 @Component({
   selector: 'app-sponsor-create-update',
+  standalone:true,
+  imports:[FormsModule],
   templateUrl: './sponsor-create-update.component.html',
   styleUrls: ['./sponsor-create-update.component.css']
 })

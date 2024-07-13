@@ -5,7 +5,7 @@ import { FaqService } from '../service/faq-service.service';
 @Component({
   selector: 'app-faq-list',
   templateUrl: './faq-list.component.html',
-  styleUrl: './faq-list.component.css'
+  styleUrls: ['./faq-list.component.css']
 })
 export class FaqListComponent implements OnInit{
   faqs:Faq[]=[]

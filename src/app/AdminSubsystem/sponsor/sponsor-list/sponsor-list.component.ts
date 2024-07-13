@@ -5,7 +5,7 @@ import { Sponsor } from '../sponsor';
 @Component({
   selector: 'app-sponsor-list',
   templateUrl: './sponsor-list.component.html',
-  styleUrl: './sponsor-list.component.css'
+  styleUrls: ['./sponsor-list.component.css']
 })
 export class SponsorListComponent implements OnInit {
 

@@ -10,7 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'app-faq-create-update',
   templateUrl: './faq-create-update.component.html',
-  styleUrl: './faq-create-update.component.css'
+  styleUrls: ['./faq-create-update.component.css']
 })
 export class FaqCreateUpdateComponent implements OnInit{
   newFaq: Faq = {faqId: 0, Question: '', Answer: ''}
