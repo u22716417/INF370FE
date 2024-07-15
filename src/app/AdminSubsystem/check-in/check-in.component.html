@@ -1,0 +1,9 @@
+<div class="numpad-container">
+    <input type="text" [(ngModel)]="inputValue" class="input-box" readonly />
+  
+    <div class="numpad">
+      <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
+      <button (click)="clearInput()">Clear</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,28 @@
+.numpad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .input-box {
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .numpad button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  

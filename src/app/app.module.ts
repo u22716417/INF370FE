@@ -21,13 +21,15 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
+import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SpinnerComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckInComponent
   ],
   imports: [
     CommonModule,
