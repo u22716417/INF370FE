@@ -1,9 +1,23 @@
-<div class="numpad-container">
-    <input type="text" [(ngModel)]="inputValue" class="input-box" readonly />
-  
-    <div class="numpad">
-      <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
-      <button (click)="clearInput()">Clear</button>
+<div class="container">
+  <h2>Check In</h2>
+  <form [formGroup]="checkInForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="barcode">Barcode</label>
+      <input type="text" id="barcode" formControlName="barcode" class="form-control" />
+      <div *ngIf="checkInForm.get('barcode').invalid && (checkInForm.get('barcode').dirty || checkInForm.get('barcode').touched)" class="invalid-feedback">
+        Barcode is required.
+      </div>
     </div>
-  </div>
-  
+
+    <div class="numpad-container">
+      <input type="text" [(ngModel)]="inputValue" formControlName="barcode" class="input-box" readonly />
+
+      <div class="numpad">
+        <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
+        <button (click)="clearInput()" aria-label="Clear input">Clear</button>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="checkInForm.invalid">Check In</button>
+  </form>
+</div>

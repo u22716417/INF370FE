@@ -19,8 +19,8 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/badges',
-    title: 'Badges',
+    path: '/component/check-in',
+    title: 'Check-In',
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,

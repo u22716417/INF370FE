@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
+import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
+import { VerificationComponent } from './AdminSubsystem/check-in/verification/verification.component';
 
 export const Approutes: Routes = [
   {
@@ -27,6 +29,14 @@ export const Approutes: Routes = [
   {
     path:'AddUser',
     component: RegisterComponent
+  },
+  {
+    path:'check-in',
+    component: CheckInComponent
+  },
+  {
+    path:'verification',
+    component: VerificationComponent
   },
   {
     path: '**',
