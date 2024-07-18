@@ -1,4 +1,9 @@
-<table class="table">
+<div class="container">
+  <h2>Equipment</h2>
+  <a class="btn btn-primary" routerLink="/equipment-create-update/0" routerLinkActive="active" >
+    Add New
+  </a>
+  <table class="table">
   <thead>
     <tr>
       <th>ID</th>
@@ -6,6 +11,7 @@
       <th>Description</th>
       <th>Availability</th>
       <th>Condition</th>
+      <th>Image</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -16,10 +22,13 @@
       <td>{{ equipment.equipmentDescription }}</td>
       <td>{{ equipment.equipmentAvailability }}</td>
       <td>{{ equipment.equipmentCondition }}</td>
+      <td> <img [src]="equipment.equipmentImage" alt="Equipment Image" style="max-width: 100px; height: auto;"></td>
       <td>
-        <a class="btn btn-primary" [routerLink]="['/manageequipments', equipment.equipmentId]">Edit</a> |
+        <a class="btn btn-primary" [routerLink]="['/equipment-create-update', equipment.equipmentId]">Edit</a> |
         <button class="btn btn-primary" (click)="deleteEquipment(equipment.equipmentId)">Delete</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+</div>

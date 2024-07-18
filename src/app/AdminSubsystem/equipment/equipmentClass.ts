@@ -5,7 +5,7 @@ export interface Equipment {
     equipmentDescription: string;
     equipmentAvailability: string;
     equipmentCondition: string;
-    equipmentImage: Uint8Array | Array<number> ;
+    equipmentImage: string;
     assignments: Assignment[];
     equipmentType?: EquipmentType;
 }

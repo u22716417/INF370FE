@@ -20,7 +20,7 @@ export class EquipmentListComponent implements OnInit {
     equipmentDescription: '',
     equipmentAvailability: '',
     equipmentCondition: '',
-    equipmentImage: [], // Adjust as needed
+    equipmentImage: '', // Adjust as needed
     assignments: [], // Adjust as needed
     equipmentType: undefined // Adjust as needed
   };

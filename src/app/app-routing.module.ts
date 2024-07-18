@@ -7,6 +7,7 @@ import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { VerificationComponent } from './AdminSubsystem/check-in/verification/verification.component';
 import { VenueService } from './AdminSubsystem/venue/service/venue-service.service';
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
+import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
 
 export const Approutes: Routes = [
   {
@@ -40,6 +41,12 @@ export const Approutes: Routes = [
     path:'verification',
     component: VerificationComponent
   },
+
+  {path:'equipment-list',
+    component: EquipmentListComponent
+    },
+    
+
   {
     path: '**',
     redirectTo: '/starter'

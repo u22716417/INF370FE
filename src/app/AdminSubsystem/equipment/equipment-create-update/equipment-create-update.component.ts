@@ -17,17 +17,20 @@ export class EquipmentCreateUpdateComponent {
     equipmentDescription: '', 
     equipmentAvailability: '', 
     equipmentCondition: '', 
-    equipmentImage: [], 
+    equipmentImage:'', 
     assignments: [], 
-    equipmentType: undefined 
+    equipmentType: undefined
   };
+  fileNameUploaded = '';
+  formData = new FormData();
   isSubmitted: boolean = false;
   heading: string = '';
 
-  constructor(private router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
+  constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
 
   cancel() {
-    this.router.navigate(['/equipment']);
+    console.log('Cancel button clicked');
+    this.router.navigate(['/component/equipment-list']);
   }
 
   ngOnInit(): void {
@@ -68,4 +71,23 @@ export class EquipmentCreateUpdateComponent {
       alert('Please fill all the fields');
     }
   }
+ 
+  uploadFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) {
+      return;
+    }
+
+    let fileToUpload = input.files[0];
+    this.fileNameUploaded = fileToUpload.name;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.newEquipment.equipmentImage = reader.result as string;
+    };
+    reader.readAsDataURL(fileToUpload);
+  }
+  
+  
+  
 }
