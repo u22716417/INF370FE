@@ -10,6 +10,9 @@ import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from '../UserSubsystem/user/login/login.component';
 import { VenuesComponent } from '../AdminSubsystem/venue/venues/venues.component';
+import { ServiceListComponent } from '../AdminSubsystem/service/service-list/service-list.component';
+import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-list/equipment-list.component';
+import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -57,12 +60,16 @@ export const ComponentsRoutes: Routes = [
 				component: VenuesComponent
 			},
 			{
-				path: 'service-list',
-				component: LoginComponent
+				path: 'service',
+				component: ServiceListComponent
 			},
 			{
-				path: 'equipment-list',
-				component: LoginComponent
+				path: 'equipment',
+				component: EquipmentListComponent
+			},
+			{
+				path: 'codes',
+				component: CodesListComponent
 			},
 			{
 				path: 'reports',
@@ -81,11 +88,7 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-				path: 'sponsor-list',
-				component: LoginComponent
-			},
-			{
-				path: 'codes-list',
+				path: 'sponsors',
 				component: LoginComponent
 			},
 			{
