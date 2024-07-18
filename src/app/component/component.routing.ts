@@ -9,6 +9,7 @@ import { NgbdButtonsComponent } from './buttons/buttons.component';
 import { CardsComponent } from './card/card.component';
 import { TableComponent } from './table/table.component';
 import { LoginComponent } from '../UserSubsystem/user/login/login.component';
+import { VenuesComponent } from '../AdminSubsystem/venue/venues/venues.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -49,6 +50,46 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
 				path: 'login',
+				component: LoginComponent
+			},
+			{
+				path: 'venues',
+				component: VenuesComponent
+			},
+			{
+				path: 'service-list',
+				component: LoginComponent
+			},
+			{
+				path: 'equipment-list',
+				component: LoginComponent
+			},
+			{
+				path: 'reports',
+				component: LoginComponent
+			},
+			{
+				path: 'clients',
+				component: LoginComponent
+			},
+			{
+				path: 'orders',
+				component: LoginComponent
+			},
+			{
+				path: 'quotations',
+				component: LoginComponent
+			},
+			{
+				path: 'sponsor-list',
+				component: LoginComponent
+			},
+			{
+				path: 'codes-list',
+				component: LoginComponent
+			},
+			{
+				path: 'assignment',
 				component: LoginComponent
 			}
 		]

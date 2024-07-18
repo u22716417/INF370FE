@@ -8,4 +8,8 @@ import { Attendee } from '../classes/attendee';
 })
 export class VerificationComponent {
   @Input() attendee: Attendee | null = null;
+
+  constructor(){
+    
+  }
 }

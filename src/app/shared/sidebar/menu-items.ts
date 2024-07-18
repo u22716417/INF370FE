@@ -11,75 +11,92 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/login',
-    title: 'Login',
+    path: 'component/event-list',
+    title: 'Events',
     icon: 'bi bi-bell',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/check-in',
-    title: 'Check-In',
+    path: '/component/venues',
+    title: 'Venues',
     icon: 'bi bi-patch-check',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/buttons',
-    title: 'Button',
+    path: '/component/service-list',
+    title: 'Services',
     icon: 'bi bi-hdd-stack',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/card',
-    title: 'Card',
+    path: '/component/equipment-list',
+    title: 'Equipment',
     icon: 'bi bi-card-text',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/dropdown',
-    title: 'Dropdown',
+    path: '/component/reports',
+    title: 'Reports',
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/pagination',
-    title: 'Pagination',
+    path: '/component/clients',
+    title: 'Clients',
     icon: 'bi bi-dice-1',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/nav',
-    title: 'Nav',
+    path: '/component/orders',
+    title: 'Orders',
     icon: 'bi bi-pause-btn',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/table',
-    title: 'Table',
+    path: '/component/quotations',
+    title: 'Quotations',
     icon: 'bi bi-layout-split',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/about',
-    title: 'About',
+    path: 'component/sponsor-list',
+    title: 'Sponsors',
     icon: 'bi bi-people',
     class: '',
     extralink: false,
     submenu: []
-  }
+  },
+  {
+    path: 'component/codes-list',
+    title: 'Coupon Codes',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/assignment',
+    title: 'Assignment',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  
 ];
