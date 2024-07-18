@@ -5,7 +5,7 @@ import { CodeServiceService } from '../service/code-service.service';
 @Component({
   selector: 'app-codes-list',
   templateUrl: './codes-list.component.html',
-  styleUrl: './codes-list.component.css'
+  styleUrls: ['./codes-list.component.css']
 })
 export class CodesListComponent implements OnInit{
 

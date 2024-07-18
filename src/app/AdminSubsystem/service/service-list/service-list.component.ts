@@ -5,7 +5,7 @@ import { ServicesServiceService } from '../service/services-service.service';
 @Component({
   selector: 'app-service-list',
   templateUrl: './service-list.component.html',
-  styleUrl: './service-list.component.css'
+  styleUrls: ['./service-list.component.css']
 })
 export class ServiceListComponent implements OnInit {
 services:Service[]=[]

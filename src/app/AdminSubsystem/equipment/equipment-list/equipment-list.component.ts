@@ -5,8 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
-  standalone: true,
-  imports: [RouterLink],
+
   selector: 'app-equipment-list',
   templateUrl: './equipment-list.component.html',
   styleUrls: ['./equipment-list.component.css']
