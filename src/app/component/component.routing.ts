@@ -13,6 +13,8 @@ import { VenuesComponent } from '../AdminSubsystem/venue/venues/venues.component
 import { ServiceListComponent } from '../AdminSubsystem/service/service-list/service-list.component';
 import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-list/equipment-list.component';
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
+import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -60,15 +62,15 @@ export const ComponentsRoutes: Routes = [
 				component: VenuesComponent
 			},
 			{
-				path: 'service',
+				path: 'service-list',
 				component: ServiceListComponent
 			},
 			{
-				path: 'equipment',
+				path: 'equipment-list',
 				component: EquipmentListComponent
 			},
 			{
-				path: 'codes',
+				path: 'codes-list',
 				component: CodesListComponent
 			},
 			{
@@ -80,16 +82,16 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-				path: 'orders',
-				component: LoginComponent
+				path: 'check-in',
+				component: CheckInComponent
 			},
 			{
 				path: 'quotations',
 				component: LoginComponent
 			},
 			{
-				path: 'sponsors',
-				component: LoginComponent
+				path: 'sponsor-list',
+				component: SponsorListComponent
 			},
 			{
 				path: 'assignment',

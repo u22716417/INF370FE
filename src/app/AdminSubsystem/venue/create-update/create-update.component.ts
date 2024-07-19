@@ -10,7 +10,7 @@ import { BrowserModule } from '@angular/platform-browser';
 @Component({
   selector: 'app-create-update',
   templateUrl: './create-update.component.html',
-  styleUrl: './create-update.component.css'
+  styleUrls: ['./create-update.component.css']
 })
 export class CreateUpdateComponent implements OnInit{
 

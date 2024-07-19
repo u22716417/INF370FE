@@ -3,4 +3,5 @@ export interface Attendee {
     name: string;
     barcode: string;
     checkInId?: number;
+    checkInDateTime?: Date;
   }

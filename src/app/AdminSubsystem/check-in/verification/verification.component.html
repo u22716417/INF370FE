@@ -1,7 +1,18 @@
-<!--
-<div *ngIf="attendee">
-    <h3>Check-In Successful</h3>
-    <p>Attendee Name: {{ attendee.name }}</p>
-    <p>Attendee ID: {{ attendee.id }}</p>
-</div>
--->
+<div class="verification-container">
+    <h2>Attendee Verification</h2>
+    
+    <!-- Check if attendee details are available -->
+    <div *ngIf="attendee; else noAttendee">
+      <h3>Attendee Details</h3>
+      <p><strong>Name:</strong> {{ attendee?.name }}</p>
+      <p *ngIf="attendee?.checkInDateTime">
+        <strong>Check-In Time:</strong> 
+      </p>
+    </div>
+  
+    <!-- Display message if no attendee data is present -->
+    <ng-template #noAttendee>
+      <p>No attendee details available. Please check the barcode and try again.</p>
+    </ng-template>
+  </div>
+  

@@ -19,6 +19,11 @@ export class CheckInComponent {
   inputValue: string = '';
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
+  constructor(private fb: FormBuilder, private checkInService: CheckInService,private router: Router) {
+    this.checkInForm = this.fb.group({
+      barcode: ['', Validators.required]
+    });
+  }
 
   appendNumber(num: number) {
     this.inputValue += num;
@@ -28,17 +33,11 @@ export class CheckInComponent {
     this.inputValue = '';
   }
 
-  constructor(private fb: FormBuilder, private checkInService: CheckInService,private router: Router) {
-    this.checkInForm = this.fb.group({
-      barcode: ['', Validators.required]
-    });
-  }
-
   onSubmit(): void {
     if (this.checkInForm?.valid) {
       this.isLoading = true; // Show loading indicator
-      const checkInViewModel: CheckInComponent = this.checkInForm.value;
-      this.checkInService.checkIn(checkInViewModel).subscribe(
+      const checkInViewModel = this.checkInForm.value;     
+       this.checkInService.checkIn(checkInViewModel).subscribe(
         (attendee) => {
           this.isLoading = false; // Hide loading indicator
           this.attendee = attendee;

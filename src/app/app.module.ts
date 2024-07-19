@@ -21,11 +21,11 @@ import { Approutes } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './shared/spinner.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
-import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { ServiceListComponent } from './AdminSubsystem/service/service-list/service-list.component';
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
+import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 
 
 
@@ -34,11 +34,11 @@ import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-lis
     AppComponent,
     SpinnerComponent,
     RegisterComponent,
-    CheckInComponent,
     CodesListComponent, 
     ServiceListComponent,
     VenuesComponent,
-    EquipmentListComponent
+    EquipmentListComponent,
+    CheckInComponent
   ],
   imports: [
     CommonModule,

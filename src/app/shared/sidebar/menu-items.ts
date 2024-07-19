@@ -59,16 +59,16 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/orders',
-    title: 'Orders',
+    path: '/component/event',
+    title: 'Events',
     icon: 'bi bi-pause-btn',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: '/component/quotations',
-    title: 'Quotations',
+    path: '/component/check-in',
+    title: 'Check In',
     icon: 'bi bi-layout-split',
     class: '',
     extralink: false,

@@ -13,16 +13,14 @@ export class CheckInService {
 
   constructor(private http: HttpClient) { }
 
-  checkIn(CheckInComponent: CheckInComponent): Observable<Attendee> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Attendee>(this.apiUrl, CheckInComponent, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+  checkIn(checkInViewModel: { barcode: string }): Observable<Attendee> {
+    return this.http.post<Attendee>(this.apiUrl, checkInViewModel).pipe(
+      catchError(error => {
+        console.error('Error checking in', error);
+        return throwError('Error checking in');
+      })
+    );
   }
 
-  private handleError(error: any): Observable<never> {
-    console.error('An error occurred', error);
-    return throwError('Something went wrong; please try again later.');
-  }
+
 }
