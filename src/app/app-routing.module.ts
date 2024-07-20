@@ -8,6 +8,8 @@ import { VerificationComponent } from './AdminSubsystem/check-in/verification/ve
 import { VenueService } from './AdminSubsystem/venue/service/venue-service.service';
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
+import { SponsorServiceService } from './AdminSubsystem/sponsor/service/sponsor-service.service';
+import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 
 export const Approutes: Routes = [
   {
@@ -26,7 +28,7 @@ export const Approutes: Routes = [
       {
         path: 'component',
         loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule)
-      }
+      },
     ]
   },
   {
@@ -45,7 +47,9 @@ export const Approutes: Routes = [
   {path:'equipment-list',
     component: EquipmentListComponent
     },
-    
+    {path:'sponsor-list',
+      component: SponsorListComponent
+      },
 
   {
     path: '**',
