@@ -6,10 +6,10 @@
   <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Name</th>
       <th>Description</th>
       <th>Availability</th>
+      <th>Equipment Type</th>
       <th>Condition</th>
       <th>Image</th>
       <th>Actions</th>
@@ -17,10 +17,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let equipment of equipments">
-      <td>{{ equipment.equipmentId }}</td>
       <td>{{ equipment.equipmentName }}</td>
       <td>{{ equipment.equipmentDescription }}</td>
       <td>{{ equipment.equipmentAvailability }}</td>
+      <td>{{ getEquipmentTypeDescription(equipment.equipmentTypeId) }}</td>
       <td>{{ equipment.equipmentCondition }}</td>
       <td> <img [src]="equipment.equipmentImage" alt="Equipment Image" style="max-width: 100px; height: auto;"></td>
       <td>

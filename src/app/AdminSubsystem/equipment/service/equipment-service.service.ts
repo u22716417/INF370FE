@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Equipment } from '../equipmentClass'; // Adjust the path as needed
+import { EquipmentType } from '../equipmentType';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EquipmentServiceService {
   private url = 'http://localhost:5196/api/Equipments';
+  private equipmentTypesUrl = 'https://localhost:7149/api/EquipmentType';
 
   constructor(private http: HttpClient) { }
 
@@ -39,6 +41,11 @@ export class EquipmentServiceService {
         'Content-Type': 'application/json'
       })
     });
+  }
+
+  // Get All Equipment Types
+  getAllEquipmentTypes(): Observable<EquipmentType[]> {
+  return this.http.get<EquipmentType[]>(this.equipmentTypesUrl);
   }
 
   // Delete Equipment

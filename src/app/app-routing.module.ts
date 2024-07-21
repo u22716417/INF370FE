@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 import { FullComponent } from './layouts/full/full.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
@@ -10,6 +10,7 @@ import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component'
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
 import { SponsorServiceService } from './AdminSubsystem/sponsor/service/sponsor-service.service';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 
 export const Approutes: Routes = [
   {
@@ -47,6 +48,12 @@ export const Approutes: Routes = [
   {path:'equipment-list',
     component: EquipmentListComponent
     },
+
+    {
+      path: 'equipment-create-update/:id',
+      component: EquipmentCreateUpdateComponent 
+    },
+
     {path:'sponsor-list',
       component: SponsorListComponent
       },

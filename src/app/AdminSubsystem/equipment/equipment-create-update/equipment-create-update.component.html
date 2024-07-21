@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 style="text-align: center;">{{ heading }}</h2>
+  <h2 style="text-align: center;">Edit Equipment</h2>
   <form #equipmentForm="ngForm" (ngSubmit)="addEquipment(equipmentForm)" novalidate>
     <div style="margin-bottom: 10px;">
       <label for="equipmentName">Name</label>
@@ -17,6 +17,28 @@
         Equipment name required.Please enter an equipment name.
       </div>
     </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="equipmentType">Equipment Type</label>
+      <select 
+        id="equipmentType" 
+        class="form-control" 
+        name="equipmentType" 
+        [(ngModel)]="newEquipment.equipmentTypeId" 
+        #equipmentType="ngModel" 
+        required
+        [class.is-invalid]="equipmentType.invalid && (equipmentType.dirty || equipmentType.touched)">
+        <option value="" disabled>Select an Equipment Type</option>
+        <option *ngFor="let type of equipmentTypes" [value]="type.equipmentTypeId">
+          {{ type.equipmentTypeDescription }}
+        </option>
+      </select>
+      <div *ngIf="equipmentType.invalid && (equipmentType.dirty || equipmentType.touched)" class="invalid-feedback">
+        Equipment type is required. Please select an equipment type
+      </div>
+    </div>
+
+
 
     <div style="margin-bottom: 10px;">
       <label for="equipmentDescription">Description</label>
@@ -65,7 +87,7 @@
         #condition="ngModel" 
         [class.is-invalid]="condition.invalid && (condition.dirty || condition.touched)">
       <div *ngIf="condition.invalid && (condition.dirty || condition.touched)" class="invalid-feedback">
-        Equipment condition required.Please enter a condition.
+        Equipment condition required.Please enter equipment condition.
       </div>
     </div>
 

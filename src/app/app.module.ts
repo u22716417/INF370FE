@@ -26,6 +26,7 @@ import { ServiceListComponent } from './AdminSubsystem/service/service-list/serv
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
+import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 
 
 
@@ -38,7 +39,8 @@ import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
     ServiceListComponent,
     VenuesComponent,
     EquipmentListComponent,
-    CheckInComponent
+    CheckInComponent,
+    EquipmentCreateUpdateComponent
   ],
   imports: [
     CommonModule,

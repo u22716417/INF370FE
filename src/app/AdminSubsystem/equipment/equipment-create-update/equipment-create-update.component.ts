@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { EquipmentServiceService } from '../service/equipment-service.service'; // Adjust the path as needed
 import { Equipment } from '../equipmentClass';
+import { EquipmentType } from '../equipmentType';
 
 @Component({
   selector: 'app-equipment-create-update',
@@ -13,6 +14,7 @@ export class EquipmentCreateUpdateComponent {
 
   newEquipment: Equipment = { 
     equipmentId: 0, 
+    equipmentTypeId:0,
     equipmentName: '', 
     equipmentDescription: '', 
     equipmentAvailability: '', 
@@ -25,6 +27,7 @@ export class EquipmentCreateUpdateComponent {
   formData = new FormData();
   isSubmitted: boolean = false;
   heading: string = '';
+  equipmentTypes: EquipmentType[] = [];
 
   constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
 
@@ -45,6 +48,13 @@ export class EquipmentCreateUpdateComponent {
       } else {
         this.heading = 'Add Equipment';
       }
+
+      
+    });
+
+    // Fetch equipment types
+    this.equipmentService.getAllEquipmentTypes().subscribe((response: EquipmentType[]) => {
+      this.equipmentTypes = response;
     });
   }
 

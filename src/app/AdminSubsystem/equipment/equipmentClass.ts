@@ -1,6 +1,6 @@
 export interface Equipment {
     equipmentId: number;
-    equipmentTypeId?: number;
+    equipmentTypeId: number;
     equipmentName: string;
     equipmentDescription: string;
     equipmentAvailability: string;
@@ -9,6 +9,19 @@ export interface Equipment {
     assignments: Assignment[];
     equipmentType?: EquipmentType;
 }
+
+export class EquipmentType {
+    equipmentTypeId: number;
+    equipmentTypeDescription: string;
+    chargeRate: number;
+    constructor(equipmentTypeId: number, equipmentTypeDescription: string,chargeRate: number) {
+      this.equipmentTypeId = equipmentTypeId;
+      this.equipmentTypeDescription = equipmentTypeDescription;
+      this.chargeRate = chargeRate
+    }
+  }
+
+
 
 export interface Assignment {
     // Define the structure of the Assignment interface here
