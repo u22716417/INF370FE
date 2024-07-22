@@ -4,8 +4,7 @@ import { Sponsor } from '../sponsor';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  standalone:true,
-  imports:[RouterLink],
+  
   selector: 'app-sponsor-list',
   templateUrl: './sponsor-list.component.html',
   styleUrls: ['./sponsor-list.component.css']

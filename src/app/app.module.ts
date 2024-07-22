@@ -27,8 +27,8 @@ import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component'
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
-
-
+import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,9 @@ import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equip
     VenuesComponent,
     EquipmentListComponent,
     CheckInComponent,
-    EquipmentCreateUpdateComponent
+    EquipmentCreateUpdateComponent,
+    CouponCodeViewComponent,
+    SponsorListComponent
   ],
   imports: [
     CommonModule,

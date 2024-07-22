@@ -11,6 +11,8 @@ import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-lis
 import { SponsorServiceService } from './AdminSubsystem/sponsor/service/sponsor-service.service';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes-list.component';
+import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 
 export const Approutes: Routes = [
   {
@@ -57,7 +59,14 @@ export const Approutes: Routes = [
     {path:'sponsor-list',
       component: SponsorListComponent
       },
-
+    
+      {path:'codes-list',
+        component: CodesListComponent
+        },
+      
+        {path:'coupon-code-view',
+          component: CouponCodeViewComponent
+          },
   {
     path: '**',
     redirectTo: '/starter'

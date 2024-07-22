@@ -22,16 +22,15 @@
         <tr>
           <th>No.</th>
           <th>Code</th>
-          <th>Amount</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let code of codes">
           <td>{{code.couponCodeId}}</td>
           <td>{{code.code }}</td>
-          <td>{{code.discountAmount }}</td>
           <td>
-            <a class="btn btn-primary" [routerLink]="['/couponCode', code.couponCodeId]" >Edit</a>
+            <a class="btn btn-primary" [routerLink]="['/coupon-code-view']" >View</a>
             <button (click)="deleteById(code.couponCodeId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
           </td>
         </tr>
