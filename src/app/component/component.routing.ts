@@ -15,6 +15,9 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
+import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
+import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -96,6 +99,18 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'assignment',
 				component: LoginComponent
+			},
+			{path:'coupon-code-view',
+				component: CouponCodeViewComponent
+			},
+			{path:'event-list',
+				component: EventListComponent
+			},
+			{path:'venue-list',
+				component: VenuesComponent
+			},
+			{path:'generate-code',
+				component: GenerateCodeComponent
 			}
 		]
 	}

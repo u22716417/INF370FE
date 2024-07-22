@@ -1,9 +1,27 @@
-<div>
-    <h2>Coupon Code Details</h2>
+<div class="container">
+  <h2 style="text-align: center;">Coupon Code Details</h2>
+  <div style="margin-bottom: 10px;">
     <p><strong>Code:</strong> {{ newCouponCode.code }}</p>
-    <p><strong>Description:</strong> {{ newCouponCode.couponCodeDescription }}</p>
-    <p><strong>Amount:</strong> {{ newCouponCode.discountAmount }}</p>
-    <p><strong>Sponsors:</strong> {{ newCouponCode.sponsors }}</p>
-    <button (click)="close()" class="btn btn-secondary">Close</button>
   </div>
-  
+  <div style="margin-bottom: 10px;">
+    <p><strong>Description:</strong> {{ newCouponCode.couponCodeDescription }}</p>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <p><strong>Amount:</strong> {{ newCouponCode.discountAmount }}</p>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <p><strong>Sponsors:</strong> {{ newCouponCode.sponsors }}</p>
+  </div>
+  <div style="text-align: center;">
+    <button (click)="close()" class="btn btn-secondary" style="margin-right: 10px;">Close</button>
+  </div>
+</div>
+
+<style>
+  .is-invalid {
+    border-color: red;
+  }
+  .invalid-feedback {
+    color: red;
+  }
+</style>

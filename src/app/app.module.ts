@@ -29,6 +29,10 @@ import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { EventListComponent } from './AdminSubsystem/event/event-list/event-list.component';
+import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
+import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/spon
     CheckInComponent,
     EquipmentCreateUpdateComponent,
     CouponCodeViewComponent,
-    SponsorListComponent
+    SponsorListComponent,
+    EventListComponent,
+    EventCreateUpdateComponent,
+    CreateUpdateComponent,
+    GenerateCodeComponent
   ],
   imports: [
     CommonModule,

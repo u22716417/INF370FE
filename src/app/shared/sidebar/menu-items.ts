@@ -59,7 +59,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/event',
+    path: '/component/events',
     title: 'Events',
     icon: 'bi bi-pause-btn',
     class: '',
@@ -98,5 +98,6 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
+  
   
 ];

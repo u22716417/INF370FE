@@ -33,7 +33,7 @@
     </div>
 
     <div style="text-align: center;">
-      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/Venues'])">Close</button>
       <input type="submit" class="btn btn-primary" [disabled]="!venueForm.form.valid" name="Save"/> 
     </div>
   </form>

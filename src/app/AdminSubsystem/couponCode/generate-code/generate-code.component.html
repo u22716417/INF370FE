@@ -1,20 +1,77 @@
-<div>
-    <h2>Generate Coupon Code</h2>
-    <form (ngSubmit)="onSubmit()">
-      <div>
-        <label for="description">Description:</label>
-        <input type="text" id="description" [(ngModel)]="description" name="description" required>
+<div class="container">
+  <h2 style="text-align: center;">Generate Coupon Code</h2>
+  <form #couponForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div style="margin-bottom: 10px;">
+      <label for="description">Description:</label>
+      <input 
+        type="text" 
+        id="description" 
+        class="form-control" 
+        [(ngModel)]="description" 
+        name="description" 
+        required 
+        title="Please enter a description" 
+        #descriptionModel="ngModel" 
+        [class.is-invalid]="descriptionModel.invalid && (descriptionModel.dirty || descriptionModel.touched)">
+      <div *ngIf="descriptionModel.invalid && (descriptionModel.dirty || descriptionModel.touched)" class="invalid-feedback">
+        Description is required. Please enter a description.
       </div>
-      <div>
-        <label for="discountAmount">Discount Amount:</label>
-        <input type="number" id="discountAmount" [(ngModel)]="discountAmount" name="discountAmount" required>
-      </div>
-      <button type="submit">Generate Coupon Code</button>
-    </form>
-    <div *ngIf="generatedCouponCode">
-      <h3>Generated Coupon Code:</h3>
-      <p>Code: {{ generatedCouponCode.code }}</p>
-      <p>Description: {{ generatedCouponCode.couponCodeDescription }}</p>
-      <p>Discount Amount: {{ generatedCouponCode.discountAmount }}</p>
     </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="discountAmount">Discount Amount:</label>
+      <input 
+        type="number" 
+        id="discountAmount" 
+        class="form-control" 
+        [(ngModel)]="discountAmount" 
+        name="discountAmount" 
+        required 
+        title="Please enter a discount amount" 
+        #discountAmountModel="ngModel" 
+        [class.is-invalid]="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)">
+      <div *ngIf="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)" class="invalid-feedback">
+        Discount amount is required. Please enter a discount amount.
+      </div>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="sponsors">Sponsors:</label>
+      <input 
+        type="text" 
+        id="sponsors" 
+        class="form-control" 
+        [(ngModel)]="sponsors" 
+        name="sponsors" 
+        required 
+        title="Please enter sponsors" 
+        #sponsorsModel="ngModel" 
+        [class.is-invalid]="sponsorsModel.invalid && (sponsorsModel.dirty || sponsorsModel.touched)">
+      <div *ngIf="sponsorsModel.invalid && (sponsorsModel.dirty || sponsorsModel.touched)" class="invalid-feedback">
+        Sponsors are required. Please enter sponsors.
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/codes-list'])">Close</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!couponForm.form.valid">Generate Coupon Code</button>
+    </div>
+  </form>
+
+  <div *ngIf="generatedCouponCode" style="margin-top: 20px;">
+    <h3>Generated Coupon Code:</h3>
+    <p><strong>Code:</strong> {{ generatedCouponCode.code }}</p>
+    <p><strong>Description:</strong> {{ generatedCouponCode.couponCodeDescription }}</p>
+    <p><strong>Discount Amount:</strong> {{ generatedCouponCode.discountAmount }}</p>
+    <p><strong>Sponsors:</strong> {{ generatedCouponCode.sponsors }}</p>
   </div>
+</div>
+
+<style>
+  .is-invalid {
+    border-color: red;
+  }
+  .invalid-feedback {
+    color: red;
+  }
+</style>

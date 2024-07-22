@@ -13,6 +13,11 @@ import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/spon
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { EventListComponent } from './AdminSubsystem/event/event-list/event-list.component';
+import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
+import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 
 export const Approutes: Routes = [
   {
@@ -51,11 +56,25 @@ export const Approutes: Routes = [
     component: EquipmentListComponent
     },
 
+    {path:'event-list',
+      component: EventListComponent
+      },
+
+      {path:'event-create-update/:id',
+        component: EventCreateUpdateComponent
+      },
+
+      {path:'venue-create-update/:id',
+        component: CreateUpdateComponent
+      },
     {
       path: 'equipment-create-update/:id',
       component: EquipmentCreateUpdateComponent 
     },
-
+    {
+      path: 'sponsor-create-update/:id',
+      component: SponsorCreateUpdateComponent
+    },
     {path:'sponsor-list',
       component: SponsorListComponent
       },
@@ -67,6 +86,9 @@ export const Approutes: Routes = [
         {path:'coupon-code-view',
           component: CouponCodeViewComponent
           },
+          {path:'generate-code/:id',
+            component: GenerateCodeComponent
+            },
   {
     path: '**',
     redirectTo: '/starter'

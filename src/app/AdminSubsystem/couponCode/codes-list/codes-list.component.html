@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-2" style="padding-top: 1%;">
           <!-- Button trigger modal -->
-          <a class="btn btn-primary" routerLink="couponCode/0" routerLinkActive="active" >
+          <a class="btn btn-primary" routerLink="/generate-code/0" routerLinkActive="active" >
             Generate
           </a>
         </div>
@@ -30,7 +30,7 @@
           <td>{{code.couponCodeId}}</td>
           <td>{{code.code }}</td>
           <td>
-            <a class="btn btn-primary" [routerLink]="['/coupon-code-view']" >View</a>
+            <a class="btn btn-primary" routerLink="/coupon-code-view" routerLinkActive="active" >View</a>
             <button (click)="deleteById(code.couponCodeId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
           </td>
         </tr>

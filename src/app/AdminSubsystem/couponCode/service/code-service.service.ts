@@ -7,16 +7,18 @@ import { Observable, map, of } from 'rxjs';
   providedIn: 'root'
 })
 export class CodeServiceService {
-  private apiUrl = 'http://localhost:5196/api/CouponCodes';
+  private apiUrl = 'https://localhost:7149/api/CouponCodes';
   private couponCodes: CouponCode[] = [];
 
   constructor(private http: HttpClient) { }
 
+  
 
-  generateCouponCode(description: string, discountAmount: number): Observable<any> {
-    const payload: any = { description, discountAmount };
-    return this.http.post<CouponCode>(this.apiUrl + '/GenerateCode', payload);
-    }
+  generateCouponCode(couponCodeData: CouponCode): Observable<CouponCode> {
+    return this.http.post<CouponCode>(`${this.apiUrl}/generate-coupon`, couponCodeData);
+  }
+
+ 
 getAllCodes(): Observable<CouponCode[]> {
   return this.http.get<CouponCode[]>(this.apiUrl)
 }
