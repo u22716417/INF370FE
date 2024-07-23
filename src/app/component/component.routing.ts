@@ -59,7 +59,8 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
 				path: 'venues',
-				component: VenuesComponent
+				component: VenuesComponent,
+				
 			},
 			{
 				path: 'service-list',

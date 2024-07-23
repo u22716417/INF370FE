@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 declare var $: any;
 
@@ -10,14 +12,18 @@ declare var $: any;
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
+
   @Output() toggleSidebar = new EventEmitter<void>();
 
-
   public showSearch = false;
-
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router) {
   }
 
+  Logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+
+  }
   // This is for Notifications
   notifications: Object[] = [
     {

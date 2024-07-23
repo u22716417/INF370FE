@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserManagementService } from '../Admin/user-management.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 @Component({
   standalone: true,
@@ -49,10 +49,12 @@ export class LoginComponent implements OnInit {
     this.startLoadingAnimation();
     this.authService.authenticate(this.username, this.password).subscribe(
       (response: boolean) => {
+        this.stopLoadingAnimation();
         if (response) {
-          this.stopLoadingAnimation();
           this.openPopup();
           console.log(response);
+        } else {
+          this.showToast('Invalid Credentials');
         }
       },
       (error: string) => {
@@ -76,8 +78,12 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this.stopLoadingAnimation();
         console.log('Success:', response);
-        sessionStorage.setItem('CurrentUser', response.userTypes);
-        this.router.navigate(['/dashboard']);
+        if (response) {
+          sessionStorage.setItem('CurrentUser', response.c);
+          this.router.navigate(['/dashboard']); // When Login Is A success
+        } else {
+          this.showToast('Invalid OTP');
+        }
       },
       error: (error) => {
         this.stopLoadingAnimation();
@@ -104,4 +110,3 @@ export class LoginComponent implements OnInit {
     }, 3000);
   }
 }
-

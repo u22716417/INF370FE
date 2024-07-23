@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserManagementService, UserViewModel } from '../Admin/user-management.service';
+import { UserManagementService, UserViewModel } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 @Component({
   selector: 'app-register',
