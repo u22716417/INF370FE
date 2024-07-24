@@ -83,7 +83,7 @@ export const Approutes: Routes = [
         component: CodesListComponent
         },
       
-        {path:'coupon-code-view',
+        {path:'coupon-code-view/:id',
           component: CouponCodeViewComponent
           },
           {path:'generate-code/:id',

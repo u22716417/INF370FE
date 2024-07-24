@@ -1,27 +1,54 @@
-<div class="container">
-  <h2 style="text-align: center;">Coupon Code Details</h2>
-  <div style="margin-bottom: 10px;">
-    <p><strong>Code:</strong> {{ newCouponCode.code }}</p>
-  </div>
-  <div style="margin-bottom: 10px;">
-    <p><strong>Description:</strong> {{ newCouponCode.couponCodeDescription }}</p>
-  </div>
-  <div style="margin-bottom: 10px;">
-    <p><strong>Amount:</strong> {{ newCouponCode.discountAmount }}</p>
-  </div>
-  <div style="margin-bottom: 10px;">
-    <p><strong>Sponsors:</strong> {{ newCouponCode.sponsors }}</p>
-  </div>
-  <div style="text-align: center;">
-    <button (click)="close()" class="btn btn-secondary" style="margin-right: 10px;">Close</button>
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-center bg-primary text-white">
+      <h2>Coupon Code Details</h2>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col">
+          <p class="h5"><strong>Code:</strong></p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ newCouponCode.code }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <p class="h5"><strong>Description:</strong></p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ newCouponCode.couponCodeDescription }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <p class="h5"><strong>Amount:</strong></p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ newCouponCode.discountAmount }}</p>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <p class="h5"><strong>Sponsor Email:</strong></p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ newCouponCode.sponsorEmail }}</p>
+        </div>
+      </div>
+      <div class="text-center">
+        <button (click)="close()" class="btn btn-outline-secondary">Close</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
-  .is-invalid {
-    border-color: red;
+  .card {
+    max-width: 600px;
+    margin: 0 auto;
   }
-  .invalid-feedback {
-    color: red;
+  .h5 {
+    margin-bottom: 0;
   }
 </style>

@@ -16,7 +16,7 @@ export class CouponCodeViewComponent implements OnInit {
     code: '', 
     couponCodeDescription: '',
     discountAmount: 0,
-    sponsors: '',
+    sponsorEmail: '',
     
   }
   constructor(
@@ -33,14 +33,19 @@ export class CouponCodeViewComponent implements OnInit {
   }
 
   getCouponCodeById(id: number): void {
-    this.codeService.getCodeById(id).subscribe(code => {
-      if (code) {
-        this.newCouponCode = code;
-      } else {
-        // Handle the case where the code is not found, e.g., navigate back or show an error message
-        this.errorMessage = 'Coupon code details not found.';
+    this.codeService.getCodeById(id).subscribe(
+      code => {
+        if (code) {
+          this.newCouponCode = code;
+        } else {
+          this.errorMessage = 'Coupon code details not found.';
+        }
+      },
+      error => {
+        this.errorMessage = 'Error fetching coupon code details.';
+        console.error('Error fetching coupon code details', error);
       }
-    });
+    );
   }
 
   close(): void {
