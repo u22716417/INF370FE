@@ -37,6 +37,8 @@ import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/up
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
+import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
 
 
 
@@ -61,7 +63,9 @@ import { SettingsComponent } from './UserSubsystem/settings/settings.component';
     UpdatePasswordComponent,
     ForgotPasswordComponent,
     LoginComponent,
-    SettingsComponent
+    SettingsComponent,
+    HireServiceComponent,
+    HireItemsReceivedComponent
   ],
   imports: [
     CommonModule,
