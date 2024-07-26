@@ -3,6 +3,6 @@ export interface CouponCode {
     code: string;
     couponCodeDescription: string;
     discountAmount: number;
-    sponsorEmail: string;
+    sponsorId: number;
   }
   

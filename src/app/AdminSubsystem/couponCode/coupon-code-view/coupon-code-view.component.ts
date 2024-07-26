@@ -16,7 +16,8 @@ export class CouponCodeViewComponent implements OnInit {
     code: '', 
     couponCodeDescription: '',
     discountAmount: 0,
-    sponsorEmail: '',
+    sponsorId: 0
+    
     
   }
   constructor(

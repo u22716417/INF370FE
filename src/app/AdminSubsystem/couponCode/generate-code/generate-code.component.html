@@ -36,19 +36,20 @@
     </div>
 
     <div style="margin-bottom: 10px;">
-      <label for="sponsorEmail">Sponsor Email:</label>
-      <input 
-        type="email" 
-        id="sponsorEmail" 
+      <label for="sponsor">Sponsor:</label>
+      <select 
+        id="sponsor" 
         class="form-control" 
-        [(ngModel)]="sponsorEmail" 
-        name="sponsorEmail" 
+        [(ngModel)]="sponsorId" 
+        name="sponsor" 
         required 
-        title="Please enter sponsor email" 
-        #sponsorEmailModel="ngModel" 
-        [class.is-invalid]="sponsorEmailModel.invalid && (sponsorEmailModel.dirty || sponsorEmailModel.touched)">
-      <div *ngIf="sponsorEmailModel.invalid && (sponsorEmailModel.dirty || sponsorEmailModel.touched)" class="invalid-feedback">
-        Sponsor email is required. Please enter sponsor email.
+        title="Please select a sponsor" 
+        #sponsorModel="ngModel" 
+        [class.is-invalid]="sponsorModel.invalid && (sponsorModel.dirty || sponsorModel.touched)">
+        <option *ngFor="let sponsor of sponsors" [value]="sponsor.sponsorId">{{ sponsor.sponsorName }}</option>
+      </select>
+      <div *ngIf="sponsorModel.invalid && (sponsorModel.dirty || sponsorModel.touched)" class="invalid-feedback">
+        Sponsor is required. Please select a sponsor.
       </div>
     </div>
 
@@ -63,7 +64,6 @@
     <p><strong>Code:</strong> {{ generatedCouponCode.code }}</p>
     <p><strong>Description:</strong> {{ generatedCouponCode.couponCodeDescription }}</p>
     <p><strong>Discount Amount:</strong> {{ generatedCouponCode.discountAmount }}</p>
-    <p><strong>Sponsor Email:</strong> {{ generatedCouponCode.sponsorEmail }}</p>
   </div>
 </div>
 

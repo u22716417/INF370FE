@@ -58,9 +58,9 @@ export class CodesListComponent implements OnInit{
 
   sendEmail() {
     if (this.selectedCouponCode) {
-      const sponsorId = this.selectedCouponCode.couponCodeId; // Assuming you have a way to get sponsor ID
       const couponCodeId = this.selectedCouponCode.couponCodeId;
-
+      const sponsorId = this.selectedCouponCode.sponsorId; // Get the sponsorId from the selectedCouponCode
+  
       this.codeService.sendCouponCodeEmail(sponsorId, couponCodeId).subscribe(
         (response) => {
           console.log('Email sent successfully:', response);
@@ -73,5 +73,7 @@ export class CodesListComponent implements OnInit{
       );
     }
   }
+  
+  
 
 }

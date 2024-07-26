@@ -9,14 +9,16 @@ import { Observable } from 'rxjs';
 export class CodeServiceService {
   private apiUrl = 'https://localhost:7149/api/CouponCodes';
   private emailUrl = 'https://localhost:7149/api/CouponCodes/SendCouponCodeEmail';
+  private sponsorsUrl = 'https://localhost:7149/api/Sponsors'; 
 
   constructor(private http: HttpClient) { }
 
-  generateCouponCode(couponCodeData: { description: string, discountAmount: number }): Observable<CouponCode> {
+  generateCouponCode(couponCodeData: { description: string, discountAmount: number, sponsorId: number }): Observable<CouponCode> {
     return this.http.post<CouponCode>(`${this.apiUrl}/GenerateCode`, null, {
       params: new HttpParams()
         .set('description', couponCodeData.description)
         .set('discountAmount', couponCodeData.discountAmount.toString())
+        .set('sponsorId', couponCodeData.sponsorId.toString())
     });
   }
 
@@ -37,6 +39,10 @@ export class CodeServiceService {
       SponsorId: sponsorId,
       CouponCodeId: couponCodeId
     };
-    return this.http.post(`${this.emailUrl}/SendCouponCodeEmail`, payload);
+    return this.http.post(`${this.emailUrl}`, payload);
+  }
+
+  getSponsors(): Observable<any[]> {
+    return this.http.get<any[]>(this.sponsorsUrl);
   }
 }

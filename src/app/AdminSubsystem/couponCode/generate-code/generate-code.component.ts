@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CodeServiceService } from '../service/code-service.service';
 import { Router } from '@angular/router';
 
@@ -7,7 +7,6 @@ export interface CouponCode {
   code: string;
   couponCodeDescription: string;
   discountAmount: number;
-  sponsorEmail: string;
 }
 
 @Component({
@@ -15,22 +14,36 @@ export interface CouponCode {
   templateUrl: './generate-code.component.html',
   styleUrls: ['./generate-code.component.css']
 })
-export class GenerateCodeComponent {
-
+export class GenerateCodeComponent implements OnInit {
   description: string = '';
   discountAmount: number = 0;
-  sponsorEmail: string = '';
+  sponsorId: number | null = null;
   generatedCouponCode: CouponCode | null = null;
+  sponsors: any[] = [];
 
   constructor(private couponCodeService: CodeServiceService, public router: Router) {}
 
+  ngOnInit(): void {
+    this.couponCodeService.getSponsors().subscribe(
+      (response) => {
+        this.sponsors = response;
+      },
+      (error) => {
+        console.error('Error fetching sponsors:', error);
+      }
+    );
+  }
+
   onSubmit() {
-    console.log('Form submitted');
+    if (this.sponsorId === null) {
+      alert('Please select a sponsor.');
+      return;
+    }
 
     const newCouponCode = {
       description: this.description,
       discountAmount: this.discountAmount,
-      sponsorEmail: this.sponsorEmail
+      sponsorId: this.sponsorId
     };
 
     this.couponCodeService.generateCouponCode(newCouponCode).subscribe(
@@ -38,7 +51,7 @@ export class GenerateCodeComponent {
         this.generatedCouponCode = response;
         this.description = '';
         this.discountAmount = 0;
-        this.sponsorEmail = '';
+        this.sponsorId = null;
         console.log('Coupon code generated:', response);
 
         // Redirect to the codes list page
