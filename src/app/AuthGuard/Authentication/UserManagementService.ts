@@ -91,6 +91,16 @@ export class UserManagementService {
     );
   }
 
+  updateUserProfile(profile:any):Observable<any> 
+  {
+    return this.http.put<any>(`${this.baseUrl}/update/${profile.userId}`, profile);
+  }
+
+  updateUserProfilePasswords(passwords:any):Observable<any> 
+  {
+    return this.http.put<any>(`${this.baseUrl}/updatePassword/${passwords.userId}`, passwords);
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 400) {
       return throwError('Error: Password is incorrect');
