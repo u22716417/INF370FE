@@ -3,10 +3,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
-
+import { RouterModule, Routes } from '@angular/router';
 @Component({
-  standalone: true,
-  imports: [FormsModule, CommonModule],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -80,6 +78,8 @@ export class LoginComponent implements OnInit {
         console.log('Success:', response);
         if (response) {
           sessionStorage.setItem('CurrentUser', response.c);
+          sessionStorage.setItem('CurrentUserId', response.u);
+
           this.router.navigate(['/dashboard']); // When Login Is A success
         } else {
           this.showToast('Invalid OTP');

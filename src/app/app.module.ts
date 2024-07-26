@@ -29,6 +29,10 @@ import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/update-password.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
+import { LoginComponent } from './UserSubsystem/user/login/login.component';
+import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 
 
 
@@ -44,7 +48,11 @@ import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/spon
     CheckInComponent,
     EquipmentCreateUpdateComponent,
     AccessDeniedComponent,
-    SponsorListComponent
+    SponsorListComponent,
+    UpdatePasswordComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

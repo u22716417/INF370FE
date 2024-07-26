@@ -15,6 +15,7 @@ import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/a
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { UserAuthGuard } from './AuthGuard/Authentication/UserAuthGuard';
 import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 
 export const Approutes: Routes = [
   {
@@ -52,5 +53,9 @@ export const Approutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
   },
 ];
