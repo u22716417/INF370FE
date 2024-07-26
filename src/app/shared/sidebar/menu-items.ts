@@ -121,6 +121,15 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+
+  },
+  {
+    path: 'component/hire-equipment',
+    title: 'Hire Equipment',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
   }
   
 ];

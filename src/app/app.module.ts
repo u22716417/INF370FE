@@ -34,8 +34,8 @@ import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/update-password.component';
-import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 
 
@@ -52,6 +52,7 @@ import { SettingsComponent } from './UserSubsystem/settings/settings.component';
     CheckInComponent,
     EquipmentCreateUpdateComponent,
     AccessDeniedComponent,
+    SponsorListComponent,
     SponsorListComponent,
     CheckOutComponent,
     HireItemsReturnComponent,
