@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router, RouterLink } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
@@ -8,21 +10,51 @@ declare var $: any;
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports:[NgbDropdownModule],
+  imports:[NgbDropdownModule, NgIf, RouterLink],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
 
   @Output() toggleSidebar = new EventEmitter<void>();
-
+  NavData : any;
   public showSearch = false;
-  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router) {
+  fullName: string ='';
+  email : string ='';
+  phone : string ='';
+  title: string ='';
+  usertype: string = '';
+  base64Image: SafeResourceUrl  ='';
+  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router, private sanitizer: DomSanitizer) {
+  }
+  
+
+  ngAfterViewInit() { 
+    this.NavData = [];
+    this.authService.getUser().subscribe(response =>{
+     console.log(response);
+     this.base64Image =  this.sanitizer.bypassSecurityTrustResourceUrl(response.image) ;
+     this.fullName = response.fullName;
+     this.title = response.title;
+     this.email = response.email;
+     this.phone = response.phoneNumber; 
+     this.usertype = response.userType;
+   });
+
+  }
+
+  isModalVisible = false;
+
+  openModal() {
+    this.isModalVisible = true;
+  }
+
+  closeModal() {
+    this.isModalVisible = false;
   }
 
   Logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
-
   }
   // This is for Notifications
   notifications: Object[] = [
@@ -117,5 +149,5 @@ export class NavigationComponent implements AfterViewInit {
     icon: 'de'
   }]
 
-  ngAfterViewInit() { }
+ 
 }

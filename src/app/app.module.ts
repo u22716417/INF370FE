@@ -33,6 +33,10 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
+import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/update-password.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
+import { LoginComponent } from './UserSubsystem/user/login/login.component';
+import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 
 
 
@@ -52,7 +56,11 @@ import { CreateQuotationComponent } from './create-quotation/create-quotation.co
     CheckOutComponent,
     HireItemsReturnComponent,
     QuotationListComponent,
-    CreateQuotationComponent
+    CreateQuotationComponent,
+    UpdatePasswordComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

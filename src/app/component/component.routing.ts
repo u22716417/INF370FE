@@ -19,12 +19,17 @@ import { CheckOutComponent } from '../check-out/check-out.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
+import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'settings',
+				component: SettingsComponent
+			},
 			{
 				path: 'table',
 				component: TableComponent

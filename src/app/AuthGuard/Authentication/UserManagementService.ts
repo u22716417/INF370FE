@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -9,6 +10,8 @@ import { catchError } from 'rxjs/operators';
 export class UserManagementService {
 
   private apiUrl = 'https://localhost:7149/api/Authentication/Authenticate';
+  private apiUrlBase = 'https://localhost:7149/api/Authentication/';
+
   private baseUrl = 'https://localhost:7149/api/Users';
   private apiOtp = 'https://localhost:7149/api/Authentication/AuthenticateOTP';
 
@@ -21,6 +24,12 @@ export class UserManagementService {
     );
   }
 
+  resetPassword(username: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(this.apiUrlBase+'ResetPassword', JSON.stringify(username), { headers });
+  }
   authenticateOTP(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiOtp}/${id}`).pipe(
       catchError(this.handleError)
@@ -32,6 +41,7 @@ export class UserManagementService {
   }
 
   logout() {
+    sessionStorage.removeItem('CurrentUserId');
     sessionStorage.removeItem('CurrentUser');
   }
 
@@ -43,11 +53,17 @@ export class UserManagementService {
   }
 
   // Get user by ID
-  getUser(id: number): Observable<User> {
-    const url = `${this.baseUrl}/${id}`;
-    return this.http.get<User>(url).pipe(
+  getUser(): Observable<any> {
+    var id = sessionStorage.getItem('CurrentUserId')
+    const url = `${this.baseUrl}/vm/${id}`;
+    return this.http.get<any>(url).pipe(
       catchError(this.handleError)
     );
+  }
+
+
+  getUserProfile(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile/${userId}`);
   }
 
   // Create a new user
