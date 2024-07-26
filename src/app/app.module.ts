@@ -39,6 +39,8 @@ import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/fo
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
+import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
+import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 
 
 
@@ -65,7 +67,9 @@ import { HireItemsReceivedComponent } from './hire-items-received/hire-items-rec
     LoginComponent,
     SettingsComponent,
     HireServiceComponent,
-    HireItemsReceivedComponent
+    HireItemsReceivedComponent,
+    SignupComponent,
+    HireEquipmentComponent
   ],
   imports: [
     CommonModule,
