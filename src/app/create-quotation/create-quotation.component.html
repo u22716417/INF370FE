@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="clientId">Client ID:</label>
+    <input id="clientId" formControlName="clientId" type="number">
+  
+    <label for="serviceId">Service ID:</label>
+    <input id="serviceId" formControlName="serviceId" type="number">
+  
+    <label for="amountPayable">Amount Payable:</label>
+    <input id="amountPayable" formControlName="amountPayable" type="number" step="0.01">
+  
+    <label for="quotationDate">Quotation Date:</label>
+    <input id="quotationDate" formControlName="quotationDate" type="date">
+  
+    <label for="quotationFile">Quotation File:</label>
+    <input id="quotationFile" (change)="onFileChange($event)" type="file">
+  
+    <button type="submit" [disabled]="form.invalid">Create Quotation</button>
+  </form>
+  

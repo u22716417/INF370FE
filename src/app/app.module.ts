@@ -29,6 +29,10 @@ import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
+import { QuotationListComponent } from './quotation-list/quotation-list.component';
+import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 
 
 
@@ -44,7 +48,11 @@ import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/spon
     CheckInComponent,
     EquipmentCreateUpdateComponent,
     AccessDeniedComponent,
-    SponsorListComponent
+    SponsorListComponent,
+    CheckOutComponent,
+    HireItemsReturnComponent,
+    QuotationListComponent,
+    CreateQuotationComponent
   ],
   imports: [
     CommonModule,

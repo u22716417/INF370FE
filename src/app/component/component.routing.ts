@@ -15,6 +15,10 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
+import { CheckOutComponent } from '../check-out/check-out.component';
+import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
+import { QuotationListComponent } from '../quotation-list/quotation-list.component';
+import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -97,6 +101,22 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'assignment',
 				component: LoginComponent
+			},
+			{
+              path:'checkout',
+			  component:CheckOutComponent
+			},
+			{
+              path:'returnitems',
+			  component:HireItemsReturnComponent
+			},
+			{
+              path:'quotationlist',
+			  component:QuotationListComponent
+			},
+			{
+              path:'createquotation',
+			  component:CreateQuotationComponent
 			}
 		]
 	}

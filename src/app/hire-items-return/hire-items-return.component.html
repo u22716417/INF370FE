@@ -1,0 +1,27 @@
+<form [formGroup]="hireItemsReturnForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="itemId">Item ID:</label>
+      <input id="itemId" formControlName="itemId" type="text" />
+      <!-- Null checks to avoid TypeScript errors -->
+      <div *ngIf="hireItemsReturnForm.get('itemId')?.invalid && hireItemsReturnForm.get('itemId')?.touched">
+        Item ID is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="clientId">Client ID:</label>
+      <input id="clientId" formControlName="clientId" type="text" />
+      <!-- Null checks to avoid TypeScript errors -->
+      <div *ngIf="hireItemsReturnForm.get('clientId')?.invalid && hireItemsReturnForm.get('clientId')?.touched">
+        Client ID is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="returnDate">Return Date:</label>
+      <input id="returnDate" formControlName="returnDate" type="date" />
+    </div>
+  
+    <button type="submit" [disabled]="hireItemsReturnForm.invalid">Submit</button>
+  </form>
+  

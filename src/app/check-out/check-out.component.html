@@ -1,0 +1,30 @@
+<form #checkOutForm="ngForm" (ngSubmit)="onCheckOut()" novalidate>
+  <div style="margin-bottom: 10px;">
+    <label for="barcodeNumber">Barcode Number</label>
+    <input
+      id="barcodeNumber"
+      class="form-control"
+      type="text"
+      name="barcodeNumber"
+      [(ngModel)]="barcodeNumber"
+      required
+      placeholder="Enter barcode number"
+      title="Please enter a barcode number"
+      #barcodeInput="ngModel"
+    />
+    
+    <div *ngIf="barcodeInput.invalid && (barcodeInput.dirty || barcodeInput.touched)" class="text-danger">
+      <div *ngIf="barcodeInput.errors?.['required']">Barcode number is required.</div>
+    </div>
+  </div>
+  <div style="text-align: center;">
+    <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+    <input type="submit" class="btn btn-primary" [disabled]="!checkOutForm.form.valid || isLoading" value="Check Out"/>
+    
+    <div *ngIf="isLoading" class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</form>
+
+
