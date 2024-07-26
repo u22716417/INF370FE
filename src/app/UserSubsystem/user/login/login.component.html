@@ -47,13 +47,13 @@
           <div class="d-flex justify-content-between align-items-center">
             <!-- Checkbox -->
           
-            <a href="#!" class="text-body">Forgot password?</a>
+            <a routerLink="/forgotpassword" class="text-body">Forgot password?</a>
           </div>
           <h1>{{this.message}}</h1>
           <div class="text-center text-lg-start mt-4 pt-2">
             <button (click)="authenticate()"  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="/signUp"
                 class="link-danger">Register</a></p>
           </div>
 

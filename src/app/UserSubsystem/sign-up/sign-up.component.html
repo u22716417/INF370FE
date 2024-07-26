@@ -1,0 +1,94 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+              <div *ngIf="stage === 1">
+                <h2 class="card-title">Stage 1: User Details</h2>
+                <div class="form-group">
+                  <label for="firstName">First Name:</label>
+                  <input type="text" id="firstName" class="form-control" [(ngModel)]="userDetails.firstName" name="firstName" required #firstName="ngModel" />
+                  <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger">
+                    First Name is required.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name:</label>
+                  <input type="text" id="lastName" class="form-control" [(ngModel)]="userDetails.lastName" name="lastName" required #lastName="ngModel" />
+                  <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger">
+                    Last Name is required.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" class="form-control" [(ngModel)]="userDetails.email" name="email" required #email="ngModel" email />
+                  <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                    <div *ngIf="email.errors?.['required']">Email is required.</div>
+                  <div *ngIf="email.errors?.['email']">Email is not valid.</div>
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number:</label>
+                  <input type="tel" id="phoneNumber" class="form-control" [(ngModel)]="userDetails.phoneNumber" name="phoneNumber" required #phoneNumber="ngModel" />
+                  <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="text-danger">
+                    Phone Number is required.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="profileImage">Profile Image:</label>
+                  <input type="file" id="profileImage" class="form-control" (change)="onFileChange($event)"  accept="image/*"/>
+                  <div class="text-danger">
+                    {{this.errorMessage}}
+                  </div>
+                </div>
+                <div *ngIf="profileImagePreview">
+                  <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail mt-2" />
+                </div>
+                <div style="padding-top: 5%;"></div>
+                <button type="button" class="btn btn-primary" (click)="nextStage()" [disabled]="signupForm.invalid">Next</button>
+              </div>
+  
+              <div *ngIf="stage === 2">
+                <h2 class="card-title">Stage 2: Login Details</h2>
+                <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" class="form-control" [(ngModel)]="loginDetails.username" name="username" required #username="ngModel" />
+                  <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+                    Username is required.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" class="form-control" [(ngModel)]="loginDetails.password" name="password" required #password="ngModel" />
+                  <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                    Password is required.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password:</label>
+                  <input type="password" id="confirmPassword" class="form-control" [(ngModel)]="loginDetails.confirmPassword" name="confirmPassword" required #confirmPassword="ngModel" />
+                  <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="text-danger">
+                    Confirm Password is required.
+                  </div>
+                  <div *ngIf="loginDetails.password !== loginDetails.confirmPassword && confirmPassword.dirty && confirmPassword.touched" class="text-danger">
+                    Passwords do not match.
+                  </div>
+                </div>
+                <div style="padding-top: 5%;"></div>
+
+                <button type="button" class="btn btn-secondary" (click)="previousStage()">Back</button>
+                <button type="submit" class="btn btn-success" [disabled]="signupForm.invalid">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- Popup overlay -->
+      <div *ngIf="showPopup" class="popup-overlay">
+        <div class="popup-message">
+          <p>Sign Up successful!, You can now Purchase Tickets</p>
+        </div>
+      </div>

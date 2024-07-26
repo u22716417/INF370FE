@@ -24,6 +24,11 @@ export class UserManagementService {
     );
   }
 
+  signup(signupData: any): Observable<any> {
+    console.log(signupData);
+    return this.http.post(`${this.baseUrl}/Register`, signupData);
+  }
+
   resetPassword(username: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
