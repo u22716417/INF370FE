@@ -98,6 +98,39 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   },
+  {
+    path: 'component/checkout',
+    title: 'Check Out ',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hireitems',
+    title: 'Return Items',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/quotationlist',
+    title: 'Quotations',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+
+  },
+  {
+    path: 'component/hire-equipment',
+    title: 'Hire Equipment',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  }
   
   
 ];

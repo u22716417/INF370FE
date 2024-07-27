@@ -20,9 +20,66 @@
   }
   
   .numpad button {
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
-    cursor: pointer;
+
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+   cursor: pointer;
+    transition: background-color 0.3s ease;
   }
+
+  .numpad button:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .numpad button:active {
+    background-color: #dae0e5;
+  }
+  
+  container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+  }
+  
+  #notification {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+  }
+  
+  #notification.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
   

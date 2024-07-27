@@ -1,0 +1,25 @@
+<div>
+    <h2>Client List</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.clientName }}</td>
+          <td>{{ client.clientSurname }}</td>
+          <td>{{ client.clientPhone }}</td>
+          <td>
+            <a class="btn btn-primary" routerLink="/view-client-profile/{{client.clientId}}" routerLinkActive="active">View</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+    

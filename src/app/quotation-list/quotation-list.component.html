@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Quotation Listing</h4>
+          <h5 class="card-subtitle text-muted">Overview of the quotations</h5>
+          <div class="table-responsive">
+            <table class="table align-middle text-nowrap">
+              <thead>
+                <tr>
+                  <th class="text-dark font-medium fs-4">Quotation ID</th>
+                  <th class="text-dark font-medium fs-4">Client Name</th>
+                  <th class="text-dark font-medium fs-4">Service Name</th>
+                  <th class="text-dark font-medium fs-4">Amount Payable</th>
+                  <th class="text-dark font-medium fs-4">Quotation Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let quotation of quotations">
+                  <td>{{ quotation.quotationId }}</td>
+                  <td>{{ quotation.clientName }}</td>
+                  <td>{{ quotation.serviceName }}</td>
+                  <td>{{ quotation.amountPayable | currency }}</td>
+                  <td>{{ quotation.quotationDate | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Quotation Details</h4>
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle text-nowrap">
+              <thead>
+                <tr>
+                  <th class="text-dark font-medium fs-4">Quotation ID</th>
+                  <th class="text-dark font-medium fs-4">Client Name</th>
+                  <th class="text-dark font-medium fs-4">Service Name</th>
+                  <th class="text-dark font-medium fs-4">Amount Payable</th>
+                  <th class="text-dark font-medium fs-4">Quotation Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let quotation of quotations; index as i">
+                  <td>{{ quotation.quotationId }}</td>
+                  <td>{{ quotation.clientName }}</td>
+                  <td>{{ quotation.serviceName }}</td>
+                  <td>{{ quotation.amountPayable | currency }}</td>
+                  <td>{{ quotation.quotationDate | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Quotation Hover</h4>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle text-nowrap table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-dark font-medium fs-4">Quotation ID</th>
+                  <th class="text-dark font-medium fs-4">Client Name</th>
+                  <th class="text-dark font-medium fs-4">Service Name</th>
+                  <th class="text-dark font-medium fs-4">Amount Payable</th>
+                  <th class="text-dark font-medium fs-4">Quotation Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let quotation of quotations; index as i">
+                  <td>{{ quotation.quotationId }}</td>
+                  <td>{{ quotation.clientName }}</td>
+                  <td>{{ quotation.serviceName }}</td>
+                  <td>{{ quotation.amountPayable | currency }}</td>
+                  <td>{{ quotation.quotationDate | date }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,25 +1,87 @@
+<style>
+  .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+/* cart.component.css */
+.card {
+  width: 300px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  margin-bottom: 15px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-divider {
+  margin: 10px 0;
+}
+
+</style>
+
 <!-- ============================================================== -->
 <!-- toggle and nav items -->
 <!-- ============================================================== -->
 <ul class="navbar-nav float-start me-auto">
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/dashboard"> Starter </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/about"> About </a>
-  </li>
+  
   <!-- ============================================================== -->
   <!-- create new -->
   <!-- ============================================================== -->
   <li class="nav-item d-none d-md-block" ngbDropdown placement="bottom-end">
-    <a href="javascript:void(0)" class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
-      Create New
-    </a>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Action - 1</button>
-      <button ngbDropdownItem>Another Action</button>
-      <button ngbDropdownItem>Something else is here</button>
-    </div>
+    
+  
   </li>
 </ul>
 <!-- ============================================================== -->
@@ -27,7 +89,7 @@
 <!-- ============================================================== -->
 <ul class="navbar-nav float-end">
   <!-- ============================================================== -->
-  <!-- User profile and search -->
+  <!-- User profile and cart -->
   <!-- ============================================================== -->
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
@@ -39,24 +101,93 @@
       aria-expanded="false"
     >
       <img
-        src="assets/images/users/user1.jpg"
+        src="https://www.freeiconspng.com/thumbs/cart-icon/cart-icon-16.png"
+        alt="cart"
+        width="31"
+      />
+      <span class="ms-2">{{ getItemCount() }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" #cart ngbDropdownMenu>
+      <div class="card" *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="card-body">
+          <h5 class="card-title">Shopping Cart</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let item of cartItems">
+              {{ item.name }} <p style="padding-left: 10%;"></p>      R{{ item.price }}
+            </li>
+          </ul>
+          <div class="dropdown-divider"></div>
+          <p class="card-text">
+            <strong>Total: R{{ getTotal() }}</strong>
+          </p>
+        </div>
+      </div>
+      <ng-template #emptyCart>
+        <a class="dropdown-item">Your cart is empty</a>
+      </ng-template>
+      <a style="margin-left: 5%;" class="btn btn-success">Check Out</a>
+    </div>
+  </li>
+  
+  <li class="nav-item" ngbDropdown placement="bottom-end">
+    <a
+      ngbDropdownToggle
+      class="nav-link waves-effect waves-dark pro-pic"
+      href="javascript:void(0)"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <img
+        [src]="base64Image"
         alt="user"
         class="rounded-circle"
         width="31"
       />
-      <span class="ms-2">Steve Jobs</span>
+      <span class="ms-2">{{fullName}}</span>
     </a>
     <div class="dropdown-menu-right" ngbDropdownMenu>
-      <a class="dropdown-item" href="javascript:void(0)"> My Profile</a>
+      <a class="dropdown-item" (click)="openModal()"> My Profile</a>
       <a class="dropdown-item" href="javascript:void(0)"> My Balance</a>
       <a class="dropdown-item" href="javascript:void(0)"> Inbox</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Account Setting</a>
+      <a class="dropdown-item" routerLink="/component/settings" > Account Setting</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="javascript:void(0)"> Logout</a>
+      <a class="dropdown-item" (click)="Logout()"> Logout</a>
     </div>
   </li>
   <!-- ============================================================== -->
   <!-- User profile and search -->
   <!-- ============================================================== -->
 </ul>
+<!-- Trigger Button -->
+
+<!-- Modal Structure -->
+<div class="modal-overlay" *ngIf="isModalVisible" (click)="closeModal()"></div>
+<div class="modal-content" *ngIf="isModalVisible">
+  <div class="modal-header">
+    <h2>My Profile</h2>
+    <button (click)="closeModal()" class="close-button">&times;</button>
+  </div>
+  <div class="modal-body">
+     <div style="float: left;">
+      <p>You are a/an: {{usertype}}</p>
+      <p>Title: {{title}}</p> 
+      <p>Full Name: {{fullName}}</p> 
+      <p>Email: {{email}}</p> 
+      <p>Phone: {{phone}}</p> 
+    </div>
+    <div style="float: right;" >
+      <img
+      [src]="base64Image"
+      alt="user"
+      class="rounded-circle"
+      width="191"
+    />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="closeModal()" class="btn btn-primary">Close</button> |
+    <button (click)="closeModal()" class="btn btn-success">Edit Profile</button>
+  </div>
+</div>

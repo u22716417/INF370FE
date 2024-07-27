@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserManagementService } from '../Admin/user-management.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { RouterModule, Routes } from '@angular/router';
 @Component({
-  standalone: true,
-  imports: [FormsModule, CommonModule],
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
@@ -23,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: UserManagementService, private router: Router) { }
 
   ngOnInit(): void {
+    
     this.message = '';
   }
 
@@ -49,15 +48,17 @@ export class LoginComponent implements OnInit {
     this.startLoadingAnimation();
     this.authService.authenticate(this.username, this.password).subscribe(
       (response: boolean) => {
+        this.stopLoadingAnimation();
         if (response) {
-          this.stopLoadingAnimation();
           this.openPopup();
           console.log(response);
+        } else {
+          this.message=('Invalid Credentials');
         }
       },
       (error: string) => {
         this.stopLoadingAnimation();
-        this.showToast('Invalid Credentials');
+        this.message=('Invalid Credentials');
       }
     );
   }
@@ -76,32 +77,19 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         this.stopLoadingAnimation();
         console.log('Success:', response);
-        sessionStorage.setItem('CurrentUser', response.userTypes);
-        this.router.navigate(['/dashboard']);
+        if (response) {
+          sessionStorage.setItem('CurrentUser', response.c);
+          sessionStorage.setItem('CurrentUserId', response.u);
+
+          this.router.navigate(['/dashboard']); // When Login Is A success
+        } else {
+          this.message=('Invalid OTP');
+        }
       },
       error: (error) => {
         this.stopLoadingAnimation();
-        this.showToast(`Error: ${error}`);
+        this.message =('Invalid OTP');
       }
     });
   }
-
-  showToast(message: string) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerText = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        document.body.removeChild(toast);
-      }, 300);
-    }, 3000);
-  }
 }
-
