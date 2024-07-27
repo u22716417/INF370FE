@@ -1,3 +1,21 @@
+<div id="overlay" *ngIf="this.isPopupVisible" class="overlay">
+  <div class="popup card custom-popup">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="header-content">
+            <h2>{{this.message}}</h2>
+          </div>
+        </div>
+        <div class="modal-body">
+          <br>
+          <button type="button" class="btn btn-success custom-button" (click)="closePopup()">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
@@ -86,9 +104,4 @@
       </div>
     </div>
   </div>
-      <!-- Popup overlay -->
-      <div *ngIf="showPopup" class="popup-overlay">
-        <div class="popup-message">
-          <p>Sign Up successful!, You can now Purchase Tickets</p>
-        </div>
-      </div>
+  

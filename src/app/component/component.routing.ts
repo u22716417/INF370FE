@@ -21,12 +21,22 @@ import { CheckOutComponent } from '../check-out/check-out.component';
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
+import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
+import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'event-list',
+				component: EventListComponent
+			},
+			{
+				path: 'eventShop',
+				component: ViewAllEventsComponent
+			},
 			{
 				path: 'settings',
 				component: SettingsComponent
