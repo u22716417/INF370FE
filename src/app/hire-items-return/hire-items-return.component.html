@@ -1,27 +1,33 @@
 <form [formGroup]="hireItemsReturnForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="itemId">Item ID:</label>
-      <input id="itemId" formControlName="itemId" type="text" />
-      <!-- Null checks to avoid TypeScript errors -->
-      <div *ngIf="hireItemsReturnForm.get('itemId')?.invalid && hireItemsReturnForm.get('itemId')?.touched">
-        Item ID is required.
-      </div>
+  <div>
+    <h1 style="color: #FF5F00;">Hire Items Return</h1>
+    <label for="hireItemsReturnedName">Item Name:</label>
+    <input id="hireItemsReturnedName" formControlName="hireItemsReturnedName" type="text" />
+    
+    <div *ngIf="hireItemsReturnForm.get('hireItemsReturnedName')?.invalid && hireItemsReturnForm.get('hireItemsReturnedName')?.touched">
+      Item Name is required.
     </div>
-  
-    <div>
-      <label for="clientId">Client ID:</label>
-      <input id="clientId" formControlName="clientId" type="text" />
-      <!-- Null checks to avoid TypeScript errors -->
-      <div *ngIf="hireItemsReturnForm.get('clientId')?.invalid && hireItemsReturnForm.get('clientId')?.touched">
-        Client ID is required.
-      </div>
+  </div>
+
+  <div>
+    <label for="dateReturned">Return Date:</label>
+    <input id="dateReturned" formControlName="dateReturned" type="date" />
+    
+    <div *ngIf="hireItemsReturnForm.get('dateReturned')?.invalid && hireItemsReturnForm.get('dateReturned')?.touched">
+      Return Date is required.
     </div>
-  
-    <div>
-      <label for="returnDate">Return Date:</label>
-      <input id="returnDate" formControlName="returnDate" type="date" />
+  </div>
+
+  <div>
+    <label for="condition">Condition:</label>
+    <input id="condition" formControlName="condition" type="text" />
+    
+    <div *ngIf="hireItemsReturnForm.get('condition')?.invalid && hireItemsReturnForm.get('condition')?.touched">
+      Condition is required.
     </div>
-  
+  </div>
+
+  <div>
     <button type="submit" [disabled]="hireItemsReturnForm.invalid">Submit</button>
-  </form>
-  
+  </div>
+</form>

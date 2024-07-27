@@ -3,7 +3,7 @@ export class Service {
     serviceTypeId: number;
     serviceName: string;
     serviceDescription: string;
-    assignments: string;
+    assignments?: string;
   
     constructor(
         serviceId: number,

@@ -37,6 +37,7 @@ import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/up
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
+import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 
 
 
@@ -60,7 +61,8 @@ import { SettingsComponent } from './UserSubsystem/settings/settings.component';
     UpdatePasswordComponent,
     ForgotPasswordComponent,
     LoginComponent,
-    SettingsComponent
+    SettingsComponent,
+    ServiceCreateUpdateComponent
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
        <!-- Button trigger modal -->
-        <a class="btn btn-primary" routerLink="manageServices/0" routerLinkActive="active" >
+        <a class="btn btn-primary" routerLink="/component/service-create-update" routerLinkActive="active" >
           Add New
         </a>
       </div>
@@ -39,7 +39,7 @@
         <td>{{ item.serviceName}}</td>
         <td>{{ item.serviceDescription }}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/manageServices', item.serviceId]" >Edit</a>
+          <a class="btn btn-primary" [routerLink]="['/component/service-create-update', item.serviceId]" >Edit</a>
           <button (click)="deleteById(item.serviceId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
         </td>
       </tr>

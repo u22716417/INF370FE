@@ -20,6 +20,7 @@ import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
 import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
+import { ServiceCreateUpdateComponent } from '../AdminSubsystem/service/service-create-update/service-create-update.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -108,7 +109,7 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-              path:'checkout',
+              path:'check-out',
 			  component:CheckOutComponent
 			},
 			{
@@ -120,8 +121,12 @@ export const ComponentsRoutes: Routes = [
 			  component:QuotationListComponent
 			},
 			{
-              path:'createquotation',
+              path:'create-quotation',
 			  component:CreateQuotationComponent
+			},
+	        {
+				path:'service-create-update',
+				component:ServiceCreateUpdateComponent
 			}
 		]
 	}

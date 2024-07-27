@@ -8,52 +8,52 @@ import { ServicesServiceService } from '../service/services-service.service';
   styleUrls: ['./service-list.component.css']
 })
 export class ServiceListComponent implements OnInit {
-services:Service[]=[]
-filteredService: Service[]=[];
-searchTerm: string = '';
-isPopupVisible: boolean = false;
+  services: Service[] = [];
+  filteredService: Service[] = [];
+  searchTerm: string = '';
+  isPopupVisible: boolean = false;
 
-constructor(private serviceService: ServicesServiceService){}
+  constructor(private serviceService: ServicesServiceService) {}
 
   ngOnInit(): void {
-    this.getAllServices()
+    this.getAllServices();
     console.log(this.services);
   }
 
   getAllServices() {
-    this.serviceService.getAllServices().subscribe(result =>{
-      let ServiceList:any[] = result
-      ServiceList.forEach((element) => {
-        this.filteredService.push(element);
-        this.services.unshift(element)
-      });
-    })
+    this.serviceService.getAllServices().subscribe(result => {
+      this.services = result;
+      this.filteredService = [...this.services];
+    });
   }
 
-  deleteById(serviceId: number){
+  loadServices() {
+    this.getAllServices(); // Use getAllServices to refresh the service list
+  }
+
+  deleteById(serviceId: number) {
     const confirmDelete = window.confirm('Are you sure you want to delete?');
 
-    if (confirmDelete){
-      this.serviceService.deleteServiceById(parseInt(serviceId+ ''))
-      .subscribe(response => {
-        if (response != null)
-          {
-            location.reload();
-          }
-      })
+    if (confirmDelete) {
+      this.serviceService.deleteServiceById(serviceId).subscribe({
+        next: () => {
+          this.loadServices(); // Refresh the list of services after deletion
+        },
+        error: () => {
+          alert('Delete failed');
+        }
+      });
     }
   }
 
-filterServices(){
-console.log(this.searchTerm.length)
-if(this.searchTerm.length <= 2){
-  this.filteredService =[]
-}
-else{
-  this.filteredService = this.services.filter((value) => (
-    value.serviceName.toLowerCase().includes(this.searchTerm.toLowerCase())
-  ));
+  filterServices() {
+    if (this.searchTerm.length <= 2) {
+      this.filteredService = [];
+    } else {
+      this.filteredService = this.services.filter(value =>
+        value.serviceName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
   }
 }
 
-}

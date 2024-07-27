@@ -1,79 +1,68 @@
-import { Component } from '@angular/core';
-import { Service } from '../service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServicesServiceService } from '../service/services-service.service';
 import { NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Service } from '../service';
 
 @Component({
   selector: 'app-service-create-update',
   templateUrl: './service-create-update.component.html',
-  styleUrl: './service-create-update.component.css'
+  styleUrls: ['./service-create-update.component.css']
 })
-export class ServiceCreateUpdateComponent {
+export class ServiceCreateUpdateComponent implements OnInit {
 
-
-  services: Service = {serviceId: 0, serviceName: '', serviceDescription: '', serviceTypeId: 0, assignments: ''}
-  
-  isSubmitted:boolean = false;
-
+  service: Service = {
+    serviceId: 0, serviceName: '', serviceDescription: '', serviceTypeId: 0,
+    assignments: ''
+  };
   heading: string = '';
+  apiUrl: string = 'https://localhost:7149/api/Services'; 
 
+  constructor(private router: Router, private http: HttpClient, private route: ActivatedRoute) {}
 
-  constructor(private router: Router, private serviceService:ServicesServiceService, private route: ActivatedRoute){}
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const id = +params['id']; // Use 'id' from route params
+      
+      if (id > 0) {
+        this.heading = 'Edit Service';
+        this.http.get<Service>(`${this.apiUrl}/${id}`).subscribe(response => this.service = response);
+      } else {
+        this.heading = 'Add Service';
+        this.service = { serviceId: 0, serviceName: '', serviceDescription: '', serviceTypeId:0 };
+      }
+    });
+  }
+
+  saveService(serviceForm: NgForm) {
+    if (serviceForm.valid) {
+      if (this.service.serviceId === 0) {
+        // Create new service
+        this.http.post(this.apiUrl, this.service, {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        }).subscribe(response => {
+          this.router.navigate(['/services']);
+        }, error => {
+          alert('Create failed');
+        });
+      } else {
+        // Update existing service
+        this.http.put(`${this.apiUrl}/${this.service.serviceId}`, this.service, {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        }).subscribe(response => {
+          this.router.navigate(['/services']);
+        }, error => {
+          alert('Update failed');
+        });
+      }
+    } else {
+      alert('Please fill all the fields');
+    }
+  }
 
   cancel() {
     this.router.navigate(['/services']);
-
   }
-
-  ngOnInit(): void {
-    this.services = { serviceId: 0, serviceName: '',serviceDescription: '', serviceTypeId: 0, assignments: ''};
-    this.route.params.subscribe(params =>{
-      const id = parseInt(params['Id']);
-
-      if(id > 0) 
-      {
-
-        this.heading = 'Edit Venue';
-        this.serviceService.getServiceById(id)
-        .subscribe(response => this.services = response)
-      }
-      else
-      {
-        this.heading = 'Add Service'
-      }
-    
-  })
-  }
-
-  addService(serviceForm:NgForm){
-    if (this.services.serviceName != '' && this.services.serviceDescription != '' && this.services.serviceTypeId)
-    {
-      if (this.services.serviceId === 0)
-        {
-          this.serviceService.createService(this.services)
-          .subscribe(response => {
-            if(response != null)
-              {
-                this.router.navigate(['/services']);
-              }
-              else
-              {
-                alert('Create failed');
-              }
-        })
-        }
-        else
-        {
-          alert('Update failed');
-        }
-    }
-    else
-      {
-       alert('Please fill all the fields');
-      }
-  }
-
-  
-  
 }
+
+

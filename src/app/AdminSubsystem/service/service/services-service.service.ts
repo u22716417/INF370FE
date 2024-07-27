@@ -35,17 +35,11 @@ export class ServicesServiceService {
     .pipe(map(result => result));
   }
 
-  // Deletes a service
-  deleteService(id: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));;
-  }
-
-  //Deletes service by Id
-  deleteServiceById(id: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));
+  // Deletes service by Id
+  deleteServiceById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }  
 }
 
 
-}
+

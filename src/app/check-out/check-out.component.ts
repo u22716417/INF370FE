@@ -1,43 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckOutService } from '../check-out.service';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Assuming you're using Angular Material
 
 @Component({
   selector: 'app-check-out',
   templateUrl: './check-out.component.html',
   styleUrls: ['./check-out.component.scss']
 })
-export class CheckOutComponent {
-  barcodeNumber: string = '';
-  isLoading: boolean = false; // To manage loading state
+export class CheckOutComponent implements OnInit {
+  checkOutForm: FormGroup;
+  inputValue: string = '';
+  isLoading: boolean = false;
+  numbers: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+  message: string = '';
+  messageType: 'success' | 'error' | '' = '';
 
-  constructor(private checkOutService: CheckOutService, private snackBar: MatSnackBar) {}
+  constructor(
+    private fb: FormBuilder,
+    private checkOutService: CheckOutService
+  ) {
+    this.checkOutForm = this.fb.group({
+      barcode: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {}
+
+  appendNumber(num: string): void {
+    this.inputValue += num;
+    this.checkOutForm.controls['barcode'].setValue(this.inputValue);
+  }
+
+  clearInput(): void {
+    this.inputValue = '';
+    this.checkOutForm.controls['barcode'].setValue(this.inputValue);
+  }
+
+  cancel(): void {
+    this.clearInput();
+    this.showMessage('Checkout canceled', 'error');
+  }
 
   onCheckOut(): void {
-    if (this.barcodeNumber.trim()) {
+    if (this.checkOutForm.valid) {
       this.isLoading = true;
-      this.checkOutService.checkOutByBarcode(this.barcodeNumber).subscribe(
+      this.checkOutService.checkOutByBarcode(this.checkOutForm.value.barcode).subscribe(
         () => {
           this.isLoading = false;
-          this.snackBar.open('Check-out successful', 'Close', { duration: 3000 });
-          this.barcodeNumber = ''; 
+          this.showMessage('Check-out successful', 'success');
+          this.clearInput();
         },
         (error: any) => {
           this.isLoading = false;
           console.error('Error during check-out:', error);
-          this.snackBar.open('Error during check-out. Please try again.', 'Close', { duration: 3000 });
+          this.showMessage('Error during check-out. Please try again.', 'error');
         }
       );
     } else {
       console.warn('Barcode number is required.');
-      this.snackBar.open('Please enter a barcode number.', 'Close', { duration: 3000 });
+      this.showMessage('Please enter a barcode number.', 'error');
     }
   }
 
-  cancel(): void {
-    this.barcodeNumber = ''; // Clear the barcode number if needed
-    console.log('Checkout canceled');
+  showMessage(message: string, type: 'success' | 'error'): void {
+    this.message = message;
+    this.messageType = type;
+    setTimeout(() => {
+      this.message = '';
+      this.messageType = '';
+    }, 3000);
   }
 }
+
+
 
 

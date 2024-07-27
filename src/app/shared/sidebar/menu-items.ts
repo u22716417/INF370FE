@@ -99,17 +99,17 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/checkout',
+    path: 'component/check-out',
     title: 'Check Out ',
-    icon: 'bi bi-people',
+    icon: 'bi bi-box-arrow-right',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: 'component/hireitems',
+    path: 'component/returnitems',
     title: 'Return Items',
-    icon: 'bi bi-people',
+    icon: 'bi bi-arrow-return-left',
     class: '',
     extralink: false,
     submenu: []
@@ -117,10 +117,11 @@ export const ROUTES: RouteInfo[] = [
   {
     path: 'component/quotationlist',
     title: 'Quotations',
-    icon: 'bi bi-people',
+    icon: 'bi bi-file-earmark-text',
     class: '',
     extralink: false,
     submenu: []
   }
+ 
   
 ];

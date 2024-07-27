@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuotationService {
-  private baseUrl = 'https://localhost:7149/api/Quotation/list'; // Replace with your API URL
+  private baseUrl = 'https://localhost:7149/api/Quotation/list'; 
 
   constructor(private http: HttpClient) { }
 
