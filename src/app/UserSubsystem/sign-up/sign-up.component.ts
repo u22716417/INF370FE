@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 @Component({
@@ -6,11 +7,11 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   stage: number = 1;
   profileImage: string | ArrayBuffer | null = null;
   profileImagePreview: string | ArrayBuffer | null = null;
-
+  message: string = '';
   userDetails = {
     firstName: '',
     lastName: '',
@@ -27,8 +28,12 @@ export class SignupComponent {
   errorMessage: string = '';
   imagePreview: null | undefined;
   showPopup: boolean = false; // Add a flag for the popup
+  isPopupVisible: boolean = false;
 
-  constructor(private userManagementService: UserManagementService) {}
+  constructor(private userManagementService: UserManagementService, private route: Router) {}
+  ngOnInit(): void {
+    this.message = 'Sign up Successful ';
+  }
 
   nextStage() {
     if (this.validateStage1()) {
@@ -71,6 +76,13 @@ export class SignupComponent {
       reader.readAsDataURL(file);
     }
   }
+  openPopup() {
+    this.isPopupVisible = true;
+  }
+
+  closePopup() {
+    this.route.navigate(['/']);
+  }
 
   onSubmit() {
     if (this.loginDetails.password !== this.loginDetails.confirmPassword) {
@@ -86,11 +98,12 @@ export class SignupComponent {
 
     this.userManagementService.signup(signupData).subscribe(
       response => {
-        console.log('Signup successful', response);
-        // Handle successful signup, maybe redirect to login page
+        this.message = 'Signup successful';
+        this.isPopupVisible = true;
       },
       error => {
-        console.error('Signup error', error);
+
+        this.message = error;
         // Handle signup error
       }
     );

@@ -1,8 +1,9 @@
 // hire-item.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { EquipmentQuotationViewModel, HireItem } from '../HireItem';
+import { catchError, map, Observable, throwError } from 'rxjs';
+import { HireItem } from '../HireItem';
+
 
 
 @Injectable({
@@ -12,6 +13,7 @@ export class HireItemService {
   private baseUrl = 'https://localhost:7149/api';
   private apiUrl = 'https://localhost:7149/api/HireItem'; 
   private equipmentApiUrl = 'https://localhost:7149/api/Equipments';
+  private quotationUrl = 'https://localhost:7149/api/EquipmentQuotations/CreateHireQuotation'
 
 
   constructor(private http: HttpClient) { }
@@ -26,16 +28,24 @@ export class HireItemService {
     );
   }
 
+ 
+
   createHireItem(hireItem: HireItem): Observable<HireItem> {
     return this.http.post<HireItem>(this.apiUrl, hireItem);
   }
 
-  createQuotation(model: EquipmentQuotationViewModel): Observable<any> {
-    return this.http.post(`${this.baseUrl}/EquipmentQuotations`, model);
-  }
-
- 
 
 
+  createHireQuotation(hireRequest: any): Observable<any> {
+    return this.http.post(this.quotationUrl, hireRequest).pipe(
+      catchError(this.handleError)
+    );
+
+}
+
+private handleError(error: any): Observable<never> {
+  console.error('An error occurred:', error);
+  return throwError(error);
+}
 
 }
