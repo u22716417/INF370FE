@@ -16,8 +16,8 @@ private apiUrl = 'https://localhost:7149/api/ClientProfile'
     return this.httpClient.get<ClientProfile[]>(this.apiUrl)
     
   }
-  getClientProfile(id:number): Observable<ClientProfile[]> {
-    return this.httpClient.get<ClientProfile[]>(this.apiUrl + '/' + id)
+  getClientProfile(id:number): Observable<ClientProfile> {
+    return this.httpClient.get<ClientProfile>(this.apiUrl + '/' + id)
     
   }
 }

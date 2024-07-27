@@ -18,6 +18,7 @@ import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
+import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 
 export const Approutes: Routes = [
   {
@@ -44,6 +45,13 @@ export const Approutes: Routes = [
           loadChildren: () => import('./component/component.module').then(m => m.ComponentsModule),
           canActivate: [RoleBasedAuthGuard],
           data: { roles: ['Admin', 'Owner', "Client"] } // Specify allowed roles here
+        },
+        {
+          path: 'client-profile',
+          loadChildren: () => import('./AdminSubsystem/client-profile/client-profile.component').then(m => m.ClientProfileComponent),
+          canActivate: [RoleBasedAuthGuard],
+          data: { roles: ['Admin'] } // Specify allowed roles here
+
         },
      
     ]

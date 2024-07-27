@@ -42,6 +42,7 @@ import { HireItemsReceivedComponent } from './hire-items-received/hire-items-rec
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
+import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 
 
 
@@ -71,7 +72,8 @@ import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-p
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
-    ClientProfileComponent
+    ClientProfileComponent,
+    ViewClientProfileComponent
   ],
   imports: [
     CommonModule,

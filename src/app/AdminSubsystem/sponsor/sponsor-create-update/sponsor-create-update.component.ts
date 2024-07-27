@@ -12,7 +12,6 @@ import { SponsorServiceService } from '../service/sponsor-service.service';
   styleUrls: ['./sponsor-create-update.component.css']
 })
 export class SponsorCreateUpdateComponent {
-
   newSponsor: Sponsor = { sponsorId: 0, sponsorName: '', sponsorDescription: '', sponsorEmail: '', sponsorPhone: 0 };
   isSubmitted: boolean = false;
   heading: string = '';
