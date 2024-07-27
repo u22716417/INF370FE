@@ -15,31 +15,27 @@ export class ClientProfileComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      const clientIdParam = params.get('clientId'); // Get clientId as a string
-      if (clientIdParam) {
-        const clientId = +clientIdParam; // Convert clientId to number
-        this.getClientProfile(clientId);
-      } else {
-        console.error('clientId not provided');
-        this.getAllClients(); // Or handle the missing clientId case appropriately
-      }
-    });
-  }
+    this.getAllClientProfiles();
+    };
+  
+    getAllClientProfiles() {
+      this.clientProfileService.getAllClientProfiles().subscribe(result =>{
+        let clientList:any[] = result
+        clientList.forEach((element) => {
+          this.clients.unshift(element)
+        });
+      })
+    }
+    //loadClientList(): void {
+      //this.clientProfileService.getAllClientProfiles().subscribe((data: ClientProfile[]) => {
+        //this.clients = data;
+      //});
+    }
 
-  getAllClients(): void {
-    this.clientProfileService.getAllClients().subscribe(result => {
-      this.clients = result;
-    }, error => {
-      console.error('Error fetching clients:', error);
-    });
-  }
 
-  getClientProfile(clientId: number): void {
-    this.clientProfileService.getClientProfile(clientId).subscribe(result => {
-      this.clients = result;
-    }, error => {
-      console.error('Error fetching client profile:', error);
-    });
-  }
-}
+
+
+
+  
+
+

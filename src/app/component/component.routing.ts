@@ -22,6 +22,7 @@ import { QuotationListComponent } from '../quotation-list/quotation-list.compone
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { ClientProfile } from '../AdminSubsystem/client-profile/client-profile';
+import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -91,7 +92,7 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
 				path: 'clients',
-				component: ClientProfile
+				component: ClientProfileComponent
 			},
 			{
 				path: 'check-in',
