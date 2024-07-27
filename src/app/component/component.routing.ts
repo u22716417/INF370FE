@@ -21,6 +21,7 @@ import { CheckOutComponent } from '../check-out/check-out.component';
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
+import { ClientProfile } from '../AdminSubsystem/client-profile/client-profile';
 
 
 export const ComponentsRoutes: Routes = [
@@ -90,7 +91,7 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
 				path: 'clients',
-				component: LoginComponent
+				component: ClientProfile
 			},
 			{
 				path: 'check-in',

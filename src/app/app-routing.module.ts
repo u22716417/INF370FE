@@ -17,7 +17,7 @@ import { UserAuthGuard } from './AuthGuard/Authentication/UserAuthGuard';
 import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
-
+import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
 
 export const Approutes: Routes = [
   {

@@ -1,0 +1,32 @@
+<div>
+    <h2>Client List</h2>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Subscription Id</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Phone</th>
+          <th>Email</th>  
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.clientId }}</td>
+          <td>{{ client.titleId }}</td>
+          <td>{{ client.subscriptionId }}</td>
+          <td>{{ client.clientName }}</td>
+          <td>{{ client.clientSurname }}</td>
+          <td>{{ client.clientPhone }}</td>
+          <td>{{ client.clientEmail}}</td>
+          <td>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    
