@@ -41,8 +41,8 @@ import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-se
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
-import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
-import { ViewEventComponent } from './clientSubsystem/view-event/view-event.component';
+import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
+import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 
 
 
@@ -72,8 +72,8 @@ import { ViewEventComponent } from './clientSubsystem/view-event/view-event.comp
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
-    ViewAllEventsComponent,
-    ViewEventComponent
+    ClientProfileComponent,
+    ViewClientProfileComponent
   ],
   imports: [
     CommonModule,
