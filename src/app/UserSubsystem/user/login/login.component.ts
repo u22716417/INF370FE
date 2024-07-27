@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: UserManagementService, private router: Router) { }
 
   ngOnInit(): void {
+    
     this.message = '';
   }
 
@@ -52,12 +53,12 @@ export class LoginComponent implements OnInit {
           this.openPopup();
           console.log(response);
         } else {
-          this.showToast('Invalid Credentials');
+          this.message=('Invalid Credentials');
         }
       },
       (error: string) => {
         this.stopLoadingAnimation();
-        this.showToast('Invalid Credentials');
+        this.message=('Invalid Credentials');
       }
     );
   }
@@ -82,31 +83,13 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(['/dashboard']); // When Login Is A success
         } else {
-          this.showToast('Invalid OTP');
+          this.message=('Invalid OTP');
         }
       },
       error: (error) => {
         this.stopLoadingAnimation();
-        this.showToast(`Error: ${error}`);
+        this.message =('Invalid OTP');
       }
     });
-  }
-
-  showToast(message: string) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.innerText = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => {
-      toast.classList.add('show');
-    }, 10);
-
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => {
-        document.body.removeChild(toast);
-      }, 300);
-    }, 3000);
   }
 }

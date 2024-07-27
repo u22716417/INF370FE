@@ -16,6 +16,9 @@ import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { UserAuthGuard } from './AuthGuard/Authentication/UserAuthGuard';
 import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
+import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
+import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
+
 
 export const Approutes: Routes = [
   {
@@ -47,6 +50,10 @@ export const Approutes: Routes = [
     ]
   },
   {
+    path:'test',
+    component: HireEquipmentComponent
+  },
+  {
     path: 'access-denied',
     component: AccessDeniedComponent
   },
@@ -55,7 +62,16 @@ export const Approutes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'signUp',
+    component: SignupComponent
+  },
+  {
     path: 'forgotpassword',
     component: ForgotPasswordComponent
   },
+  {
+    path: 'check-in',
+    component: CheckInComponent
+
+  }
 ];

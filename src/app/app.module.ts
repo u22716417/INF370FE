@@ -34,10 +34,16 @@ import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/update-password.component';
-import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
+import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
+import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
+import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
+import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
+import { ViewEventComponent } from './clientSubsystem/view-event/view-event.component';
 
 
 
@@ -54,6 +60,7 @@ import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-c
     EquipmentCreateUpdateComponent,
     AccessDeniedComponent,
     SponsorListComponent,
+    SponsorListComponent,
     CheckOutComponent,
     HireItemsReturnComponent,
     QuotationListComponent,
@@ -62,7 +69,13 @@ import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-c
     ForgotPasswordComponent,
     LoginComponent,
     SettingsComponent,
-    ServiceCreateUpdateComponent
+    ServiceCreateUpdateComponent,
+    HireServiceComponent,
+    HireItemsReceivedComponent,
+    SignupComponent,
+    HireEquipmentComponent,
+    ViewAllEventsComponent,
+    ViewEventComponent
   ],
   imports: [
     CommonModule,

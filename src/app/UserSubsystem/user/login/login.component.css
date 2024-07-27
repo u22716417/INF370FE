@@ -1,3 +1,17 @@
+.background-image {
+  /* The image used */
+  background-image: url('https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png');
+
+  /* Full height */
+  height: 100%; 
+
+   /* Center the image */
+   background-position: center;
+   background-size: contain; /* Maintain original size of the image */
+   background-repeat: no-repeat;
+   
+}
+
 .divider:after,
 .divider:before {
 content: "";
@@ -45,20 +59,29 @@ height: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   }
 
-  .toast {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #ffdddd;
-    color: #a94442;
-    padding: 10px 20px;
-    border: 1px solid #a94442;
-    border-radius: 5px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .toast.show {
-    opacity: 1;
-  }
-  
+ /* styles.css or your component CSS */
+/* styles.css */
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 17px;
+  padding: 16px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.23);
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
