@@ -46,6 +46,28 @@
   display: flex;
   justify-content: flex-end;
 }
+/* cart.component.css */
+.card {
+  width: 300px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  margin-bottom: 15px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-divider {
+  margin: 10px 0;
+}
 
 </style>
 
@@ -53,24 +75,13 @@
 <!-- toggle and nav items -->
 <!-- ============================================================== -->
 <ul class="navbar-nav float-start me-auto">
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/dashboard"> Starter </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/about"> About </a>
-  </li>
+  
   <!-- ============================================================== -->
   <!-- create new -->
   <!-- ============================================================== -->
   <li class="nav-item d-none d-md-block" ngbDropdown placement="bottom-end">
-    <a href="javascript:void(0)" class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
-      Create New
-    </a>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Action - 1</button>
-      <button ngbDropdownItem>Another Action</button>
-      <button ngbDropdownItem>Something else is here</button>
-    </div>
+    
+  
   </li>
 </ul>
 <!-- ============================================================== -->
@@ -78,8 +89,46 @@
 <!-- ============================================================== -->
 <ul class="navbar-nav float-end">
   <!-- ============================================================== -->
-  <!-- User profile and search -->
+  <!-- User profile and cart -->
   <!-- ============================================================== -->
+  <li class="nav-item" ngbDropdown placement="bottom-end">
+    <a
+      ngbDropdownToggle
+      class="nav-link waves-effect waves-dark pro-pic"
+      href="javascript:void(0)"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <img
+        src="https://www.freeiconspng.com/thumbs/cart-icon/cart-icon-16.png"
+        alt="cart"
+        width="31"
+      />
+      <span class="ms-2">{{ getItemCount() }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" #cart ngbDropdownMenu>
+      <div class="card" *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="card-body">
+          <h5 class="card-title">Shopping Cart</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" *ngFor="let item of cartItems">
+              {{ item.name }} <p style="padding-left: 10%;"></p>      R{{ item.price }}
+            </li>
+          </ul>
+          <div class="dropdown-divider"></div>
+          <p class="card-text">
+            <strong>Total: R{{ getTotal() }}</strong>
+          </p>
+        </div>
+      </div>
+      <ng-template #emptyCart>
+        <a class="dropdown-item">Your cart is empty</a>
+      </ng-template>
+      <a style="margin-left: 5%;" class="btn btn-success">Check Out</a>
+    </div>
+  </li>
+  
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
       ngbDropdownToggle

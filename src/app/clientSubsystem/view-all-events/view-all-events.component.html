@@ -1,1 +1,38 @@
-<p>view-all-events works!</p>
+<div class="container">
+
+    <h1 style="text-align: center;">Upcoming Events</h1>
+
+    <div class="row">
+      <div class="col-md-4" *ngFor="let event of events">
+        <div class="card">
+          <img class="card-img-top img-responsive" [src]="satinizaeImage(event.image)" alt="Card image cap" />
+          <div class="card-body">
+            <h4 class="card-title">{{ event.title }}</h4>
+            <p class="card-text">{{ event.description }}</p>
+            <a [href]="event.link" class="btn btn-primary">Add To Cart</a> |
+            <a (click)="openModal()" class="btn btn-success">View Event</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+  
+<div class="modal-overlay" *ngIf="isModalVisible" (click)="closeModal()"></div>
+<div class="modal-content" *ngIf="isModalVisible">
+  <div class="modal-header">
+    <h2>View Event</h2>
+    <button (click)="closeModal()" class="close-button">&times;</button>
+  </div>
+  <div class="modal-body">
+     <div style="float: left;">
+     
+    </div>
+ 
+  </div>
+  <div class="modal-footer">
+    <button (click)="closeModal()" class="btn btn-primary">Close</button> |
+    <button (click)="closeModal()"  class="btn btn-success">Add To Cart</button>
+  </div>
+</div>
+

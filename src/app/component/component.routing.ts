@@ -34,7 +34,7 @@ export const ComponentsRoutes: Routes = [
 				component: EventListComponent
 			},
 			{
-				path: 'eventShop',
+				path: 'event-list-shop',
 				component: ViewAllEventsComponent
 			},
 			{
