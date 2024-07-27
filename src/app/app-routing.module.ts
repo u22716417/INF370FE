@@ -19,6 +19,7 @@ import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/fo
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
 import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
+import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 
 export const Approutes: Routes = [
   {
@@ -71,5 +72,13 @@ export const Approutes: Routes = [
   {
     path: 'forgotpassword',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'client-profile',
+    component: ClientProfileComponent
+  },
+  {
+    path: 'view-client-profile/:id',
+    component: ViewClientProfileComponent
   },
 ];

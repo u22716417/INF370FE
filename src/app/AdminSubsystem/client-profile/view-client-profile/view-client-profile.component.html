@@ -1,0 +1,45 @@
+<div class="container mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header text-center bg-primary text-white">
+        <h2>Client Details</h2>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>Phone</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ existingClient.clientName }}</td>
+              <td>{{ existingClient.clientSurname }}</td>
+              <td>{{ existingClient.clientPhone }}</td>
+              <td>{{ existingClient.clientEmail }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="text-center">
+        <button (click)="close()" class="btn btn-outline-secondary">Close</button>
+      </div>
+  </div>
+  
+  <style>
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .table {
+      margin-bottom: 1rem;
+    }
+    .card-header h2 {
+      margin-bottom: 0;
+    }
+  </style>
+  
