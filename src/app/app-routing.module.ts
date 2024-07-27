@@ -69,4 +69,9 @@ export const Approutes: Routes = [
     path: 'forgotpassword',
     component: ForgotPasswordComponent
   },
+  {
+    path: 'check-in',
+    component: CheckInComponent
+
+  }
 ];

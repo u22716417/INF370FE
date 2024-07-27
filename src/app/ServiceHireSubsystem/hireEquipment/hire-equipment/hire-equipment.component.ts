@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HireItemService } from '../../service/hire-item.service';
-import { EquipmentQuotationViewModel, HireItem } from '../../HireItem';
+import { HireEquipmentViewModel } from '../../HireItem';
+
 
 @Component({
   selector: 'app-hire-equipment',
@@ -14,16 +15,23 @@ export class HireEquipmentComponent implements OnInit {
   showNotification: boolean = false;
   notificationMessage: string = '';
 
-  constructor(private fb: FormBuilder, private hireItemService: HireItemService) {}
+  
+
+  constructor(private fb: FormBuilder, private hireItemService: HireItemService) {
+
+  }
 
   ngOnInit(): void {
+    this.initializeForm();
+    this.fetchEquipmentOptions();
+  }
+
+  initializeForm(): void {
     this.hireEquipmentForm = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       equipment: ['', Validators.required]
     });
-
-    this.fetchEquipmentOptions();
   }
 
   fetchEquipmentOptions(): void {
@@ -39,55 +47,37 @@ export class HireEquipmentComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.hireEquipmentForm.invalid) {
-      return;
+    if (this.hireEquipmentForm.valid) {
+      const formValue = this.hireEquipmentForm.value;
+      const hireRequest: HireEquipmentViewModel = {
+        HireEquipmentId: 0, 
+        EquipmentId: formValue.equipment,
+        ClientId: parseInt(sessionStorage.getItem('CurrentUserId') || '0', 10),
+        HireStartDate: formValue.startDate,
+        HireEndDate: formValue.endDate,
+        Status: 'Pending',
+        AdminId: 2
+      };
+
+      this.hireItemService.createHireQuotation(hireRequest).subscribe(
+        () => {
+          console.log(this.hireItemService);
+          this.notificationMessage = 'Quotation request sent successfully!';
+          this.showNotification = true;
+          this.hireEquipmentForm.reset();
+        },
+        error => this.handleError('Failed to send quotation request.')
+      );
     }
-
-    const hireModel: HireItem = {
-      hireItemsId: this.hireEquipmentForm.value.hireEquipmentId,
-      startDate: this.hireEquipmentForm.value.hireStartDate,
-      endDate: this.hireEquipmentForm.value.hireEndDate,
-      status: this.hireEquipmentForm.value.status,
-      clientId: this.hireEquipmentForm.value.clientId,
-      equipmentId: this.hireEquipmentForm.value.equipmentId,
-      quotationDate: this.hireEquipmentForm.value.quotationDate
-    };
-
-    const quotationModel: EquipmentQuotationViewModel = {
-      clientId: this.hireEquipmentForm.value.clientId,
-      equipmentId: this.hireEquipmentForm.value.equipmentId,
-      quotationDate: this.hireEquipmentForm.value.quotationDate,
-      amountPayable: this.hireEquipmentForm.value.amountPayable,
-      adminId: this.hireEquipmentForm.value.adminId
-    };
-
-    this.hireItemService.createHireItem(hireModel).subscribe(
-      (hireResponse) => {
-        console.log('Hire Item created:', hireResponse);
-
-        this.hireItemService.createQuotation(quotationModel).subscribe(
-          (quotationResponse) => {
-            console.log('Quotation requested:', quotationResponse);
-            this.showPopupNotification('Quotation request sent successfully');
-          },
-          (error) => {
-            console.error('Error requesting quotation:', error);
-            this.showPopupNotification('Failed to request quotation');
-          }
-        );
-      },
-      (error) => {
-        console.error('Error creating hire item:', error);
-        this.showPopupNotification('Failed to create hire item');
-      }
-    );
   }
 
   onCancel(): void {
     this.hireEquipmentForm.reset();
   }
 
-  onClose(): void {}
+  onClose(): void {
+    this.showNotification = false;
+  }
 
   showPopupNotification(message: string): void {
     this.notificationMessage = message;
@@ -95,5 +85,10 @@ export class HireEquipmentComponent implements OnInit {
     setTimeout(() => {
       this.showNotification = false;
     }, 3000);
+  }
+
+  private handleError(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
   }
 }
