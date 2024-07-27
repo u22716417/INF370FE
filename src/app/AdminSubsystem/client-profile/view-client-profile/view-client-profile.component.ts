@@ -33,7 +33,7 @@ ngOnInit(): void {
     this.clientProfileService.getClientProfile(clientId).subscribe((data: ClientProfile) => {
       this.existingClient = data;
     }, error => {
-      console.error('Error fetching client profile:', error);
+      console.error('Cannot load client profile:', error);
     });
     console.log(clientId);
   }
