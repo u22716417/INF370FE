@@ -44,31 +44,30 @@ export class CheckInComponent {
       const barcode = this.checkInForm.value.barcode;
 
       if (this.usedBarcodes.has(barcode)) {
-        this.showPopupNotification('This barcode has already been used');
+        this.showPopupNotification('This barcode has already been checked in.');
         return;
       }
 
-      this.isLoading = true; // Show loading indicator
+
       const checkInViewModel = this.checkInForm.value;     
       this.checkInService.checkIn(checkInViewModel).subscribe(
         (attendee) => {
-          this.isLoading = false; // Hide loading indicator
+          
           this.attendee = attendee;
           this.errorMessage = null;
 
           if (attendee) { // Assuming `attendee` is returned on success
             this.usedBarcodes.add(barcode);
-            this.router.navigate(['/verification']);
-            this.showPopupNotification('Check-in successful');
+            this.showPopupNotification('Check-in successful.');
+            // this.router.navigate(['/verification']);
           } else {
-            this.showPopupNotification('Check-in failed');
+            this.showPopupNotification('Check-in failed.');
           }
         },
         (error) => {
-          this.isLoading = false; // Hide loading indicator
-          this.errorMessage = error.message || 'An error occurred';
+          //this.errorMessage = error.message || 'An error occurred';
+          this.showPopupNotification('An error occured');
           this.attendee = null;
-          
         }
       );
     } else {

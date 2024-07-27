@@ -19,3 +19,6 @@ export class VerificationComponent {
     
   }
 }
+
+
+//verification popup must disappear after 5 seconds
