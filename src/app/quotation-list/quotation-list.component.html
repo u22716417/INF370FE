@@ -6,31 +6,39 @@
         <h1 style="color: #FF5F00;">Quotations</h1>
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
-       <!-- Button trigger modal -->
-        <a class="btn btn-primary" routerLink="/component/create-quotation" routerLinkActive="active" >
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary" routerLink="/component/create-quotation" routerLinkActive="active">
           Capture
         </a>
       </div>
-    
     </div>
   </div>
   <br/>
   <br/>
-
   <div class="container">
-  <table class="table align-middle mb-0 bg-white">
-    <thead class="bg-light">
-      <tr>
-        <th>Client Name</th>
-        <th>Service</th>
-        <th>Amount Payable</th>
-        <th>Quotation Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-  
-  </table>
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Client Name</th>
+          <th>Service</th>
+          <th>Amount Payable</th>
+          <th>Quotation Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let quotation of quotations">
+          <td>{{ quotation.clientName }}</td>
+          <td>{{ quotation.serviceName }}</td>
+          <td>{{ quotation.amountPayable }}</td>
+          <td>{{ quotation.quotationDate | date }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="sendEmail(quotation.quotationId)">
+              Send Email
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
-
-  

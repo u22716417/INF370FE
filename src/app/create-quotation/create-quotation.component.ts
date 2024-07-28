@@ -17,34 +17,33 @@ export class CreateQuotationComponent {
       serviceName: ['', Validators.required],
       equipmentName: ['', Validators.required],
       amountPayable: [null, [Validators.required, Validators.min(0)]],
-      quotationDate: [null, Validators.required],
-      quotationFile: [null, Validators.required]
+      quotationDate: [null, Validators.required]
     });
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    this.form.patchValue({ quotationFile: file });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      const formData = new FormData();
-      formData.append('ClientName', this.form.get('clientName')?.value);
-      formData.append('ServiceName', this.form.get('serviceName')?.value);
-      formData.append('EquipmentName', this.form.get('equipmentName')?.value);
-      formData.append('AmountPayable', this.form.get('amountPayable')?.value);
-      formData.append('QuotationDate', this.form.get('quotationDate')?.value);
-      formData.append('QuotationFile', this.form.get('quotationFile')?.value);
+      const quotationData = {
+        ClientName: this.form.get('clientName')?.value,
+        ServiceName: this.form.get('serviceName')?.value,
+        EquipmentName: this.form.get('equipmentName')?.value,
+        AmountPayable: this.form.get('amountPayable')?.value,
+        QuotationDate: this.form.get('quotationDate')?.value
+      };
 
-      this.http.post<any>(this.apiUrl, formData).subscribe(response => {
-        console.log('Quotation created successfully', response);
-        // Optionally, redirect to another page or show a success message
+      this.http.post<any>(this.apiUrl, quotationData).subscribe(response => {
+        alert('Quotation created successfully');
+        this.closeScreen();
       }, error => {
-        console.error('Error creating quotation', error);
-        // Handle the error
+        alert('Error creating quotation');
       });
     }
   }
+
+  closeScreen() {
+    // Close the current window
+    window.close();
+  }
 }
+
 

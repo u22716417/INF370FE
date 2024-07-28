@@ -16,10 +16,8 @@
   <label for="quotationDate">Quotation Date:</label>
   <input id="quotationDate" formControlName="quotationDate" type="date">
 
-  <label for="quotationFile">Quotation File:</label>
-  <input id="quotationFile" type="file" (change)="onFileChange($event)">
-
   <button type="submit" [disabled]="form.invalid">Create Quotation</button>
 </form>
+
 
 

@@ -9,24 +9,36 @@ import { QuotationService } from '../quotation.service';
 export class QuotationListComponent implements OnInit {
   quotations: any[] = [];
   filteredQuotations: any[] = [];
-  searchTerm: string = '';
 
-  constructor(private quotationService: QuotationService) { }
+  constructor(private quotationService: QuotationService) {}
 
   ngOnInit(): void {
-    this.quotationService.getQuotations().subscribe(data => {
-      this.quotations = data;
-      this.filteredQuotations = data; 
+    this.getAllQuotations();
+  }
+
+  getAllQuotations(): void {
+    this.quotationService.getQuotations().subscribe({
+      next: (result) => {
+        this.quotations = result;
+        this.filteredQuotations = [...this.quotations];
+        console.log('Fetched quotations:', this.quotations);
+      },
+      error: (err) => {
+        console.error('Error fetching quotations', err);
+      }
     });
   }
 
-  filterQuotations(): void {
-    this.filteredQuotations = this.quotations.filter(quotation =>
-      quotation.serviceName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      quotation.serviceDescription.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+  sendEmail(id: number): void {
+    this.quotationService.sendEmail(id).subscribe({
+      next: () => {
+        console.log(`Email sent for quotation ${id}`);
+        alert(`Email sent for quotation ${id}`);
+      },
+      error: (err) => {
+        console.error('Error sending email', err);
+      }
+    });
   }
-
 }
-
 

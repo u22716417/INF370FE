@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuotationService {
-  private baseUrl = 'https://localhost:7149/api/Quotation/list'; 
+  private baseUrl = 'https://localhost:7149/api/Quotation'; // base URL
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +16,9 @@ export class QuotationService {
 
   createQuotation(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}`, formData);
+  }
+
+  sendEmail(id: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/${id}/send-email`, {});
   }
 }
