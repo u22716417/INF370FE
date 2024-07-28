@@ -15,6 +15,12 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
+import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
+import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
+import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
+import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
+import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -85,6 +91,14 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'codes-list',
 				component: CodesListComponent
+			},
+			{
+				path: 'coupon-code-view',
+				component: CouponCodeViewComponent
+			},
+			{
+				path: 'generate-code',
+				component: GenerateCodeComponent
 			},
 			{
 				path: 'reports',

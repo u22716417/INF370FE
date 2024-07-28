@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientProfileService } from './service/client-profile.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ClientProfile } from './client-profile';
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-client-profile',
   templateUrl: './client-profile.component.html',
