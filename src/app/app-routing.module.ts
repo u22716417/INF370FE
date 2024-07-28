@@ -20,6 +20,7 @@ import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
+import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 
 export const Approutes: Routes = [
   {
@@ -60,6 +61,10 @@ export const Approutes: Routes = [
   {
     path: 'access-denied',
     component: AccessDeniedComponent
+  },
+  {
+    path: 'signUp',
+    component: SignupComponent
   },
   {
     path: 'login',
