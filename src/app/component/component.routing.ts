@@ -34,6 +34,8 @@ import { ViewServiceComponent } from '../clientSubsystem/view-service/view-servi
 import { PayFastComponent } from '../clientSubsystem/payfast/payfast.component';
 import { FaqCreateUpdateComponent } from '../AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
 import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-received.component';
+import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
+import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -223,7 +225,18 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'events',
 				component: EventListComponent
+			},
+			{
+				path: 'hire-equipment',
+				component: HireEquipmentComponent
+			},
+			{
+				path: 'hire-items-return',
+				component: HireItemsReturnComponent
 			}
+
+
+
 		]
 	}
 ];

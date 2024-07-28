@@ -50,6 +50,7 @@ import { ReportComponent } from './Reporting/report/report.component';
 import { UnSoldTicketReportComponent } from './Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
 import { ViewServiceComponent } from './clientSubsystem/view-service/view-service.component';
 import { EventListComponent } from './AdminSubsystem/event/event-list/event-list.component';
+import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
 
 
 
@@ -89,7 +90,8 @@ import { EventListComponent } from './AdminSubsystem/event/event-list/event-list
     UnSoldTicketReportComponent,
     HireItemsReceivedComponent,
     ViewServiceComponent,
-    EventListComponent
+    EventListComponent,
+    HireItemsReturnComponent
   ],
   imports: [
     CommonModule,
