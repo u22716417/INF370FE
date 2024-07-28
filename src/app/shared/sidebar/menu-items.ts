@@ -99,7 +99,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/check-out',
+    path: 'component/checkout',
     title: 'Check Out ',
     icon: 'bi bi-box-arrow-right',
     class: '',

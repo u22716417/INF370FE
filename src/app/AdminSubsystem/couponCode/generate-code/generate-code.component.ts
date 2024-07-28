@@ -4,7 +4,7 @@ import { CodeServiceService } from '../service/code-service.service';
 @Component({
   selector: 'app-generate-code',
   templateUrl: './generate-code.component.html',
-  styleUrl: './generate-code.component.css'
+  styleUrls: ['./generate-code.component.css']
 })
 export class GenerateCodeComponent {
 

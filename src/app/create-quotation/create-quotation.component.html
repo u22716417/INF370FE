@@ -1,20 +1,25 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h1 style="color: #FF5F00;">Capture Quotation</h1>
-    <label for="clientId">Client :</label>
-    <input id="clientId" formControlName="clientId" type="number">
-  
-    <label for="serviceId">Service :</label>
-    <input id="serviceId" formControlName="serviceId" type="number">
-  
-    <label for="amountPayable">Amount Payable:</label>
-    <input id="amountPayable" formControlName="amountPayable" type="number" step="0.01">
-  
-    <label for="quotationDate">Quotation Date:</label>
-    <input id="quotationDate" formControlName="quotationDate" type="date">
-  
-    <label for="quotationFile">Quotation File:</label>
-    <input id="quotationFile" (change)="onFileChange($event)" type="file">
-  
-    <button type="submit" [disabled]="form.invalid">Create Quotation</button>
-  </form>
-  
+
+  <label for="clientName">Client Name:</label>
+  <input id="clientName" formControlName="clientName" type="text">
+
+  <label for="serviceName">Service Name:</label>
+  <input id="serviceName" formControlName="serviceName" type="text">
+
+  <label for="equipmentName">Equipment Name:</label>
+  <input id="equipmentName" formControlName="equipmentName" type="text">
+
+  <label for="amountPayable">Amount Payable:</label>
+  <input id="amountPayable" formControlName="amountPayable" type="number" step="0.01">
+
+  <label for="quotationDate">Quotation Date:</label>
+  <input id="quotationDate" formControlName="quotationDate" type="date">
+
+  <label for="quotationFile">Quotation File:</label>
+  <input id="quotationFile" type="file" (change)="onFileChange($event)">
+
+  <button type="submit" [disabled]="form.invalid">Create Quotation</button>
+</form>
+
+

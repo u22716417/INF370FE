@@ -15,7 +15,6 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
-//import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
 import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { CheckOutComponent } from '../check-out/check-out.component';
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
@@ -25,6 +24,7 @@ import { ServiceCreateUpdateComponent } from '../AdminSubsystem/service/service-
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
 import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
+
 
 
 export const ComponentsRoutes: Routes = [

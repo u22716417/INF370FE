@@ -13,9 +13,10 @@ export class HireItemsReturnComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.hireItemsReturnForm = this.fb.group({
-      hireItemsReturnedName: ['', Validators.required],  // Assuming there's a name field
-      dateReturned: [new Date().toISOString().split('T')[0], Validators.required], 
-      condition: ['', Validators.required]
+      hireItemsReturnedName: ['', Validators.required],
+      dateReturned: [new Date().toISOString().split('T')[0], Validators.required],
+      condition: ['', Validators.required],
+      clientName: ['', Validators.required]
     });
   }
 
@@ -26,7 +27,7 @@ export class HireItemsReturnComponent {
         alert(response.message);
         this.hireItemsReturnForm.reset();
       }, error => {
-        alert('An error occurred. Please try again later.');
+        alert('Client is not found');
       });
     }
   }
@@ -41,3 +42,4 @@ export class HireItemsReturnComponent {
       );
   }
 }
+

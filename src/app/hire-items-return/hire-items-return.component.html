@@ -28,6 +28,16 @@
   </div>
 
   <div>
+    <label for="clientName">Client Name:</label>
+    <input id="clientName" formControlName="clientName" type="text" />
+    
+    <div *ngIf="hireItemsReturnForm.get('clientName')?.invalid && hireItemsReturnForm.get('clientName')?.touched">
+      Client Name is required.
+    </div>
+  </div>
+
+  <div>
     <button type="submit" [disabled]="hireItemsReturnForm.invalid">Submit</button>
   </div>
 </form>
+
