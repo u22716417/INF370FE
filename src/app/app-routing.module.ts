@@ -19,6 +19,7 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
 import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 
 export const Approutes: Routes = [
   {
@@ -63,6 +64,10 @@ export const Approutes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordComponent
   },
 
   {path:'equipment-list',

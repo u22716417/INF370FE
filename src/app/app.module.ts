@@ -39,6 +39,7 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
+import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 
 
 
@@ -64,7 +65,8 @@ import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.compone
     ViewClientProfileComponent,
     LoginComponent,
     GenerateCodeComponent,
-    FaqListComponent
+    FaqListComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
