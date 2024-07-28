@@ -220,6 +220,10 @@ export const ComponentsRoutes: Routes = [
 				path: 'hire-items-received',
 				component: HireItemsReceivedComponent
 			},
+			{
+				path: 'events',
+				component: EventListComponent
+			}
 		]
 	}
 ];
