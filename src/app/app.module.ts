@@ -39,10 +39,15 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
-<<<<<<< Updated upstream
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component';
+import { PayFastComponent } from './clientSubsystem/payfast/payfast.component';
+import { FaqCreateUpdateComponent } from './AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
+import { OrderHistoryComponent } from './clientSubsystem/order-history/order-history.component';
+import { TicketSalesReportComponent } from './Reporting/ticket-sales-report/ticket-sales-report.component';
+import { ReportComponent } from './Reporting/report/report.component';
+import { UnSoldTicketReportComponent } from './Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
 
 
 
@@ -69,10 +74,18 @@ import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component
     LoginComponent,
     GenerateCodeComponent,
     FaqListComponent,
-<<<<<<< Updated upstream
     ForgotPasswordComponent,
     ViewAllEventsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PayFastComponent,
+    FaqCreateUpdateComponent,
+    FaqListComponent,
+    HireServiceComponent,
+    OrderHistoryComponent,
+    TicketSalesReportComponent,
+    ReportComponent,
+    UnSoldTicketReportComponent,
+    HireItemsReceivedComponent
   ],
   imports: [
     CommonModule,
