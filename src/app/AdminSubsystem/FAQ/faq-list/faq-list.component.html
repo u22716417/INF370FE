@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
        <!-- Button trigger modal -->
-        <a class="btn btn-primary" routerLink="/faq-create-update/0" routerLinkActive="active" >
+        <a class="btn btn-primary" routerLink= "/component/faq-create-update/" routerLinkActive="active" >
           Add New
         </a>
       </div>
@@ -37,8 +37,8 @@
         <td>{{ faq.Question}}</td>
         <td>{{ faq.Answer }}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/faq-create-update', faq.faqId]" >Edit</a>
-          <button (click)="deleteById(faq.faqId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
+          <a class="btn btn-primary" [routerLink]="['/component/faq-create-update', faq.faqId]" >Edit</a>
+          <button class="btn btn-primary" (click)="deleteById(faq.faqId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
         </td>
       </tr>
     </tbody>

@@ -39,9 +39,17 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
+<<<<<<< Updated upstream
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component';
+=======
+import { FaqCreateUpdateComponent } from './AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
+import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
+import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
+import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
+>>>>>>> Stashed changes
 
 
 
@@ -68,9 +76,17 @@ import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component
     LoginComponent,
     GenerateCodeComponent,
     FaqListComponent,
+<<<<<<< Updated upstream
     ForgotPasswordComponent,
     ViewAllEventsComponent,
     CheckoutComponent
+=======
+    FaqCreateUpdateComponent,
+    HireItemsReceivedComponent,
+    HireItemsReturnComponent,
+    HireServiceComponent,
+    HireEquipmentComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     CommonModule,

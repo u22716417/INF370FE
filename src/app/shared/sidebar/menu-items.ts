@@ -154,6 +154,14 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+  {
+    path: 'component/hire-items-received',
+    title: 'Hire Items Received',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
   }
   
   
