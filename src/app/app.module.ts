@@ -35,8 +35,10 @@ import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-se
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
-import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
+import { LoginComponent } from './UserSubsystem/user/login/login.component';
+import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
+import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
 
 
 
@@ -59,7 +61,10 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
     SignupComponent,
     HireEquipmentComponent,
     ClientProfileComponent,
-    ViewClientProfileComponent
+    ViewClientProfileComponent,
+    LoginComponent,
+    GenerateCodeComponent,
+    FaqListComponent
   ],
   imports: [
     CommonModule,
