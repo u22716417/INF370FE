@@ -7,7 +7,7 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-service-create-update',
   templateUrl: './service-create-update.component.html',
-  styleUrl: './service-create-update.component.css'
+  styleUrls: ['./service-create-update.component.css']
 })
 export class ServiceCreateUpdateComponent {
 
@@ -34,7 +34,7 @@ export class ServiceCreateUpdateComponent {
       if(id > 0) 
       {
 
-        this.heading = 'Edit Venue';
+        this.heading = 'Edit Service';
         this.serviceService.getServiceById(id)
         .subscribe(response => this.services = response)
       }

@@ -23,11 +23,11 @@ export class CreateUpdateComponent implements OnInit{
   
 
 
-  constructor(private router: Router, private venueService:VenueService, private route: ActivatedRoute){}
+  constructor(public router: Router, private venueService:VenueService, private route: ActivatedRoute){}
 
   cancel() {
-    this.router.navigate(['/venues']);
-
+    console.log('Cancel button clicked');
+    this.router.navigate(['/component/venues']);
   }
 
   ngOnInit(): void {

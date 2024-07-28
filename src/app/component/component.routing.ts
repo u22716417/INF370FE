@@ -15,16 +15,14 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
-import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
-import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
-import { CheckOutComponent } from '../check-out/check-out.component';
-import { QuotationListComponent } from '../quotation-list/quotation-list.component';
-import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
-import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
-import { ClientProfile } from '../AdminSubsystem/client-profile/client-profile';
-import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
 import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
 import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
+import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
+import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
+import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
+import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
+import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -97,6 +95,14 @@ export const ComponentsRoutes: Routes = [
 				component: CodesListComponent
 			},
 			{
+				path: 'coupon-code-view',
+				component: CouponCodeViewComponent
+			},
+			{
+				path: 'generate-code',
+				component: GenerateCodeComponent
+			},
+			{
 				path: 'reports',
 				component: LoginComponent
 			},
@@ -121,27 +127,13 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-				path: 'hire-equipment',
-				component: HireEquipmentComponent
+				path: 'faq-list',
+				component: FaqListComponent
 			},
 			{
-				path:'checkout',
-				component:CheckOutComponent
-			},
-			{
-				path:'quotationlist',
-			 	component:QuotationListComponent
-			},
-			{
-              	path:'createquotation',
-			  	component:CreateQuotationComponent
-			},
-			{
-				path:'returnitems',
-				component:HireItemsReturnComponent
+				path: 'hire-service',
+				component: HireServiceComponent
 			}
-		
-
 		]
 	}
 ];

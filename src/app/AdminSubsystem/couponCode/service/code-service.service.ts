@@ -1,27 +1,48 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CouponCode } from '../couponCode';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeServiceService {
-  private apiUrl = 'http://localhost:5196/api/CouponCodes';
+  private apiUrl = 'https://localhost:7149/api/CouponCodes';
+  private emailUrl = 'https://localhost:7149/api/CouponCodes/SendCouponCodeEmail';
+  private sponsorsUrl = 'https://localhost:7149/api/Sponsors'; 
 
   constructor(private http: HttpClient) { }
 
+  generateCouponCode(couponCodeData: { description: string, discountAmount: number, sponsorId: number }): Observable<CouponCode> {
+    return this.http.post<CouponCode>(`${this.apiUrl}/GenerateCode`, null, {
+      params: new HttpParams()
+        .set('description', couponCodeData.description)
+        .set('discountAmount', couponCodeData.discountAmount.toString())
+        .set('sponsorId', couponCodeData.sponsorId.toString())
+    });
+  }
 
-  generateCouponCode(description: string, discountAmount: number): Observable<any> {
-    const payload: any = { description, discountAmount };
-    return this.http.post<CouponCode>(this.apiUrl + '/GenerateCode', payload);
-    }
-getAllCodes(): Observable<CouponCode[]> {
-  return this.http.get<CouponCode[]>(this.apiUrl)
-}
+  getAllCodes(): Observable<CouponCode[]> {
+    return this.http.get<CouponCode[]>(this.apiUrl);
+  }
 
-deleteCodeById(id: number): Observable<CouponCode> {
-  return this.http.delete<CouponCode>(`${this.apiUrl}/${id}`)
-  .pipe(map(result => result));
-}
+  getCodeById(id: number): Observable<CouponCode | undefined> {
+    return this.http.get<CouponCode>(`${this.apiUrl}/${id}`);
+  }
+
+  deleteCodeById(id: number): Observable<CouponCode> {
+    return this.http.delete<CouponCode>(`${this.apiUrl}/${id}`);
+  }
+
+  sendCouponCodeEmail(sponsorId: number, couponCodeId: number): Observable<any> {
+    const payload = {
+      SponsorId: sponsorId,
+      CouponCodeId: couponCodeId
+    };
+    return this.http.post(`${this.emailUrl}`, payload);
+  }
+
+  getSponsors(): Observable<any[]> {
+    return this.http.get<any[]>(this.sponsorsUrl);
+  }
 }

@@ -16,12 +16,12 @@ export class SponsorCreateUpdateComponent {
   isSubmitted: boolean = false;
   heading: string = '';
 
-  constructor(private router: Router, private sponsorService: SponsorServiceService, private route: ActivatedRoute) { }
+  constructor(public router: Router, private sponsorService: SponsorServiceService, private route: ActivatedRoute) { }
 
   cancel() {
-    this.router.navigate(['/sponsors']);
+    console.log('Cancel button clicked');
+    this.router.navigate(['/component/sponsor-list']);
   }
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = parseInt(params['Id']);

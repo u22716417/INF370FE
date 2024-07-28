@@ -1,7 +1,7 @@
 <div>
   <h2>Sponsors</h2>
 
-  <a class="btn btn-primary" routerLink="/managesponsors/0" routerLinkActive="active" >
+  <a class="btn btn-primary" routerLink="/sponsor-create-update/0" routerLinkActive="active" >
     Add New
   </a>
 
@@ -24,7 +24,7 @@
         <td>{{ sponsor.sponsorEmail }}</td>
         <td>{{ sponsor.sponsorPhone }}</td>
         <td>
-            <a class="btn btn-primary" [routerLink]="['/managesponsors', sponsor.sponsorId]" >Edit</a> |
+            <a class="btn btn-primary" routerLink="/sponsor-create-update/1" routerLinkActive="active">Edit</a> |
             <button class="btn btn-primary" (click)="deleteSponsor(sponsor.sponsorId)">Delete</button>
         </td>
       </tr>

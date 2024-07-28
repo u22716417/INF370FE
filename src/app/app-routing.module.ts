@@ -11,15 +11,14 @@ import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-lis
 import { SponsorServiceService } from './AdminSubsystem/sponsor/service/sponsor-service.service';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard';
+import { UserAuthGuard } from './AuthGuard/Authentication/UserAuthGuard';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
-import { UserAuthGuard } from './AuthGuard/Authentication/UserAuthGuard';
-import { RoleBasedAuthGuard } from './AuthGuard/Authorization/RoleBasedAuthGuard';
-import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
-import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
-import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
 import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
-import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
+import { CodesListComponent } from './AdminSubsystem/couponCode/codes-list/codes-list.component';
+import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
+import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 
 export const Approutes: Routes = [
   {
@@ -65,20 +64,44 @@ export const Approutes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-  {
-    path: 'signUp',
-    component: SignupComponent
-  },
-  {
-    path: 'forgotpassword',
-    component: ForgotPasswordComponent
-  },
-  {
-    path: 'client-profile',
-    component: ClientProfileComponent
-  },
+
+  {path:'equipment-list',
+    component: EquipmentListComponent
+    },
+
+    {
+      path: 'equipment-create-update/:id',
+      component: EquipmentCreateUpdateComponent 
+    },
+    {
+      path: 'generate-code/:id',
+      component: GenerateCodeComponent
+    },
+    {
+      path: 'coupon-code-view/:id',
+      component: CouponCodeViewComponent
+    },
+
+    {path:'sponsor-list',
+      component: SponsorListComponent
+      },
+
   {
     path: 'view-client-profile/:id',
     component: ViewClientProfileComponent
   },
+  {
+    path: 'codes-list',
+    component: CodesListComponent
+  },
+  {
+    path: 'generate-code',
+    component: GenerateCodeComponent
+  },
+  {
+    path: 'coupon-code-view',
+    component: CouponCodeViewComponent
+  },
+
+
 ];

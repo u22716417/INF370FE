@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Faq } from '../faq';
 import { FaqService } from '../service/faq-service.service';
-
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-faq-list',
   templateUrl: './faq-list.component.html',
@@ -22,8 +23,8 @@ export class FaqListComponent implements OnInit{
 
   getAllFaqs() {
     this.faqService.getAllFaqs().subscribe(result =>{
-      let venueList:any[] = result
-      venueList.forEach((element) => {
+      let faqList:any[] = result
+      faqList.forEach((element) => {
         this.filterFaq.push(element);
         this.faqs.unshift(element)
       });

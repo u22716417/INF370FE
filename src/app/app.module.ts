@@ -27,15 +27,9 @@ import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component'
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
 import { EquipmentCreateUpdateComponent } from './AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
+import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
-import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
-import { CheckOutComponent } from './check-out/check-out.component';
-import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
-import { QuotationListComponent } from './quotation-list/quotation-list.component';
-import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
-import { UpdatePasswordComponent } from './UserSubsystem/user/update-password/update-password.component';
-import { LoginComponent } from './UserSubsystem/user/login/login.component';
-import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
@@ -43,7 +37,6 @@ import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
-import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 
 
 
@@ -58,24 +51,15 @@ import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-a
     EquipmentListComponent,
     CheckInComponent,
     EquipmentCreateUpdateComponent,
+    ClientProfileComponent,
     AccessDeniedComponent,
-    SponsorListComponent,
-    SponsorListComponent,
-    CheckOutComponent,
-    HireItemsReturnComponent,
-    QuotationListComponent,
-    CreateQuotationComponent,
-    UpdatePasswordComponent,
-    ForgotPasswordComponent,
-    LoginComponent,
     SettingsComponent,
     HireServiceComponent,
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
     ClientProfileComponent,
-    ViewClientProfileComponent,
-    ViewAllEventsComponent
+    ViewClientProfileComponent
   ],
   imports: [
     CommonModule,
@@ -89,6 +73,7 @@ import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-a
     FullComponent,
     NavigationComponent,
     SidebarComponent,
+    RouterModule
   ],
   providers: [
     {
