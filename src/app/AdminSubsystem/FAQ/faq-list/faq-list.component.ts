@@ -17,8 +17,8 @@ export class FaqListComponent implements OnInit{
   constructor(private faqService: FaqService){}
 
   ngOnInit(): void {
-    this.getAllFaqs()
-    console.log(this.faqs);
+    this.getAllFaqs();
+    // console.log(this.faqs);
   }
 
   getAllFaqs() {
@@ -35,7 +35,7 @@ export class FaqListComponent implements OnInit{
     const confirmDelete = window.confirm('Are you sure you want to delete?');
 
     if (confirmDelete){
-      this.faqService.deleteFaqById(parseInt(faqId+ ''))
+      this.faqService.deleteFaqById(parseInt(faqId + ''))
       .subscribe(response => {
         if (response != null)
           {

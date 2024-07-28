@@ -39,15 +39,10 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
+<<<<<<< Updated upstream
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component';
-import { PayFastComponent } from './clientSubsystem/payfast/payfast.component';
-import { OrderHistoryComponent } from './clientSubsystem/order-history/order-history.component';
-import { ViewServiceComponent } from './clientSubsystem/view-service/view-service.component';
-import { TicketSalesReportComponent } from './Reporting/ticket-sales-report/ticket-sales-report.component';
-import { UnSoldTicketReportComponent } from './Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
-import { ReportComponent } from './Reporting/report/report.component';
 
 
 
@@ -74,15 +69,10 @@ import { ReportComponent } from './Reporting/report/report.component';
     LoginComponent,
     GenerateCodeComponent,
     FaqListComponent,
+<<<<<<< Updated upstream
     ForgotPasswordComponent,
     ViewAllEventsComponent,
-    CheckoutComponent,
-    PayFastComponent,
-    OrderHistoryComponent,
-    ViewServiceComponent,
-    TicketSalesReportComponent,
-    UnSoldTicketReportComponent,
-    ReportComponent
+    CheckoutComponent
   ],
   imports: [
     CommonModule,

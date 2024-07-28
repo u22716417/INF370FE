@@ -23,15 +23,10 @@ import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-cod
 import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
 import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+<<<<<<< Updated upstream
 import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
-import { PayFastComponent } from '../clientSubsystem/payfast/payfast.component';
-import { OrderHistoryComponent } from '../clientSubsystem/order-history/order-history.component';
-import { ViewServiceComponent } from '../clientSubsystem/view-service/view-service.component';
-import { TicketSalesReportComponent } from '../Reporting/ticket-sales-report/ticket-sales-report.component';
-import { UnSoldTicketReportComponent } from '../Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
-import { ReportComponent } from '../Reporting/report/report.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -168,9 +163,14 @@ export const ComponentsRoutes: Routes = [
 				component: FaqListComponent
 			},
 			{
+				path: 'faq-create-update',
+				component: FaqCreateUpdateComponent
+			},
+			{
 				path: 'hire-service',
 				component: HireServiceComponent
 			},
+<<<<<<< Updated upstream
 			{path:'equipment-list',
 				component: EquipmentListComponent
 				},
@@ -209,6 +209,12 @@ export const ComponentsRoutes: Routes = [
 				component: CouponCodeViewComponent
 			  },
 			
+=======
+			{
+				path: 'hire-items-received',
+				component: HireItemsReceivedComponent
+			},
+>>>>>>> Stashed changes
 		]
 	}
 ];
