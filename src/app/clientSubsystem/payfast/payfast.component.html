@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <h2>PayFast Payment</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Order Summary</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of cartItems">
+            <div class="d-flex flex-column">
+              <span>{{ item.title }}</span>
+              <small>Price: R{{ item.price }} x {{ item.quantity }}</small>
+            </div>
+            <span>Total: R{{ item.price * item.quantity }}</span>
+          </li>
+        </ul>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <h5>Subtotal:</h5>
+          <h5>R{{ total }}</h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h5>VAT (15%):</h5>
+          <h5>R{{ vat }}</h5>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <h3>Grand Total:</h3>
+          <h3>R{{ grandTotal }}</h3>
+        </div>
+        <hr>
+        <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+            <div *ngIf="paymentForm.get('cardNumber')?.invalid && (paymentForm.get('cardNumber')?.dirty || paymentForm.get('cardNumber')?.touched)" class="text-danger">
+              <small *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card Number is required.</small>
+              <small *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Invalid Card Number.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expiryDate">Expiry Date</label>
+            <input type="text" id="expiryDate" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
+            <div *ngIf="paymentForm.get('expiryDate')?.invalid && (paymentForm.get('expiryDate')?.dirty || paymentForm.get('expiryDate')?.touched)" class="text-danger">
+              <small *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry Date is required.</small>
+              <small *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Invalid Expiry Date.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="123">
+            <div *ngIf="paymentForm.get('cvv')?.invalid && (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)" class="text-danger">
+              <small *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</small>
+              <small *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Invalid CVV.</small>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success mt-3" [disabled]="paymentForm.invalid">Pay Now</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay with GIF -->
+  <div *ngIf="showOverlay" class="overlay">
+    <img style="height: 120%; width: 100%;"  src="https://i.pinimg.com/originals/b2/d4/b2/b2d4b2c0f0ff6c95b0d6021a430beda4.gif" alt="Processing Payment">
+  </div>
+  

@@ -42,6 +42,12 @@ import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.compone
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component';
+import { PayFastComponent } from './clientSubsystem/payfast/payfast.component';
+import { OrderHistoryComponent } from './clientSubsystem/order-history/order-history.component';
+import { ViewServiceComponent } from './clientSubsystem/view-service/view-service.component';
+import { TicketSalesReportComponent } from './Reporting/ticket-sales-report/ticket-sales-report.component';
+import { UnSoldTicketReportComponent } from './Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
+import { ReportComponent } from './Reporting/report/report.component';
 
 
 
@@ -70,7 +76,13 @@ import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component
     FaqListComponent,
     ForgotPasswordComponent,
     ViewAllEventsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    PayFastComponent,
+    OrderHistoryComponent,
+    ViewServiceComponent,
+    TicketSalesReportComponent,
+    UnSoldTicketReportComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,

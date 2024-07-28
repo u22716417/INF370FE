@@ -1,0 +1,22 @@
+<div class="order-history-container">
+    <h2>Order History</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let order of orderHistory">
+        <div class="order-details">
+          <h5>{{ order.eventName }}</h5>
+          <p>Price: {{ order.ticketPrice | currency }}</p>
+          <p>Quantity: {{ order.ticketQuantity }}</p>
+          <p>Purchase Date: {{ order.purchaseDate | date:'short' }}</p>
+          <p>
+            Rating: 
+            <span class="rating">
+              <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" (click)="updateRating(order, i + 1)" [class.filled]="i < order.rating">
+                {{ star <= order.rating ? '★' : '☆' }}
+              </span>
+            </span>
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

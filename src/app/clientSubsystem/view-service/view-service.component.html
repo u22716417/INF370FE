@@ -1,0 +1,12 @@
+<div class="service-list-container">
+    <h2>Services</h2>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let service of services">
+        <div class="service-details">
+          <h5>{{ service.serviceName }}</h5>
+          <p>{{ service.serviceDescription }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

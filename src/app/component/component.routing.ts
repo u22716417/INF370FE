@@ -26,12 +26,42 @@ import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-s
 import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
+import { PayFastComponent } from '../clientSubsystem/payfast/payfast.component';
+import { OrderHistoryComponent } from '../clientSubsystem/order-history/order-history.component';
+import { ViewServiceComponent } from '../clientSubsystem/view-service/view-service.component';
+import { TicketSalesReportComponent } from '../Reporting/ticket-sales-report/ticket-sales-report.component';
+import { UnSoldTicketReportComponent } from '../Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
+import { ReportComponent } from '../Reporting/report/report.component';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'UnSoldTicketReport',
+				component: UnSoldTicketReportComponent
+			},
+			{
+				path:'Reporting',
+				component:ReportComponent
+			},
+			{
+				path: 'TicketSalesReport',
+				component: TicketSalesReportComponent
+			},
+			{
+				path: 'orderHistory',
+				component: OrderHistoryComponent
+			},
+			{
+				path: 'ViewService',
+				component: ViewServiceComponent
+			},
+			{
+				path: 'payfast',
+				component: PayFastComponent
+			},
 			{
 				path: 'checkout',
 				component: CheckoutComponent

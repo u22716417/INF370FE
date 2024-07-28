@@ -25,10 +25,7 @@ export class CheckoutComponent implements OnInit {
     this.vat = this.total * 0.15;
     this.grandTotal = this.total + this.vat;
   }
-  checkout(): void {
-    // Implement checkout logic here
-    alert('Proceeding to checkout...');
-  }
+  
 
 
 }

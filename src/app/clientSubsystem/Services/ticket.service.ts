@@ -19,6 +19,10 @@ export class TicketService {
     return this.http.get<any[]>(this.url);
   }
 
+  resetCart()
+  {
+    this.cart = [];
+  }
   getEventById(Id: number): Observable<any> {
     
     return this.http.get<any[]>(this.baseUrl+'/'+Id);
@@ -27,9 +31,21 @@ export class TicketService {
     return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
+  updateOrderRating(historyId: number, rating: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/UpdateRating`, { historyId, rating });
+  }
+  getServices(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl+'/ViewService');
+  }
   getCart()
   {
     return this.cart;
+  }
+  getOrderHistory(clientId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/OrderHistory/${clientId}`);
+  }
+  processPayment(paymentRequest: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl+'/process', paymentRequest);
   }
 
   addToCart(cartItem: CartItem): void {

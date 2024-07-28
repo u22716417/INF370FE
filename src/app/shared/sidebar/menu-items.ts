@@ -12,16 +12,33 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'component/eventShop',
-    title: 'Shop Event Ticket',
+    title: 'Event Tickets',
     icon: 'bi bi-bell',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: 'component/event-list',
-    title: 'Events',
+    path: 'component/Reporting',
+    title: 'Report',
     icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  
+  {
+    path: 'component/orderHistory',
+    title: 'Order History',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/ViewService',
+    title: 'View Service',
+    icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
