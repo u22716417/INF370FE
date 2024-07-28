@@ -75,43 +75,6 @@ export const Approutes: Routes = [
     component: ForgotPasswordComponent
   },
 
-  {path:'equipment-list',
-    component: EquipmentListComponent
-    },
-
-    {
-      path: 'equipment-create-update/:id',
-      component: EquipmentCreateUpdateComponent 
-    },
-    {
-      path: 'generate-code/:id',
-      component: GenerateCodeComponent
-    },
-    {
-      path: 'coupon-code-view/:id',
-      component: CouponCodeViewComponent
-    },
-
-    {path:'sponsor-list',
-      component: SponsorListComponent
-      },
-
-  {
-    path: 'view-client-profile/:id',
-    component: ViewClientProfileComponent
-  },
-  {
-    path: 'codes-list',
-    component: CodesListComponent
-  },
-  {
-    path: 'generate-code',
-    component: GenerateCodeComponent
-  },
-  {
-    path: 'coupon-code-view',
-    component: CouponCodeViewComponent
-  },
-
+  
 
 ];

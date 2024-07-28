@@ -149,7 +149,7 @@
             <strong>Total: R{{ getTotal() }} + 15% VAT</strong>
           </p>
         </div>
-        <a  style="margin-left: 25%; width: 50%;" class="btn btn-success">Check Out</a>
+        <a  routerLink="component/checkout" style="margin-left: 25%; width: 50%;" class="btn btn-success">Check Out</a>
       </div>
       <ng-template #emptyCart>
         <a class="dropdown-item">Your cart is empty</a>
@@ -216,6 +216,6 @@
   </div>
   <div class="modal-footer">
     <button (click)="closeModal()" class="btn btn-primary">Close</button> |
-    <button (click)="closeModal()" class="btn btn-success">Edit Profile</button>
+    <a (click)="closeModal()" routerLink="component/settings" class="btn btn-success">Edit Profile</a>
   </div>
 </div>

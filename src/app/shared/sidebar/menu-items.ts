@@ -11,6 +11,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: 'component/eventShop',
+    title: 'Shop Event Ticket',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: 'component/event-list',
     title: 'Events',
     icon: 'bi bi-bell',

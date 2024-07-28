@@ -23,12 +23,19 @@ import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-cod
 import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
 import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
+import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
 
 
 export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'checkout',
+				component: CheckoutComponent
+			},
 			{
 				path: 'event-list',
 				component: EventListComponent
@@ -133,7 +140,45 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'hire-service',
 				component: HireServiceComponent
-			}
+			},
+			{path:'equipment-list',
+				component: EquipmentListComponent
+				},
+			
+				{
+				  path: 'equipment-create-update/:id',
+				  component: EquipmentCreateUpdateComponent 
+				},
+				{
+				  path: 'generate-code/:id',
+				  component: GenerateCodeComponent
+				},
+				{
+				  path: 'coupon-code-view/:id',
+				  component: CouponCodeViewComponent
+				},
+			
+				{path:'sponsor-list',
+				  component: SponsorListComponent
+				  },
+			
+			  {
+				path: 'view-client-profile/:id',
+				component: ViewClientProfileComponent
+			  },
+			  {
+				path: 'codes-list',
+				component: CodesListComponent
+			  },
+			  {
+				path: 'generate-code',
+				component: GenerateCodeComponent
+			  },
+			  {
+				path: 'coupon-code-view',
+				component: CouponCodeViewComponent
+			  },
+			
 		]
 	}
 ];

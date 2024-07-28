@@ -40,6 +40,8 @@ import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
+import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
+import { CheckoutComponent } from './clientSubsystem/checkout/checkout.component';
 
 
 
@@ -66,7 +68,9 @@ import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/fo
     LoginComponent,
     GenerateCodeComponent,
     FaqListComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ViewAllEventsComponent,
+    CheckoutComponent
   ],
   imports: [
     CommonModule,

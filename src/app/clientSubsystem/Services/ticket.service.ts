@@ -41,7 +41,9 @@ export class TicketService {
       this.cart.push(new CartItem(cartItem.id, cartItem.title, cartItem.price, 1));
     }
   }
-
+  getCartItems(): CartItem[] {
+    return this.cart;
+  }
   removeFromCart(id: number): void {
     const existingItem = this.cart.find(item => item.id === id);
 
