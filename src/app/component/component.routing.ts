@@ -21,6 +21,8 @@ import { SettingsComponent } from '../UserSubsystem/settings/settings.component'
 import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
 import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
+import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
+import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -123,6 +125,14 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'assignment',
 				component: LoginComponent
+			},
+			{
+				path: 'faq-list',
+				component: FaqListComponent
+			},
+			{
+				path: 'hire-service',
+				component: HireServiceComponent
 			}
 		]
 	}

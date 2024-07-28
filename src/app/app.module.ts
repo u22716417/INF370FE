@@ -34,6 +34,8 @@ import { SettingsComponent } from './UserSubsystem/settings/settings.component';
 import { LoginComponent } from './UserSubsystem/user/login/login.component';
 import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { FaqListComponent } from './AdminSubsystem/FAQ/faq-list/faq-list.component';
+import { FaqCreateUpdateComponent } from './AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
 
 
 
@@ -53,7 +55,9 @@ import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code
     SettingsComponent,
     LoginComponent,
     GenerateCodeComponent,
-    CouponCodeViewComponent
+    CouponCodeViewComponent,
+    FaqListComponent,
+    FaqCreateUpdateComponent
   ],
   imports: [
     CommonModule,
