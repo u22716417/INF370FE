@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../Services/ticket.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CartItem } from '../CartItem';
 
 @Component({
   selector: 'app-view-all-events',
@@ -16,13 +17,29 @@ export class ViewAllEventsComponent implements OnInit {
  
 
   events : any[] = [];
-
+  currentEvent: any;
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(response=>{
         console.log(response);
         this.events = [...response]
     });
+  }
+
+ 
+  addtoCart(Title:string, Price: number, id: number)
+  {
+    const newItem = new CartItem(id, Title, Price);
+
+    this.eventService.addToCart(newItem);
+  }
+
+  getbyID(id: number)
+  {
+      this.eventService.getEventById(id).subscribe(response=>{
+         this.currentEvent = response;
+         console.log(this.currentEvent);
+      });
   }
   
   isModalVisible = false;

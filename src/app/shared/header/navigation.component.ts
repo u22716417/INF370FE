@@ -4,6 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
 
 declare var $: any;
 
@@ -25,7 +26,7 @@ export class NavigationComponent implements AfterViewInit {
   usertype: string = '';
   base64Image: SafeResourceUrl  ='';
   itemCount: number = 0;
-  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router, private sanitizer: DomSanitizer) {
+  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router, private sanitizer: DomSanitizer, private cartService:TicketService) {
   }
   
 
@@ -48,11 +49,23 @@ export class NavigationComponent implements AfterViewInit {
     { name: 'Event 3', price: 20 }
   ];
 
+  getCartItems(){
+    return this.cartService.getCart();
+  }
+
   getTotal(): number {
-    return this.cartItems.reduce((total, item) => total + item.price, 0);
+    return this.cartService.getTotal();
   }
   getItemCount(): number {
-    return this.cartItems.length;
+    return this.cartService.getCartCount();
+  }
+  removeFromCart(id:number)
+  {
+    this.cartService.removeFromCart(id);
+  }
+  AddQuantityCart(id : number)
+  {
+    this.cartService.AddQuantityCart(id);
   }
 
   isModalVisible = false;

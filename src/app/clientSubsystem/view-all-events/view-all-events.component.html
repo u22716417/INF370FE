@@ -4,13 +4,16 @@
 
     <div class="row">
       <div class="col-md-4" *ngFor="let event of events">
-        <div class="card">
-          <img class="card-img-top img-responsive" [src]="satinizaeImage(event.image)" alt="Card image cap" />
+        <div class="card" style="height: 90%;">
+          <img style="height: 70%;" class="card-img-top img-responsive" [src]="satinizaeImage(event.image)" alt="Card image cap" />
           <div class="card-body">
             <h4 class="card-title">{{ event.title }}</h4>
             <p class="card-text">{{ event.description }}</p>
-            <a [href]="event.link" class="btn btn-primary">Add To Cart</a> |
-            <a (click)="openModal()" class="btn btn-success">View Event</a>
+            <p class="card-text">{{ event.eventTime }}</p>
+            <p class="card-text">Price: R{{ event.eventPrice }}</p>
+
+            <a (click)="addtoCart(event.title,event.eventPrice, event.id)" class="btn btn-primary">Add To Cart</a> |
+            <a (click)="openModal()" (click)="getbyID(event.id)" class="btn btn-success">View Event</a>
           </div>
         </div>
       </div>
@@ -26,7 +29,18 @@
   </div>
   <div class="modal-body">
      <div style="float: left;">
-     
+    <p>Event Name: {{this.currentEvent.title}} </p>
+    <p>Event Location: {{this.currentEvent.eventAddress}} </p>
+    <p>Event Description: {{this.currentEvent.description}} </p>
+    <p>Event Type: {{this.currentEvent.eventType}} </p>
+    <p>Event Time: <b>{{this.currentEvent.eventTime}} </b></p>
+    <p>Event Price: <b>R {{this.currentEvent.eventPrice}} </b></p>
+
+    </div>
+    <div style="float: right;">
+
+      <img style="height: 70%;" class="card-img-top img-responsive" [src]="satinizaeImage(this.currentEvent.image)" alt="Card image cap" />
+
     </div>
  
   </div>

@@ -43,6 +43,7 @@ import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { HireEquipmentComponent } from './ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
+import { ViewAllEventsComponent } from './clientSubsystem/view-all-events/view-all-events.component';
 
 
 
@@ -73,7 +74,8 @@ import { ViewClientProfileComponent } from './AdminSubsystem/client-profile/view
     SignupComponent,
     HireEquipmentComponent,
     ClientProfileComponent,
-    ViewClientProfileComponent
+    ViewClientProfileComponent,
+    ViewAllEventsComponent
   ],
   imports: [
     CommonModule,
