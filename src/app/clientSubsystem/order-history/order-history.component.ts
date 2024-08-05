@@ -45,10 +45,22 @@ export class OrderHistoryComponent implements OnInit {
     this.orderHistoryService.updateOrderRating(order.id, newRating).subscribe(
       () => {
         console.log('Rating updated successfully');
+        window.alert('Successfully added rating'); 
       },
       (error) => {
         console.error('Error updating rating', error);
       }
     );
   }
+  getRatingDescription(rating: number): string {
+    switch (rating) {
+      case 1: return 'Bad';
+      case 2: return 'Poor';
+      case 3: return 'Average';
+      case 4: return 'Good';
+      case 5: return 'Excellent';
+      default: return '';
+    }
+  }
+  
 }

@@ -36,6 +36,7 @@ import { FaqCreateUpdateComponent } from '../AdminSubsystem/FAQ/faq-create-updat
 import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-received.component';
 import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
+import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -53,6 +54,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'TicketSalesReport',
 				component: TicketSalesReportComponent
+			},
+			{
+				path: 'CustomerSatisfactionReport',
+				component: CustomerSatisfactionReportComponent
 			},
 			{
 				path: 'orderHistory',

@@ -51,6 +51,8 @@ import { UnSoldTicketReportComponent } from './Reporting/un-sold-ticket-report/u
 import { ViewServiceComponent } from './clientSubsystem/view-service/view-service.component';
 import { EventListComponent } from './AdminSubsystem/event/event-list/event-list.component';
 import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
+import { CustomerSatisfactionReportComponent } from './Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -91,7 +93,8 @@ import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.
     HireItemsReceivedComponent,
     ViewServiceComponent,
     EventListComponent,
-    HireItemsReturnComponent
+    HireItemsReturnComponent,
+    CustomerSatisfactionReportComponent
   ],
   imports: [
     CommonModule,
@@ -105,7 +108,8 @@ import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    RouterModule
+    RouterModule,
+    NgApexchartsModule
   ],
   providers: [
     {
