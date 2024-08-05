@@ -15,15 +15,32 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
-import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { CheckOutComponent } from '../check-out/check-out.component';
 import { QuotationListComponent } from '../quotation-list/quotation-list.component';
 import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
-import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
 import { ServiceCreateUpdateComponent } from '../AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
 import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
+import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
+import { ClientProfileComponent } from '../AdminSubsystem/client-profile/client-profile.component';
+import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
+import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
+import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
+import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
+import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
+import { UnSoldTicketReportComponent } from '../Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
+import { ReportComponent } from '../Reporting/report/report.component';
+import { TicketSalesReportComponent } from '../Reporting/ticket-sales-report/ticket-sales-report.component';
+import { OrderHistoryComponent } from '../clientSubsystem/order-history/order-history.component';
+import { ViewServiceComponent } from '../clientSubsystem/view-service/view-service.component';
+import { PayFastComponent } from '../clientSubsystem/payfast/payfast.component';
+import { FaqCreateUpdateComponent } from '../AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
+import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-received.component';
+import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
+import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 
 
 
@@ -31,6 +48,38 @@ export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+			{
+				path: 'UnSoldTicketReport',
+				component: UnSoldTicketReportComponent
+			},
+			{
+				path:'Reporting',
+				component:ReportComponent
+			},
+			{
+				path: 'TicketSalesReport',
+				component: TicketSalesReportComponent
+			},
+			{
+				path: 'CustomerSatisfactionReport',
+				component: CustomerSatisfactionReportComponent
+			},
+			{
+				path: 'orderHistory',
+				component: OrderHistoryComponent
+			},
+			{
+				path: 'ViewService',
+				component: ViewServiceComponent
+			},
+			{
+				path: 'payfast',
+				component: PayFastComponent
+			},
+			{
+				path: 'checkout',
+				component: CheckoutComponent
+			},
 			{
 				path: 'event-list',
 				component: EventListComponent
@@ -97,12 +146,20 @@ export const ComponentsRoutes: Routes = [
 				component: CodesListComponent
 			},
 			{
+				path: 'coupon-code-view',
+				component: CouponCodeViewComponent
+			},
+			{
+				path: 'generate-code',
+				component: GenerateCodeComponent
+			},
+			{
 				path: 'reports',
 				component: LoginComponent
 			},
 			{
 				path: 'clients',
-				component: LoginComponent
+				component: ClientProfileComponent
 			},
 			{
 				path: 'check-in',
@@ -122,6 +179,65 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
               
+				path: 'faq-list',
+				component: FaqListComponent
+			},
+			{
+				path: 'faq-create-update',
+				component: FaqCreateUpdateComponent
+			},
+			{
+				path: 'hire-service',
+				component: HireServiceComponent
+			},
+			{path:'equipment-list',
+				component: EquipmentListComponent
+				},
+			
+				{
+				  path: 'equipment-create-update/:id',
+				  component: EquipmentCreateUpdateComponent 
+				},
+				{
+				  path: 'generate-code/:id',
+				  component: GenerateCodeComponent
+				},
+				{
+				  path: 'coupon-code-view/:id',
+				  component: CouponCodeViewComponent
+				},
+			
+				{path:'sponsor-list',
+				  component: SponsorListComponent
+				  },
+			
+			  {
+				path: 'view-client-profile/:id',
+				component: ViewClientProfileComponent
+			  },
+			  {
+				path: 'codes-list',
+				component: CodesListComponent
+			  },
+			  {
+				path: 'generate-code',
+				component: GenerateCodeComponent
+			  },
+			  {
+				path: 'coupon-code-view',
+				component: CouponCodeViewComponent
+			  },
+			
+
+			{
+				path: 'hire-items-received',
+				component: HireItemsReceivedComponent
+			},
+			{
+				path: 'events',
+				component: EventListComponent
+			},
+			{
 				path: 'hire-equipment',
 				component: HireEquipmentComponent
 			},
@@ -146,7 +262,8 @@ export const ComponentsRoutes: Routes = [
 				path:'returnitems',
 				component:HireItemsReturnComponent
 			}
-		
+
+
 
 		]
 	}

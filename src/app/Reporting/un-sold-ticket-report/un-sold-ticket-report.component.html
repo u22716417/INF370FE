@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Un Sold Ticket Sales Report</h2>
+    <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+    <table id="reportTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Event Date</th>
+          <th>Ticket Price</th>
+          <th>Number of Tickets Not Sold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of ticketSales">
+          <td>{{ report.event_name }}</td>
+          <td>{{ report.eventdate | date:'yyyy-MM-dd' }}</td>
+          <td>R {{ report.ticket_price }}</td>
+          <td>{{ report.number_of_tickets_sold }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

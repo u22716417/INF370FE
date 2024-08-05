@@ -1,0 +1,46 @@
+.order-history-container {
+    margin: 20px;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-details h5 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .order-details p {
+    margin: 5px 0;
+  }
+  
+  .order-history-container {
+    margin: 20px;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .order-details h5 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .order-details p {
+    margin: 5px 0;
+  }
+  
+  .rating span {
+    color: gold;
+    font-size: 1.5em;
+    cursor: pointer;
+  }
+  
+  .rating span.filled {
+    color: gold;
+  }
+  

@@ -57,6 +57,16 @@ export class UserManagementService {
     );
   }
 
+  getcurrentUserID(): number
+  {
+    var id = sessionStorage.getItem('CurrentUserId')
+      if(id)
+      {
+         var cid = parseInt(id);
+         return cid; 
+      }
+      return 0;
+  }
   // Get user by ID
   getUser(): Observable<any> {
     var id = sessionStorage.getItem('CurrentUserId')

@@ -1,20 +1,52 @@
 <div class="container">
-    <h5 style="text-align: center;">{{heading}}</h5>
-    <form #faqForm="ngForm" (ngSubmit)="addFaq(faqForm)" novalidate>
-      <div style="margin-bottom: 10px;">
-        <label for="Question">Question</label>
-        <input id="Question" class="form-control" type="text" name="question" [(ngModel)]="newFaq.Question" required title="Please enter a possible question">
+  <h2 style="text-align: center;">Edit Faq</h2>
+  <form #FaqForm="ngForm" (ngSubmit)="addFaq(FaqForm)" novalidate>
+    <div style="margin-bottom: 10px;">
+      <label for="question">Questiom</label>
+      <input 
+        id="Question" 
+        class="form-control" 
+        type="text" 
+        name="question" 
+        [(ngModel)]="newFaq.Question" 
+        required 
+        title="Please enter a question" 
+        #question="ngModel" 
+        [class.is-invalid]="question.invalid && (question.dirty || question.touched)">
+      <div *ngIf="question.invalid && (question.dirty || question.touched)" class="invalid-feedback">
+        Faq is required.Please enter a Faq.
       </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="Answer">Answer</label>
-        <input id="Answer" class="form-control" type="text" name="answer" [(ngModel)]="newFaq.Answer" required title="Please enter an answer">
+    </div>
+
+    <div style="margin-bottom: 10px;">
+      <label for="Answer">Answer</label>
+      <input 
+        id="Answer" 
+        class="form-control" 
+        type="text" 
+        name="answer" 
+        [(ngModel)]="newFaq.Answer" 
+        required 
+        title="Please enter an answer" 
+        #answer="ngModel" 
+        [class.is-invalid]="answer.invalid && (answer.dirty || answer.touched)">
+      <div *ngIf="answer.invalid && (answer.dirty || answer.touched)" class="invalid-feedback">
+        Faq Answer required.Please enter an answer.
       </div>
-  
-      <div style="text-align: center;">
-        <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
-        <input type="submit" class="btn btn-primary" [disabled]="!faqForm.form.valid" name="Save"/> 
-      </div>
-    </form>
-  </div>
-  
+    </div>
+
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/faq-list'])">Close</button>
+      <input type="submit" class="btn btn-primary" [disabled]="!FaqForm.form.valid" name="Save" (click)="router.navigate(['/component/faq-list'])"/> 
+    </div>
+  </form>
+</div>
+
+<style>
+  .is-invalid {
+    border-color: red;
+  }
+  .invalid-feedback {
+    color: red;
+  }
+</style>

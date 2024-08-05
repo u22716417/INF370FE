@@ -46,6 +46,45 @@
   display: flex;
   justify-content: flex-end;
 }
+/* cart.component.css */
+.card {
+  width: 300px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-title {
+  margin-bottom: 15px;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-divider {
+  margin: 10px 0;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+}
+
+.list-group-item .text-end {
+  flex: 1;
+  text-align: end;
+  padding-left: 1rem;
+}
 
 </style>
 
@@ -53,24 +92,13 @@
 <!-- toggle and nav items -->
 <!-- ============================================================== -->
 <ul class="navbar-nav float-start me-auto">
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/dashboard"> Starter </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link waves-effect waves-dark" href="/about"> About </a>
-  </li>
+  
   <!-- ============================================================== -->
   <!-- create new -->
   <!-- ============================================================== -->
   <li class="nav-item d-none d-md-block" ngbDropdown placement="bottom-end">
-    <a href="javascript:void(0)" class="nav-link" id="dropdownBasic1" ngbDropdownToggle>
-      Create New
-    </a>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Action - 1</button>
-      <button ngbDropdownItem>Another Action</button>
-      <button ngbDropdownItem>Something else is here</button>
-    </div>
+    
+  
   </li>
 </ul>
 <!-- ============================================================== -->
@@ -78,8 +106,57 @@
 <!-- ============================================================== -->
 <ul class="navbar-nav float-end">
   <!-- ============================================================== -->
-  <!-- User profile and search -->
+  <!-- User profile and cart -->
   <!-- ============================================================== -->
+  <li class="nav-item" ngbDropdown placement="bottom-end">
+    <a
+      ngbDropdownToggle
+      class="nav-link waves-effect waves-dark pro-pic"
+      href="javascript:void(0)"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <img
+        src="https://www.freeiconspng.com/thumbs/cart-icon/cart-icon-16.png"
+        alt="cart"
+        width="31"
+      />
+      <span class="ms-2">{{ getItemCount() }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" #cart ngbDropdownMenu>
+      <div class="card" *ngIf="getItemCount()> 0; else emptyCart">
+        <div class="card-body">
+          <h5 class="card-title">Shopping Cart</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of getCartItems()">
+              <div class="d-flex flex-column">
+                <span>{{ item.title }}</span>
+                <span>R{{ item.price }}</span>
+              </div>
+              <div>
+                <button (click)="removeFromCart(item.id)" class="btn btn-danger btn-sm mx-1">-</button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="AddQuantityCart(item.id)" class="btn btn-success btn-sm mx-1">+</button>
+              </div>
+              <div class="text-end">
+                <span>Total: R{{ item.price * item.quantity }}</span>
+              </div>
+            </li>
+          </ul>
+          <div class="dropdown-divider"></div>
+          <p class="card-text">
+            <strong>Total: R{{ getTotal() }} + 15% VAT</strong>
+          </p>
+        </div>
+        <a  routerLink="component/checkout" style="margin-left: 25%; width: 50%;" class="btn btn-success">Check Out</a>
+      </div>
+      <ng-template #emptyCart>
+        <a class="dropdown-item">Your cart is empty</a>
+      </ng-template>
+    </div>
+  </li>
+  
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
       ngbDropdownToggle
@@ -139,6 +216,6 @@
   </div>
   <div class="modal-footer">
     <button (click)="closeModal()" class="btn btn-primary">Close</button> |
-    <button (click)="closeModal()" class="btn btn-success">Edit Profile</button>
+    <a (click)="closeModal()" routerLink="component/settings" class="btn btn-success">Edit Profile</a>
   </div>
 </div>

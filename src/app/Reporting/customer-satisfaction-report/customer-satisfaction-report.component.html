@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Customer Satisfaction Report</h2>
+    <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+    <table *ngIf="customerSatisfaction.length > 0" id="reportTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Rating</th>
+          <th>Rating Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of customerSatisfaction">
+          <td>{{ report.eventName }}</td>
+          <td>{{ report.rating }}</td>
+          <td>{{ report.ratingDescription }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="customerSatisfaction.length === 0">Loading...</div>
+  </div>
+  

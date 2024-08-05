@@ -1,0 +1,18 @@
+/* report-menu.component.css */
+.container {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .list-group-item {
+    font-size: 18px;
+    padding: 15px;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f8f9fa;
+  }
+  

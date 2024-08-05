@@ -22,10 +22,10 @@ export class FaqCreateUpdateComponent implements OnInit{
   
 
 
-  constructor(private router: Router, private faqService:FaqService, private route: ActivatedRoute){}
+  constructor(public router: Router, private faqService:FaqService, private route: ActivatedRoute){}
 
   cancel() {
-    this.router.navigate(['/faq']);
+    this.router.navigate(['/component/faq-list']);
 
   }
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class FaqCreateUpdateComponent implements OnInit{
       const id = parseInt(params['Id']);
 
       if (id > 0) {
-        this.heading = 'Edit Event';
+        this.heading = 'Edit Faq';
         this.faqService.getFaqById(id).subscribe((response: any) => {
           this.newFaq = response;
           
@@ -72,7 +72,7 @@ export class FaqCreateUpdateComponent implements OnInit{
           }
         });
       } else {
-        this.faqService.updateFaq(this.newFaq).subscribe((response: any) => {
+        this.faqService.updateFaq(this.newFaq.faqId,this.newFaq).subscribe((response: any) => {
           if (response != null) {
             this.router.navigate(['/faq']);
           } else {

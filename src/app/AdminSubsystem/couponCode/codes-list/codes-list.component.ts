@@ -9,7 +9,12 @@ import { CodeServiceService } from '../service/code-service.service';
 })
 export class CodesListComponent implements OnInit{
 
-  codes:CouponCode[]=[]
+  codes:CouponCode[]=[];
+  showModal: boolean = false;
+  selectedCouponCode: CouponCode | null = null;
+  showNotification: boolean = false;
+  notificationMessage: string = '';
+
 
   constructor(private codeService: CodeServiceService){
 
@@ -43,5 +48,44 @@ export class CodesListComponent implements OnInit{
       })
     }
   }
+
+  openSendEmailModal(code: CouponCode) {
+    this.selectedCouponCode = code;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.selectedCouponCode = null;
+  }
+  sendEmail() {
+    if (this.selectedCouponCode) {
+      const couponCodeId = this.selectedCouponCode.couponCodeId;
+      const sponsorId = this.selectedCouponCode.sponsorId; // Get the sponsorId from the selectedCouponCode
+
+      this.codeService.sendCouponCodeEmail(sponsorId, couponCodeId).subscribe(
+        (response) => {
+          console.log('Email sent successfully:', response);
+          this.showPopupNotification('Sent coupon code email');
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error sending email:', error);
+          this.showPopupNotification('Error sending email');
+          this.closeModal();
+        }
+      );
+    }
+  }
+
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 3000);
+  }
+  
+  
 
 }

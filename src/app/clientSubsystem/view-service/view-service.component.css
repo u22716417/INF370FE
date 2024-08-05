@@ -1,0 +1,18 @@
+.service-list-container {
+    margin: 20px;
+  }
+  
+  .service-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .service-details h5 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .service-details p {
+    margin: 5px 0;
+  }
+  

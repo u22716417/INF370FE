@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Faq } from '../faq';
 
@@ -9,7 +9,7 @@ import { Faq } from '../faq';
 })
 export class FaqService {
 
-  private apiUrl = 'http://localhost:5196/api/Faq'; 
+  private apiUrl = 'https://localhost:7149/api/Faqs'; 
 
   constructor(private http: HttpClient) { }
 
@@ -31,11 +31,11 @@ export class FaqService {
   }
 
   // Updates an existing faq
-  updateFaq(faq: Faq): Observable<Faq> {
+  updateFaq(faqId: number, faq: Faq): Observable<Faq> {
     return this.http.put<Faq>(`${this.apiUrl}/${faq.faqId}`, faq)
     .pipe(map(result => result));
   }
-
+ 
   // Deletes a faq
   deleteFaq(id: number): Observable<Faq> {
     return this.http.delete<Faq>(`${this.apiUrl}/${id}`)

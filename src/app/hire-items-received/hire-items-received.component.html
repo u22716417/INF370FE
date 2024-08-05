@@ -1,1 +1,35 @@
-<p>hire-items-received works!</p>
+<form [formGroup]="hireItemsReceiveForm" (ngSubmit)="onSubmit()">
+  <h2>Checkout Hire Item</h2>
+    <div>
+      <label for="hireItemsReceiveName">Item Name:</label>
+      <input id="hireItemsReceiveName" formControlName="hireItemsReceiveName" type="text" />
+      <!-- Null checks to avoid TypeScript errors -->
+      <div *ngIf="hireItemsReceiveForm.get('hireItemsReceiveName')?.invalid && hireItemsReceiveForm.get('hireItemsReceiveName')?.touched">
+        Item name is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="receiveDate">Return Date:</label>
+      <input id="receiveDate" formControlName="receiveDate" type="date" />
+    </div>
+  
+    <div>
+      <label for="condition">Condition:</label>
+      <input id="condition" formControlName="condition" type="text" />
+      <!-- Null checks to avoid TypeScript errors -->
+      <div *ngIf="hireItemsReceiveForm.get('condition')?.invalid && hireItemsReceiveForm.get('condition')?.touched">
+        Condition is required.
+      </div>
+    </div>
+    <div>
+      <label for="clientName">Client Name:</label>
+      <input id="clientName" formControlName="clientName" type="text" />
+      <!-- Null checks to avoid TypeScript errors -->
+      <div *ngIf="hireItemsReceiveForm.get('clientName')?.invalid && hireItemsReceiveForm.get('clientName')?.touched">
+        Client Name is required.
+      </div>
+    </div>    
+
+    <button type="submit" [disabled]="hireItemsReceiveForm.invalid">Submit</button>
+  </form>

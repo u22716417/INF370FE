@@ -29,7 +29,7 @@ export class EventCreateUpdateComponent implements OnInit {
   isSubmitted: boolean = false;
   heading: string = '';
 
-  constructor(private router: Router, private eventService: EventServiceService, private route: ActivatedRoute) { }
+  constructor(public router: Router, private eventService: EventServiceService, private route: ActivatedRoute) { }
 
   cancel() {
     this.router.navigate(['/events']);

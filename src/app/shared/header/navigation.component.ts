@@ -1,16 +1,17 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
 
 declare var $: any;
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports:[NgbDropdownModule, NgIf, RouterLink],
+  imports:[NgbDropdownModule, NgIf, RouterLink, NgFor],
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent implements AfterViewInit {
@@ -24,7 +25,8 @@ export class NavigationComponent implements AfterViewInit {
   title: string ='';
   usertype: string = '';
   base64Image: SafeResourceUrl  ='';
-  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router, private sanitizer: DomSanitizer) {
+  itemCount: number = 0;
+  constructor(private modalService: NgbModal, private authService: UserManagementService, private router: Router, private sanitizer: DomSanitizer, private cartService:TicketService) {
   }
   
 
@@ -40,6 +42,30 @@ export class NavigationComponent implements AfterViewInit {
      this.usertype = response.userType;
    });
 
+  }
+  cartItems = [
+    { name: 'Event 1', price: 10 },
+    { name: 'Event 2', price: 15 },
+    { name: 'Event 3', price: 20 }
+  ];
+
+  getCartItems(){
+    return this.cartService.getCart();
+  }
+
+  getTotal(): number {
+    return this.cartService.getTotal();
+  }
+  getItemCount(): number {
+    return this.cartService.getCartCount();
+  }
+  removeFromCart(id:number)
+  {
+    this.cartService.removeFromCart(id);
+  }
+  AddQuantityCart(id : number)
+  {
+    this.cartService.AddQuantityCart(id);
   }
 
   isModalVisible = false;

@@ -11,9 +11,34 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/event-list',
-    title: 'Events',
+    path: 'component/eventShop',
+    title: 'Event Tickets',
     icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Reporting',
+    title: 'Report',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  
+  {
+    path: 'component/orderHistory',
+    title: 'Order History',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/ViewService',
+    title: 'View Service',
+    icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
@@ -43,14 +68,6 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/reports',
-    title: 'Reports',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: '/component/clients',
     title: 'Clients',
     icon: 'bi bi-dice-1',
@@ -59,7 +76,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/event',
+    path: '/component/events',
     title: 'Events',
     icon: 'bi bi-pause-btn',
     class: '',
@@ -130,7 +147,40 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+  {
+    path: 'component/hire-service',
+    title: 'Hire Service',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/faq-list',
+    title: 'Faq',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hire-items-received',
+    title: 'Hire Items Received',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hire-items-return',
+    title: 'Hire Items Returned',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
   }
  
+  
   
 ];
