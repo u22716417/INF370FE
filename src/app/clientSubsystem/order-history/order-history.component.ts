@@ -59,7 +59,7 @@ export class OrderHistoryComponent implements OnInit {
       case 3: return 'Average';
       case 4: return 'Good';
       case 5: return 'Excellent';
-      default: return '';
+      default: return 'No rating';
     }
   }
   

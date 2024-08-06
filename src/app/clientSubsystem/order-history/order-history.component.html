@@ -15,6 +15,7 @@
               {{ star <= order.rating ? '★' : '☆' }}
             </span>
           </span>
+          <span class="rating-description">{{ getRatingDescription(order.rating) }}</span>
         </p>
       </div>
     </li>
