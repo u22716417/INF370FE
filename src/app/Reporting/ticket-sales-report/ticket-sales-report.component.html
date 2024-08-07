@@ -1,6 +1,7 @@
 <div class="container">
     <h2>Ticket Sales Report</h2>
     <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+    <p>Report generated on: {{ reportGeneratedDate }}</p>
     <table id="reportTable" class="table table-striped">
       <thead>
         <tr>
@@ -22,11 +23,12 @@
   </div>
   
   <div id="chart">
-    <apx-chart
-      [series]="chartOptions.series!"
-      [chart]="chartOptions.chart!"
-      [xaxis]="chartOptions.xaxis!"
-      [title]="chartOptions.title!"
-      [dataLabels]="chartOptions.dataLabels!"
-    ></apx-chart>
+    <apx-chart 
+    [series]="chartOptions.series" 
+    [chart]="chartOptions.chart" 
+    [xaxis]="chartOptions.xaxis" 
+    [yaxis]="chartOptions.yaxis" 
+    [title]="chartOptions.title" 
+    [tooltip]="chartOptions.tooltip">
+  </apx-chart>
   </div>

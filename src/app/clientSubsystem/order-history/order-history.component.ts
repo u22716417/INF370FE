@@ -11,6 +11,9 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
 export class OrderHistoryComponent implements OnInit {
   orderHistory: any[] = [];
   clientId = 1; // Set this to the actual client ID
+  showNotification: boolean = false;
+  notificationMessage: string = '';
+  
 
   constructor(private orderHistoryService: TicketService, private users: UserManagementService) { }
 
@@ -44,8 +47,9 @@ export class OrderHistoryComponent implements OnInit {
     order.rating = newRating;
     this.orderHistoryService.updateOrderRating(order.id, newRating).subscribe(
       () => {
+        this.showPopupNotification('Rating updated successfully');
         console.log('Rating updated successfully');
-        window.alert('Successfully added rating'); 
+       
       },
       (error) => {
         console.error('Error updating rating', error);
@@ -62,5 +66,13 @@ export class OrderHistoryComponent implements OnInit {
       default: return 'No rating';
     }
   }
-  
+
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+      this.notificationMessage = '';
+    }, 3000);
+  }
 }

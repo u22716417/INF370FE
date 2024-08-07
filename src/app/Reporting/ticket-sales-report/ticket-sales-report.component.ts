@@ -26,12 +26,19 @@ export type ChartOptions = {
 })
 export class TicketSalesReportComponent implements OnInit {
   ticketSales: any[] = [];
-  public chartOptions: Partial<ChartOptions> = {};
+  public chartOptions: Partial<ChartOptions> | any;
+  reportGeneratedDate: string = '';
 
   constructor(private ticketSalesReportService: ReportService) {}
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
+    this.reportGeneratedDate = this.getCurrentDateAndTime();
+  }
+
+  getCurrentDateAndTime(): string {
+    const now = new Date();
+    return now.toLocaleString();
   }
 
   exportToPDF(): void {
