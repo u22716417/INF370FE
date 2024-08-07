@@ -37,6 +37,7 @@ import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-re
 import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
+import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -238,7 +239,11 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'hire-items-return',
 				component: HireItemsReturnComponent
-			}
+			},
+			{
+				path: 'event-create-update/:id',
+				component: EventCreateUpdateComponent 
+			},
 
 
 
