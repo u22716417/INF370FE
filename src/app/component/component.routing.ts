@@ -38,6 +38,7 @@ import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hi
 import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
+import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -59,6 +60,10 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'CustomerSatisfactionReport',
 				component: CustomerSatisfactionReportComponent
+			},
+			{
+				path: 'EventAttendanceReport',
+				component: EventAttendanceReportComponent
 			},
 			{
 				path: 'orderHistory',

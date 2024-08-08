@@ -1,1 +1,39 @@
-<p>event-attendance-report works!</p>
+<div class="container">
+    <h2>Event Attendance Report</h2>
+    <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+    <p>Report generated on: {{ reportGeneratedDate }}</p>
+  
+    <div id="chart">
+      <apx-chart 
+        [series]="chartOptions.series" 
+        [chart]="chartOptions.chart" 
+        [labels]="chartOptions.labels" 
+        [title]="chartOptions.title" 
+        [tooltip]="chartOptions.tooltip" 
+        [responsive]="chartOptions.responsive">
+      </apx-chart>
+    </div>
+  
+    <table *ngIf="eventAttendance.length > 0" id="reportTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Title</th>
+          <th>Secondary Profiles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendee of eventAttendance">
+          <td>{{ attendee.attendeeFullName }}</td>
+          <td>{{ attendee.attendeeEmail }}</td>
+          <td>{{ attendee.attendeePhone }}</td>
+          <td>{{ attendee.title }}</td>
+          <td>{{ attendee.secondaryProfiles.join(', ') }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="eventAttendance.length === 0">Loading...</div>
+  </div>

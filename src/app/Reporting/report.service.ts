@@ -13,6 +13,8 @@ export class ReportService {
 
   private apiUrl2 = 'https://localhost:7149/api/Events/CustomerSatisfaction';
 
+  private apiUrl3 = 'https://localhost:7149/api/Events/EventAttendance';
+
   constructor(private http: HttpClient) { }
 
   getTicketSalesReport(): Observable<any[]> {
@@ -25,5 +27,9 @@ export class ReportService {
 
   getCustomerSatisfactionReport(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl2);
+  }
+
+  getEventAttendanceReport(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl3);
   }
 }
