@@ -54,6 +54,7 @@ import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.
 import { CustomerSatisfactionReportComponent } from './Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { EventAttendanceReportComponent } from './Reporting/event-attendance-report/event-attendance-report.component';
 
 
 
@@ -96,7 +97,8 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
     EventListComponent,
     HireItemsReturnComponent,
     CustomerSatisfactionReportComponent,
-    EventCreateUpdateComponent
+    EventCreateUpdateComponent,
+    EventAttendanceReportComponent
   ],
   imports: [
     CommonModule,
