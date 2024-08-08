@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -29,7 +29,11 @@ export class ReportService {
     return this.http.get<any[]>(this.apiUrl2);
   }
 
-  getEventAttendanceReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl3);
+  // getEventAttendanceReport(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.apiUrl3);
+  // }
+  getEventAttendanceReport(checkInId: number): Observable<any[]> {
+    const params = new HttpParams().set('checkInId', checkInId.toString());
+    return this.http.get<any[]>(`${this.apiUrl3}/event-attendance/${checkInId}`);
   }
 }
