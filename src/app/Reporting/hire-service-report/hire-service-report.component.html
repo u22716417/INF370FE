@@ -1,1 +1,31 @@
-<p>hire-service-report works!</p>
+<div class="container">
+    <h2>Hire Service Report</h2>
+    <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+    <p>Report generated on: {{ reportGeneratedDate }}</p>
+
+    <table id="reportTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Service Name</th>
+          <th>Service Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of hireService">
+          <td>{{ report.serviceName }}</td>
+          <td>{{ report.serviceType }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div id="chart">
+    <apx-chart 
+    [series]="chartOptions.series" 
+    [chart]="chartOptions.chart" 
+    [xaxis]="chartOptions.xaxis" 
+    [yaxis]="chartOptions.yaxis" 
+    [title]="chartOptions.title" 
+    [tooltip]="chartOptions.tooltip">
+  </apx-chart>
+  </div>
