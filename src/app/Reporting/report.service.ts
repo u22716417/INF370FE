@@ -12,6 +12,8 @@ export class ReportService {
   private apiUrl1 = 'https://localhost:7149/api/Events/UnTicketSalesReport'; // Update with your actual API URL
 
   private apiUrl2 = 'https://localhost:7149/api/Events/CustomerSatisfaction';
+
+  private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport';
   
 
   constructor(private http: HttpClient) { }
@@ -26,5 +28,9 @@ export class ReportService {
 
   getCustomerSatisfactionReport(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl2);
+  }
+
+  getHireServiceReport(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl3);
   }
 }
