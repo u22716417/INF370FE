@@ -41,6 +41,7 @@ import { FaqCreateUpdateComponent } from '../AdminSubsystem/FAQ/faq-create-updat
 import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-received.component';
 import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
 import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
+import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 
 
 
@@ -261,10 +262,23 @@ export const ComponentsRoutes: Routes = [
 			{
 				path:'returnitems',
 				component:HireItemsReturnComponent
-			}
+			},
+		    {
+				path: 'hire-items-return',
+				component: HireItemsReturnComponent
+			
+			
+			},
+			{
+				path: 'event-create-update/:id',
+				component: EventCreateUpdateComponent 
+			},
 
 
 
 		]
 	}
-];
+]
+	
+
+

@@ -2,6 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../report.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexDataLabels,
+  ApexTitleSubtitle
+} from 'ng-apexcharts';
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  dataLabels: ApexDataLabels;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-ticket-sales-report',
@@ -10,12 +26,21 @@ import html2canvas from 'html2canvas';
 })
 export class TicketSalesReportComponent implements OnInit {
   ticketSales: any[] = [];
+  public chartOptions: Partial<ChartOptions> | any;
+  reportGeneratedDate: string = '';
 
-  constructor(private ticketSalesReportService: ReportService) { }
+  constructor(private ticketSalesReportService: ReportService) {}
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
+    this.reportGeneratedDate = this.getCurrentDateAndTime();
   }
+
+  getCurrentDateAndTime(): string {
+    const now = new Date();
+    return now.toLocaleString();
+  }
+
   exportToPDF(): void {
     const data = document.getElementById('reportTable');
     if (data) {
@@ -32,14 +57,42 @@ export class TicketSalesReportComponent implements OnInit {
       });
     }
   }
+
   fetchTicketSalesReport(): void {
     this.ticketSalesReportService.getTicketSalesReport().subscribe(
       (data: any[]) => {
         this.ticketSales = data;
+        this.updateChartOptions();
       },
       (error) => {
         console.error('Error fetching ticket sales report', error);
       }
     );
+  }
+
+  updateChartOptions(): void {
+    const categories = this.ticketSales.map(sale => sale.event_name); // Modify according to your data structure
+    const data = this.ticketSales.map(sale => sale.number_of_tickets_sold); // Modify according to your data structure
+
+    this.chartOptions = {
+      series: [{
+        name: "Ticket Sales",
+        data: data
+      }],
+      chart: {
+        type: 'bar',
+        height: 350
+      },
+      xaxis: {
+        categories: categories
+      },
+      dataLabels: {
+        enabled: false
+      },
+      title: {
+        text: "Ticket Sales per Event",
+        align: 'center'
+      }
+    };
   }
 }

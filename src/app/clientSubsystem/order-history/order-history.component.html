@@ -1,4 +1,22 @@
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
+</div>
+
+
 <div class="order-history-container">
+  <div class="order-history-container">
+    <div class="rating-legend">
+     
+      <h3>Ratings <Legend></Legend></h3>
+      <ul>
+        <li><span class="star">★</span> Bad</li>
+        <li><span class="star">★★</span> Poor</li>
+        <li><span class="star">★★★</span> Average</li>
+        <li><span class="star">★★★★</span> Good</li>
+        <li><span class="star">★★★★★</span> Excellent</li>
+      </ul>
+    </div>
+
   <h2>Order History</h2>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let order of orderHistory">
@@ -15,8 +33,10 @@
               {{ star <= order.rating ? '★' : '☆' }}
             </span>
           </span>
+          <span class="rating-description">{{ getRatingDescription(order.rating) }}</span>
         </p>
       </div>
     </li>
   </ul>
 </div>
+

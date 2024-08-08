@@ -59,6 +59,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
+import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 
 
 
@@ -103,7 +104,8 @@ import { QuotationListComponent } from './quotation-list/quotation-list.componen
     CustomerSatisfactionReportComponent,
     CheckOutComponent,
     CreateQuotationComponent,
-    QuotationListComponent
+    QuotationListComponent,
+    EventCreateUpdateComponent
   ],
   imports: [
     CommonModule,
