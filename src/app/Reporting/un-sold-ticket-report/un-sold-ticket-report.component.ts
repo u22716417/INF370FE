@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { ReportService } from '../report.service';
@@ -35,6 +36,7 @@ export class UnSoldTicketReportComponent implements OnInit {
 
   constructor(
     private ticketSalesReportService: ReportService,
+    private userManagementService:UserManagementService
   
   ) {
     this.chartOptions = {
@@ -78,9 +80,16 @@ export class UnSoldTicketReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
-   
-    
-  }
+   this.getUserFullName();
+    }
+    getUserFullName(): void {
+      this.userManagementService.getUser().subscribe(response => {
+        this.currentUserFullName = response.fullName; // Set the full name
+      }, error => {
+        console.error('Error fetching user data', error);
+        alert('Error fetching user data: ' + error.message);
+      });
+    }
 
   onMonthChange(event: any): void {
     const selectedMonth = event.target.value;
