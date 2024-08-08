@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CommonModule, LocationStrategy,
+   LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -54,6 +56,9 @@ import { EventListComponent } from './AdminSubsystem/event/event-list/event-list
 import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from './Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
+import { QuotationListComponent } from './quotation-list/quotation-list.component';
 
 
 
@@ -76,7 +81,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
-    ClientProfileComponent,
     ViewClientProfileComponent,
     LoginComponent,
     GenerateCodeComponent,
@@ -96,7 +100,10 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ViewServiceComponent,
     EventListComponent,
     HireItemsReturnComponent,
-    CustomerSatisfactionReportComponent
+    CustomerSatisfactionReportComponent,
+    CheckOutComponent,
+    CreateQuotationComponent,
+    QuotationListComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +117,6 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    RouterModule,
     NgApexchartsModule
   ],
   providers: [

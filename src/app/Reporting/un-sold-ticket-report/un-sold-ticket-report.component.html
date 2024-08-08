@@ -1,6 +1,46 @@
 <div class="container">
-    <h2>Un Sold Ticket Sales Report</h2>
-    <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+  <h2>UnSold Ticket Sales Report</h2>
+  
+  <!-- Month Selector -->
+  <div class="mb-3">
+    <label for="monthSelector" class="form-label">Select Month:</label>
+    <select id="monthSelector" (change)="onMonthChange($event)" class="form-select">
+      <option value="">All Months</option>
+      <option value="1">January</option>
+      <option value="2">February</option>
+      <option value="3">March</option>
+      <option value="4">April</option>
+      <option value="5">May</option>
+      <option value="6">June</option>
+      <option value="7">July</option>
+      <option value="8">August</option>
+      <option value="9">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+  </div>
+
+  <!-- Export to PDF Button -->
+  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+
+  <!-- ApexCharts Bar Chart -->
+  <div class="card">
+    <div id="chart" class="mb-4">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [title]="chartOptions.title"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [fill]="chartOptions.fill">
+      </apx-chart>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="card">
     <table id="reportTable" class="table table-striped">
       <thead>
         <tr>
@@ -12,12 +52,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let report of ticketSales">
-          <td>{{ report.event_name }}</td>
-          <td>{{ report.eventdate | date:'yyyy-MM-dd' }}</td>
-          <td>R {{ report.ticket_price }}</td>
-          <td>{{ report.number_of_tickets_sold }}</td>
+          <td>{{ report.eventName }}</td>
+          <td>{{ report.eventDate | date:'yyyy-MM-dd' }}</td>
+          <td>R {{ report.ticketPrice }}</td>
+          <td>{{ report.unsoldTickets }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-  
+</div>

@@ -19,7 +19,8 @@
           "options": {
             "allowedCommonJsDependencies": [
               "ng-apexcharts",
-              "apexcharts"
+              "apexcharts",
+              "html2canvas"
             ],
             "outputPath": "dist/monster-angular-lite",
             "index": "src/index.html",
@@ -45,7 +46,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500mb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
