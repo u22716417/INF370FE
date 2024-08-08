@@ -12,6 +12,7 @@ export class ReportService {
   private apiUrl1 = 'https://localhost:7149/api/Events/UnTicketSalesReport'; // Update with your actual API URL
 
   private apiUrl2 = 'https://localhost:7149/api/Events/CustomerSatisfaction';
+  
 
   constructor(private http: HttpClient) { }
 
