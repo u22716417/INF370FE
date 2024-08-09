@@ -31,16 +31,14 @@
             <thead>
               <tr>
                 <th>Event Name</th>
-                <th>Attendance Date</th>
-                <th>Attendance Quantity</th>
+                <th>Attendance Count</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let record of attendanceRecords">
                 
                 <td>{{ record.eventName }}</td>
-                <td>{{ record.attendanceDate }}</td>
-                <td>{{ record.attendanceQuantity }}</td>
+                <td>{{ record.evenAttendanceCount }}</td>
               </tr>
             </tbody>
           </table>
