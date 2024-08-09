@@ -26,11 +26,14 @@ export type ChartOptions = {
   styleUrls: ['./ticket-sales-report.component.css']
 })
 export class TicketSalesReportComponent implements OnInit {
+  
   ticketSales: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
   reportGeneratedBy: string = '';
-
+  public startDate: string = '';
+  public endDate: string  = '';
+  filteredSales = this.ticketSales;
   constructor(private ticketSalesReportService: ReportService,  private userManagementService: UserManagementService) {}
 
   ngOnInit(): void {
@@ -38,6 +41,7 @@ export class TicketSalesReportComponent implements OnInit {
     this.reportGeneratedDate = this.getCurrentDateAndTime();
     this.getCurrentUser(); 
   }
+
   getCurrentUser(): void {
     this.userManagementService.getUser().subscribe(
       (user) => {
@@ -51,6 +55,20 @@ export class TicketSalesReportComponent implements OnInit {
   getCurrentDateAndTime(): string {
     const now = new Date();
     return now.toLocaleString();
+  }
+
+  filterSalesByDate(): void {
+    if (this.startDate || this.endDate) {
+      console.log("Ping");
+      this.filteredSales = this.ticketSales.filter(sale =>
+        new Date(sale.eventDate) >= new Date(this.startDate) &&
+        new Date(sale.eventDate) <= new Date(this.endDate)
+      );
+    } else {
+     
+      this.filteredSales = this.ticketSales;
+    }
+    this.updateChartOptions();
   }
 
   exportToPDF(): void {
@@ -73,7 +91,9 @@ export class TicketSalesReportComponent implements OnInit {
   fetchTicketSalesReport(): void {
     this.ticketSalesReportService.getTicketSalesReport().subscribe(
       (data: any[]) => {
-        this.ticketSales = data;
+        this.ticketSales = [...data];
+        this.filteredSales =  [...data];
+
         this.updateChartOptions();
       },
       (error) => {
@@ -83,9 +103,10 @@ export class TicketSalesReportComponent implements OnInit {
   }
 
   updateChartOptions(): void {
-    const categories = this.ticketSales.map(sale => sale.event_name); // Modify according to your data structure
-    const data = this.ticketSales.map(sale => sale.number_of_tickets_sold); // Modify according to your data structure
-
+    
+   
+    const categories = this.filteredSales.map(sale => sale.eventName);
+    const data = this.filteredSales.map(sale => sale.unsoldTickets);
     this.chartOptions = {
       series: [{
         name: "Ticket Sales",
@@ -107,10 +128,9 @@ export class TicketSalesReportComponent implements OnInit {
       }
     };
   }
-
   getTotalSales(): number {
-    return this.ticketSales.reduce((total, report) => {
-      return total + (report.ticket_price * report.number_of_tickets_sold);
+    return this.filteredSales.reduce((total, report) => {
+      return total + (report.ticketPrice * report.unsoldTickets);
     }, 0);
   }
 }
