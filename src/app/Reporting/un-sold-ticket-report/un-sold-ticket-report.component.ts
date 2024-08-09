@@ -10,7 +10,7 @@ import {
   ApexDataLabels,
   ApexPlotOptions,
   ApexFill,
-  ApexAxisChartSeries
+  ApexAxisChartSeries,
 } from 'ng-apexcharts';
 
 export type ChartOptions = {
@@ -21,7 +21,8 @@ export type ChartOptions = {
   dataLabels: ApexDataLabels;
   plotOptions: ApexPlotOptions;
   fill: ApexFill;
-  yaxis?: any; // Add yaxis for labels
+  yaxis?: any;
+  colors?: string[]; 
 };
 
 @Component({
@@ -30,9 +31,14 @@ export type ChartOptions = {
   styleUrls: ['./un-sold-ticket-report.component.css']
 })
 export class UnSoldTicketReportComponent implements OnInit {
-  ticketSales: any[] = [];
+  UnsoldTickets: any[] = [];
   public chartOptions: ChartOptions;
   currentUserFullName:string="";
+  reportGeneratedDateTime: string = "";
+  public startDate: string = '';
+  public endDate: string  = '';
+  filteredUnsoldTickets=this.UnsoldTickets;
+  
 
   constructor(
     private ticketSalesReportService: ReportService,
@@ -80,21 +86,29 @@ export class UnSoldTicketReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
-   this.getUserFullName();
+   this.getUserFullNameAndDateTime();
+  
     }
-    getUserFullName(): void {
+    getUserFullNameAndDateTime(): void {
       this.userManagementService.getUser().subscribe(response => {
-        this.currentUserFullName = response.fullName; // Set the full name
+        this.currentUserFullName = response.fullName; 
+        this.reportGeneratedDateTime = new Date().toLocaleString(); // Get the current date and time
       }, error => {
         console.error('Error fetching user data', error);
         alert('Error fetching user data: ' + error.message);
       });
     }
-
-  onMonthChange(event: any): void {
-    const selectedMonth = event.target.value;
-    this.fetchTicketSalesReport(selectedMonth);
-  }
+    filterUnsoldTicketsByDate(): void {
+      if (this.startDate || this.endDate) {
+        this.filteredUnsoldTickets = this.UnsoldTickets.filter((ticket: { eventDate: string | number | Date; }) =>
+          new Date(ticket.eventDate) >= new Date(this.startDate || '') &&
+          new Date(ticket.eventDate) <= new Date(this.endDate || '')
+        );
+      } else {
+        this.filteredUnsoldTickets = this.UnsoldTickets;
+      }
+      this.updateChartOptions(this.filteredUnsoldTickets);
+    }
 
   exportToPDF(): void {
     const chartElement = document.getElementById('chart');
@@ -144,7 +158,7 @@ export class UnSoldTicketReportComponent implements OnInit {
   fetchTicketSalesReport(month: string = ''): void {
     this.ticketSalesReportService.getUnsoldTicketsReport(month).subscribe(
       (data: any[]) => {
-        this.ticketSales = data;
+        this.UnsoldTickets = data;
         this.updateChartOptions(data);
       },
       (error) => {
@@ -153,11 +167,13 @@ export class UnSoldTicketReportComponent implements OnInit {
       }
     );
   }
-
   updateChartOptions(data: any[]): void {
     const categories = data.map(item => item.eventName);
     const seriesData = data.map(item => item.unsoldTickets);
-
+  
+    // Define an array of colors for each bar
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#F0F033', '#FF33F0', '#33FFF0']; // Adjust as needed
+  
     this.chartOptions = {
       ...this.chartOptions,
       series: [
@@ -179,9 +195,8 @@ export class UnSoldTicketReportComponent implements OnInit {
         labels: {
           formatter: (value: number) => value.toString()  
         }
-      }
+      },
+      colors: colors, // Apply different colors to the series
     };
   }
 }
-
-

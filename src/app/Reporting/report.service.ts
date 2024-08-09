@@ -9,8 +9,7 @@ export class ReportService {
   
   private apiUrl = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';  
 
-  //private apiUrl1 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets'; // I did this because i wanted to figure out what was not working
-
+  //private apiUrl1 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets'; 
   //private apiUrl2 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';
 
   constructor(private http: HttpClient) { }
