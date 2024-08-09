@@ -13,7 +13,7 @@ export class ReportService {
 
   private apiUrl2 = 'https://localhost:7149/api/Events/CustomerSatisfaction';
 
-  private apiUrl3 = 'https://localhost:7149/api/Events/EventAttendance';
+  private apiUrl3 = 'https://localhost:7149/api/Events/GenerateEventAttendance';
 
   constructor(private http: HttpClient) { }
 
@@ -29,11 +29,7 @@ export class ReportService {
     return this.http.get<any[]>(this.apiUrl2);
   }
 
-  // getEventAttendanceReport(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.apiUrl3);
-  // }
-  getEventAttendanceReport(checkInId: number): Observable<any[]> {
-    const params = new HttpParams().set('checkInId', checkInId.toString());
-    return this.http.get<any[]>(`${this.apiUrl3}/event-attendance/${checkInId}`);
+  getEventAttendanceReport(eventId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl3}/GenerateEventAttendanceReport/${eventId}`);
   }
 }
