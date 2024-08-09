@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CommonModule, LocationStrategy,
+   LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,6 +33,7 @@ import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
 import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
+import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
@@ -53,8 +56,10 @@ import { EventListComponent } from './AdminSubsystem/event/event-list/event-list
 import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from './Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
+import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
-import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 
 
 
@@ -72,11 +77,11 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     ClientProfileComponent,
     AccessDeniedComponent,
     SettingsComponent,
+    ServiceCreateUpdateComponent,
     HireServiceComponent,
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
-    ClientProfileComponent,
     ViewClientProfileComponent,
     LoginComponent,
     GenerateCodeComponent,
@@ -97,8 +102,10 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     EventListComponent,
     HireItemsReturnComponent,
     CustomerSatisfactionReportComponent,
-    EventCreateUpdateComponent,
-    HireServiceReportComponent
+    CheckOutComponent,
+    CreateQuotationComponent,
+    QuotationListComponent,
+    EventCreateUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -112,7 +119,6 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    RouterModule,
     NgApexchartsModule
   ],
   providers: [

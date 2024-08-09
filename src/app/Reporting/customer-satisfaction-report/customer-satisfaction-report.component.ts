@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportService } from '../report.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { ReportService } from '../report.service';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -12,6 +12,7 @@ import {
   ApexTitleSubtitle,
   ApexTooltip
 } from 'ng-apexcharts';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -29,15 +30,26 @@ export type ChartOptions = {
   styleUrls: ['./customer-satisfaction-report.component.css']
 })
 export class CustomerSatisfactionReportComponent implements OnInit {
+
   customerSatisfaction: any[] = [];
+  filteredCustomerSatisfaction: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
+  reportGeneratedBy: string = ''; // New property to hold the user's name
+  events: any[] = [];
+  eventsfromDb: any[] = [];
+  selectedEvent: string = '';
 
-  constructor(private reportService: ReportService) { }
+  constructor(
+    private reportService: ReportService,
+    private userManagementService: UserManagementService // Inject the service
+  ) {}
 
   ngOnInit(): void {
     this.fetchCustomerSatisfactionReport();
     this.reportGeneratedDate = this.getCurrentDateAndTime();
+    this.getCurrentUser(); // Fetch the current user
+    this.events = [...this.getUniqueEventNames()];
   }
 
   getCurrentDateAndTime(): string {
@@ -45,11 +57,32 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     return now.toLocaleString();
   }
 
+  onEventChange(event: any) {
+    this.selectedEvent = event.target.value;
+    this.filterCustomerSatisfaction();
+  }
+
+  getCurrentUser(): void {
+    this.userManagementService.getUser().subscribe(
+      (user) => {
+        this.reportGeneratedBy = user.fullName;
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
+
+  getUniqueEventNames(): string[] {
+    const eventNames = this.eventsfromDb.map(event => event.eventName);
+    return [...new Set(eventNames)];
+  }
+
   fetchCustomerSatisfactionReport(): void {
     this.reportService.getCustomerSatisfactionReport().subscribe(
       (data: any[]) => {
-        console.log('Data received:', data); // Log the data received for debugging
-        this.customerSatisfaction = data;
+        this.eventsfromDb = [...data];
+        this.groupCustomerSatisfactionData(data);
         this.initializeChart();
       },
       (error) => {
@@ -58,18 +91,72 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     );
   }
 
-  initializeChart(): void {
-    const categories = this.customerSatisfaction.map(report => report.eventName || 'Unknown Event');
-    const seriesData = this.customerSatisfaction.map(report => report.rating);
+  groupCustomerSatisfactionData(data: any[]): void {
+    const groupedData = data.reduce((acc, report) => {
+      const eventName = report.eventName || 'Unknown Event';
+      if (!acc[eventName]) {
+        acc[eventName] = {
+          eventName: eventName,
+          ratingsCount: [0, 0, 0, 0, 0] // For ratings 1 to 5
+        };
+      }
+      acc[eventName].ratingsCount[report.rating - 1] += 1; // Subtract 1 to index from 0
+      return acc;
+    }, {});
 
+    this.customerSatisfaction = Object.values(groupedData);
+    this.filteredCustomerSatisfaction = [...this.customerSatisfaction];
+  }
+
+  filterCustomerSatisfaction(): void {
+    if (this.selectedEvent) {
+      this.filteredCustomerSatisfaction = this.customerSatisfaction.filter(report => report.eventName === this.selectedEvent);
+    } else {
+      this.filteredCustomerSatisfaction = [...this.customerSatisfaction];
+    }
+    this.initializeChart();
+  }
+
+  initializeChart(): void {
+    const categories = this.filteredCustomerSatisfaction.map(report => report.eventName);
+  
+    
+    const colors = ["#FF0000", "#FFA500", "#FFD700", "#ADFF2F", "#008000"]; // Red, Orange, Gold, GreenYellow, Green
+  
+    const seriesData = [
+      {
+        name: "1 Star",
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[0]),
+        color: colors[0] // Red for 1 Star
+      },
+      {
+        name: "2 Stars",
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[1]),
+        color: colors[1] // Orange for 2 Stars
+      },
+      {
+        name: "3 Stars",
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[2]),
+        color: colors[2] // Gold for 3 Stars
+      },
+      {
+        name: "4 Stars",
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[3]),
+        color: colors[3] // GreenYellow for 4 Stars
+      },
+      {
+        name: "5 Stars",
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[4]),
+        color: colors[4] // Green for 5 Stars
+      }
+    ];
+  
     this.chartOptions = {
-      series: [{
-        name: "Customer Satisfaction",
-        data: seriesData
-      }],
+      series: seriesData,
       chart: {
         type: "bar",
-        height: 350
+        height: 350,
+        stacked: true,
       },
       title: {
         text: "Customer Satisfaction Report"
@@ -82,27 +169,38 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       },
       yaxis: {
         title: {
-          text: "Ratings"
+          text: "Number of Ratings"
         }
       },
       tooltip: {
         y: {
           formatter: function(val: number): string {
-            return val + " stars";
+            return val.toString() + " ratings";
           }
         }
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false
+        }
+      },
+      legend: {
+        position: 'top'
+      },
+      fill: {
+        opacity: 1
       }
     };
   }
-
+  
+  
   exportToPDF(): void {
-    const data = document.getElementById('reportTable');
+    const data = document.getElementById('reportContent'); // Capture the entire content
     if (data) {
-      html2canvas(data).then(canvas => {
+      html2canvas(data).then((canvas: HTMLCanvasElement) => {
         const imgWidth = 208; // A4 width in mm
         const pageHeight = 295; // A4 height in mm
         const imgHeight = canvas.height * imgWidth / canvas.width;
-        const heightLeft = imgHeight;
         const position = 0;
 
         const pdf = new jsPDF('p', 'mm', 'a4');
@@ -110,7 +208,7 @@ export class CustomerSatisfactionReportComponent implements OnInit {
         pdf.save('CustomerSatisfactionReport.pdf');
       });
     } else {
-      console.log('Table element not found'); // Debug log
+      console.log('Report content element not found');
     }
   }
 }

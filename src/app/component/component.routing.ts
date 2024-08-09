@@ -15,6 +15,11 @@ import { EquipmentListComponent } from '../AdminSubsystem/equipment/equipment-li
 import { CodesListComponent } from '../AdminSubsystem/couponCode/codes-list/codes-list.component';
 import { SponsorListComponent } from '../AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { CheckInComponent } from '../AdminSubsystem/check-in/check-in.component';
+import { CheckOutComponent } from '../check-out/check-out.component';
+import { QuotationListComponent } from '../quotation-list/quotation-list.component';
+import { CreateQuotationComponent } from '../create-quotation/create-quotation.component';
+import { ServiceCreateUpdateComponent } from '../AdminSubsystem/service/service-create-update/service-create-update.component';
+import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { EventListComponent } from '../AdminSubsystem/event/event-list/event-list.component';
 import { ViewAllEventsComponent } from '../clientSubsystem/view-all-events/view-all-events.component';
 import { SettingsComponent } from '../UserSubsystem/settings/settings.component';
@@ -35,10 +40,10 @@ import { PayFastComponent } from '../clientSubsystem/payfast/payfast.component';
 import { FaqCreateUpdateComponent } from '../AdminSubsystem/FAQ/faq-create-update/faq-create-update.component';
 import { HireItemsReceivedComponent } from '../hire-items-received/hire-items-received.component';
 import { HireEquipmentComponent } from '../ServiceHireSubsystem/hireEquipment/hire-equipment/hire-equipment.component';
-import { HireItemsReturnComponent } from '../hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
+
 
 
 export const ComponentsRoutes: Routes = [
@@ -179,6 +184,7 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
+              
 				path: 'faq-list',
 				component: FaqListComponent
 			},
@@ -242,8 +248,31 @@ export const ComponentsRoutes: Routes = [
 				component: HireEquipmentComponent
 			},
 			{
+				path:'checkout',
+				component:CheckOutComponent
+			},
+			{
+				path:'quotationlist',
+			 	component:QuotationListComponent
+			},
+			{
+              path:'create-quotation',
+			  component:CreateQuotationComponent
+			},
+	        {
+				path:'service-create-update',
+				component:ServiceCreateUpdateComponent
+              	
+			},
+			{
+				path:'returnitems',
+				component:HireItemsReturnComponent
+			},
+		    {
 				path: 'hire-items-return',
 				component: HireItemsReturnComponent
+			
+			
 			},
 			{
 				path: 'event-create-update/:id',
@@ -254,4 +283,7 @@ export const ComponentsRoutes: Routes = [
 
 		]
 	}
-];
+]
+	
+
+
