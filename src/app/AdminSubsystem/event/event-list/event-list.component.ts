@@ -17,12 +17,15 @@ export class EventListComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.getEvents().subscribe(events => this.events = events);
+    this.eventService.getEvents().subscribe(events => {
+      console.log(events)
+      this.events = events});
+    
   }
 
   deleteEvent(eventId: number): void {
     this.eventService.deleteEvent(eventId).subscribe(() => {
-      this.events = this.events.filter(event => event.id !== eventId);
+      this.events = this.events.filter(event => event.eventId !== eventId);
     });
   }
 }

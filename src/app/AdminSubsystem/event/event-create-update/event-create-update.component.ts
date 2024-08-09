@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from '../eventClass';
+import { Event, EventVM } from '../eventClass';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { EventServiceService } from '../service/event-service.service';
@@ -34,8 +34,11 @@ export class EventCreateUpdateComponent implements OnInit {
     eventDate: '',
     eventTime: '',
     venueId: 0,
-    ticketPrice: 0
+    eventPrice: 0,
+    ticketPriceId: 0,
+    ticketTypeId: 0
   };
+  fileNameUploaded: any;
 
 
   constructor(public router: Router, private eventService: EventServiceService, private route: ActivatedRoute, private http: HttpClient) { }
@@ -61,9 +64,21 @@ export class EventCreateUpdateComponent implements OnInit {
   }
 
   addEvent(eventForm: NgForm) {
+    const formData = new FormData();
+  formData.append('title', this.newEvent.title);
+  formData.append('description', this.newEvent.description);
+  formData.append('eventType', this.newEvent.eventType);
+  formData.append('eventDate', this.newEvent.eventDate);
+  formData.append('eventTime', this.newEvent.eventTime);
+  formData.append('eventAddress', this.newEvent.eventAddress);
+  formData.append('eventPrice', this.newEvent.eventPrice);
+  formData.append('eventRemainingTickets', this.newEvent.eventRemainingTickets);
+  // Append other fields as needed
+  formData.append('image', this.newEvent.image); // Make sure 'image' is a Blob or file object
+
     console.log(this.newEvent);
     console.log('Selected Venue ID:', this.newEvent.venueId); 
-    if (eventForm.valid) {
+    //if (eventForm.valid) {
       if (this.newEvent.id === 0) {
         this.eventService.createEvent(this.newEvent).subscribe((response: any) => {
           this.handleNavigation(response);
@@ -78,9 +93,9 @@ export class EventCreateUpdateComponent implements OnInit {
           console.error('Error updating event:', error);
         });
       }
-    } else {
-      alert('Please fill all the fields');
-    }
+   // } else {
+     // alert('Please fill all the fields');
+    //}
   }
 
   private handleNavigation(response: any) {
@@ -110,6 +125,21 @@ export class EventCreateUpdateComponent implements OnInit {
       return;
     }
 
+    if (file) {
+      console.log('Selected file:', file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        console.log('File read result:', reader.result);
+        this.newEvent.image = reader.result as string;
+        this.fileNameUploaded = file.name;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      console.log('No file selected');
+      this.newEvent.image = '';
+    }
+
+
     // Check if the file size is less than 2MB
     if (file.size > 2 * 1024 * 1024) {
       this.errorMessage = 'The file size must be less than 2MB.';
@@ -131,8 +161,10 @@ export class EventCreateUpdateComponent implements OnInit {
   getVenues() {
     this.http.get<any[]>('http://localhost:5196/api/Venues') // Replace with your API URL
       .subscribe(data => {
+        console.log(data);
         this.venues = data;
       }, error => {
+
         console.error('Error fetching venues:', error);
       });
   }

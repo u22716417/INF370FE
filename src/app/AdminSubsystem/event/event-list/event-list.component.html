@@ -18,15 +18,15 @@
       <tbody>
         <tr *ngFor="let event of events">
 
-          <td>{{ event.title }}</td>
+          <td>{{ event.eventName }}</td>
           <td>{{ event.eventDate }}</td>
           <td>{{ event.eventTime }}</td>
-          <td>{{ event.description }}</td>
+          <td>{{ event.eventDescription }}</td>
           <td>{{ event.eventType }}</td>
-          <td>{{ event.eventAddress }}</td>
+          <td>{{ event.eventLocation          }}</td>
           <td>
-            <a class="btn btn-primary" routerLink="['component/event-create-update', event.id]" >Edit</a> |
-            <button class="btn btn-danger btn-sm" (click)="deleteEvent(event.id)">Delete</button>
+            <a class="btn btn-primary" routerLink="['component/event-create-update', event.eventId]" >Edit</a> |
+            <button class="btn btn-danger btn-sm" (click)="deleteEvent(event.eventId)">Delete</button>
           </td>
         </tr>
       </tbody>

@@ -2,8 +2,8 @@
     <h5 style="text-align: center;">{{ heading }}</h5>
     <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" novalidate>
       <div style="margin-bottom: 10px;">
-        <label for="eventName">Name</label>
-        <input id="eventName" class="form-control" type="text" name="name" [(ngModel)]="newEvent.title" required title="Please enter an event name">
+        <label for="title">Name</label>
+        <input id="title" class="form-control" type="text" name="title" [(ngModel)]="newEvent.title" required title="Please enter an event name">
       </div>
   
       <div style="margin-bottom: 10px;">
@@ -45,7 +45,7 @@
         <label for="eventVenue">Select Venue</label>
         <select id="eventVenue" class="form-control" name="eventVenue" [(ngModel)]="newEvent.venueId" required>
           <option value="" disabled selected>Select a venue</option>
-          <option *ngFor="let venue of venues" [value]="venue.id">{{ venue.venueName }}</option>
+          <option *ngFor="let venue of venues" [value]="venue.venueId">{{ venue.venueName }}</option>
         </select>
       </div>
 
@@ -65,7 +65,7 @@
 
       <div style="text-align: center;">
         <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
-        <input type="submit" class="btn btn-primary" [disabled]="!eventForm.form.valid" name="Save"/> 
+        <input type="submit" class="btn btn-primary" name="Save"/> 
       </div>
     </form>
   </div>
