@@ -1,6 +1,17 @@
 <div class="container">
   <h2>UnSold Ticket Sales Report</h2>
   
+  <div style="width: 30%;  margin-left: 0; justify-self: start;" class="card">
+    <div class="card-body" >
+      <h4 class="card-title">Card title</h4>
+      <p class="card-text">
+        Some quick example text to build on the card title and make up the
+        bulk of the card's content.
+      </p>
+      <a href="javascript:void(0)" class="btn btn-primary">Read More</a>
+    </div>
+  </div>
+
   <!-- Month Selector -->
   <div class="mb-3">
     <label for="monthSelector" class="form-label">Select Month:</label>
@@ -20,6 +31,8 @@
       <option value="12">December</option>
     </select>
   </div>
+
+  
 
   <!-- Export to PDF Button -->
   <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
