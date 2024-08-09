@@ -1,71 +1,55 @@
-<!-- <h2>Event Attendance Report</h2>
-<button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
 
 
 <div class="card">
-  <div id="chart" class="mb-4">
-    <apx-chart
-      [series]="chartOptions.series"
-      [chart]="chartOptions.chart"
-      [labels]="chartOptions.labels"
-      [title]="chartOptions.title"
-      [dataLabels]="chartOptions.dataLabels">
-    </apx-chart>
-  </div>
-</div>
-
-
-<div class="card">
-  <table id="reportTable" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Event Name</th>
-        <th>Attendance Count</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of eventAttendances">
-        <td>{{ report.eventName }}</td>
-        <td>{{ report.attendanceCount }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
-
-<div class="container">
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">Event Attendance Report</h4>
-      <div id="chart">
-        <apx-chart
-        [series]="chartOptions.series" 
-        [chart]="chartOptions.chart" 
-        [labels]="chartOptions.labels" 
-        [responsive]="chartOptions.responsive" 
-        [legend]="chartOptions.legend">
-        ></apx-chart>
+  <div class="card-body">
+    <div class="d-md-flex align-items-center">
+      <div>
+        <h4 class="card-title">Event Attendance Report</h4>
+        <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+        <h5 class="card-subtitle text-muted">Event Attendance Details</h5>
       </div>
-
-      <div class="mt-4">
-        <h5>Attendance Details</h5>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Event Name</th>
-              <th>Attendance Quantity</th>
-              <th>Attendance Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of eventAttendance">
-              <td>{{ item.eventName }}</td>
-              <td>{{ item.attendanceQuantity }}</td>
-              <td>{{ item.attendanceDate }}</td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <div class="row mt-3">
+      <!-- Chart Column -->
+      <div class="col-lg-12">
+        <div class="d-flex flex-column w-100">
+          <apx-chart [series]="eventAttendanceChartOptions.series" [chart]="eventAttendanceChartOptions.chart"
+            [plotOptions]="eventAttendanceChartOptions.plotOptions" [xaxis]="eventAttendanceChartOptions.xaxis"
+            [yaxis]="eventAttendanceChartOptions.yaxis" [grid]="eventAttendanceChartOptions.grid"
+            [stroke]="eventAttendanceChartOptions.stroke" [tooltip]="eventAttendanceChartOptions.tooltip"
+            [dataLabels]="eventAttendanceChartOptions.dataLabels" [legend]="eventAttendanceChartOptions.legend"
+            [colors]="eventAttendanceChartOptions.colors" [markers]="eventAttendanceChartOptions.markers">
+          </apx-chart>
+        </div>
+      </div>
+      <!-- Table Column -->
+      <div class="col-lg-12 mt-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Attendee ID</th>
+                <th>Attendee Name</th>
+                <th>Event Name</th>
+                <th>Attendance Date</th>
+                <th>Attendance Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let record of attendanceRecords">
+                <td>{{ record.attendeeId }}</td>
+                <td>{{ record.attendeeName }}</td>
+                <td>{{ record.eventName }}</td>
+                <td>{{ record.attendanceDate }}</td>
+                <td>{{ record.attendanceQuantity }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+
 
