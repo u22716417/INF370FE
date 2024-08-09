@@ -29,7 +29,7 @@ export class ReportService {
     return this.http.get<any[]>(this.apiUrl2);
   }
 
-  getEventAttendanceReport(eventId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl3}/${eventId}`);
+  getEventAttendanceReport(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl3}`);
   }
 }
