@@ -17,7 +17,10 @@ export class EventListComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.getEvents().subscribe(events => this.events = events);
+    this.eventService.getEvents().subscribe(events => {
+      console.log(events)
+      this.events = events});
+    
   }
 
   deleteEvent(eventId: number): void {

@@ -9,6 +9,7 @@ import { Event } from '../eventClass';
 export class EventServiceService {
 
   private apiUrl = 'http://localhost:5196/api/Events';
+  private venueUrl = 'http://localhost:5196/api/Venues'
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -29,8 +30,9 @@ export class EventServiceService {
   }
 
   // Create a new event
-  createEvent(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.apiUrl, event, this.httpOptions);
+  createEvent(event: any): Observable<any> {
+    console.log(event);
+    return this.http.post<any>(this.apiUrl + '/CreateEvent', event);
   }
 
   // Update an existing event

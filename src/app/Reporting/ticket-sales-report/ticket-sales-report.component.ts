@@ -10,6 +10,7 @@ import {
   ApexDataLabels,
   ApexTitleSubtitle
 } from 'ng-apexcharts';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -25,24 +26,65 @@ export type ChartOptions = {
   styleUrls: ['./ticket-sales-report.component.css']
 })
 export class TicketSalesReportComponent implements OnInit {
+  
   ticketSales: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
-
-  constructor(private ticketSalesReportService: ReportService) {}
+  reportGeneratedBy: string = '';
+  public startDate: string = '';
+  public endDate: string  = '';
+  filteredSales = this.ticketSales;
+  constructor(private ticketSalesReportService: ReportService,  private userManagementService: UserManagementService) {}
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
     this.reportGeneratedDate = this.getCurrentDateAndTime();
+    this.getCurrentUser(); 
   }
 
+  getCurrentUser(): void {
+    this.userManagementService.getUser().subscribe(
+      (user) => {
+        this.reportGeneratedBy = user.fullName; 
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
   getCurrentDateAndTime(): string {
     const now = new Date();
     return now.toLocaleString();
   }
 
+  filterSalesByDate(): void {
+    this.filteredSales = this.ticketSales.filter(sale => {
+      const eventDate = new Date(sale.eventDate);
+      const startDate = this.startDate ? new Date(this.startDate) : null;
+      const endDate = this.endDate ? new Date(this.endDate) : null;
+  
+      // If both dates are provided, filter between the dates
+      if (startDate && endDate) {
+        return eventDate >= startDate && eventDate <= endDate;
+      }
+      // If only start date is provided, filter from that date onward
+      if (startDate) {
+        return eventDate >= startDate;
+      }
+      // If only end date is provided, filter up to that date
+      if (endDate) {
+        return eventDate <= endDate;
+      }
+      // If neither date is provided, return all results
+      return true;
+    });
+  
+    this.updateChartOptions();
+  }
+  
+
   exportToPDF(): void {
-    const data = document.getElementById('reportTable');
+    const data = document.getElementById('reportContent');
     if (data) {
       html2canvas(data).then(canvas => {
         const imgWidth = 208; // A4 width in mm
@@ -61,7 +103,9 @@ export class TicketSalesReportComponent implements OnInit {
   fetchTicketSalesReport(): void {
     this.ticketSalesReportService.getTicketSalesReport().subscribe(
       (data: any[]) => {
-        this.ticketSales = data;
+        this.ticketSales = [...data];
+        this.filteredSales =  [...data];
+
         this.updateChartOptions();
       },
       (error) => {
@@ -71,8 +115,18 @@ export class TicketSalesReportComponent implements OnInit {
   }
 
   updateChartOptions(): void {
-    const categories = this.ticketSales.map(sale => sale.event_name); // Modify according to your data structure
-    const data = this.ticketSales.map(sale => sale.number_of_tickets_sold); // Modify according to your data structure
+    // Expanded array of colors
+    const colors = [
+        '#FF4560', '#00E396', '#008FFB', '#FEB019', '#775DD0', 
+        '#546E7A', '#26a69a', '#FFB400', '#FF66C4', '#6B5B95', 
+        '#F7B7A3', '#D5AAFF', '#F2A72C', '#9F6F5F', '#6D8EAD'
+    ];
+
+    const categories = this.filteredSales.map(sale => sale.eventName);
+    const data = this.filteredSales.map(sale => sale.unsoldTickets);
+
+    // Ensure the number of colors is at least as many as data points
+    const chartColors = colors.slice(0, data.length);
 
     this.chartOptions = {
       series: [{
@@ -92,7 +146,21 @@ export class TicketSalesReportComponent implements OnInit {
       title: {
         text: "Ticket Sales per Event",
         align: 'center'
-      }
+      },
+      plotOptions: {
+        bar: {
+          distributed: true // Distribute colors to individual bars
+        }
+      },
+      colors: chartColors // Apply colors to the bars
     };
+}
+
+
+
+  getTotalSales(): number {
+    return this.filteredSales.reduce((total, report) => {
+      return total + (report.ticketPrice * report.unsoldTickets);
+    }, 0);
   }
 }

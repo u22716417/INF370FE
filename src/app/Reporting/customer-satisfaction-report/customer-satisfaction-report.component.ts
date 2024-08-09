@@ -30,10 +30,15 @@ export type ChartOptions = {
   styleUrls: ['./customer-satisfaction-report.component.css']
 })
 export class CustomerSatisfactionReportComponent implements OnInit {
+
   customerSatisfaction: any[] = [];
+  filteredCustomerSatisfaction: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
   reportGeneratedBy: string = ''; // New property to hold the user's name
+  events: any[] = [];
+  eventsfromDb: any[] = [];
+  selectedEvent: string = '';
 
   constructor(
     private reportService: ReportService,
@@ -44,6 +49,7 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     this.fetchCustomerSatisfactionReport();
     this.reportGeneratedDate = this.getCurrentDateAndTime();
     this.getCurrentUser(); // Fetch the current user
+    this.events = [...this.getUniqueEventNames()];
   }
 
   getCurrentDateAndTime(): string {
@@ -51,10 +57,15 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     return now.toLocaleString();
   }
 
+  onEventChange(event: any) {
+    this.selectedEvent = event.target.value;
+    this.filterCustomerSatisfaction();
+  }
+
   getCurrentUser(): void {
     this.userManagementService.getUser().subscribe(
       (user) => {
-        this.reportGeneratedBy = user.fullName; 
+        this.reportGeneratedBy = user.fullName;
       },
       (error) => {
         console.error('Error fetching user details', error);
@@ -62,26 +73,16 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     );
   }
 
+  getUniqueEventNames(): string[] {
+    const eventNames = this.eventsfromDb.map(event => event.eventName);
+    return [...new Set(eventNames)];
+  }
+
   fetchCustomerSatisfactionReport(): void {
     this.reportService.getCustomerSatisfactionReport().subscribe(
       (data: any[]) => {
-        console.log('Data received:', data); // Log the data received for debugging
-  
-        // Group the ratings by event and count the number of each rating
-        const groupedData = data.reduce((acc, report) => {
-          const eventName = report.eventName || 'Unknown Event';
-          if (!acc[eventName]) {
-            acc[eventName] = { 
-              eventName: eventName, 
-              ratingsCount: [0, 0, 0, 0, 0] // For ratings 1 to 5
-            };
-          }
-          acc[eventName].ratingsCount[report.rating - 1] += 1; // Subtract 1 to index from 0
-          return acc;
-        }, {});
-  
-        // Convert the grouped object into an array
-        this.customerSatisfaction = Object.values(groupedData);
+        this.eventsfromDb = [...data];
+        this.groupCustomerSatisfactionData(data);
         this.initializeChart();
       },
       (error) => {
@@ -89,34 +90,59 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       }
     );
   }
-  
+
+  groupCustomerSatisfactionData(data: any[]): void {
+    const groupedData = data.reduce((acc, report) => {
+      const eventName = report.eventName || 'Unknown Event';
+      if (!acc[eventName]) {
+        acc[eventName] = {
+          eventName: eventName,
+          ratingsCount: [0, 0, 0, 0, 0] // For ratings 1 to 5
+        };
+      }
+      acc[eventName].ratingsCount[report.rating - 1] += 1; // Subtract 1 to index from 0
+      return acc;
+    }, {});
+
+    this.customerSatisfaction = Object.values(groupedData);
+    this.filteredCustomerSatisfaction = [...this.customerSatisfaction];
+  }
+
+  filterCustomerSatisfaction(): void {
+    if (this.selectedEvent) {
+      this.filteredCustomerSatisfaction = this.customerSatisfaction.filter(report => report.eventName === this.selectedEvent);
+    } else {
+      this.filteredCustomerSatisfaction = [...this.customerSatisfaction];
+    }
+    this.initializeChart();
+  }
+
   initializeChart(): void {
-    const categories = this.customerSatisfaction.map(report => report.eventName);
-  
-    // Prepare series data for the stacked chart
+    const categories = this.filteredCustomerSatisfaction.map(report => report.eventName);
+
     const seriesData = [
       {
         name: "1 Star",
-        data: this.customerSatisfaction.map(report => report.ratingsCount[0])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[0])
       },
       {
         name: "2 Stars",
-        data: this.customerSatisfaction.map(report => report.ratingsCount[1])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[1])
       },
       {
         name: "3 Stars",
-        data: this.customerSatisfaction.map(report => report.ratingsCount[2])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[2])
       },
       {
         name: "4 Stars",
-        data: this.customerSatisfaction.map(report => report.ratingsCount[3])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[3])
       },
       {
         name: "5 Stars",
-        data: this.customerSatisfaction.map(report => report.ratingsCount[4])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[4])
       }
     ];
-  
+
     this.chartOptions = {
       series: seriesData,
       chart: {
@@ -158,7 +184,6 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       }
     };
   }
-  
 
   exportToPDF(): void {
     const data = document.getElementById('reportContent'); // Capture the entire content
@@ -168,7 +193,7 @@ export class CustomerSatisfactionReportComponent implements OnInit {
         const pageHeight = 295; // A4 height in mm
         const imgHeight = canvas.height * imgWidth / canvas.width;
         const position = 0;
-  
+
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
         pdf.save('CustomerSatisfactionReport.pdf');
@@ -177,5 +202,4 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       console.log('Report content element not found');
     }
   }
-  
 }
