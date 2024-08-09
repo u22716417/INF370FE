@@ -119,36 +119,44 @@ export class CustomerSatisfactionReportComponent implements OnInit {
 
   initializeChart(): void {
     const categories = this.filteredCustomerSatisfaction.map(report => report.eventName);
-
+  
+    
+    const colors = ["#FF0000", "#FFA500", "#FFD700", "#ADFF2F", "#008000"]; // Red, Orange, Gold, GreenYellow, Green
+  
     const seriesData = [
       {
         name: "1 Star",
-        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[0])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[0]),
+        color: colors[0] // Red for 1 Star
       },
       {
         name: "2 Stars",
-        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[1])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[1]),
+        color: colors[1] // Orange for 2 Stars
       },
       {
         name: "3 Stars",
-        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[2])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[2]),
+        color: colors[2] // Gold for 3 Stars
       },
       {
         name: "4 Stars",
-        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[3])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[3]),
+        color: colors[3] // GreenYellow for 4 Stars
       },
       {
         name: "5 Stars",
-        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[4])
+        data: this.filteredCustomerSatisfaction.map(report => report.ratingsCount[4]),
+        color: colors[4] // Green for 5 Stars
       }
     ];
-
+  
     this.chartOptions = {
       series: seriesData,
       chart: {
         type: "bar",
         height: 350,
-        stacked: true
+        stacked: true,
       },
       title: {
         text: "Customer Satisfaction Report"
@@ -184,7 +192,8 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       }
     };
   }
-
+  
+  
   exportToPDF(): void {
     const data = document.getElementById('reportContent'); // Capture the entire content
     if (data) {
