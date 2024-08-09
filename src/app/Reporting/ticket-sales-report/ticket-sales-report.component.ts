@@ -10,6 +10,7 @@ import {
   ApexDataLabels,
   ApexTitleSubtitle
 } from 'ng-apexcharts';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -28,14 +29,25 @@ export class TicketSalesReportComponent implements OnInit {
   ticketSales: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
+  reportGeneratedBy: string = '';
 
-  constructor(private ticketSalesReportService: ReportService) {}
+  constructor(private ticketSalesReportService: ReportService,  private userManagementService: UserManagementService) {}
 
   ngOnInit(): void {
     this.fetchTicketSalesReport();
     this.reportGeneratedDate = this.getCurrentDateAndTime();
+    this.getCurrentUser(); 
   }
-
+  getCurrentUser(): void {
+    this.userManagementService.getUser().subscribe(
+      (user) => {
+        this.reportGeneratedBy = user.fullName; 
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+      }
+    );
+  }
   getCurrentDateAndTime(): string {
     const now = new Date();
     return now.toLocaleString();
@@ -94,5 +106,11 @@ export class TicketSalesReportComponent implements OnInit {
         align: 'center'
       }
     };
+  }
+
+  getTotalSales(): number {
+    return this.ticketSales.reduce((total, report) => {
+      return total + (report.ticket_price * report.number_of_tickets_sold);
+    }, 0);
   }
 }

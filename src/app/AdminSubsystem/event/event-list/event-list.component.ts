@@ -22,7 +22,7 @@ export class EventListComponent implements OnInit {
 
   deleteEvent(eventId: number): void {
     this.eventService.deleteEvent(eventId).subscribe(() => {
-      this.events = this.events.filter(event => event.eventId !== eventId);
+      this.events = this.events.filter(event => event.id !== eventId);
     });
   }
 }
