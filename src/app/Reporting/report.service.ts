@@ -28,6 +28,6 @@ export class ReportService {
   }
 
   getCustomerSatisfactionReport(): Observable<any[]> {
- return this.http.get<any[]>(this.apiUrl);
+ return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
  }
 }
