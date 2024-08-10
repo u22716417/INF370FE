@@ -60,6 +60,7 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 
 
 
@@ -105,7 +106,8 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
-    EventCreateUpdateComponent
+    EventCreateUpdateComponent,
+    HireServiceReportComponent
   ],
   imports: [
     CommonModule,

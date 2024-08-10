@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -15,10 +16,9 @@ import { ReportService } from '../report.service';
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
-  labels: string[];
+  xaxis: ApexXAxis;
   dataLabels: ApexDataLabels;
   title: ApexTitleSubtitle;
-  plotOptions: ApexPlotOptions;
 };
 
 @Component({
@@ -29,13 +29,26 @@ export type ChartOptions = {
 export class HireServiceReportComponent implements OnInit {
   hireService: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
+  reportGeneratedBy: string = '';
   reportGeneratedDate: string = '';
 
-  constructor(private reportService: ReportService) {}
+  constructor(private reportService: ReportService, private userManagementService: UserManagementService) {}
 
   ngOnInit(): void {
     this.reportGeneratedDate = this.getCurrentDateAndTime();
     this.getHireServiceReport();
+    this.getCurrentUser(); 
+  }
+
+  getCurrentUser(): void {
+    this.userManagementService.getUser().subscribe(
+      (user) => {
+        this.reportGeneratedBy = user.fullName; 
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+      }
+    );
   }
 
   getCurrentDateAndTime(): string {
@@ -47,7 +60,8 @@ export class HireServiceReportComponent implements OnInit {
     this.reportService.getHireServiceReport().subscribe(
       (data: any[]) => {
         console.log('Data received:', data); // Log the data received for debugging
-        this.hireService= data;
+        this.hireService = data;
+        this.generateChart(); // Call generateChart after data is received
       },
       (error) => {
         console.error('Error fetching hire service report', error);
@@ -57,12 +71,12 @@ export class HireServiceReportComponent implements OnInit {
 
   generateChart() {
     this.chartOptions = {
-      series: this.hireService.map(service => service.value),
+      series: this.hireService.map(service => service.serviceCount), // Assuming serviceCount holds the numerical values
       chart: {
         type: 'pie',
         width: 380
       },
-      labels: this.hireService.map(service => service.category),
+      labels: this.hireService.map(service => service.serviceName), // Assuming serviceName holds the labels
       dataLabels: {
         enabled: true
       },
@@ -77,9 +91,11 @@ export class HireServiceReportComponent implements OnInit {
             minAngleToShowLabel: 10
           }
         }
-      }
+      },
+      colors: ['#FF5733', '#33FF57', '#3357FF'] 
     };
   }
+  
   exportToPDF(): void {
     const data = document.getElementById('reportTable');
     if (data) {

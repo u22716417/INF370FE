@@ -13,6 +13,8 @@ export class ReportService {
 
   //private apiUrl2 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';
 
+  private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport'
+
   constructor(private http: HttpClient) { }
 
   getUnsoldTicketsReport(month?: string): Observable<any[]> {
@@ -30,4 +32,8 @@ export class ReportService {
   getCustomerSatisfactionReport(): Observable<any[]> {
  return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
  }
+
+ getHireServiceReport(): Observable<any[]> {
+  return this.http.get<any[]>(this.apiUrl3);
+}
 }
