@@ -1,13 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  CommonModule, LocationStrategy,
+   LocationStrategy,
   PathLocationStrategy
 } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -31,6 +33,7 @@ import { ClientProfile } from './AdminSubsystem/client-profile/client-profile';
 import { ClientProfileComponent } from './AdminSubsystem/client-profile/client-profile.component';
 import { AccessDeniedComponent } from './AuthGuard/Authorization/access-denied/access-denied.component';
 import { SettingsComponent } from './UserSubsystem/settings/settings.component';
+import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HireServiceComponent } from './ServiceHireSubsystem/hireService/hire-service/hire-service.component';
 import { HireItemsReceivedComponent } from './hire-items-received/hire-items-received.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
@@ -53,8 +56,14 @@ import { EventListComponent } from './AdminSubsystem/event/event-list/event-list
 import { HireItemsReturnComponent } from './hire-items-return/hire-items-return.component';
 import { CustomerSatisfactionReportComponent } from './Reporting/customer-satisfaction-report/customer-satisfaction-report.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
+import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from './Reporting/event-attendance-report/event-attendance-report.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
+import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
+
 
 
 
@@ -72,11 +81,11 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
     ClientProfileComponent,
     AccessDeniedComponent,
     SettingsComponent,
+    ServiceCreateUpdateComponent,
     HireServiceComponent,
     HireItemsReceivedComponent,
     SignupComponent,
     HireEquipmentComponent,
-    ClientProfileComponent,
     ViewClientProfileComponent,
     LoginComponent,
     GenerateCodeComponent,
@@ -87,7 +96,6 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
     PayFastComponent,
     FaqCreateUpdateComponent,
     FaqListComponent,
-    HireServiceComponent,
     OrderHistoryComponent,
     TicketSalesReportComponent,
     ReportComponent,
@@ -99,6 +107,10 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
     CustomerSatisfactionReportComponent,
     EventCreateUpdateComponent,
     EventAttendanceReportComponent
+    CheckOutComponent,
+    CreateQuotationComponent,
+    QuotationListComponent,
+    EventCreateUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -112,8 +124,8 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    RouterModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    FullCalendarModule
   ],
   providers: [
     {

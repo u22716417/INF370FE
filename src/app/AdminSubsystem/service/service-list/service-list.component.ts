@@ -8,52 +8,63 @@ import { ServicesServiceService } from '../service/services-service.service';
   styleUrls: ['./service-list.component.css']
 })
 export class ServiceListComponent implements OnInit {
-services:Service[]=[]
-filteredService: Service[]=[];
-searchTerm: string = '';
-isPopupVisible: boolean = false;
+  services: Service[] = [];
+  filteredService: Service[] = [];
+  searchTerm: string = '';
 
-constructor(private serviceService: ServicesServiceService){}
+  constructor(private serviceService: ServicesServiceService) {}
 
   ngOnInit(): void {
-    this.getAllServices()
-    console.log(this.services);
+    this.getAllServices();
   }
 
-  getAllServices() {
-    this.serviceService.getAllServices().subscribe(result =>{
-      let ServiceList:any[] = result
-      ServiceList.forEach((element) => {
-        this.filteredService.push(element);
-        this.services.unshift(element)
-      });
-    })
+  getAllServices(): void {
+    this.serviceService.getAllServices().subscribe({
+      next: (result) => {
+        this.services = result;
+        this.filteredService = [...this.services];
+        console.log('Fetched services:', this.services);
+      },
+      error: (err) => {
+        console.error('Error fetching services', err);
+      }
+    });
   }
 
-  deleteById(serviceId: number){
+  loadServices(): void {
+    this.getAllServices();
+  }
+
+  deleteById(serviceId: number): void {
+    console.log('Deleting service with ID:', serviceId);
     const confirmDelete = window.confirm('Are you sure you want to delete?');
 
-    if (confirmDelete){
-      this.serviceService.deleteServiceById(parseInt(serviceId+ ''))
-      .subscribe(response => {
-        if (response != null)
-          {
-            location.reload();
-          }
-      })
+    if (confirmDelete) {
+      this.serviceService.deleteServiceById(serviceId).subscribe({
+        next: () => {
+          console.log('Service deleted successfully');
+          this.loadServices();
+        },
+        error: (err) => {
+          alert('Delete failed: ' + err.message);
+        }
+      });
     }
   }
 
-filterServices(){
-console.log(this.searchTerm.length)
-if(this.searchTerm.length <= 2){
-  this.filteredService =[]
-}
-else{
-  this.filteredService = this.services.filter((value) => (
-    value.serviceName.toLowerCase().includes(this.searchTerm.toLowerCase())
-  ));
+  logId(serviceId: number): void {
+    console.log('Editing service with ID:', serviceId);
+  }
+
+  filterServices(): void {
+    console.log('Filtering services with term:', this.searchTerm);
+    if (this.searchTerm.length <= 2) {
+      this.filteredService = [...this.services];
+    } else {
+      this.filteredService = this.services.filter(value =>
+        value.serviceName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
   }
 }
 
-}

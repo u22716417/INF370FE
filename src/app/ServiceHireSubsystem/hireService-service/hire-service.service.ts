@@ -20,9 +20,7 @@ export class HireServiceService {
   }
 
   getServiceOptions(): Observable<string[]> {
-    return this.http.get<any[]>(this.serviceApiUrl).pipe(
-      map(response => response.map(item => item.serviceScheduleName))
-    );
+    return this.http.get<any[]>(this.serviceApiUrl)
   }
 
   createHireService(HireService: ServiceSchedule): Observable<ServiceSchedule> {

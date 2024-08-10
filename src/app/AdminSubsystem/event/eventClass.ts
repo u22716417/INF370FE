@@ -1,24 +1,35 @@
 import { Venue } from "../venue/venue";
 
-export interface Event {
-    eventId: number;
-    venueId?: number;
-    eventName: string;
-    eventDate: string; // Use string for compatibility with Angular's date handling
-    eventTime: string; // Use string for compatibility with Angular's time handling
+export  interface Event {
+    eventDate: string;
     eventDescription: string;
-    eventType: string;
+    eventId: number;
+    eventImage: string;
     eventLocation: string;
-    attendances: Attendance[];
-    eventWorkers: EventWorker[];
-    venue?: Venue;
+    eventName: string;
+    eventRemainingTickets: number;
+    eventTime: string;
+    eventType: string;
+    attendances: any[]; // Adjust the type if you know what the structure of attendances will be
+    eventWorkers: any[]; // Adjust the type if you know what the structure of eventWorkers will be
+    ticketPrices: any[]; // Adjust the type if you know what the structure of ticketPrices will be
+    tickets: any[]; // Adjust the type if you know what the structure of tickets will be
+    venue: any; // Adjust the type if you know what the structure of venue will be
+    venueId: number;
 }
 
-export interface Attendance {
-    // Define properties of Attendance based on your C# model
+export interface EventVM {
+    id: number;
+    title: string;
+    description: string;
+    eventType: string;
+    eventRemainingTickets: number;
+    eventAddress: string;
+    image: string;
+    eventPrice: number;
+    eventTime: string;
+    ticketPriceId: number;
+    ticketTypeId: number;
+    eventDate: string;
+    venueId: number;
 }
-
-export interface EventWorker {
-    // Define properties of EventWorker based on your C# model
-}
-

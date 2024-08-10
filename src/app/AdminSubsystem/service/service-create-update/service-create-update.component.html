@@ -1,21 +1,21 @@
-
 <div class="container">
-    <h5 style="text-align: center;">{{heading}}</h5>
-    <form #serviceForm="ngForm" (ngSubmit)="addService(serviceForm)" novalidate>
-      <div style="margin-bottom: 10px;">
-        <label for="serviceName">Name</label>
-        <input id="serviceName" class="form-control" type="text" name="name" [(ngModel)]="services.serviceName" required title="Please enter a service name">
-      </div>
+  <h1 style="text-align: center;">{{heading}}</h1>
+  <form #serviceForm="ngForm" (ngSubmit)="saveService(serviceForm)" novalidate>
+    <div style="margin-bottom: 10px;">
+      <label for="serviceName">Name</label>
+      <input id="serviceName" class="form-control" type="text" name="serviceName" [(ngModel)]="service.serviceName" required title="Please enter a service name">
+    </div>
   
-      <div style="margin-bottom: 10px;">
-        <label for="venueDescription">Description</label>
-        <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="services.serviceDescription" required title="Please enter a description">
-      </div>
+    <div style="margin-bottom: 10px;">
+      <label for="serviceDescription">Description</label>
+      <input id="serviceDescription" class="form-control" type="text" name="serviceDescription" [(ngModel)]="service.serviceDescription" required title="Please enter a description">
+    </div>
+    
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+      <input type="submit" class="btn btn-primary" [disabled]="!serviceForm.form.valid" name="Save"/> 
+    </div>
+  </form>
+</div>
 
-      <div style="text-align: center;">
-        <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
-        <input type="submit" class="btn btn-primary" [disabled]="!serviceForm.form.valid" name="Save"/> 
-      </div>
-    </form>
-  </div>
   

@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <br/>
   <div class="container mt-3">
     <div class="row">
@@ -6,8 +6,8 @@
         <h1 style="color: #FF5F00;">Service</h1>
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
-       <!-- Button trigger modal -->
-        <a class="btn btn-primary" routerLink="manageServices/0" routerLinkActive="active" >
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary" routerLink="/component/service-create-update" routerLinkActive="active">
           Add New
         </a>
       </div>
@@ -25,25 +25,28 @@
   <br/>
 
   <div class="container">
-  <table class="table align-middle mb-0 bg-white">
-    <thead class="bg-light">
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Service Type</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of filteredService">
-        <td>{{ item.serviceName}}</td>
-        <td>{{ item.serviceDescription }}</td>
-        <td>
-          <a class="btn btn-primary" [routerLink]="['/manageServices', item.serviceId]" >Edit</a>
-          <button (click)="deleteById(item.serviceId)" type="button" class="btn btn-danger" style="margin-left:62%;">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredService">
+          <td>{{ item.serviceName }}</td>
+          <td>{{ item.serviceDescription }}</td>
+          <td>
+            <a class="btn btn-primary" [routerLink]="['/component/service-create-update', item.serviceId]" (click)="logId(item.serviceId)">Edit</a>
+            <button (click)="deleteById(item.serviceId)" type="button" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+            <!-- Debug line to show serviceId -->
+            <span *ngIf="item.serviceId">Service ID: {{ item.serviceId }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
+
+

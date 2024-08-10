@@ -8,7 +8,8 @@ import { Observable, map } from 'rxjs';
 })
 export class ServicesServiceService {
 
-  private apiUrl = 'http://localhost:5196/api/Services' 
+  private apiUrl = 'http://localhost:5196/api/Services'
+ 
 
   constructor(private http: HttpClient) { }
 
@@ -35,17 +36,11 @@ export class ServicesServiceService {
     .pipe(map(result => result));
   }
 
-  // Deletes a service
-  deleteService(id: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));;
-  }
-
-  //Deletes service by Id
-  deleteServiceById(id: number): Observable<Service> {
-    return this.http.delete<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));
+  // Deletes service by Id
+  deleteServiceById(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }  
 }
 
 
-}
+

@@ -21,6 +21,8 @@ import { GenerateCodeComponent } from './AdminSubsystem/couponCode/generate-code
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/forgot-password.component';
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
+import { ReportComponent } from './Reporting/report/report.component';
+import { TicketSalesReportComponent } from './Reporting/ticket-sales-report/ticket-sales-report.component';
 
 export const Approutes: Routes = [
   {
@@ -74,6 +76,10 @@ export const Approutes: Routes = [
     path: 'forgotpassword',
     component: ForgotPasswordComponent
   },
+  {
+    path:'ticket-sales-report',
+    component:TicketSalesReportComponent
+  }
 
   
 

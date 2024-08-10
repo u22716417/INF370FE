@@ -1,30 +1,27 @@
-<form #checkOutForm="ngForm" (ngSubmit)="onCheckOut()" novalidate>
-  <div style="margin-bottom: 10px;">
-    <label for="barcodeNumber">Barcode Number</label>
-    <input
-      id="barcodeNumber"
-      class="form-control"
-      type="text"
-      name="barcodeNumber"
-      [(ngModel)]="barcodeNumber"
-      required
-      placeholder="Enter barcode number"
-      title="Please enter a barcode number"
-      #barcodeInput="ngModel"
-    />
-    
-    <div *ngIf="barcodeInput.invalid && (barcodeInput.dirty || barcodeInput.touched)" class="text-danger">
-      <div *ngIf="barcodeInput.errors?.['required']">Barcode number is required.</div>
+<form [formGroup]="checkOutForm" (ngSubmit)="onCheckOut()">
+  <div class="form-group">
+    <label for="barcode">Barcode</label>
+    <input #barcodeInput type="text" id="barcode" formControlName="barcode" class="form-control" />
+    <div *ngIf="checkOutForm.get('barcode')?.invalid && (checkOutForm.get('barcode')?.dirty || checkOutForm.get('barcode')?.touched)" class="invalid-feedback">
+      Barcode is required.
     </div>
   </div>
-  <div style="text-align: center;">
-    <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
-    <input type="submit" class="btn btn-primary" [disabled]="!checkOutForm.form.valid || isLoading" value="Check Out"/>
-    
-    <div *ngIf="isLoading" class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
+
+  <div class="numpad-container">
+    <input type="text" [value]="inputValue" class="input-box" readonly />
+
+    <div class="numpad">
+      <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
+      <button (click)="clearInput()" aria-label="Clear input">Clear</button>
     </div>
+  </div>
+
+  <div>
+    <button type="submit" class="btn btn-primary checkout-button" [disabled]="checkOutForm.invalid">Check Out</button>
   </div>
 </form>
+
+
+
 
 
