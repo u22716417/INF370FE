@@ -23,10 +23,10 @@ export class EventAttendanceReportComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent = Object.create(null);
   public eventAttendanceChartOptions: Partial<EventAttendanceChartOptions>| any;;
   attendanceRecords: any[] = [];
-  reportGeneratedDate: string = '';//NB TIL FILTERED
-  reportGeneratedBy: string = '';
-  public startDate: string = '';
-  public endDate: string  = '';
+  reportGeneratedDate = "";//NB TIL FILTERED
+  currentUserFullName = "";
+  startDate = "";
+  endDate = "";
   filteredEventAttendance = this.attendanceRecords;
 
   constructor(private reportService: ReportService, private userManagementService: UserManagementService) {
@@ -65,19 +65,22 @@ export class EventAttendanceReportComponent implements OnInit {
       this.attendanceRecords = [...response];
       this.updateChartOptions();
       this.reportGeneratedDate = this.getCurrentDateAndTime();
-    this.getCurrentUser(); 
+      this.getCurrentUser(); 
+      this.fetchEventAttendanceReport();
     });
   }
   getCurrentUser(): void {
     this.userManagementService.getUser().subscribe(
       (user) => {
-        this.reportGeneratedBy = user.fullName; 
+        this.currentUserFullName = user.fullName;
       },
       (error) => {
         console.error('Error fetching user details', error);
       }
-    );//nb
+    );
   }
+  //nb
+  
   getCurrentDateAndTime(): string {
     const now = new Date();
     return now.toLocaleString();
@@ -103,7 +106,8 @@ export class EventAttendanceReportComponent implements OnInit {
       // If neither date is provided, return all results
       return true;
     });
-  
+
+    console.log(this.filteredEventAttendance);
     this.updateChartOptions();
   }
   fetchEventAttendanceReport(): void {
