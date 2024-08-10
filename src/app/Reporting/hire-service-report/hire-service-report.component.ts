@@ -97,7 +97,7 @@ export class HireServiceReportComponent implements OnInit {
   }
   
   exportToPDF(): void {
-    const data = document.getElementById('reportTable');
+    const data = document.getElementById('reportContent');
     if (data) {
       html2canvas(data).then(canvas => {
         const imgWidth = 208; // A4 width in mm
@@ -110,8 +110,6 @@ export class HireServiceReportComponent implements OnInit {
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
         pdf.save('HireServiceReport.pdf');
       });
-    } else {
-      console.log('Table element not found'); // Debug log
     }
   }
 }
