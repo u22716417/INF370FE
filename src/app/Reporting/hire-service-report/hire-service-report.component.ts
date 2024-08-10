@@ -108,7 +108,7 @@ export class HireServiceReportComponent implements OnInit {
 
         const pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
-        pdf.save('CustomerSatisfactionReport.pdf');
+        pdf.save('HireServiceReport.pdf');
       });
     } else {
       console.log('Table element not found'); // Debug log
