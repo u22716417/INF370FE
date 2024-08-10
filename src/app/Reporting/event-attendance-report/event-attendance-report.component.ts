@@ -3,7 +3,7 @@ import { ReportService } from '../report.service';
 import { ChartComponent, ApexChart, ApexDataLabels, ApexTooltip, ApexLegend } from 'ng-apexcharts';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 export type EventAttendanceChartOptions = {
   series: number[];
   chart: ApexChart;
@@ -23,8 +23,13 @@ export class EventAttendanceReportComponent implements OnInit {
   @ViewChild("chart") chart: ChartComponent = Object.create(null);
   public eventAttendanceChartOptions: Partial<EventAttendanceChartOptions>| any;;
   attendanceRecords: any[] = [];
+  reportGeneratedDate: string = '';//NB TIL FILTERED
+  reportGeneratedBy: string = '';
+  public startDate: string = '';
+  public endDate: string  = '';
+  filteredEventAttendance = this.attendanceRecords;
 
-  constructor(private reportService: ReportService) {
+  constructor(private reportService: ReportService, private userManagementService: UserManagementService) {
     this.eventAttendanceChartOptions = {
       series: [],
       chart: {
@@ -59,8 +64,62 @@ export class EventAttendanceReportComponent implements OnInit {
     this.reportService.getEventAttendanceReport().subscribe(response => {
       this.attendanceRecords = [...response];
       this.updateChartOptions();
+      this.reportGeneratedDate = this.getCurrentDateAndTime();
+    this.getCurrentUser(); 
     });
   }
+  getCurrentUser(): void {
+    this.userManagementService.getUser().subscribe(
+      (user) => {
+        this.reportGeneratedBy = user.fullName; 
+      },
+      (error) => {
+        console.error('Error fetching user details', error);
+      }
+    );//nb
+  }
+  getCurrentDateAndTime(): string {
+    const now = new Date();
+    return now.toLocaleString();
+  }
+  filterAttendanceByDate(): void {
+    this.filteredEventAttendance = this.attendanceRecords.filter(record => {
+      const eventDate = new Date(record.eventDate);
+      const startDate = this.startDate ? new Date(this.startDate) : null;
+      const endDate = this.endDate ? new Date(this.endDate) : null;
+  
+      // If both dates are provided, filter between the dates
+      if (startDate && endDate) {
+        return eventDate >= startDate && eventDate <= endDate;
+      }
+      // If only start date is provided, filter from that date onward
+      if (startDate) {
+        return eventDate >= startDate;
+      }
+      // If only end date is provided, filter up to that date
+      if (endDate) {
+        return eventDate <= endDate;
+      }
+      // If neither date is provided, return all results
+      return true;
+    });
+  
+    this.updateChartOptions();
+  }
+  fetchEventAttendanceReport(): void {
+    this.reportService.getEventAttendanceReport().subscribe(
+      (data: any[]) => {
+        this.attendanceRecords = [...data];
+        this.filteredEventAttendance =  [...data];
+
+        this.updateChartOptions();
+      },
+      (error) => {
+        console.error('Error fetching event attendance report', error);
+      }
+    );
+  }
+
 
   updateChartOptions(): void {
     const eventNames = this.attendanceRecords.map(record => record.eventName);
@@ -73,63 +132,20 @@ export class EventAttendanceReportComponent implements OnInit {
     };
   }
 
-//   exportToPDF(): void {
-//     const data = document.getElementById('reportTable');
-//     if (data) {
-//       html2canvas(data).then(canvas => {
-//         const imgWidth = 208; // A4 width in mm
-//         const pageHeight = 295; // A4 height in mm
-//         const imgHeight = canvas.height * imgWidth / canvas.width;
-//         const heightLeft = imgHeight;
-//         const position = 0;
+  exportToPDF(): void {
+    const data = document.getElementById('reportContent');
+    if (data) {
+      html2canvas(data).then(canvas => {
+        const imgWidth = 208; // A4 width in mm
+        const pageHeight = 295; // A4 height in mm
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const heightLeft = imgHeight;
+        const position = 0;
 
-//         const pdf = new jsPDF('p', 'mm', 'a4');
-//         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
-//         pdf.save('EventAttendanceReport.pdf');
-//       });
-//     } else {
-//       console.log('Table element not found'); // Debug log
-//     }
-//   }
-// }
-exportToPDF(): void {
-  const chartElement = document.getElementById('chart');
-  const tableElement = document.getElementById('reportTable');
-  const date = new Date().toLocaleDateString();
-  
-  
-  if (chartElement && tableElement) {
-    
-    Promise.all([
-      html2canvas(chartElement),
-      html2canvas(tableElement)
-    ]).then(([chartCanvas, tableCanvas]) => {
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      
-      pdf.setFontSize(18);
-      pdf.text('Unsold Ticket Sales Report', 105, 20, { align: 'center' });
-
-      pdf.setFontSize(12);
-      pdf.text(`Date: ${date}`, 10, 30);
-     
-      const chartImgData = chartCanvas.toDataURL('image/png');
-      const chartWidth = 180; 
-      const chartHeight = (chartCanvas.height * chartWidth) / chartCanvas.width;
-      pdf.addImage(chartImgData, 'PNG', 15, 40, chartWidth, chartHeight);
-
-     
-      const tableImgData = tableCanvas.toDataURL('image/png');
-      const tableYPosition = 40 + chartHeight + 10; 
-      const tableWidth = 180; 
-      const tableHeight = (tableCanvas.height * tableWidth) / tableCanvas.width;
-      pdf.addImage(tableImgData, 'PNG', 15, tableYPosition, tableWidth, tableHeight);
-
-      pdf.save('EventAttendanceReport.pdf');
-    }).catch(error => {
-      console.error('Error generating PDF', error);
-      alert('Error generating PDF: ' + error.message);
-    });
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.save('EventAttendanceReport.pdf');
+      });
+    }
   }
-}
 }
