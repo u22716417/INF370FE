@@ -60,7 +60,9 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
-import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
+import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
+
 
 
 
@@ -93,7 +95,6 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     PayFastComponent,
     FaqCreateUpdateComponent,
     FaqListComponent,
-    HireServiceComponent,
     OrderHistoryComponent,
     TicketSalesReportComponent,
     ReportComponent,
@@ -106,8 +107,7 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
-    EventCreateUpdateComponent,
-    HireServiceReportComponent
+    EventCreateUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -121,7 +121,8 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    NgApexchartsModule
+    NgApexchartsModule,
+    FullCalendarModule
   ],
   providers: [
     {
