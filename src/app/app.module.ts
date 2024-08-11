@@ -63,6 +63,7 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
 import { EventAttendanceReportComponent } from './Reporting/event-attendance-report/event-attendance-report.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
 import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
+import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 
 
 
@@ -106,11 +107,12 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
     HireItemsReturnComponent,
     CustomerSatisfactionReportComponent,
     EventCreateUpdateComponent,
-    EventAttendanceReportComponent
+    EventAttendanceReportComponent,
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
-    EventCreateUpdateComponent
+    EventCreateUpdateComponent,
+    HireServiceReportComponent
   ],
   imports: [
     CommonModule,
@@ -126,6 +128,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
     SidebarComponent,
     NgApexchartsModule,
     FullCalendarModule
+   
+
   ],
   providers: [
     {

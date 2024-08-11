@@ -70,6 +70,8 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'EventAttendanceReport',
 				component: EventAttendanceReportComponent
+			},
+			{
 				path: 'HireServiceReport',
 				component: HireServiceReportComponent
 			},

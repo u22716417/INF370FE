@@ -7,11 +7,33 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ServicesServiceService {
+  
+  
+ 
 
   private apiUrl = 'http://localhost:5196/api/Services'
  
 
   constructor(private http: HttpClient) { }
+
+  createQuote(serviceId: number, start: string| null,end: string|null, currentUser: number ) : Observable<any>   {
+    var payload = {
+      start: start,
+      end: end,
+      userid: currentUser
+    }
+    return this.http.post<any>(`${this.apiUrl+'/CreateQuote'}/${serviceId}`, payload)
+  }
+
+  getBookingSchedule(serviceId: number): Observable<any[]>  
+  {
+    return this.http.get<any>(`${this.apiUrl+'/GetBookingSchedule'}/${serviceId}`)
+  }
+
+  getQuotes(userid: number): Observable<any[]>  
+  {
+    return this.http.get<any>(`${this.apiUrl+'/GetQuotes'}/${userid}`)
+  }
 
   // Gets all services
   getAllServices(): Observable<Service[]> {

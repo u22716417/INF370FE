@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { ReportService } from '../report.service';
 import { ApexChart, ApexXAxis, ApexTitleSubtitle, ApexDataLabels, ApexPlotOptions, ApexFill, ApexAxisChartSeries, ApexYAxis } from 'ng-apexcharts';
+import * as XLSX from 'xlsx';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -23,22 +24,31 @@ export type ChartOptions = {
   styleUrls: ['./un-sold-ticket-report.component.css']
 })
 export class UnSoldTicketReportComponent implements OnInit {
+  @ViewChild("chart") chartOptions: ChartOptions | undefined;
+
   UnsoldTickets: any[] = [];
-  chartOptions: ChartOptions = {
-    series: [{ name: "Unsold Tickets", data: [] }],
-    chart: { type: "bar", height: 350 },
-    plotOptions: { bar: { horizontal: false } },
-    dataLabels: { enabled: false },
-    xaxis: { categories: [], title: { text: 'Events' } },
-    yaxis: { title: { text: 'Number of Tickets' } },
-    title: { text: "Report on Unsold Tickets by Event" },
-    fill: { opacity: 1 }
-  };
+
+
+  public months = [
+    { name: 'January', value: '01' },
+    { name: 'February', value: '02' },
+    { name: 'March', value: '03' },
+    { name: 'April', value: '04' },
+    { name: 'May', value: '05' },
+    { name: 'June', value: '06' },
+    { name: 'July', value: '07' },
+    { name: 'August', value: '08' },
+    { name: 'September', value: '09' },
+    { name: 'October', value: '10' },
+    { name: 'November', value: '11' },
+    { name: 'December', value: '12' },
+  ];
+
   currentUserFullName = "";
   reportGeneratedDateTime = "";
   startDate = '';
   endDate = '';
-  filteredUnsoldTickets = this.UnsoldTickets;
+  filteredUnsoldTickets: any[] =[];
   eventNames: string[] = [];
   eventsfromDb: any[] = [];
   selectedEvent: string = '';
@@ -46,11 +56,35 @@ export class UnSoldTicketReportComponent implements OnInit {
   constructor(
     private ticketSalesReportService: ReportService,
     private userManagementService: UserManagementService
-  ) {}
+  ) {
+
+
+    this.chartOptions = {
+      series: [{ name: "Unsold Tickets", data: [] }],
+      chart: { type: "bar", height: 350 },
+      plotOptions: { bar: { horizontal: false } },
+      dataLabels: { enabled: false },
+      xaxis: { categories: [], title: { text: 'Events' } },
+      yaxis: { title: { text: 'Number of Tickets' } },
+      title: { text: "Report on Unsold Tickets by Event" },
+      fill: { opacity: 1 }
+    };
+
+  }
 
   ngOnInit(): void {
+    this.setDefaultDates();
     this.fetchTicketSalesReport();
     this.getUserFullNameAndDateTime();
+  }
+
+  setDefaultDates(): void {
+    const currentYear = new Date().getFullYear();
+    this.startDate = `${currentYear}-01-01`; // Beginning of the current year
+    this.endDate = `${currentYear}-12-31`;   // End of the current year
+    this.fetchTicketSalesReport();
+    this.filterUnsoldTicketsByDate();
+
   }
 
   getUserFullNameAndDateTime(): void {
@@ -63,12 +97,35 @@ export class UnSoldTicketReportComponent implements OnInit {
     });
   }
 
+  populateDates(event: any): void {
+    const selectedMonth = event.target.value;
+    const currentYear = new Date().getFullYear();
+    
+    if (selectedMonth) {
+      const firstDay = new Date(currentYear, parseInt(selectedMonth) - 1, 1);
+      const lastDay = new Date(currentYear, parseInt(selectedMonth), 0);
+
+      this.startDate = this.formatDate(firstDay);
+      this.endDate = this.formatDate(lastDay);    
+    }
+    this.filterUnsoldTicketsByDate();
+  }
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
+
   fetchTicketSalesReport(month: string = ''): void {
     this.ticketSalesReportService.getUnsoldTicketsReport(month).subscribe(
       (data: any[]) => {
-        this.UnsoldTickets = data;
+        this.UnsoldTickets = [...data];
         this.eventNames = this.getUniqueEventNames(); // Update the event names for dropdown
-        this.updateChartOptions(data);
+        console.log(data);
+        this.updateChartOptions(this.UnsoldTickets);
+        this.filterUnsoldTicketsByDate();
       },
       (error) => {
         console.error('Error fetching ticket sales report', error);
@@ -100,7 +157,7 @@ export class UnSoldTicketReportComponent implements OnInit {
         new Date(ticket.eventDate) <= new Date(this.endDate || '')
       );
     } else {
-      this.filteredUnsoldTickets = this.UnsoldTickets;
+      this.filteredUnsoldTickets = [...this.UnsoldTickets];
     }
     this.updateChartOptions(this.filteredUnsoldTickets);
   }
@@ -122,7 +179,6 @@ export class UnSoldTicketReportComponent implements OnInit {
       fill: { opacity: 1 }
     };
   }
-
   exportToPDF(): void {
     const chartElement = document.getElementById('chart');
     const tableElement = document.getElementById('reportTable');
@@ -130,30 +186,57 @@ export class UnSoldTicketReportComponent implements OnInit {
     const generatedBy = this.currentUserFullName;
 
     if (chartElement && tableElement) {
-      Promise.all([
-        html2canvas(chartElement),
-        html2canvas(tableElement)
-      ]).then(([chartCanvas, tableCanvas]) => {
+        // Create a new jsPDF instance
         const pdf = new jsPDF('p', 'mm', 'a4');
-        pdf.setFontSize(18);
-        pdf.text('Unsold Ticket Sales Report', 105, 20, { align: 'center' });
-        pdf.setFontSize(12);
-        pdf.text(`Date: ${date}`, 10, 30);
-        pdf.text(`Generated by: ${generatedBy}`, 10, 35);
+        
+        // Add the logo image
+        const logoImg = new Image();
+        logoImg.src = 'assets/images/Protea-logo.png';  // Path to the image
+        logoImg.onload = () => {
+            // Add the logo image to the PDF
+            pdf.addImage(logoImg, 'PNG', 105 - 15, 10, 30, 30); // Centered image at top
 
-        const chartImgData = chartCanvas.toDataURL('image/png');
-        const chartWidth = 190;
-        const chartHeight = chartCanvas.height * (chartWidth / chartCanvas.width);
-        pdf.addImage(chartImgData, 'PNG', 10, 40, chartWidth, chartHeight);
+            // Add the title below the image
+            pdf.setFontSize(18);
+            pdf.text('Unsold Ticket Sales Report', 105, 50, { align: 'center' });
 
-        const tableImgData = tableCanvas.toDataURL('image/png');
-        pdf.addPage();
-        pdf.addImage(tableImgData, 'PNG', 10, 10, 190, 0);
+            // Add date and generated by info
+            pdf.setFontSize(12);
+            pdf.text(`Date: ${date}`, 10, 60);
+            pdf.text(`Generated by: ${generatedBy}`, 10, 65);
 
-        pdf.save('unsold-tickets-report.pdf');
-      });
+            // Add the chart image
+            html2canvas(chartElement, { scale: 2 }).then(chartCanvas => {
+                const chartImgData = chartCanvas.toDataURL('image/png');
+                pdf.addImage(chartImgData, 'PNG', 10, 70, 190, 100);  // Adjust width and height
+
+                // Add the table image
+                html2canvas(tableElement, { scale: 2 }).then(tableCanvas => {
+                    const tableImgData = tableCanvas.toDataURL('image/png');
+                    pdf.addImage(tableImgData, 'PNG', 10, 180, 190, 100);  // Adjust width and height
+
+                    // Save the PDF
+                    pdf.save('unsold-tickets-report.pdf');
+                }).catch(error => {
+                    console.error('Error generating table canvas:', error);
+                });
+            }).catch(error => {
+                console.error('Error generating chart canvas:', error);
+            });
+        };
     } else {
-      console.error('Could not find chart or table element.');
+        console.error('Could not find chart or table element.');
     }
-  }
+}
+
+exportToExcel(): void {
+  const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'soldTicketsReport');
+
+  // Generate Excel file and trigger download
+  XLSX.writeFile(wb, 'sold-tickets-report.xlsx');
+
+    
+}
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import * as XLSX from 'xlsx';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -111,5 +112,14 @@ export class HireServiceReportComponent implements OnInit {
         pdf.save('HireServiceReport.pdf');
       });
     }
+  }
+
+  exportToExcel(): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'HireServiceReport');
+  
+    // Generate Excel file and trigger download
+    XLSX.writeFile(wb, 'hire-service-report.xlsx');
   }
 }

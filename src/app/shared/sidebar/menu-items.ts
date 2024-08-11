@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'component/Reporting',
-    title: 'Report',
+    title: 'Reports',
     icon: 'bi bi-bell',
     class: '',
     extralink: false,

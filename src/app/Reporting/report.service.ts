@@ -9,12 +9,12 @@ export class ReportService {
   
   private apiUrl = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';  
 
-  //private apiUrl1 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets'; 
-  //private apiUrl2 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';
-
+ 
   private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport'
 
   private apiUrl4 = 'https://localhost:7149/api/Events/GenerateEventAttendanceReport';
+
+  
 
   constructor(private http: HttpClient) { }
 
@@ -27,16 +27,17 @@ export class ReportService {
   }
 
   getTicketSalesReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>('https://localhost:7149/api/Events/TicketSalesReport');
   }
 
   getCustomerSatisfactionReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl2);
+    return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
   }
 
   getEventAttendanceReport(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl4}`);
   }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
  return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
  }
@@ -48,9 +49,14 @@ export class ReportService {
   getEventAttendanceDetails(): Observable<any[]> {
     return this.http.get<any[]>('https://localhost:7149/api/Events/GenerateEventAttendanceDetailedReport');
   }
+=======
+>>>>>>> main
  
   getHireServiceReport(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl3);
   }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> main
 }

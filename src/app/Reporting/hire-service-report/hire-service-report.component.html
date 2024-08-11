@@ -1,6 +1,7 @@
 <div id="reportContent" class="container">
   <h2>Hire Service Report</h2>
-  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button> |
+  <button (click)="exportToExcel()" class="btn btn-primary mb-3">Export to Excel</button>
  
 <div class="card"  style="width: 100%; margin-left: 0; justify-self: start;">
   <div class="card-body">
@@ -14,6 +15,8 @@
 </div>
 
 <div id="chart">
+  <div  class="card mb-4">
+    <div class="card-body">
   <apx-chart
   [series]="chartOptions?.series"
   [chart]="chartOptions?.chart"
@@ -23,6 +26,8 @@
   [colors]="chartOptions?.colors">
 </apx-chart>
 </div>
+</div>
+</div>
 
 <div class="card">
   <table id="reportTable" class="table table-striped">
@@ -30,12 +35,14 @@
       <tr>
         <th>Service Name</th>
         <th>Service Description</th>
+        <th>Service Count</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let report of hireService">
         <td>{{ report.serviceName }}</td>
         <td>{{ report.serviceDescription }}</td>
+        <td>{{ report.serviceCount }}</td>
       </tr>
     </tbody>
   </table>
@@ -46,36 +53,3 @@
 
 
 
-<!-- <div class="container">
-  <h2>Hire Service Report</h2>
-  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
-  <p>Report generated on: {{ reportGeneratedDate }}</p>
-
-  <table id="reportTable" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Service Name</th>
-        <th>Service Type</th>
-        <th>Service Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of hireService">
-        <td>{{ report.serviceName }}</td>
-        <td>{{ report.serviceType }}</td>
-        <td>{{ report.serviceDescription }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div id="chart">
-  <apx-chart 
-  [series]="chartOptions.series" 
-  [chart]="chartOptions.chart" 
-  [xaxis]="chartOptions.xaxis" 
-  [yaxis]="chartOptions.yaxis" 
-  [title]="chartOptions.title" 
-  [tooltip]="chartOptions.tooltip">
-  </apx-chart>
-</div> -->
