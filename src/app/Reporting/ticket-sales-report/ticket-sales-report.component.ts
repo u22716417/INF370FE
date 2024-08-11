@@ -126,22 +126,38 @@ export class TicketSalesReportComponent implements OnInit {
   }
   
 
-  exportToPDF(): void {
-    const data = document.getElementById('reportContent');
-    if (data) {
-      html2canvas(data).then(canvas => {
-        const imgWidth = 208; // A4 width in mm
-        const pageHeight = 295; // A4 height in mm
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        const heightLeft = imgHeight;
-        const position = 0;
+exportToPDF(): void {
+  const data = document.getElementById('reportContent');
+  if (data) {
+    html2canvas(data).then(canvas => {
+      const imgWidth = 208; // A4 width in mm
+      const pageHeight = 295; // A4 height in mm
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let position = 40; // Start position for the content, after the image
 
-        const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+
+      // Add your image to the top of the PDF
+      const img = new Image();
+      img.src = 'https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png';
+      img.onload = () => {
+        const imgHeightPDF = 30; // Desired height of the image in the PDF
+        const imgWidthPDF = (img.width / img.height) * imgHeightPDF; // Maintain aspect ratio
+        const imgX = (imgWidth - imgWidthPDF) / 2; // Center the image horizontally
+        //pdf.addImage(img, 'PNG', imgX, 10, imgWidthPDF, imgHeightPDF);
+
+        // Add the captured content below the image
         pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
+
+        // Save the PDF
         pdf.save('TicketSalesReport.pdf');
-      });
-    }
+      };
+    });
   }
+}
+
+
+  
 
   fetchTicketSalesReport(): void {
     this.ticketSalesReportService.getTicketSalesReport().subscribe(
