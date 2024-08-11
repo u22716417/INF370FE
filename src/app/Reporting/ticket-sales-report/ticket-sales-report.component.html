@@ -25,7 +25,7 @@
               <div>
                 <label for="monthSelect">Select Month:</label>
                 <select id="monthSelect" class="form-control" (change)="populateDates($event)">
-                  <option value="">Select Month</option>
+                  <option (click)="setDefaultDates()" value="">Select Month</option>
                   <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
                 </select>
               </div>
@@ -86,11 +86,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let report of filteredSales">
-              <td>{{ report.eventName }}</td>
-              <td>{{ report.eventDate | date:'yyyy-MM-dd' }}</td>
-              <td>R {{ report.ticketPrice | number:'1.2-2' }}</td>
-              <td>{{ report.unsoldTickets }}</td>
-              <td>R {{ (report.ticketPrice * report.unsoldTickets) | number:'1.2-2' }}</td> 
+              <td>{{ report.event_name }}</td>
+              <td>{{ report. eventdate | date:'yyyy-MM-dd' }}</td>
+              <td>R {{ report.ticket_price | number:'1.2-2' }}</td>
+              <td>{{ report.number_of_tickets_sold }}</td>
+              <td>R {{ (report.ticket_price * report.number_of_tickets_sold) | number:'1.2-2' }}</td> 
             </tr>
           </tbody>
           <tfoot>

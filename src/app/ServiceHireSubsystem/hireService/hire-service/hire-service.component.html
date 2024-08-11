@@ -5,8 +5,8 @@
 
   <div class="card" style="padding: 10%; width: 120%;">
     <div class="tab-container" style="display: flex; justify-content: left; margin-bottom: 20px;">
-      <button class="tab" (click)="activeTab = 'calendar'" [class.active]="activeTab === 'calendar'">Calendar</button>
-      <button class="tab" (click)="activeTab = 'quotes'" [class.active]="activeTab === 'quotes'">Quotes</button>
+      <button class="tab" (click)="this.ngOnInit()" (click)="activeTab = 'calendar'" [class.active]="activeTab === 'calendar'">Calendar</button>
+      <button class="tab"  (click)="this.ngOnInit()" (click)="activeTab = 'quotes'" [class.active]="activeTab === 'quotes'">Quotes</button>
     </div>
 
     <div *ngIf="activeTab === 'calendar'" style="display: flex; width: 100%; margin-top: 20px;">

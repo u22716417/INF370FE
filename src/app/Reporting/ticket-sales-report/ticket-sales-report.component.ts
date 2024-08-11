@@ -12,6 +12,7 @@ import {
   ApexTitleSubtitle
 } from 'ng-apexcharts';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { dA } from '@fullcalendar/core/internal-common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -100,9 +101,19 @@ export class TicketSalesReportComponent implements OnInit {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+
+ 
+  setDefaultDates(): void {
+    const currentYear = new Date().getFullYear();
+    this.startDate = `${currentYear}-01-01`; // Beginning of the current year
+    this.endDate = `${currentYear}-12-31`;   // End of the current year
+    this.fetchTicketSalesReport();
+    this.filterSalesByDate();
+  }
+
   filterSalesByDate(): void {
     this.filteredSales = this.ticketSales.filter(sale => {
-      const eventDate = new Date(sale.eventDate);
+      const eventDate = new Date(sale.eventdate);
       const startDate = this.startDate ? new Date(this.startDate) : null;
       const endDate = this.endDate ? new Date(this.endDate) : null;
   
@@ -162,10 +173,10 @@ exportToPDF(): void {
   fetchTicketSalesReport(): void {
     this.ticketSalesReportService.getTicketSalesReport().subscribe(
       (data: any[]) => {
+        console.log(data);
         this.ticketSales = [...data];
         this.filteredSales =  [...data];
-
-        this.updateChartOptions();
+        this.filterSalesByDate();
       },
       (error) => {
         console.error('Error fetching ticket sales report', error);
@@ -181,8 +192,8 @@ exportToPDF(): void {
         '#F7B7A3', '#D5AAFF', '#F2A72C', '#9F6F5F', '#6D8EAD'
     ];
 
-    const categories = this.filteredSales.map(sale => sale.eventName);
-    const data = this.filteredSales.map(sale => sale.unsoldTickets);
+    const categories = this.filteredSales.map(sale => sale.event_name);
+    const data = this.filteredSales.map(sale => sale.number_of_tickets_sold);
 
     // Ensure the number of colors is at least as many as data points
     const chartColors = colors.slice(0, data.length);
@@ -219,7 +230,7 @@ exportToPDF(): void {
 
   getTotalSales(): number {
     return this.filteredSales.reduce((total, report) => {
-      return total + (report.ticketPrice * report.unsoldTickets);
+      return total + (report.ticket_price * report.number_of_tickets_sold);
     }, 0);
   }
 }

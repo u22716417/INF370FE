@@ -46,7 +46,7 @@
   </div>
   <div class="modal-footer">
     <button (click)="closeModal()" class="btn btn-primary">Close</button> |
-    <button (click)="closeModal()"  class="btn btn-success">Add To Cart</button>
+    <button  (click)="addtoCart(this.currentEvent.title,this.currentEvent.eventPrice, this.currentEvent.id)"   class="btn btn-success">Add To Cart</button>
   </div>
 </div>
 
