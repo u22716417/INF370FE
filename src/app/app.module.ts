@@ -128,6 +128,8 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     SidebarComponent,
     NgApexchartsModule,
     FullCalendarModule
+   
+
   ],
   providers: [
     {
