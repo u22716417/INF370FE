@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>
+  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button>|
   <button (click)="exportToExcel()" class="btn btn-primary">Export to Excel</button>
   <!-- Chart Column -->
   <div class="card mb-4" id = "chart">
@@ -61,7 +61,7 @@
       <tbody>
         <tr *ngFor="let record of filteredEventAttendance">
           <td>{{ record.eventName }}</td>
-          <td>{{ record.evenAttendanceCount }}</td>
+          <td>{{ record.eventAttendanceCount }}</td>
           <td>{{ record.eventDate | date: 'shortDate' }}</td>
           <td>{{ record.venueName }}</td>
         </tr>

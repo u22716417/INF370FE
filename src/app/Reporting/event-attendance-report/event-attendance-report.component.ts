@@ -52,7 +52,7 @@ export class EventAttendanceReportComponent implements OnInit {
         theme: 'dark',
         y: {
           formatter: (val: number) => {
-            return val + "%";
+            return val ;
           }
         }
       },
