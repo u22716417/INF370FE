@@ -13,7 +13,8 @@ import { HttpClient } from '@angular/common/http';
 export class EventCreateUpdateComponent implements OnInit {
 
 
-
+  showNotification: boolean = false;
+  notificationMessage: string = '';
   errorMessage: string = '';
   imagePreview: null | undefined;
   showPopup: boolean = false; // Add a flag for the popup
@@ -77,14 +78,15 @@ export class EventCreateUpdateComponent implements OnInit {
   formData.append('image', this.newEvent.image); // Make sure 'image' is a Blob or file object
 
     console.log(this.newEvent);
-    console.log('Selected Venue ID:', this.newEvent.venueId); 
+   
     //if (eventForm.valid) {
       if (this.newEvent.id === 0) {
         this.eventService.createEvent(this.newEvent).subscribe((response: any) => {
           this.handleNavigation(response);
+          this.showPopupNotification('Event successfully created!');
         }, error => {
           console.error('Error creating event:', error);
-          console.log('Event Payload:', this.newEvent);
+         
         });
       } else {
         this.eventService.updateEvent(this.newEvent).subscribe((response: any) => {
@@ -170,6 +172,15 @@ export class EventCreateUpdateComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/component/events-list']);
+    this.router.navigate(['/component/events']);
+  }
+
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+      this.notificationMessage = '';
+    }, 3000);
   }
 }
