@@ -4,18 +4,6 @@
   <!-- Flex container for Date Inputs and Generated Info Card -->
   <div class="d-flex justify-content-between align-items-start mb-4">
     <!-- Date Inputs -->
-<<<<<<< Updated upstream
-    <div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
-      <div class="card-body">
-        <div class="d-flex gap-3">
-          <div>
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" [(ngModel)]="startDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
-          </div>
-
-          <div>
-            <label for="endDate">End Date:</label>
-=======
     <div class="card" style="flex: 1; margin-right: 20px;">
       <div class="card-body">
         <h5 class="card-title">Filter Options</h5>
@@ -33,7 +21,6 @@
           </div>
           <div>
             <label for="endDate" class="form-label">End Date:</label>
->>>>>>> Stashed changes
             <input type="date" id="endDate" [(ngModel)]="endDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
           </div>
         </div>
@@ -67,15 +54,9 @@
   </div>
 
   <!-- ApexCharts Bar Chart -->
-<<<<<<< Updated upstream
-  <div class="card">
-    <div id="chart" class="mb-4">
-      <apx-chart
-=======
   <div class="card mb-4">
     <div id="chart">
       <apx-chart *ngIf="chartOptions"
->>>>>>> Stashed changes
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
