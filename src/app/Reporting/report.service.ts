@@ -37,26 +37,17 @@ export class ReportService {
   getEventAttendanceReport(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl4}`);
   }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
- return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
- }
+
+ 
 
  getHireServiceReport(): Observable<any[]> {
   return this.http.get<any[]>(this.apiUrl3);
 }
-=======
+
   getEventAttendanceDetails(): Observable<any[]> {
     return this.http.get<any[]>('https://localhost:7149/api/Events/GenerateEventAttendanceDetailedReport');
   }
-=======
->>>>>>> main
- 
-  getHireServiceReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl3);
-  }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> main
+
+
 }
+
