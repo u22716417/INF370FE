@@ -14,6 +14,8 @@ export class ReportService {
 
   private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport'
 
+  private apiUrl4 = 'https://localhost:7149/api/Events/GenerateEventAttendanceReport';
+
   constructor(private http: HttpClient) { }
 
   getUnsoldTicketsReport(month?: string): Observable<any[]> {
@@ -29,6 +31,12 @@ export class ReportService {
   }
 
   getCustomerSatisfactionReport(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl2);
+  }
+
+  getEventAttendanceReport(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl4}`);
+  }
  return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
  }
 
