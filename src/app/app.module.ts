@@ -62,6 +62,7 @@ import { QuotationListComponent } from './quotation-list/quotation-list.componen
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
 import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
+import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 
 
 
@@ -107,7 +108,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
-    EventCreateUpdateComponent
+    EventCreateUpdateComponent,
+    HireServiceReportComponent
   ],
   imports: [
     CommonModule,

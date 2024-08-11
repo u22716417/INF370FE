@@ -1,19 +1,83 @@
-<!-- hire-service.component.html -->
-<div >
-  <header class="header">
-    <h1 style="text-align: center;">Hire Service</h1>
+<div style="display: flex; flex-direction: column; align-items: center; padding: 5%; max-width: 1200px; margin: auto;">
+  <header style="text-align: center; width: 100%;">
+    <h1>Request a Service Quote</h1>
   </header>
-  <div style="padding: 5%;" class="card">
-    <full-calendar
-    [options]="calendarOptions"
-    (dateClick)="handleDateClick($event)"></full-calendar>
-   </div>
 
-   
+  <div class="card" style="padding: 10%; width: 120%;">
+    <div class="tab-container" style="display: flex; justify-content: left; margin-bottom: 20px;">
+      <button class="tab" (click)="activeTab = 'calendar'" [class.active]="activeTab === 'calendar'">Calendar</button>
+      <button class="tab" (click)="activeTab = 'quotes'" [class.active]="activeTab === 'quotes'">Quotes</button>
+    </div>
+
+    <div *ngIf="activeTab === 'calendar'" style="display: flex; width: 100%; margin-top: 20px;">
+      <div style="flex: 3; padding-right: 10px;">
+        <full-calendar
+          [options]="calendarOptions"
+          (dateClick)="handleDateClick($event)"></full-calendar>
+      </div>
+      <div style="flex: 1; padding-left: 10px;">
+        <h2>Enter Service Details</h2>
+        <label>Choose A Service:</label>
+        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)">
+          <option>Select Service</option>
+          <option *ngFor="let service of services" [value]="service.id">
+            {{ service.serviceName }}
+          </option>
+        </select>
+        <br>
+        <label>Choose A Start Date:</label>
+        <input type="date" [value]="startDate" disabled class="form-control">
+        <br>
+        <label>Choose An End Date:</label>
+        <input type="date" [value]="endDate" disabled class="form-control">
+        <br>
+        <br>
+        <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'quotes'" style="margin-top: 20px;">
+      <h2>Quotes</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ServiceName</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Quote Price</th>
+            <th>Approved</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of quotes">
+              <td>{{item.serviceName}}</td>
+              <td>{{item.start}}</td>
+              <td>{{item.end}}</td>
+              <td>{{item.quotePrice}}</td>
+              <td *ngIf="item.approved ==null " >No Action</td>
+              <td *ngIf="item.approved =='True' " >Approved</td>
+              <td *ngIf="item.approved =='False' " >Rejected</td>
+              <td *ngIf="item.approved == null" > 
+                <button class="btn btn-success">Approve</button> |
+                <button class="btn btn-danger">Reject</button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<div *ngIf="showPopup" class="popup-overlay">
-  <div class="popup">
-    <h2>{{ popupDate }}</h2>
-    <button (click)="closePopup()">Close</button>
+
+<div *ngIf="showPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 1001;">
+    <h2>Quote Request Confirmation</h2>
+    <p>You have selected the service: {{this.SelectedServiceName }}</p>
+    <p>Start Date: {{ startDate }}</p>
+    <p>End Date: {{ endDate }}</p>
+    <p>A comprehensive quote will be sent to your email.</p>
+    <button class="btn btn-success" (click)="postQuote()">Confirm</button>
+
+    <button class="btn btn-danger" (click)="closePopup()">Cancel</button>
   </div>
 </div>
