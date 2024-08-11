@@ -98,12 +98,12 @@ export class EventAttendanceReportComponent implements OnInit {
 
   updateChartOptions(): void {
     const eventNames = this.attendanceRecords.map(record => record.eventName);
-    const attendanceCounts = this.attendanceRecords.map(record => record.eventAttendanceCount);
+    const attendanceCounts = this.attendanceRecords.map(record => record.evenAttendanceCount);
   
     // Log values for debugging
     console.log('Event Names:', eventNames);
     console.log('Attendance Counts:', attendanceCounts);
-  
+    console.log('Event :', this.attendanceRecords);
     if (eventNames.length > 0 && attendanceCounts.length > 0) {
       this.eventAttendanceChartOptions = {
         ...this.eventAttendanceChartOptions,
