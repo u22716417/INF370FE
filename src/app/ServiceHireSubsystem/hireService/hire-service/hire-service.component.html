@@ -1,80 +1,83 @@
+<div style="display: flex; flex-direction: column; align-items: center; padding: 5%; max-width: 1200px; margin: auto;">
+  <header style="text-align: center; width: 100%;">
+    <h1>Request a Service Quote</h1>
+  </header>
 
-<div class="container">
-    <header class="header">
-      <h1>Hire Service</h1>
-    </header>
-  
-    <form [formGroup]="hireServiceForm" (ngSubmit)="onSubmit()">
-      
-      <p id="available-dates">Select dates for Service hire from the calendar below.</p>
-  
-      <div class="form-group">
-        <label for="ServiceTimeslotDescription">ServiceTimeslotDescription</label>
-        <input
-          type="text"
-          id="ServiceTimeslotDescription"
-          formControlName="ServiceTimeslotDescription"
-          class="form-control"
-          [class.is-invalid]="hireServiceForm.get('ServiceTimeslotDescription')?.invalid && hireServiceForm.get('ServiceTimeslotDescription')?.touched"
-        />
-        <div *ngIf="hireServiceForm.get('ServiceTimeslotDescription')?.invalid && hireServiceForm.get('ServiceTimeslotDescription')?.touched" class="invalid-feedback">
-            ServicecTimeslotcDescription is required.
-        </div>
+  <div class="card" style="padding: 10%; width: 120%;">
+    <div class="tab-container" style="display: flex; justify-content: left; margin-bottom: 20px;">
+      <button class="tab" (click)="activeTab = 'calendar'" [class.active]="activeTab === 'calendar'">Calendar</button>
+      <button class="tab" (click)="activeTab = 'quotes'" [class.active]="activeTab === 'quotes'">Quotes</button>
+    </div>
+
+    <div *ngIf="activeTab === 'calendar'" style="display: flex; width: 100%; margin-top: 20px;">
+      <div style="flex: 3; padding-right: 10px;">
+        <full-calendar
+          [options]="calendarOptions"
+          (dateClick)="handleDateClick($event)"></full-calendar>
       </div>
-  
-      <div class="form-group">
-        <label for="TimeslotId">Timeslot ID</label>
-        <input
-          type="text"
-          id="TimeslotId"
-          formControlName="TimeslotId"
-          class="form-control"
-         
-          [class.is-invalid]="hireServiceForm.get('TimeslotId')?.invalid && hireServiceForm.get('TimeslotId')?.touched"
-        />
-        <div *ngIf="hireServiceForm.get('TimeslotId')?.invalid && hireServiceForm.get('TimeslotId')?.touched" class="invalid-feedback">
-          Timeslot is required.
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label for="ServiceId">Service ID</label>
-        <input
-          type="text"
-          id="ServiceId"
-          formControlName="ServiceId"
-          class="form-control"
-         
-          [class.is-invalid]="hireServiceForm.get('ServiceId')?.invalid && hireServiceForm.get('ServiceId')?.touched"
-        />
-        <div *ngIf="hireServiceForm.get('ServiceId')?.invalid && hireServiceForm.get('ServiceId')?.touched" class="invalid-feedback">
-          Service ID is required.
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="Service">Service</label>
-        <select
-          id="Service"
-          formControlName="Service"
-          class="form-control"
-          [class.is-invalid]="hireServiceForm.get('Service')?.invalid && hireServiceForm.get('Service')?.touched"
-        >
-          <option value="" disabled>Select Service</option>
-          <option *ngFor="let option of serviceOptions" [value]="option">{{ option }}</option>
+      <div style="flex: 1; padding-left: 10px;">
+        <h2>Enter Service Details</h2>
+        <label>Choose A Service:</label>
+        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)">
+          <option>Select Service</option>
+          <option *ngFor="let service of services" [value]="service.id">
+            {{ service.serviceName }}
+          </option>
         </select>
-        <div *ngIf="hireServiceForm.get('Service')?.invalid && hireServiceForm.get('Service')?.touched" class="invalid-feedback">
-          Service is required.
-        </div>
+        <br>
+        <label>Choose A Start Date:</label>
+        <input type="date" [value]="startDate" disabled class="form-control">
+        <br>
+        <label>Choose An End Date:</label>
+        <input type="date" [value]="endDate" disabled class="form-control">
+        <br>
+        <br>
+        <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
       </div>
-  
-      <button type="submit" class="btn btn-primary" [disabled]="hireServiceForm.invalid">Submit</button>
-      <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
-    </form>
-  
-  
-      <div id="notification" [class.show]="showNotification">
-        {{ notificationMessage }}
-  
-      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'quotes'" style="margin-top: 20px;">
+      <h2>Quotes</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ServiceName</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Quote Price</th>
+            <th>Approved</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of quotes">
+              <td>{{item.serviceName}}</td>
+              <td>{{item.start}}</td>
+              <td>{{item.end}}</td>
+              <td>{{item.quotePrice}}</td>
+              <td *ngIf="item.approved ==null " >No Action</td>
+              <td *ngIf="item.approved =='True' " >Approved</td>
+              <td *ngIf="item.approved =='False' " >Rejected</td>
+              <td *ngIf="item.approved == null" > 
+                <button class="btn btn-success">Approve</button> |
+                <button class="btn btn-danger">Reject</button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
+
+<div *ngIf="showPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 1001;">
+    <h2>Quote Request Confirmation</h2>
+    <p>You have selected the service: {{this.SelectedServiceName }}</p>
+    <p>Start Date: {{ startDate }}</p>
+    <p>End Date: {{ endDate }}</p>
+    <p>A comprehensive quote will be sent to your email.</p>
+    <button class="btn btn-success" (click)="postQuote()">Confirm</button>
+
+    <button class="btn btn-danger" (click)="closePopup()">Cancel</button>
+  </div>
+</div>

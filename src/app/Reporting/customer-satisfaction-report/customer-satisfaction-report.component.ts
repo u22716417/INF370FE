@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../report.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -76,6 +77,16 @@ export class CustomerSatisfactionReportComponent implements OnInit {
   getUniqueEventNames(): string[] {
     const eventNames = this.eventsfromDb.map(event => event.eventName);
     return [...new Set(eventNames)];
+  }
+
+  
+  exportToExcel(): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'customerSatisfactionReport');
+  
+    // Generate Excel file and trigger download
+    XLSX.writeFile(wb, 'customer-satisfaction-report.xlsx');
   }
 
   fetchCustomerSatisfactionReport(): void {
@@ -211,4 +222,5 @@ export class CustomerSatisfactionReportComponent implements OnInit {
       console.log('Report content element not found');
     }
   }
+  
 }

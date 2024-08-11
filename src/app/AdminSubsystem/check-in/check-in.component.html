@@ -11,8 +11,7 @@
     </div>
 
     <div class="numpad-container">
-      <input type="text" [(ngModel)]="inputValue" formControlName="barcode" class="input-box" readonly />
-
+      
       <div class="numpad">
         <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
         <button (click)="clearInput()" aria-label="Clear input">Clear</button>

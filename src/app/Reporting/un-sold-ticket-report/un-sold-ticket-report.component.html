@@ -42,7 +42,7 @@
   <div class="mb-3">
     <label for="eventSelector" class="form-label">Select Event:</label>
     <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
-      <option value="">All Events</option>
+      <option  value="">All Events</option>
       <option *ngFor="let eventName of eventNames" [value]="eventName">{{ eventName }}</option>
     </select>
   </div>

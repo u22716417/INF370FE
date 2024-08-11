@@ -60,6 +60,11 @@ import { CheckOutComponent } from './check-out/check-out.component';
 import { CreateQuotationComponent } from './create-quotation/create-quotation.component';
 import { QuotationListComponent } from './quotation-list/quotation-list.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { EventAttendanceReportComponent } from './Reporting/event-attendance-report/event-attendance-report.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
+import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
+import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
+
 
 
 
@@ -92,7 +97,6 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
     PayFastComponent,
     FaqCreateUpdateComponent,
     FaqListComponent,
-    HireServiceComponent,
     OrderHistoryComponent,
     TicketSalesReportComponent,
     ReportComponent,
@@ -102,10 +106,13 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
     EventListComponent,
     HireItemsReturnComponent,
     CustomerSatisfactionReportComponent,
+    EventCreateUpdateComponent,
+    EventAttendanceReportComponent,
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
-    EventCreateUpdateComponent
+    EventCreateUpdateComponent,
+    HireServiceReportComponent
   ],
   imports: [
     CommonModule,
@@ -119,7 +126,10 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
     FullComponent,
     NavigationComponent,
     SidebarComponent,
-    NgApexchartsModule
+    NgApexchartsModule,
+    FullCalendarModule
+   
+
   ],
   providers: [
     {
