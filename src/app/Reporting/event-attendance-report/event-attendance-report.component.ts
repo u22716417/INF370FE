@@ -27,7 +27,7 @@ export class EventAttendanceReportComponent implements OnInit {
   attendanceRecords: any[] = [];
   detailedAttendanceRecords: any[] = [];
   reportGeneratedDate = "";
-  currentUserFullName = "";
+  reportGeneratedBy: string = '';
   startDate = "";
   endDate = "";
   filteredEventAttendance = this.attendanceRecords;
@@ -98,7 +98,7 @@ export class EventAttendanceReportComponent implements OnInit {
 
   updateChartOptions(): void {
     const eventNames = this.attendanceRecords.map(record => record.eventName);
-    const attendanceCounts = this.attendanceRecords.map(record => record.evenAttendanceCount);
+    const attendanceCounts = this.attendanceRecords.map(record => record.eventAttendanceCount);
   
     // Log values for debugging
     console.log('Event Names:', eventNames);
@@ -116,16 +116,16 @@ export class EventAttendanceReportComponent implements OnInit {
   }
 
   getCurrentUser(): void {
-    const sub = this.userManagementService.getUser().subscribe(
+    this.userManagementService.getUser().subscribe(
       (user) => {
-        this.currentUserFullName = user.fullName;
+        this.reportGeneratedBy = user.fullName;
       },
       (error) => {
         console.error('Error fetching user details', error);
       }
     );
-    this.subscriptions.push(sub);
   }
+
 
   getCurrentDateAndTime(): string {
     const now = new Date();
