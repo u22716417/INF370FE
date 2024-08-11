@@ -32,6 +32,7 @@ export class ViewAllEventsComponent implements OnInit {
     const newItem = new CartItem(id, Title, Price);
 
     this.eventService.addToCart(newItem);
+    this.closeModal();
   }
 
   getbyID(id: number)
