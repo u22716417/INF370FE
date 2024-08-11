@@ -14,9 +14,7 @@ export class ReportService {
 
   private apiUrl4 = 'https://localhost:7149/api/Events/GenerateEventAttendanceReport';
 
-  private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport'
-
-  private apiUrl4 = 'https://localhost:7149/api/Events/GenerateEventAttendanceReport';
+  
 
   constructor(private http: HttpClient) { }
 
