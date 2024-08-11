@@ -4,17 +4,27 @@
   <!-- Flex container for Date Inputs and Generated Info Card -->
   <div class="d-flex justify-content-between align-items-start mb-4">
     <!-- Date Inputs -->
-    <div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
-      <div class="card-body">
-        <div class="d-flex gap-3">
-          <div>
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" [(ngModel)]="startDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
-          </div>
-
-          <div>
-            <label for="endDate">End Date:</label>
-            <input type="date" id="endDate" [(ngModel)]="endDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
+    <!-- Flex container for Date Inputs and Generated Info Card -->
+    <div  class="card">
+      <!-- Date Inputs -->
+      <div  style="width: 35%; margin-left: 0; justify-self: start;">
+        <div class="card-body">
+          <div class="d-flex gap-3">
+            <div>
+              <label for="monthSelect">Select Month:</label>
+              <select id="monthSelect" class="form-control" (change)="populateDates($event)">
+                <option (click)=" setDefaultDates()" value="">Select Month</option>
+                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+              </select>
+            </div>
+            <div>
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" [(ngModel)]="startDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
+            </div>
+            <div>
+              <label for="endDate">End Date:</label>
+              <input type="date" id="endDate" [(ngModel)]="endDate" (change)="filterUnsoldTicketsByDate()" class="form-control">
+            </div>
           </div>
         </div>
       </div>
@@ -35,7 +45,7 @@
   <div class="mb-3">
     <label for="eventSelector" class="form-label">Select Event:</label>
     <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
-      <option value="">All Events</option>
+      <option  value="">All Events</option>
       <option *ngFor="let eventName of eventNames" [value]="eventName">{{ eventName }}</option>
     </select>
   </div>
@@ -46,7 +56,7 @@
   <!-- ApexCharts Bar Chart -->
   <div class="card">
     <div id="chart" class="mb-4">
-      <apx-chart
+      <apx-chart *ngIf="chartOptions"
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"

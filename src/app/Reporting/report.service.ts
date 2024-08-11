@@ -31,16 +31,14 @@ export class ReportService {
   }
 
   getCustomerSatisfactionReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl2);
+    return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
   }
 
   getEventAttendanceReport(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl4}`);
   }
- return this.http.get<any[]>('https://localhost:7149/api/Events/CustomerSatisfaction');
- }
-
- getHireServiceReport(): Observable<any[]> {
-  return this.http.get<any[]>(this.apiUrl3);
-}
+ 
+  getHireServiceReport(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl3);
+  }
 }

@@ -107,7 +107,7 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     HireItemsReturnComponent,
     CustomerSatisfactionReportComponent,
     EventCreateUpdateComponent,
-    EventAttendanceReportComponent
+    EventAttendanceReportComponent,
     CheckOutComponent,
     CreateQuotationComponent,
     QuotationListComponent,
