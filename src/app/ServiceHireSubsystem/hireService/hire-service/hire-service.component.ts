@@ -6,6 +6,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { CalendarOptions } from '@fullcalendar/core';
 import { ServicesServiceService } from 'src/app/AdminSubsystem/service/service/services-service.service';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { HireServiceService } from '../../hireService-service/hire-service.service';
+import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
 
 @Component({
   selector: 'app-hire-service',
@@ -24,9 +26,20 @@ export class HireServiceComponent implements OnInit {
   quotes: any[] = [];
   activeTab: string = 'calendar'; // Default active tab
   SelectedServiceName: string ='';
+  showPaymentPopup = false;
+  processing = false;
+  paymentServiceName = '';
+  paymentAmount = 0;
+  cardNumber = '';
+  expiryDate = '';
+  cvv = '';
+  quoteId: number =0;
+
   constructor(
     private serviceService: ServicesServiceService,
-    private usermanagement: UserManagementService
+    private usermanagement: UserManagementService,
+    private hireService: HireServiceService,
+    private cartService: TicketService,
   ) {
     this.calendarOptions = {
       initialView: 'dayGridMonth',
@@ -41,6 +54,27 @@ export class HireServiceComponent implements OnInit {
     };
   }
 
+  closePaymentPopup() {
+    this.showPaymentPopup = false;
+  }
+
+  processPayment() {
+    this.processing = true;
+    setTimeout(() => {
+      // logic to process the payment
+      console.log('Processing payment for:', {
+        cardNumber: this.cardNumber,
+        expiryDate: this.expiryDate,
+        cvv: this.cvv,
+        amount: this.paymentAmount
+      });
+      this.processing = false;
+      this.showPaymentPopup = false;
+      this.Confirm();
+      this.ngOnInit();
+    }, 5000);
+  }
+
   ngOnInit(): void {
     this.serviceService.getAllServices().subscribe(response => {
       this.services = [...response];
@@ -53,6 +87,33 @@ export class HireServiceComponent implements OnInit {
     })
   }
 
+  rejectQuote(id: number)
+  {
+    this.hireService.rejectQuote(id).subscribe(res=>{
+      console.log(res);
+      alert("Successfully Rejected Quote")
+      this.ngOnInit();
+    })
+  }
+
+  acceptQuote(item: any)
+  {
+    this.paymentServiceName = item.serviceName;
+    this.paymentAmount = item.quotePrice;
+    this.showPaymentPopup = true;
+    this.quoteId = item.id; 
+    
+  }
+  Confirm()
+  {
+    const id = this.quoteId;
+    this.hireService.approveQuote(id).subscribe(res=>{
+      console.log(res);
+      alert("Successfully Approved Quote")
+    })
+  }
+
+  
   handleServiceChange(event: any) {
     
     this.selectedServiceId = +event.target.value; // Use unary + operator to convert string to number

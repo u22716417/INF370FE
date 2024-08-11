@@ -119,7 +119,7 @@ export class UnSoldTicketReportComponent implements OnInit {
   }
 
   fetchTicketSalesReport(month: string = ''): void {
-    this.ticketSalesReportService.getUnsoldTicketsReport(month).subscribe(
+    this.ticketSalesReportService.getUnsoldTicketsReport().subscribe(
       (data: any[]) => {
         this.UnsoldTickets = [...data];
         this.eventNames = this.getUniqueEventNames(); // Update the event names for dropdown
@@ -145,7 +145,7 @@ export class UnSoldTicketReportComponent implements OnInit {
 
   filterUnsoldTicketsByEvent(): void {
     this.filteredUnsoldTickets = this.UnsoldTickets.filter(ticket => 
-      this.selectedEvent === '' || ticket.eventName === this.selectedEvent
+      this.selectedEvent === '' || ticket.event_name === this.selectedEvent
     );
     this.updateChartOptions(this.filteredUnsoldTickets);
   }
@@ -153,8 +153,8 @@ export class UnSoldTicketReportComponent implements OnInit {
   filterUnsoldTicketsByDate(): void {
     if (this.startDate || this.endDate) {
       this.filteredUnsoldTickets = this.UnsoldTickets.filter(ticket => 
-        new Date(ticket.eventDate) >= new Date(this.startDate || '') &&
-        new Date(ticket.eventDate) <= new Date(this.endDate || '')
+        new Date(ticket.eventdate) >= new Date(this.startDate || '') &&
+        new Date(ticket.eventdate) <= new Date(this.endDate || '')
       );
     } else {
       this.filteredUnsoldTickets = [...this.UnsoldTickets];
@@ -164,8 +164,8 @@ export class UnSoldTicketReportComponent implements OnInit {
 
   updateChartOptions(data: any[]): void {
     const colors = ['#FF4560', '#00E396', '#008FFB', '#FEB019', '#775DD0', '#546E7A', '#26a69a', '#FFB400', '#FF66C4', '#6B5B95'];
-    const categories = data.map(ticket => ticket.eventName);
-    const unsoldTicketsData = data.map(ticket => ticket.unsoldTickets);
+    const categories = data.map(ticket => ticket.event_name);
+    const unsoldTicketsData = data.map(ticket => ticket.number_of_tickets_sold);
     const chartColors = colors.slice(0, unsoldTicketsData.length);
 
     this.chartOptions = {

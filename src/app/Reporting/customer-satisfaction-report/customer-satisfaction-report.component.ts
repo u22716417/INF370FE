@@ -93,6 +93,7 @@ export class CustomerSatisfactionReportComponent implements OnInit {
     this.reportService.getCustomerSatisfactionReport().subscribe(
       (data: any[]) => {
         this.eventsfromDb = [...data];
+        console.log(data);
         this.groupCustomerSatisfactionData(data);
         this.initializeChart();
       },
