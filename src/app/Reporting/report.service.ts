@@ -9,8 +9,15 @@ export class ReportService {
   
   private apiUrl = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';  
 
+<<<<<<< Updated upstream
   //private apiUrl1 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets'; 
   //private apiUrl2 = 'https://localhost:7149/api/UnsoldReport/unsold-tickets';
+=======
+ 
+  private apiUrl3 = 'https://localhost:7149/api/Services/HireServiceReport'
+
+  private apiUrl4 = 'https://localhost:7149/api/Events/GenerateEventAttendanceReport';
+>>>>>>> Stashed changes
 
   constructor(private http: HttpClient) { }
 
