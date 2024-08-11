@@ -35,6 +35,9 @@ export class ReportService {
     return this.http.get<any[]>(`${this.apiUrl4}`);
   }
 
+  getServiceReportData(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/api/Services/GetServices');
+  }
  
 
  getHireServiceReport(): Observable<any[]> {

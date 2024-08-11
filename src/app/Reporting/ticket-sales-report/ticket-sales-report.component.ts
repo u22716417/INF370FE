@@ -36,6 +36,9 @@ export class TicketSalesReportComponent implements OnInit {
   public startDate: string | null = '';
   public endDate: string | null  = '';
   filteredSales = this.ticketSales;
+  serviceReport: any[] = [];
+  filteredServiceReport: any[] = [];
+
   constructor(private ticketSalesReportService: ReportService,  private userManagementService: UserManagementService) {}
 
   public months = [
@@ -94,6 +97,7 @@ export class TicketSalesReportComponent implements OnInit {
       this.endDate = this.formatDate(lastDay);    
     }
     this.filterSalesByDate();
+    this.filterServiceReportByDate(); // Filter service report data by date
   }
   formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -102,6 +106,30 @@ export class TicketSalesReportComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+
+  filterServiceReportByDate(): void {
+    this.filteredServiceReport = this.serviceReport.filter(service => {
+      const serviceDate = new Date(service.serviceDate);
+      const startDate = this.startDate ? new Date(this.startDate) : null;
+      const endDate = this.endDate ? new Date(this.endDate) : null;
+    
+      
+      // If both dates are provided, filter between the dates
+      if (startDate && endDate) {
+        return serviceDate >= startDate && serviceDate <= endDate;
+      }
+      // If only start date is provided, filter from that date onward
+      if (startDate) {
+        return serviceDate >= startDate;
+      }
+      // If only end date is provided, filter up to that date
+      if (endDate) {
+        return serviceDate <= endDate;
+      }
+      // If neither date is provided, return all results
+      return true;
+    });
+  }
  
   setDefaultDates(): void {
     const currentYear = new Date().getFullYear();
@@ -136,7 +164,7 @@ export class TicketSalesReportComponent implements OnInit {
     this.updateChartOptions();
   }
   
-
+  
 exportToPDF(): void {
   const data = document.getElementById('reportContent');
   if (data) {
@@ -182,6 +210,14 @@ exportToPDF(): void {
         console.error('Error fetching ticket sales report', error);
       }
     );
+
+
+    this.ticketSalesReportService.getServiceReportData().subscribe(s=>{
+      console.log(s);
+      this.serviceReport = [...s];
+      this.filteredServiceReport = [...s];
+    })
+
   }
 
   updateChartOptions(): void {
@@ -228,6 +264,23 @@ exportToPDF(): void {
 
 
 
+getTotalServiceQuantity(): number {
+  return this.filteredServiceReport.length;
+}
+  getTotalServiceSales(): number {
+    console.log("Ping!!!!!!!!!!!!")
+    
+    return this.filteredServiceReport.reduce((total, report) => {
+      return total + (report.servicePrice);
+    }, 0);
+  }
+
+
+getTotalQuantity(): number {
+  return this.filteredSales.reduce((total, report) => {
+    return total + (report.number_of_tickets_sold);
+  }, 0);
+}
   getTotalSales(): number {
     return this.filteredSales.reduce((total, report) => {
       return total + (report.ticket_price * report.number_of_tickets_sold);

@@ -9,12 +9,21 @@ import { Attendee } from '../classes/check-in';
 })
 export class CheckInService {
 
-  private apiUrl = 'http://localhost:5196/api/CheckIn';
+  private apiUrl = 'http://localhost:7149/api/CheckIn';
 
   constructor(private http: HttpClient) { }
 
   checkIn(checkInViewModel: { barcode: string }): Observable<Attendee> {
-    return this.http.post<Attendee>(this.apiUrl, checkInViewModel).pipe(
+    const payload = {
+      barcode: checkInViewModel.barcode,
+      attendeeName: 'John',
+      attendeeSurname: 'Doe',
+      attendeeEmail: 'john.doe@example.com',
+      attendeePhone: '1234567890',
+      titleId: 1
+    };
+
+    return this.http.post<Attendee>(`${this.apiUrl}/checkIn`, payload).pipe(
       catchError(error => {
         console.error('Error checking in', error);
         return throwError('Error checking in');

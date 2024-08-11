@@ -52,7 +52,7 @@ export class UnSoldTicketReportComponent implements OnInit {
   eventNames: string[] = [];
   eventsfromDb: any[] = [];
   selectedEvent: string = '';
-
+  total: number = 0;
   constructor(
     private ticketSalesReportService: ReportService,
     private userManagementService: UserManagementService
@@ -76,6 +76,7 @@ export class UnSoldTicketReportComponent implements OnInit {
     this.setDefaultDates();
     this.fetchTicketSalesReport();
     this.getUserFullNameAndDateTime();
+    this.calculateTotal();
   }
 
   setDefaultDates(): void {
@@ -118,6 +119,12 @@ export class UnSoldTicketReportComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  calculateTotal() {
+    console.log( "---------------->",this.filteredUnsoldTickets )
+    
+    console.log("total:  "+this.total)
+  }
+
   fetchTicketSalesReport(month: string = ''): void {
     this.ticketSalesReportService.getUnsoldTicketsReport().subscribe(
       (data: any[]) => {
@@ -126,6 +133,8 @@ export class UnSoldTicketReportComponent implements OnInit {
         console.log(data);
         this.updateChartOptions(this.UnsoldTickets);
         this.filterUnsoldTicketsByDate();
+
+        this.total = this.filteredUnsoldTickets.reduce((sum, report) => sum + (report.ticket_price * report.number_of_tickets_sold), 0);
       },
       (error) => {
         console.error('Error fetching ticket sales report', error);
@@ -135,7 +144,7 @@ export class UnSoldTicketReportComponent implements OnInit {
   }
 
   getUniqueEventNames(): string[] {
-    return [...new Set(this.UnsoldTickets.map(ticket => ticket.eventName))];
+    return [...new Set(this.UnsoldTickets.map(ticket => ticket.event_name))];
   }
 
   onEventChange(event: any): void {
@@ -147,6 +156,7 @@ export class UnSoldTicketReportComponent implements OnInit {
     this.filteredUnsoldTickets = this.UnsoldTickets.filter(ticket => 
       this.selectedEvent === '' || ticket.event_name === this.selectedEvent
     );
+    this.total = this.filteredUnsoldTickets.reduce((sum, report) => sum + (report.ticket_price * report.number_of_tickets_sold), 0);
     this.updateChartOptions(this.filteredUnsoldTickets);
   }
 
@@ -160,6 +170,8 @@ export class UnSoldTicketReportComponent implements OnInit {
       this.filteredUnsoldTickets = [...this.UnsoldTickets];
     }
     this.updateChartOptions(this.filteredUnsoldTickets);
+    this.total = this.filteredUnsoldTickets.reduce((sum, report) => sum + (report.ticket_price * report.number_of_tickets_sold), 0);
+
   }
 
   updateChartOptions(data: any[]): void {
