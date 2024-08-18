@@ -58,5 +58,16 @@ else{
   }
 }
 
+exportToJson(): void {
+  const dataStr = JSON.stringify(this.filterVenue.length ? this.filterVenue : this.venues, null, 2);
+  const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+  const exportFileName = 'venues.json';
+
+  const linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', exportFileName);
+  linkElement.click();
+}
 
 }

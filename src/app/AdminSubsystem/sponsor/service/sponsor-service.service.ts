@@ -8,7 +8,7 @@ import { Sponsor } from '../sponsor';
 })
 export class SponsorServiceService {
 
-  private apiUrl = 'http://localhost:5196/api/Sponsors';
+  private apiUrl = 'https://localhost:7149/api/Sponsors';
   
   constructor(private http: HttpClient) { }
 

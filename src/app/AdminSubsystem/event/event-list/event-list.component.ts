@@ -28,4 +28,16 @@ export class EventListComponent implements OnInit {
       this.events = this.events.filter(event => event.eventId !== eventId);
     });
   }
+
+  exportToJson(): void {
+    const dataStr = JSON.stringify(this.events, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+    const exportFileName = 'events.json';
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileName);
+    linkElement.click();
+  }
 }

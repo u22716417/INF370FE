@@ -86,6 +86,16 @@ export class CodesListComponent implements OnInit{
     }, 3000);
   }
   
-  
+  exportToJson(): void {
+    const dataStr = JSON.stringify(this.codes, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+    const exportFileName = 'coupon_codes.json';
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileName);
+    linkElement.click();
+  }
 
 }

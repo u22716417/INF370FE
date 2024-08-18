@@ -2,7 +2,9 @@
     <h2>Event List</h2>
     <a class="btn btn-primary" routerLink="/component/event-create-update/0" routerLinkActive="active" >
       Add New
-    </a>
+    </a> |
+     <!-- Export to JSON Button -->
+  <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
     <table class="table table-striped">
       <thead>
         <tr>

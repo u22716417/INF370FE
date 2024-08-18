@@ -64,6 +64,8 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
 import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
 import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
 import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
+import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
 
 
 
@@ -112,7 +114,8 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     CreateQuotationComponent,
     QuotationListComponent,
     EventCreateUpdateComponent,
-    HireServiceReportComponent
+    HireServiceReportComponent,
+    SponsorListComponent
   ],
   imports: [
     CommonModule,
