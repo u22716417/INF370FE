@@ -10,7 +10,7 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
 })
 export class OrderHistoryComponent implements OnInit {
   orderHistory: any[] = [];
-  clientId = 1; // Set this to the actual client ID
+  clientId: number | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
   
@@ -18,19 +18,31 @@ export class OrderHistoryComponent implements OnInit {
   constructor(private orderHistoryService: TicketService, private users: UserManagementService) { }
 
   ngOnInit(): void {
-    this.fetchOrderHistory();
-    this.clientId = this.users.getcurrentUserID();
+    const userId = this.users.getcurrentUserID();
+    this.users.getClientId(userId).subscribe(
+      (clientId: number) => {
+        this.clientId = clientId;
+        this.fetchOrderHistory();
+      },
+      (error) => {
+        console.error('Error fetching client ID', error);
+      }
+    );
   }
 
   fetchOrderHistory(): void {
-    this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
-      (data: any[]) => {
-        this.orderHistory = data;
-      },
-      (error) => {
-        console.error('Error fetching order history', error);
-      }
-    );
+    if (this.clientId) {
+      this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
+        (data: any[]) => {
+          this.orderHistory = data;
+        },
+        (error) => {
+          console.error('Error fetching order history', error);
+        }
+      );
+    } else {
+      console.error('Client ID is not available');
+    }
   }
 
   getStars(rating: number | undefined): string[] {

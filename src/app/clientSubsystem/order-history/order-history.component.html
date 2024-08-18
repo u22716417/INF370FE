@@ -2,41 +2,47 @@
   {{ notificationMessage }}
 </div>
 
-
-<div class="order-history-container">
-  <div class="order-history-container">
-    <div class="rating-legend">
-     
-      <h3>Ratings <Legend></Legend></h3>
-      <ul>
-        <li><span class="star">★</span> Bad</li>
-        <li><span class="star">★★</span> Poor</li>
-        <li><span class="star">★★★</span> Average</li>
-        <li><span class="star">★★★★</span> Good</li>
-        <li><span class="star">★★★★★</span> Excellent</li>
-      </ul>
+<div class="container">
+  <div class="row">
+    <!-- Rating Legend in a col-2 -->
+    <div class="col-1">
+      <div class="rating-legend">
+        <h3>Ratings <Legend></Legend></h3>
+        <ul class="list-unstyled">
+          <li><span class="star">★</span> Bad</li>
+          <li><span class="star">★★</span> Poor</li>
+          <li><span class="star">★★★</span> Average</li>
+          <li><span class="star">★★★★</span> Good</li>
+          <li><span class="star">★★★★★</span> Excellent</li>
+        </ul>
+      </div>
     </div>
 
-  <h2>Order History</h2>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let order of orderHistory">
-      <div class="order-details">
-        <h5>{{ order.eventName }}</h5>
-        <p>Price: {{ order.ticketPrice | currency }}</p>
-        <p>Quantity: {{ order.ticketQuantity }}</p>
-        <p>Purchase Date: {{ order.purchaseDate | date:'short' }}</p>
-        <p>
-          Rating: 
-          <span class="rating">
-            <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" (click)="updateRating(order, i + 1)" [class.filled]="i < order.rating"
-              [title]="getRatingDescription(i + 1)"> 
-              {{ star <= order.rating ? '★' : '☆' }}
-            </span>
-          </span>
-          <span class="rating-description">{{ getRatingDescription(order.rating) }}</span>
-        </p>
-      </div>
-    </li>
-  </ul>
+    <!-- Order History Details in a col-10 -->
+    <div class="col-11">
+      <h2>Order History</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let order of orderHistory">
+          <div class="order-details">
+            <h5>{{ order.eventName }}</h5>
+            <p>Price: R {{ order.ticketPrice }}</p>
+            <p>Quantity: {{ order.ticketQuantity }}</p>
+            <p>Purchase Date: {{ order.purchaseDate | date:'short' }}</p>
+            <p>
+              Rating:
+              <span class="rating">
+                <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+                      (click)="updateRating(order, i + 1)" 
+                      [class.filled]="i < order.rating"
+                      [title]="getRatingDescription(i + 1)">
+                  {{ star <= order.rating ? '★' : '☆' }}
+                </span>
+              </span>
+              <span class="rating-description">{{ getRatingDescription(order.rating) }}</span>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-
