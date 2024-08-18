@@ -36,6 +36,7 @@
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "monster-angular-lite": "file:",
     "ng-apexcharts": "^1.11.0",
     "ng-fullcalendar": "^2.0.3",

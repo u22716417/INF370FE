@@ -84,6 +84,7 @@ export class EventCreateUpdateComponent implements OnInit {
         this.eventService.createEvent(this.newEvent).subscribe((response: any) => {
           this.handleNavigation(response);
           this.showPopupNotification('Event successfully created!');
+          
         }, error => {
           console.error('Error creating event:', error);
          
@@ -102,7 +103,7 @@ export class EventCreateUpdateComponent implements OnInit {
 
   private handleNavigation(response: any) {
     if (response != null) {
-      this.router.navigate(['/events']);
+      this.router.navigate(['/component/events']);
     } else {
       alert('An error occurred. Please try again.');
     }
