@@ -162,7 +162,7 @@ export class EventCreateUpdateComponent implements OnInit {
   }
 
   getVenues() {
-    this.http.get<any[]>('http://localhost:5196/api/Venues') // Replace with your API URL
+    this.http.get<any[]>('https://localhost:5196/api/Venues') // Replace with your API URL
       .subscribe(data => {
         console.log(data);
         this.venues = data;
