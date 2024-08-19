@@ -85,3 +85,8 @@ height: 100%;
   opacity: 1;
   bottom: 50px;
 }
+.custom-tooltip .tooltip-inner {
+  max-width: 200px; /* Increase the max-width to make the tooltip bigger */
+  font-size: 1.2em; /* Increase the font size */
+  padding: 10px; /* Increase the padding */
+}
