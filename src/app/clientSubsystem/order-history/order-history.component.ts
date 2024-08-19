@@ -22,7 +22,7 @@ export class OrderHistoryComponent implements OnInit {
     this.users.getClientId(userId).subscribe(
       (clientId: number) => {
         this.clientId = clientId;
-        this.fetchOrderHistory();
+    this.fetchOrderHistory();
       },
       (error) => {
         console.error('Error fetching client ID', error);
@@ -32,14 +32,14 @@ export class OrderHistoryComponent implements OnInit {
 
   fetchOrderHistory(): void {
     if (this.clientId) {
-      this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
-        (data: any[]) => {
-          this.orderHistory = data;
-        },
-        (error) => {
-          console.error('Error fetching order history', error);
-        }
-      );
+    this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
+      (data: any[]) => {
+        this.orderHistory = data;
+      },
+      (error) => {
+        console.error('Error fetching order history', error);
+      }
+    );
     } else {
       console.error('Client ID is not available');
     }
