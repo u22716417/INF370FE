@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
@@ -34,12 +34,14 @@ export class HireServiceComponent implements OnInit {
   expiryDate = '';
   cvv = '';
   quoteId: number =0;
-
+  showHelpModal = false;  // Property to control modal visibility
+ 
   constructor(
     private serviceService: ServicesServiceService,
     private usermanagement: UserManagementService,
     private hireService: HireServiceService,
     private cartService: TicketService,
+    
   ) {
     this.calendarOptions = {
       initialView: 'dayGridMonth',
@@ -220,4 +222,20 @@ export class HireServiceComponent implements OnInit {
   openPopup() {
     this.showPopup = true;
   }
+
+// Method to open the help modal
+openHelpModal() {
+  this.showHelpModal = true;
 }
+
+// Method to close the help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
+
+}
+
+  
+  
+  
+

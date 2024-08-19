@@ -1,6 +1,7 @@
 <div style="display: flex; flex-direction: column; align-items: center; padding: 5%; max-width: 1200px; margin: auto;">
-  <header style="text-align: center; width: 100%;">
+  <header  style="text-align: center; width: 100%; position: relative;">
     <h1>Request a Service Quote</h1>
+    <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Need Help?</a>
   </header>
 
   <div class="card" style="padding: 10%; width: 120%;">
@@ -15,21 +16,28 @@
       </div>
       <div style="flex: 1; padding-left: 10px;">
         <h2>Enter Service Details</h2>
+
+        <!-- Service selection with tooltip -->
         <label>Choose A Service:</label>
-        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)">
+        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the service you need.">
           <option>Select Service</option>
           <option *ngFor="let service of services" [value]="service.id">
             {{ service.serviceName }}
           </option>
         </select>
         <br>
+
+        <!-- Start Date input with tooltip -->
         <label>Choose A Start Date:</label>
-        <input type="date" [value]="startDate" disabled class="form-control">
+        <input type="date" [value]="startDate" disabled class="form-control" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the start date for the service.">
         <br>
+
+        <!-- End Date input with tooltip -->
         <label>Choose An End Date:</label>
-        <input type="date" [value]="endDate" disabled class="form-control">
+        <input type="date" [value]="endDate" disabled class="form-control" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the end date for the service.">
         <br>
         <br>
+
         <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
       </div>
     </div>
@@ -80,6 +88,24 @@
   </div>
 </div>
 
+<!-- Help Modal -->
+<div *ngIf="showHelpModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 20px; border-radius: 8px; max-width: 600px; width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2>How to Request a Service Quote</h2>
+    <p>Follow these steps to request a service quote:</p>
+    <ol>
+      <li>Select a service from the dropdown list.</li>
+      <li>Choose a start date and an end date for the service.</li>
+      <li>Click the "Request Quote" button to submit your request.</li>
+      <li>A confirmation popup will appear. Click "Confirm" to proceed.</li>
+      <li>You will receive a comprehensive quote via email.</li>
+      <li>After successfully receiving the quote via email,revert back to the page and click on the Quotes tab.</li>
+      <li>In the quotes tab, you can choose to accept or reject the quote.</li>
+    </ol>
+    <button class="btn btn-secondary" (click)="closeHelpModal()">Close</button>
+  </div>
+</div>
+
 <div *ngIf="showPaymentPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 1000;">
   <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 1001; max-width: 400px; width: 100%;">
     <h2>Make Payment</h2>
@@ -88,15 +114,15 @@
     <form (ngSubmit)="processPayment()">
       <div style="margin-bottom: 15px;">
         <label style="display: block; margin-bottom: 5px;">Card Number:</label>
-        <input type="text" [(ngModel)]="cardNumber" name="cardNumber" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="text" [(ngModel)]="cardNumber" name="cardNumber" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter your card number.">
       </div>
       <div style="margin-bottom: 15px;">
         <label style="display: block; margin-bottom: 5px;">Expiry Date:</label>
-        <input type="text" [(ngModel)]="expiryDate" name="expiryDate" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="text" [(ngModel)]="expiryDate" name="expiryDate" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the card expiry date.">
       </div>
       <div style="margin-bottom: 15px;">
         <label style="display: block; margin-bottom: 5px;">CVV:</label>
-        <input type="text" [(ngModel)]="cvv" name="cvv" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+        <input type="text" [(ngModel)]="cvv" name="cvv" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the 3-digit CVV code.">
       </div>
       <div *ngIf="processing" style="margin-bottom: 15px;">
         <p>Processing payment, please wait...</p>
@@ -107,5 +133,3 @@
     </form>
   </div>
 </div>
-
-
