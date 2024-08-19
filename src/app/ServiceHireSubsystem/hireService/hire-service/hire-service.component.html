@@ -18,8 +18,10 @@
         <h2>Enter Service Details</h2>
 
         <!-- Service selection with tooltip -->
-        <label>Choose A Service:</label>
-        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the service you need.">
+        <label>Choose A Service:
+          <span class="help-icon" title="Choose a service of your choice from the dropdown">&#9432;</span>
+        </label>
+        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)" >
           <option>Select Service</option>
           <option *ngFor="let service of services" [value]="service.id">
             {{ service.serviceName }}
@@ -28,13 +30,17 @@
         <br>
 
         <!-- Start Date input with tooltip -->
-        <label>Choose A Start Date:</label>
-        <input type="date" [value]="startDate" disabled class="form-control" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the start date for the service.">
+        <label>Choose A Start Date:
+          <span class="help-icon" title="Select a start date for your service on the calendar">&#9432;</span>
+        </label>
+        <input type="date" [value]="startDate" disabled class="form-control" >
         <br>
 
         <!-- End Date input with tooltip -->
-        <label>Choose An End Date:</label>
-        <input type="date" [value]="endDate" disabled class="form-control" data-bs-toggle="tooltip" data-bs-placement="top" title="Select the end date for the service.">
+        <label>Choose An End Date:
+          <span class="help-icon" title="Select an end date for your service on the calendar">&#9432;</span>
+        </label>
+        <input type="date" [value]="endDate" disabled class="form-control">
         <br>
         <br>
 
