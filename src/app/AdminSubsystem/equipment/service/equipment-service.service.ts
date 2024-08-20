@@ -29,10 +29,8 @@ export class EquipmentServiceService {
 
   // Get Equipment by ID
   getEquipmentById(id: number): Observable<Equipment> {
-    const url = `${this.url}/${id}`;
-    return this.http.get<Equipment>(url);
+    return this.http.get<Equipment>(`${this.url}/${id}`); // Use full URL
   }
-
   // Update Equipment
   updateEquipment(id: number, equipment: Equipment): Observable<void> {
     const url = `${this.url}/${id}`;

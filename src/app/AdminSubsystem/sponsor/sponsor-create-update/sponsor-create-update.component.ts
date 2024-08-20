@@ -3,11 +3,12 @@ import { Sponsor } from '../sponsor';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { SponsorServiceService } from '../service/sponsor-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-sponsor-create-update',
   standalone:true,
-  imports:[FormsModule],
+  imports:[CommonModule, FormsModule],
   templateUrl: './sponsor-create-update.component.html',
   styleUrls: ['./sponsor-create-update.component.css']
 })
@@ -24,11 +25,11 @@ export class SponsorCreateUpdateComponent {
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = parseInt(params['Id']);
+      const id = parseInt(params['id']);  // Corrected 'id'
 
       if (id > 0) {
         this.heading = 'Edit Sponsor';
-        this.sponsorService.getSponsorById(id).subscribe((response: any) => {
+        this.sponsorService.getSponsorById(id).subscribe((response: Sponsor) => {
           this.newSponsor = response;
         });
       } else {
@@ -41,15 +42,10 @@ export class SponsorCreateUpdateComponent {
     if (sponsorForm.valid) {
       if (this.newSponsor.sponsorId === 0) {
         this.sponsorService.createSponsor(this.newSponsor).subscribe((response: any) => {
-          if (response != null) {
-            this.router.navigate(['/sponsors']);
-          } else {
-            this.router.navigate(['/sponsors']);
-          }
+          this.router.navigate(['/sponsors']);
         });
-      } else 
-      {
-        this.sponsorService.updateSponsor(this.newSponsor.sponsorId,this.newSponsor).subscribe((response: any) => {
+      } else {
+        this.sponsorService.updateSponsor(this.newSponsor.sponsorId, this.newSponsor).subscribe((response: any) => {
           if (response != null) {
             this.router.navigate(['/sponsors']);
           } else {
@@ -61,4 +57,5 @@ export class SponsorCreateUpdateComponent {
       alert('Please fill all the fields');
     }
   }
+
 }

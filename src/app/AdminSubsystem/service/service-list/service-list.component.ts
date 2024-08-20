@@ -9,13 +9,16 @@ import { ServicesServiceService } from '../service/services-service.service';
 })
 export class ServiceListComponent implements OnInit {
   services: Service[] = [];
+
   filteredService: Service[] = [];
   searchTerm: string = '';
 
   constructor(private serviceService: ServicesServiceService) {}
 
   ngOnInit(): void {
-    this.getAllServices();
+    this.serviceService.getAllServices().subscribe(data => {
+      this.services = data;
+    });
   }
 
   getAllServices(): void {

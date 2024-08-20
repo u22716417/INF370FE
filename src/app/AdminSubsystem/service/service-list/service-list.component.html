@@ -34,14 +34,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of filteredService">
-          <td>{{ item.serviceName }}</td>
-          <td>{{ item.serviceDescription }}</td>
+        <tr *ngFor="let service of services">
+          <td>{{ service.serviceName }}</td>
+          <td>{{ service.serviceDescription }}</td>
           <td>
-            <a class="btn btn-primary" [routerLink]="['/component/service-create-update', item.serviceId]" (click)="logId(item.serviceId)">Edit</a>
-            <button (click)="deleteById(item.serviceId)" type="button" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+            <a class="btn btn-primary" [routerLink]="['/service-create-update', service.serviceId]" routerLinkActive="active">Edit</a>
+            <button (click)="deleteById(service.serviceId)" type="button" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
             <!-- Debug line to show serviceId -->
-            <span *ngIf="item.serviceId">Service ID: {{ item.serviceId }}</span>
+            <span *ngIf="service.serviceId">Service ID: {{ service.serviceId }}</span>
           </td>
         </tr>
       </tbody>

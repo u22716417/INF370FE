@@ -1,72 +1,107 @@
 <div class="container">
-    <h5 style="text-align: center;">{{ heading }}</h5>
-    <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" novalidate>
-      <div style="margin-bottom: 10px;">
-        <label for="title">Name</label>
-        <input id="title" class="form-control" type="text" name="title" [(ngModel)]="newEvent.title" required title="Please enter an event name">
+  <h5 style="text-align: center;">{{ heading }}</h5>
+  <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" novalidate>
+    <!-- Name -->
+    <div style="margin-bottom: 10px;">
+      <label for="title">Name</label>
+      <input id="title" class="form-control" type="text" name="title" [(ngModel)]="newEvent.title" #title="ngModel" required title="Please enter an event name">
+      <div *ngIf="title.invalid && title.touched" class="text-danger">
+        <small *ngIf="title.errors?.['required']">Event name is required.</small>
       </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="eventDate">Date</label>
-        <input id="eventDate" class="form-control" type="date" name="date" [(ngModel)]="newEvent.eventDate" required title="Please enter a date">
-      </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="eventTime">Time</label>
-        <input id="eventTime" class="form-control" type="time" name="time" [(ngModel)]="newEvent.eventTime" required title="Please enter a time">
-      </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="eventDescription">Description</label>
-        <input id="eventDescription" class="form-control" type="text" name="description" [(ngModel)]="newEvent.description" required title="Please enter a description">
-      </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="eventType">Type</label>
-        <input id="eventType" class="form-control" type="text" name="type" [(ngModel)]="newEvent.eventType" required title="Please enter an event type">
-      </div>
-  
-      <div style="margin-bottom: 10px;">
-        <label for="eventLocation">Location</label>
-        <input id="eventLocation" class="form-control" type="text" name="location" [(ngModel)]="newEvent.eventAddress" required title="Please enter a location">
-      </div>
+    </div>
 
-      <div style="margin-bottom: 10px;">
-        <label for="eventPrice">Price</label>
-        <input id="eventPrice" class="form-control" type="text" name="price" [(ngModel)]="newEvent.eventPrice" required title="Please enter a price">
+    <!-- Date -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventDate">Date</label>
+      <input id="eventDate" class="form-control" type="date" name="date" [(ngModel)]="newEvent.eventDate" #eventDate="ngModel" required title="Please enter a date">
+      <div *ngIf="eventDate.invalid && eventDate.touched" class="text-danger">
+        <small *ngIf="eventDate.errors?.['required']">Event date is required.</small>
       </div>
+    </div>
 
-      <div style="margin-bottom: 10px;">
-        <label for="eventRemainingTickets">Remaining Tickets</label>
-        <input id="eventRemainingTickets" class="form-control" type="text" name="eventRemainingTickets" [(ngModel)]="newEvent.eventRemainingTickets" required title="Please enter number of tickets">
+    <!-- Time -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventTime">Time</label>
+      <input id="eventTime" class="form-control" type="time" name="time" [(ngModel)]="newEvent.eventTime" #eventTime="ngModel" required title="Please enter a time">
+      <div *ngIf="eventTime.invalid && eventTime.touched" class="text-danger">
+        <small *ngIf="eventTime.errors?.['required']">Event time is required.</small>
       </div>
+    </div>
 
-      <div style="margin-bottom: 10px;">
-        <label for="eventVenue">Select Venue</label>
-        <select id="eventVenue" class="form-control" name="eventVenue" [(ngModel)]="newEvent.venueId" required>
-          <option value="" disabled selected>Select a venue</option>
-          <option *ngFor="let venue of venues" [value]="venue.venueId">{{ venue.venueName }}</option>
-        </select>
+    <!-- Description -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventDescription">Description</label>
+      <input id="eventDescription" class="form-control" type="text" name="description" [(ngModel)]="newEvent.description" #description="ngModel" required title="Please enter a description">
+      <div *ngIf="description.invalid && description.touched" class="text-danger">
+        <small *ngIf="description.errors?.['required']">Event description is required.</small>
       </div>
+    </div>
 
-
-      <div class="form-group">
-        <label for="image"> Image</label>
-        <input type="file" id="image" class="form-control" (change)="onFileChange($event)"  accept="image/*"/>
-        <div class="text-danger">
-          {{this.errorMessage}}
-        </div>
+    <!-- Type -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventType">Type</label>
+      <input id="eventType" class="form-control" type="text" name="type" [(ngModel)]="newEvent.eventType" #eventType="ngModel" required title="Please enter an event type">
+      <div *ngIf="eventType.invalid && eventType.touched" class="text-danger">
+        <small *ngIf="eventType.errors?.['required']">Event type is required.</small>
       </div>
-      <div *ngIf="profileImagePreview">
-        <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail mt-2" />
-      </div>
-      
+    </div>
 
-
-      <div style="text-align: center;">
-        <button type="button" class="btn btn-secondary" style="margin-right: 10px;" routerLink="/component/event-list">Close</button>
-        <input type="submit" class="btn btn-primary" routerLink="/component/events" name="Save"/> 
+    <!-- Location -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventLocation">Location</label>
+      <input id="eventLocation" class="form-control" type="text" name="location" [(ngModel)]="newEvent.eventAddress" #location="ngModel" required title="Please enter a location">
+      <div *ngIf="location.invalid && location.touched" class="text-danger">
+        <small *ngIf="location.errors?.['required']">Event location is required.</small>
       </div>
-    </form>
-  </div>
-  
+    </div>
+
+    <!-- Price -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventPrice">Price</label>
+      <input id="eventPrice" class="form-control" type="text" name="price" [(ngModel)]="newEvent.eventPrice" #price="ngModel" required title="Please enter a price">
+      <div *ngIf="price.invalid && price.touched" class="text-danger">
+        <small *ngIf="price.errors?.['required']">Event price is required.</small>
+      </div>
+    </div>
+
+    <!-- Remaining Tickets -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventRemainingTickets">Remaining Tickets</label>
+      <input id="eventRemainingTickets" class="form-control" type="text" name="eventRemainingTickets" [(ngModel)]="newEvent.eventRemainingTickets" #eventRemainingTickets="ngModel" required title="Please enter the number of tickets">
+      <div *ngIf="eventRemainingTickets.invalid && eventRemainingTickets.touched" class="text-danger">
+        <small *ngIf="eventRemainingTickets.errors?.['required']">Number of remaining tickets is required.</small>
+      </div>
+    </div>
+
+    <!-- Venue -->
+    <div style="margin-bottom: 10px;">
+      <label for="eventVenue">Select Venue</label>
+      <select id="eventVenue" class="form-control" name="eventVenue" [(ngModel)]="newEvent.venueId" #eventVenue="ngModel" required>
+        <option value="" disabled selected>Select a venue</option>
+        <option *ngFor="let venue of venues" [value]="venue.venueId">{{ venue.venueName }}</option>
+      </select>
+      <div *ngIf="eventVenue.invalid && eventVenue.touched" class="text-danger">
+        <small *ngIf="eventVenue.errors?.['required']">Event venue is required.</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="file" id="image" class="form-control" (change)="onFileChange($event)" accept="image/*" #imageInput required>
+      <div *ngIf="imageInputInvalid && imageInputTouched" class="text-danger">
+        <small>Event image is required.</small>
+      </div>
+      <div class="text-danger">
+        {{ this.errorMessage }}
+      </div>
+    </div>
+    <div *ngIf="profileImagePreview">
+      <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail mt-2" />
+    </div>
+    <div style="text-align: center;">
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" routerLink="/component/event-list">Close</button>
+      <input type="submit" class="btn btn-primary" routerLink="/component/events" name="Save"/> 
+    </div>    
+
+  </form>
+</div>

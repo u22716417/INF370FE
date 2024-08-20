@@ -24,9 +24,8 @@ export class EventServiceService {
   }
 
   // Get a single event by ID
-  getEventById(eventId: number): Observable<Event> {
-    const url = `${this.apiUrl}/${eventId}`;
-    return this.http.get<Event>(url);
+  getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${id}`); // Use full URL
   }
 
   // Create a new event

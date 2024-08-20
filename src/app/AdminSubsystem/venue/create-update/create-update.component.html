@@ -1,39 +1,57 @@
-
- <div class="container">
-  <h5 style="text-align: center;">{{heading}}</h5>
+<div class="container">
+  <h5 style="text-align: center;">{{ heading }}</h5>
   <form #venueForm="ngForm" (ngSubmit)="addVenue(venueForm)" novalidate>
+    
     <div style="margin-bottom: 10px;">
       <label for="venueName">Name</label>
-      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" required title="Please enter a venue name">
+      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" #venueName="ngModel" required title="Please enter a venue name">
+      <div *ngIf="venueName.invalid && venueName.touched" class="text-danger">
+        Venue name is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueDescription">Description</label>
-      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" required title="Please enter a description">
+      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" #venueDescription="ngModel" required title="Please enter a description">
+      <div *ngIf="venueDescription.invalid && venueDescription.touched" class="text-danger">
+        Venue description is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueAddress">Address</label>
-      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" required title="Please enter an address">
+      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" #venueAddress="ngModel" required title="Please enter an address">
+      <div *ngIf="venueAddress.invalid && venueAddress.touched" class="text-danger">
+        Venue address is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueCapacity">Capacity</label>
-      <input id="venueCapacity" class="form-control" type="text" name="capacity" [(ngModel)]="venue.venueCapacity" required title="Please enter a capacity">
+      <input id="venueCapacity" class="form-control" type="text" name="capacity" [(ngModel)]="venue.venueCapacity" #venueCapacity="ngModel" required title="Please enter a capacity">
+      <div *ngIf="venueCapacity.invalid && venueCapacity.touched" class="text-danger">
+        Venue capacity is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueContactPerson">Contact Person</label>
-      <input placeholder="Contact Person" id="venueContactPerson" class="form-control" type="text" name="contact person" [(ngModel)]="venue.venueContactPerson" required title="Please enter a contact person">
+      <input id="venueContactPerson" class="form-control" type="text" name="contactPerson" [(ngModel)]="venue.venueContactPerson" #venueContactPerson="ngModel" required title="Please enter a contact person">
+      <div *ngIf="venueContactPerson.invalid && venueContactPerson.touched" class="text-danger">
+        Contact person is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueContactNumber">Contact Number</label>
-      <input id="venueContactNumber" class="form-control" type="text" name="contact number" [(ngModel)]="venue.venueContactNumber" required title="Please enter a contact number">
+      <input id="venueContactNumber" class="form-control" type="text" name="contactNumber" [(ngModel)]="venue.venueContactNumber" #venueContactNumber="ngModel" required title="Please enter a contact number">
+      <div *ngIf="venueContactNumber.invalid && venueContactNumber.touched" class="text-danger">
+        Contact number is required.
+      </div>
     </div>
 
     <div style="text-align: center;">
-      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/Venues'])">Close</button>
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/venues'])">Close</button>
       <input type="submit" class="btn btn-primary" [disabled]="!venueForm.form.valid" name="Save"/> 
     </div>
   </form>

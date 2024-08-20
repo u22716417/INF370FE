@@ -22,7 +22,7 @@ export class CouponCodeViewComponent implements OnInit {
   }
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     private codeService: CodeServiceService
   ) {}
 

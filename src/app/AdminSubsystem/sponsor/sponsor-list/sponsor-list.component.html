@@ -25,7 +25,7 @@
         <td>{{ sponsor.sponsorEmail }}</td>
         <td>{{ sponsor.sponsorPhone }}</td>
         <td>
-            <a class="btn btn-primary" routerLink="/sponsor-create-update/1" routerLinkActive="active">Edit</a> |
+            <a class="btn btn-primary" [routerLink]="['/sponsor-create-update',sponsor.sponsorId]" routerLinkActive="active">Edit</a> |
             <button class="btn btn-danger" (click)="deleteSponsor(sponsor.sponsorId)">Delete</button>
         </td>
       </tr>
