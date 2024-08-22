@@ -66,7 +66,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
 import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
 import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
-
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -130,7 +130,8 @@ import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-c
     NavigationComponent,
     SidebarComponent,
     NgApexchartsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    DataTablesModule
    
 
   ],
