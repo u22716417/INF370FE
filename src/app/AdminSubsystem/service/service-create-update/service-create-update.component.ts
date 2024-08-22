@@ -18,24 +18,29 @@ export class ServiceCreateUpdateComponent implements OnInit {
   heading: string = '';
 
   constructor(
-    private router: Router,
+    public router: Router,
     private servicesService: ServicesServiceService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = +params['id']; // Use 'id' from route params
-
-      if (id > 0) {
+      const id = +params['Id']; // Convert to number
+  
+      if (id) {
         this.heading = 'Edit Service';
-        this.servicesService.getServiceById(id).subscribe(response => this.service = response);
+        this.servicesService.getServiceById(id).subscribe(response => {
+          console.log(response); // Verify if the service details are fetched correctly
+          this.service = response;
+        });
       } else {
         this.heading = 'Add Service';
         this.service = { serviceId: 0, serviceName: '', serviceDescription: '', serviceTypeId: 0, assignments: '' };
       }
     });
   }
+  
+  
 
   saveService(serviceForm: NgForm): void {
     if (serviceForm.valid) {
@@ -51,7 +56,7 @@ export class ServiceCreateUpdateComponent implements OnInit {
         // Update existing service
         this.servicesService.updateService(this.service).subscribe(() => {
           alert('Service successfully updated');
-          this.router.navigate(['/services']);
+          this.router.navigate(['/component/service-list']);
         }, error => {
           alert('Update failed: ' + error.message);
         });
@@ -60,9 +65,9 @@ export class ServiceCreateUpdateComponent implements OnInit {
       alert('Please fill all the fields');
     }
   }
-
+  
   cancel(): void {
-    this.router.navigate(['/services']);
+    this.router.navigate(['/component/service-list']);
   }
 }
 

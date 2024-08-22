@@ -16,9 +16,10 @@ export class SponsorServiceService {
     return this.http.get<Sponsor[]>(this.apiUrl);
   }
 
-  getSponsorById(sponsorId: number): Observable<Sponsor> {
-    return this.http.get<Sponsor>(`${this.apiUrl}/${sponsorId}`);
+  getSponsorById(id: number): Observable<Sponsor> {
+    return this.http.get<Sponsor>(`${this.apiUrl}/${id}`); // Use full URL
   }
+  
 
   createSponsor(sponsor: Sponsor): Observable<Sponsor> {
     return this.http.post<Sponsor>(this.apiUrl, sponsor);

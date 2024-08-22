@@ -18,7 +18,7 @@
         <td>{{ venue.venueAddress }}</td>
         <td>{{ venue.venueContactPerson }}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/manageVenues', venue.venueId]">Edit</a> |
+          <a class="btn btn-primary" [routerLink]="['/create-update', venue.venueId]" routerLinkActive="active">Edit</a> |
           <button class="btn btn-danger btn-sm" (click)="deleteById(venue.venueId)">Delete</button>
         </td>
       </tr>

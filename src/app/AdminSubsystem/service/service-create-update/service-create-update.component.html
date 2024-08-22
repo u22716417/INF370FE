@@ -3,19 +3,45 @@
   <form #serviceForm="ngForm" (ngSubmit)="saveService(serviceForm)" novalidate>
     <div style="margin-bottom: 10px;">
       <label for="serviceName">Name</label>
-      <input id="serviceName" class="form-control" type="text" name="serviceName" [(ngModel)]="service.serviceName" required title="Please enter a service name">
+      <input 
+        id="serviceName" 
+        class="form-control" 
+        type="text" 
+        name="serviceName" 
+        [(ngModel)]="service.serviceName" 
+        #serviceName="ngModel" 
+        required 
+        title="Please enter a service name"
+       
+      >
+      <div *ngIf="serviceName.invalid && serviceName.touched" class="text-danger">
+        <small *ngIf="serviceName.errors?.['required']">Service name is required.</small>
+        
+      </div>
     </div>
   
     <div style="margin-bottom: 10px;">
       <label for="serviceDescription">Description</label>
-      <input id="serviceDescription" class="form-control" type="text" name="serviceDescription" [(ngModel)]="service.serviceDescription" required title="Please enter a description">
+      <input 
+        id="serviceDescription" 
+        class="form-control" 
+        type="text" 
+        name="serviceDescription" 
+        [(ngModel)]="service.serviceDescription" 
+        #serviceDescription="ngModel" 
+        required 
+        title="Please enter a description"
+       
+      >
+      <div *ngIf="serviceDescription.invalid && serviceDescription.touched" class="text-danger">
+        <small *ngIf="serviceDescription.errors?.['required']">Service description is required.</small>
+        
+      </div>
     </div>
     
     <div style="text-align: center;">
-      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/service-list'])">Close</button>
       <input type="submit" class="btn btn-primary" [disabled]="!serviceForm.form.valid" name="Save"/> 
     </div>
   </form>
 </div>
-
-  

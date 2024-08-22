@@ -1,35 +1,51 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CheckInComponent } from '../check-in.component';
-import { catchError, Observable, throwError } from 'rxjs';
-import { Attendee } from '../classes/check-in';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Attendee } from '../classes/attendee'; // Assuming the class name is 'attendee'
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckInService {
 
-  private apiUrl = 'http://localhost:7149/api/CheckIn';
+  private apiUrl = 'https://localhost:7149/api/CheckIn/CheckIn';
+  private validateUrl = 'https://localhost:7149/api/CheckIn/ValidateBarcode';
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  checkIn(checkInViewModel: { barcode: string }): Observable<Attendee> {
-    const payload = {
-      barcode: checkInViewModel.barcode,
-      attendeeName: 'John',
-      attendeeSurname: 'Doe',
-      attendeeEmail: 'john.doe@example.com',
-      attendeePhone: '1234567890',
-      titleId: 1
-    };
-
-    return this.http.post<Attendee>(`${this.apiUrl}/checkIn`, payload).pipe(
-      catchError(error => {
-        console.error('Error checking in', error);
-        return throwError('Error checking in');
-      })
-    );
+  // Validate Barcode
+  validateBarcode(barcode: string): Observable<boolean> {
+    return this.http.post<boolean>(this.validateUrl, JSON.stringify(barcode), this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+     
   }
 
 
+  // Complete Check-In
+  checkIn(checkInData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, checkInData, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Error Handling
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      console.error('Client-side error:', error.error.message);
+    } else {
+      // Server-side error
+      console.error(`Server-side error: ${error.status} - ${error.message}`);
+    }
+    return throwError(() => new Error('Something went wrong; please try again later.'));
+  }
 }

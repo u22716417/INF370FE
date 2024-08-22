@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { EventServiceService } from '../service/event-service.service';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-event-create-update',
   templateUrl: './event-create-update.component.html',
@@ -40,7 +41,8 @@ export class EventCreateUpdateComponent implements OnInit {
     ticketTypeId: 0
   };
   fileNameUploaded: any;
-
+  imageInputTouched: boolean = false;
+  imageInputInvalid: boolean = false;
 
   constructor(public router: Router, private eventService: EventServiceService, private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -48,15 +50,14 @@ export class EventCreateUpdateComponent implements OnInit {
     this.getVenues(); // Fetch the list of venues
 
     this.route.params.subscribe(params => {
-      const id = parseInt(params['Id']);
-
+      const id = parseInt(params['id'], 10); // Ensure the parameter name matches the route configuration
+    
       if (id > 0) {
         this.heading = 'Edit Event';
         this.eventService.getEventById(id).subscribe((response: any) => {
           this.newEvent = response;
           this.newEvent.eventDate = this.formatDateToISO(this.newEvent.eventDate);
           this.newEvent.eventTime = this.formatTimeToISO(this.newEvent.eventTime);
-     
         });
       } else {
         this.heading = 'Add Event';
@@ -162,7 +163,7 @@ export class EventCreateUpdateComponent implements OnInit {
   }
 
   getVenues() {
-    this.http.get<any[]>('http://localhost:5196/api/Venues') // Replace with your API URL
+    this.http.get<any[]>('https://localhost:5196/api/Venues') // Replace with your API URL
       .subscribe(data => {
         console.log(data);
         this.venues = data;

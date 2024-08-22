@@ -1,25 +1,67 @@
 <div>
-    <h2>Client List</h2>
-  
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let client of clients">
-          <td>{{ client.clientName }}</td>
-          <td>{{ client.clientSurname }}</td>
-          <td>{{ client.clientPhone }}</td>
-          <td>
-            <a class="btn btn-primary" routerLink="/view-client-profile/{{client.clientId}}" routerLinkActive="active">View</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <h2>Clients</h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.clientName }}</td>
+        <td>{{ client.clientSurname }}</td>
+        <td>{{ client.clientPhone }}</td>
+        <td>
+          <a [href]="'mailto:' + client.clientEmail">
+            {{ client.clientEmail }}
+          </a>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="openOrderHistory(client)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+ <!-- Order History Popup -->
+ <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': isOrderHistoryOpen}" [ngStyle]="{'display': isOrderHistoryOpen ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center">Order History for {{ selectedClientName }}</h3>
+        <button type="button" class="close" (click)="closeOrderHistory()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Order Date</th>
+              <th>Total Amount</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of selectedClientOrders">
+              <td>{{ order.eventName }}</td>
+              <td>R {{ order.ticketPrice }}</td>
+              <td>{{ order.purchaseDate | date:'short' }}</td>
+              <td>{{order.rating}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeOrderHistory()">Close</button>
+      </div>
+    </div>
   </div>
-  
-    
+</div>
+</div>

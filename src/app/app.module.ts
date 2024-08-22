@@ -65,8 +65,14 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalend
 import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
 import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
 import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+<<<<<<< HEAD
 import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
 import { DataTablesModule } from 'angular-datatables';
+=======
+import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
+import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+
+>>>>>>> d1e45a9d35def9ea4729d35f375e67b6424aac71
 
 
 
@@ -115,7 +121,9 @@ import { DataTablesModule } from 'angular-datatables';
     QuotationListComponent,
     EventCreateUpdateComponent,
     HireServiceReportComponent,
-    SponsorListComponent
+    SponsorListComponent,
+    CreateUpdateComponent,
+    CouponCodeViewComponent
   ],
   imports: [
     CommonModule,

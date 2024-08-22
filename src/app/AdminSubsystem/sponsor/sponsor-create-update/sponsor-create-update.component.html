@@ -1,24 +1,37 @@
 <div class="container">
     <h5 style="text-align: center;">{{ heading }}</h5>
     <form #sponsorForm="ngForm" (ngSubmit)="addSponsor(sponsorForm)" novalidate>
+
         <div style="margin-bottom: 10px;">
             <label for="sponsorName">Name</label>
-            <input id="sponsorName" class="form-control" type="text" name="name" [(ngModel)]="newSponsor.sponsorName" required title="Please enter a sponsor name">
+            <input id="sponsorName" class="form-control" type="text" name="name" [(ngModel)]="newSponsor.sponsorName" #sponsorName="ngModel" required title="Please enter a sponsor name">
+            <div *ngIf="sponsorName.invalid && sponsorName.touched" class="text-danger">
+                Sponsor name is required.
+            </div>
         </div>
 
         <div style="margin-bottom: 10px;">
             <label for="sponsorDescription">Description</label>
-            <input id="sponsorDescription" class="form-control" type="text" name="description" [(ngModel)]="newSponsor.sponsorDescription" required title="Please enter a description">
+            <input id="sponsorDescription" class="form-control" type="text" name="description" [(ngModel)]="newSponsor.sponsorDescription" #sponsorDescription="ngModel" required title="Please enter a description">
+            <div *ngIf="sponsorDescription.invalid && sponsorDescription.touched" class="text-danger">
+                Sponsor description is required.
+            </div>
         </div>
 
         <div style="margin-bottom: 10px;">
             <label for="sponsorEmail">Email</label>
-            <input id="sponsorEmail" class="form-control" type="email" name="email" [(ngModel)]="newSponsor.sponsorEmail" required title="Please enter an email">
+            <input id="sponsorEmail" class="form-control" type="email" name="email" [(ngModel)]="newSponsor.sponsorEmail" #sponsorEmail="ngModel" required title="Please enter an email">
+            <div *ngIf="sponsorEmail.invalid && sponsorEmail.touched" class="text-danger">
+                Please enter a valid email.
+            </div>
         </div>
 
         <div style="margin-bottom: 10px;">
             <label for="sponsorPhone">Phone</label>
-            <input id="sponsorPhone" class="form-control" type="text" name="phone" [(ngModel)]="newSponsor.sponsorPhone" required pattern="[0-9]+" title="Please enter a valid phone number">
+            <input id="sponsorPhone" class="form-control" type="text" name="phone" [(ngModel)]="newSponsor.sponsorPhone" #sponsorPhone="ngModel" required pattern="[0-9]+" title="Please enter a valid phone number">
+            <div *ngIf="sponsorPhone.invalid && sponsorPhone.touched" class="text-danger">
+                Please enter a valid phone number (digits only).
+            </div>
         </div>
 
         <div style="text-align: center;">

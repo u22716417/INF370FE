@@ -7,11 +7,9 @@
       <div *ngIf="checkInForm.get('barcode')?.invalid && (checkInForm.get('barcode')?.dirty || checkInForm.get('barcode')?.touched)" class="invalid-feedback">     
         Barcode is invalid
       </div>
-
     </div>
 
     <div class="numpad-container">
-      
       <div class="numpad">
         <button *ngFor="let num of numbers" (click)="appendNumber(num)">{{ num }}</button>
         <button (click)="clearInput()" aria-label="Clear input">Clear</button>
@@ -22,5 +20,43 @@
   </form>
   <div id="notification" [class.show]="showNotification">
     {{ notificationMessage }}
+  </div>
+
+  <!-- Attendee Details Modal -->
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showAttendeeModal}" style="display: block;" *ngIf="showAttendeeModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Enter Attendee Details</h5>
+          <button type="button" class="close" (click)="closeAttendeeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="attendeeForm">
+            <div class="form-group">
+              <label for="attendeeName">Name</label>
+              <input type="text" id="attendeeName" formControlName="attendeeName" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="attendeeSurname">Surname</label>
+              <input type="text" id="attendeeSurname" formControlName="attendeeSurname" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="attendeeEmail">Email</label>
+              <input type="email" id="attendeeEmail" formControlName="attendeeEmail" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="attendeePhone">Phone</label>
+              <input type="text" id="attendeePhone" formControlName="attendeePhone" class="form-control" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="submitAttendeeDetails()">Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="closeAttendeeModal()">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

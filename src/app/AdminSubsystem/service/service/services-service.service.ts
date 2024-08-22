@@ -42,9 +42,9 @@ export class ServicesServiceService {
 
   // Gets a single service by ID
   getServiceById(id: number): Observable<Service> {
-    return this.http.get<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));
+    return this.http.get<Service>(`${this.apiUrl}/${id}`);
   }
+  
 
   // Creates a new service
   createService(service: Service): Observable<Service> {
