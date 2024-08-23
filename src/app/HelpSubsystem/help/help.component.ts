@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { Location } from '@angular/common';
+import { Config } from 'datatables.net';
 
 interface Item {
   title: string;
@@ -18,7 +19,8 @@ interface Section {
   styleUrls: ['./help.component.css']
 })
 export class HelpComponent {
-  searchQuery: string = '';
+
+  dtOptions: Config = {};
   sections: any[] = [
     {
       title: 'How to Purchase a Ticket',
@@ -134,6 +136,24 @@ export class HelpComponent {
           ]
         }
       ]
+    },
+    {
+      title: 'Forgot Password',
+      items: [
+        {
+          title: 'Steps to Recover Your Password',
+          details: [
+            'The user clicks on the forgot password link on the login screen.',
+            'The system loads the forgot password pop-up screen and prompts the user to enter their username.',
+            'The user provides their username and clicks on the submit button.',
+            'The system validates the username provided and sends a temporary password to the user\'s email address.',
+            'The system redirects the user to the login screen.',
+            'The user provides the username with the temporary password and clicks on the login button.',
+            'The system validates the provided login details.',
+            'The system uses AuthGuards to load the home screen or the dashboard, depending on the user type.'
+          ]
+        },
+      ]
     }
   ];
 
@@ -178,28 +198,11 @@ export class HelpComponent {
     this.location.back();
   }
 
-  get filteredSections(): Section[] {
-    if (!this.searchQuery) {
-      return this.sections;
-    }
-
-    const query = this.searchQuery.toLowerCase();
-
-    return this.sections.map((section: Section) => ({
-      ...section,
-      items: section.items.filter((item: Item) =>
-        item.title.toLowerCase().includes(query) ||
-        item.details.some((detail: string) => detail.toLowerCase().includes(query))
-      )
-    })).filter((section: Section) => section.items.length > 0);
-  }
-
-  highlightText(text: string): string {
-    if (!this.searchQuery) {
-      return text;
-    }
-    const regex = new RegExp(`(${this.searchQuery.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<span class="highlight">$1</span>');
+  
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
   }
 }
 
