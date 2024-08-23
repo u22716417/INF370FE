@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div class="help-container">
+        <h2>Help - User Manual</h2>
+        
+        <!-- Search Functionality -->
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search...">
+  
+        <!-- Dynamic Help Content -->
+        <div *ngFor="let section of filteredSections" class="help-section">
+            <h3 [innerHTML]="highlightText(section.title)"></h3>
+            <ol>
+                <li *ngFor="let item of section.items">
+                    <strong [innerHTML]="highlightText(item.title)"></strong>
+                    <ol>
+                        <li *ngFor="let detail of item.details" [innerHTML]="highlightText(detail)"></li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+        
+        <button class="btn btn-primary" (click)="downloadPDF()">Download PDF</button>
+        <button class="btn btn-secondary" (click)="goBack()">Back</button>
+    </div>
+  
+</body>
+</html>
+
+<style>
+/* Overall container styling */
+.help-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.help-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Search input styling */
+.help-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Section styling */
+.help-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.help-section h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* List styling */
+.help-section ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.help-section li {
+  margin-bottom: 10px;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Highlight styling */
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+  color: #000;
+}
+
+</style>

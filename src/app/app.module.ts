@@ -70,6 +70,7 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { HelpComponent } from './HelpSubsystem/help/help.component';
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code
     HireServiceReportComponent,
     SponsorListComponent,
     CreateUpdateComponent,
-    CouponCodeViewComponent
+    CouponCodeViewComponent,
+    HelpComponent
   ],
   imports: [
     CommonModule,
