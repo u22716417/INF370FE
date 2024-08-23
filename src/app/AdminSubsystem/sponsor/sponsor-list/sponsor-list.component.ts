@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SponsorServiceService } from '../service/sponsor-service.service';
 import { Sponsor } from '../sponsor';
 import { RouterLink } from '@angular/router';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-sponsor-list',
@@ -18,6 +19,7 @@ export class SponsorListComponent implements OnInit {
     sponsorEmail: '',
     sponsorPhone: 0
   };
+  dtOptions: Config = {};
 
   constructor(private sponsorService: SponsorServiceService) { }
 

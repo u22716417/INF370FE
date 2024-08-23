@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClientProfile } from './client-profile';
 import { RouterModule } from '@angular/router';
 import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
+import { Config } from 'datatables.net';
 @Component({
   selector: 'app-client-profile',
   templateUrl: './client-profile.component.html',
@@ -15,6 +16,7 @@ export class ClientProfileComponent implements OnInit {
   selectedClientName: string = '';
   selectedClientOrders: any[] = [];
   isOrderHistoryOpen: boolean = false;
+  dtOptions: Config = {};
   
   constructor(private clientProfileService: ClientProfileService, private router: Router, private route: ActivatedRoute, private orderHistory: TicketService) {   
    }

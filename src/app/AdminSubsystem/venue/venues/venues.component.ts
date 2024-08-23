@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Venue } from '../venue';
 import { VenueService } from '../service/venue-service.service';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-venues',
@@ -13,6 +14,7 @@ venues:Venue[]=[]
 filterVenue: Venue[]=[];
 searchTerm: string = '';
 isPopupVisible: boolean = false;
+dtOptions: Config = {};
 
 constructor(private venueService: VenueService){}
 
@@ -28,6 +30,9 @@ constructor(private venueService: VenueService){}
         this.filterVenue.push(element);
         this.venues.unshift(element)
       });
+      this.dtOptions = {
+        pagingType: 'full_numbers'
+      };
     })
   }
 

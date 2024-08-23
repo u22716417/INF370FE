@@ -16,7 +16,7 @@
   <br/>
   <br/>
   <div class="container">
-    <table class="table align-middle mb-0 bg-white">
+    <table datatable [dtOptions]="dtOptions" *ngIf="quotations.length>0"  class="table table-striped">
       <thead class="bg-light">
         <tr>
           <th>Client Name</th>

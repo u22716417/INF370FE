@@ -4,7 +4,7 @@
     Generate New Code
   </a> |
   <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
-  <table class="table table-striped mt-3">
+  <table datatable [dtOptions]="dtOptions" *ngIf="codes.length>0"  class="table table-striped">
     <thead>
       <tr>
         <th>No.</th>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from '../service';
 import { ServicesServiceService } from '../service/services-service.service';
-
+import { Config } from 'datatables.net';
 @Component({
   selector: 'app-service-list',
   templateUrl: './service-list.component.html',
@@ -9,6 +9,7 @@ import { ServicesServiceService } from '../service/services-service.service';
 })
 export class ServiceListComponent implements OnInit {
   services: Service[] = [];
+  dtOptions: Config = {};
 
   filteredService: Service[] = [];
   searchTerm: string = '';
