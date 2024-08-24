@@ -42,14 +42,6 @@ export const ADMINROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/hire-employee',
-    title: 'Hire Employee',
-    icon: 'bi bi-people',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: '/component/events',
     title: 'Events',
     icon: 'bi bi-pause-btn',
@@ -82,13 +74,14 @@ export const ADMINROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/assignment',
-    title: 'Assignment',
+    path: 'component/employee-list',
+    title: 'Employees',
     icon: 'bi bi-people',
     class: '',
     extralink: false,
     submenu: []
-  }
+  },
+  
 ];
 
 export const CLIENTROUTES: RouteInfo[] = [

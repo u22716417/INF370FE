@@ -7,13 +7,17 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class HireEmployeeServiceService {
   private apiUrl = 'https://localhost:7149/api/Employees/HireEmployee';
-  private userUrl ='https://localhost:7149/api/Users/UserTypes';
+  private adminUrl ='https://localhost:7149/api/Employees/GetAdmins';
   private titleUrl = 'https://localhost:7149/api/Users/Titles';
 
   constructor(private http: HttpClient) { }
 
   hireEmployee(employee: any): Observable<any> {
     return this.http.post(this.apiUrl, employee);
+  }
+
+  getEmployees():Observable<any>{
+    return this.http.get(this.adminUrl);
   }
 
   getTitles(): Observable<any> {

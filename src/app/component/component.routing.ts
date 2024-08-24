@@ -44,9 +44,9 @@ import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satis
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
-import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
 import { HireEmployeeComponent } from '../AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
-
+import { EmployeeListComponent } from '../AdminSubsystem/hire-employee/employee-list/employee-list.component';
+import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
 
 
 export const ComponentsRoutes: Routes = [
@@ -371,9 +371,18 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
-				path: 'hire-employee',
-				component: HireEmployeeComponent
+				path: 'hire-employee/:id',
+				component: HireEmployeeComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Owner'] } 
+			},
+			{
+				path: 'employee-list',
+				component: EmployeeListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Owner'] } 
 			}
+
 
 
 
