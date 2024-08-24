@@ -44,6 +44,7 @@ import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satis
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
+import { HireEmployeeComponent } from '../AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
 
 
 
@@ -283,6 +284,10 @@ export const ComponentsRoutes: Routes = [
 				path: 'event-create-update/:id',
 				component: EventCreateUpdateComponent 
 			},
+			{
+				path: 'hire-employee',
+				component: HireEmployeeComponent
+			}
 
 
 

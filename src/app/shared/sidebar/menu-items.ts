@@ -76,6 +76,14 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: 'component/hire-employee',
+    title: 'Hire Employee',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/component/events',
     title: 'Events',
     icon: 'bi bi-pause-btn',
