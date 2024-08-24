@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CouponCode } from '../couponCode';
 import { CodeServiceService } from '../service/code-service.service';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-codes-list',
@@ -14,6 +15,7 @@ export class CodesListComponent implements OnInit{
   selectedCouponCode: CouponCode | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
+  dtOptions: Config = {};
 
 
   constructor(private codeService: CodeServiceService){

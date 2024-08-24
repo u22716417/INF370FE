@@ -6,7 +6,7 @@
   </a> |
   <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
 
-  <table class="table">
+  <table datatable [dtOptions]="dtOptions" *ngIf="sponsors.length>0"  class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>

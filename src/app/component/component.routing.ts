@@ -44,7 +44,6 @@ import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satis
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
-import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
 
 
 
@@ -369,6 +368,10 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
+			{
+				path: 'hire-employee',
+				component: HireEmployeeComponent
+			}
 
 
 

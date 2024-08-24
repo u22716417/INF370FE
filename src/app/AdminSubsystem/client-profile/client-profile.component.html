@@ -1,7 +1,7 @@
 <div>
   <h2>Clients</h2>
 
-  <table class="table">
+  <table datatable [dtOptions]="dtOptions" *ngIf="clients.length>0"  class="table table-striped">
     <thead>
       <tr>
         <th>Name</th>

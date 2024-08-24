@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuotationService } from '../quotation.service';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-quotation-list',
@@ -9,6 +10,7 @@ import { QuotationService } from '../quotation.service';
 export class QuotationListComponent implements OnInit {
   quotations: any[] = [];
   filteredQuotations: any[] = [];
+  dtOptions: Config = {};
 
   constructor(private quotationService: QuotationService) {}
 

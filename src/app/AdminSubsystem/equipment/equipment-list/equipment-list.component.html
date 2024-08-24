@@ -3,7 +3,7 @@
   <a class="btn btn-primary" routerLink="/equipment-create-update/0" routerLinkActive="active" >
     Add New
   </a>
-  <table class="table">
+  <table datatable [dtOptions]="dtOptions" *ngIf="equipments.length>0"  class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>

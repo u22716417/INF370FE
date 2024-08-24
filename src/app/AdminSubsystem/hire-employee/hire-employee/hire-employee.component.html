@@ -1,0 +1,49 @@
+<div class="container">
+  <h2 style="text-align: center;">Hire Employee</h2>
+  <form [formGroup]="hireEmployeeForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" formControlName="surname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <!-- Change the id to a unique value, e.g., employeeEmail -->
+      <input type="email" id="employeeEmail" formControlName="email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" formControlName="phone" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="titleId">Title</label>
+      <select id="titleId" formControlName="titleId" class="form-control">
+        <option *ngFor="let title of titles" [value]="title.titleId">{{ title.titleDescription}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Profile Image</label>
+      <input type="file"  class="form-control" (change)="onFileChange($event)" />
+      
+      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+    </div>
+
+    <div *ngIf="profileImagePreview">
+      <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail" style="max-width: 200px;" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Hire Employee</button>
+
+    <div *ngIf="showNotification" class="notification">
+      {{ notificationMessage }}
+    </div>
+  </form>
+</div>

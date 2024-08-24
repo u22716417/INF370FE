@@ -27,6 +27,7 @@ import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-c
 import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
+import { HelpComponent } from './HelpSubsystem/help/help.component';
 
 
 export const Approutes: Routes = [
@@ -134,7 +135,10 @@ export const Approutes: Routes = [
    {
     path: 'equipment-create-update/:Id',
     component: EquipmentCreateUpdateComponent
-  }
+  },
+  { path: 'help',
+   component: HelpComponent },
+
   
 
 

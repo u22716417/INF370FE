@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Equipment, EquipmentType } from '../equipmentClass';
 import { EquipmentServiceService } from '../service/equipment-service.service';
 import { Router, RouterLink } from '@angular/router';
+import { Config } from 'datatables.net';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class EquipmentListComponent implements OnInit {
 
   equipments: Equipment[] = [];
   equipmentTypes: EquipmentType[] = [];
+  dtOptions: Config = {};
   newEquipment: Equipment = {
     equipmentId: 0,
     equipmentTypeId:0,
