@@ -1,44 +1,10 @@
 import { RouteInfo } from './sidebar.metadata';
 
-export const ROUTES: RouteInfo[] = [
- 
+export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
     title: 'Dashboard',
     icon: 'bi bi-speedometer2',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/eventShop',
-    title: 'Event Tickets',
-    icon: 'bi bi-bell',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/Reporting',
-    title: 'Reports',
-    icon: 'bi bi-bell',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  
-  {
-    path: 'component/orderHistory',
-    title: 'Order History',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/ViewService',
-    title: 'View Service',
-    icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
@@ -114,10 +80,29 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  }
+];
+
+export const CLIENTROUTES: RouteInfo[] = [
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: 'bi bi-speedometer2',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/eventShop',
+    title: 'Event Tickets',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
   },
   {
     path: 'component/checkout',
-    title: 'Check Out ',
+    title: 'Check Out',
     icon: 'bi bi-box-arrow-right',
     class: '',
     extralink: false,
@@ -138,7 +123,6 @@ export const ROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
-
   },
   {
     path: 'component/hire-equipment',
@@ -180,7 +164,39 @@ export const ROUTES: RouteInfo[] = [
     extralink: false,
     submenu: []
   }
- 
-  
-  
+];
+
+export const OWNERROUTES: RouteInfo[] = [
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: 'bi bi-speedometer2',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Reporting',
+    title: 'Reports',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/orderHistory',
+    title: 'Order History',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/ViewService',
+    title: 'View Service',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  }
 ];

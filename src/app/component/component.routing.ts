@@ -44,6 +44,7 @@ import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satis
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
+import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
 
 
 
@@ -53,59 +54,88 @@ export const ComponentsRoutes: Routes = [
 		children: [
 			{
 				path: 'UnSoldTicketReport',
-				component: UnSoldTicketReportComponent
+				component: UnSoldTicketReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path:'Reporting',
-				component:ReportComponent
+				component:ReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'TicketSalesReport',
-				component: TicketSalesReportComponent
+				component: TicketSalesReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'CustomerSatisfactionReport',
-				component: CustomerSatisfactionReportComponent
+				component: CustomerSatisfactionReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'EventAttendanceReport',
-				component: EventAttendanceReportComponent
+				component: EventAttendanceReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'HireServiceReport',
-				component: HireServiceReportComponent
+				component: HireServiceReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'orderHistory',
-				component: OrderHistoryComponent
+				component: OrderHistoryComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'ViewService',
-				component: ViewServiceComponent
+				component: ViewServiceComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+
 			},
 			{
 				path: 'payfast',
-				component: PayFastComponent
+				component: PayFastComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'checkout',
-				component: CheckoutComponent
+				component: CheckoutComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'event-list',
-				component: EventListComponent
+				component: EventListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'eventShop',
-				component: ViewAllEventsComponent
+				component: ViewAllEventsComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client'] } // Specify allowed roles here
 			},
 			{
 				path: 'settings',
-				component: SettingsComponent
+				component: SettingsComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'table',
-				component: TableComponent
+				component: TableComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'card',
@@ -142,146 +172,202 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'venues',
 				component: VenuesComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 				
 			},
 			{
 				path: 'service-list',
-				component: ServiceListComponent
+				component: ServiceListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'equipment-list',
-				component: EquipmentListComponent
+				component: EquipmentListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'codes-list',
-				component: CodesListComponent
+				component: CodesListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'coupon-code-view',
-				component: CouponCodeViewComponent
+				component: CouponCodeViewComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'generate-code',
-				component: GenerateCodeComponent
+				component: GenerateCodeComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
-			{
-				path: 'reports',
-				component: LoginComponent
-			},
+			
 			{
 				path: 'clients',
-				component: ClientProfileComponent
+				component: ClientProfileComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'check-in',
-				component: CheckInComponent
+				component: CheckInComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'quotations',
-				component: LoginComponent
+				component: LoginComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'sponsor-list',
-				component: SponsorListComponent
-			},
-			{
-				path: 'assignment',
-				component: LoginComponent
+				component: SponsorListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
               
 				path: 'faq-list',
-				component: FaqListComponent
+				component: FaqListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'faq-create-update',
-				component: FaqCreateUpdateComponent
+				component: FaqCreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'hire-service',
-				component: HireServiceComponent
+				component: HireServiceComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{path:'equipment-list',
-				component: EquipmentListComponent
+				component: EquipmentListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 				},
 			
 				{
 				  path: 'equipment-create-update/:id',
-				  component: EquipmentCreateUpdateComponent 
+				  component: EquipmentCreateUpdateComponent,
+				  canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 				},
 				{
 				  path: 'generate-code/:id',
-				  component: GenerateCodeComponent
+				  component: GenerateCodeComponent,
+				  canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 				},
 				{
 				  path: 'coupon-code-view/:id',
-				  component: CouponCodeViewComponent
+				  component: CouponCodeViewComponent,
+				  canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 				},
 			
 				{path:'sponsor-list',
-				  component: SponsorListComponent
+				  component: SponsorListComponent,
+				  canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 				  },
 			
 			  {
 				path: 'view-client-profile/:id',
-				component: ViewClientProfileComponent
+				component: ViewClientProfileComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
 				path: 'codes-list',
-				component: CodesListComponent
+				component: CodesListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
 				path: 'generate-code',
-				component: GenerateCodeComponent
+				component: GenerateCodeComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
 				path: 'coupon-code-view',
-				component: CouponCodeViewComponent
+				component: CouponCodeViewComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			  },
 			
 
 			{
 				path: 'hire-items-received',
-				component: HireItemsReceivedComponent
+				component: HireItemsReceivedComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'events',
-				component: EventListComponent
+				component: EventListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'hire-equipment',
-				component: HireEquipmentComponent
+				component: HireEquipmentComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path:'checkout',
-				component:CheckOutComponent
+				component:CheckOutComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path:'quotationlist',
-			 	component:QuotationListComponent
+			 	component:QuotationListComponent,
+				 canActivate: [RoleBasedAuthGuard],
+				 data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 			{
               path:'create-quotation',
-			  component:CreateQuotationComponent
+			  component:CreateQuotationComponent,
+			  canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 	        {
 				path:'service-create-update',
-				component:ServiceCreateUpdateComponent
+				component:ServiceCreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
               	
 			},
 			{
 				path:'returnitems',
-				component:HireItemsReturnComponent
+				component:HireItemsReturnComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 		    {
 				path: 'hire-items-return',
-				component: HireItemsReturnComponent
-			
+				component: HireItemsReturnComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			
 			},
 			{
 				path: 'event-create-update/:id',
-				component: EventCreateUpdateComponent 
+				component: EventCreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 
 

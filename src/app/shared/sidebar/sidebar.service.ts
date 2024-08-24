@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { RouteInfo } from './sidebar.metadata';
-import { ROUTES } from './menu-items';
+import { CLIENTROUTES, ADMINROUTES,OWNERROUTES } from './menu-items';
+import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { AuthService } from 'src/app/AuthGuard/Authorization/AuthGuard';
+import { ComponentsRoutes } from 'src/app/component/component.routing';
 
 
 @Injectable({
@@ -13,10 +16,15 @@ export class VerticalSidebarService {
     public collapseSidebar: boolean = false;
     public fullScreen: boolean = false;
 
-    MENUITEMS: RouteInfo[] = ROUTES;
+    MENUITEMS: RouteInfo[] = CLIENTROUTES;
 
     items = new BehaviorSubject<RouteInfo[]>(this.MENUITEMS);
 
-    constructor() {
+    constructor(private authService: AuthService,) {
+    }
+
+    private filterMenuItemsBasedOnRoles() {
+        const userRoles = this.authService.getCurrentUserRole(); // Get the current user roles
+        
     }
 }

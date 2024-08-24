@@ -1,9 +1,10 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { ROUTES } from './menu-items';
+import { ADMINROUTES,CLIENTROUTES,OWNERROUTES } from './menu-items';
 import { RouteInfo } from './sidebar.metadata';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule, NgIf } from '@angular/common';
+import { AuthService } from 'src/app/AuthGuard/Authorization/AuthGuard';
 //declare var $: any;
 
 @Component({
@@ -28,11 +29,26 @@ export class SidebarComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: AuthService
   ) {}
 
   // End open close
   ngOnInit() {
-    this.sidebarnavItems = ROUTES.filter(sidebarnavItem => sidebarnavItem);
+
+      let currentUserRole = this.userService.getCurrentUserRole();
+      if(currentUserRole == 'Client')
+      {
+      this.sidebarnavItems = CLIENTROUTES.filter(sidebarnavItem => sidebarnavItem);
+      }
+      if(currentUserRole == 'Admin')
+      {
+         this.sidebarnavItems = ADMINROUTES.filter(sidebarnavItem => sidebarnavItem);
+      }
+      if(currentUserRole == 'Owner')
+      {
+       this.sidebarnavItems = OWNERROUTES.filter(sidebarnavItem => sidebarnavItem);
+      }
+
   }
 }
