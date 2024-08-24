@@ -49,7 +49,7 @@ export class PayFastComponent implements OnInit {
       this.cartService.processPayment(paymentRequest).subscribe(
         response => {
           this.showOverlay = false;
-          alert('Payment processed successfully! Check your Email');
+          alert('Payment processed successfully! Please check your Email');
           this.cartService.resetCart();
           this.route.navigate(['/component/orderHistory'])
 

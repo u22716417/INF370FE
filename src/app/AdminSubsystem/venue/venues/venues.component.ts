@@ -23,32 +23,46 @@ constructor(private venueService: VenueService){}
     console.log(this.venues);
   }
 
-  getAllVenues() {
-    this.venueService.getAllVenues().subscribe(result =>{
-      let venueList:any[] = result
-      venueList.forEach((element) => {
-        this.filterVenue.push(element);
-        this.venues.unshift(element)
-      });
-      this.dtOptions = {
-        pagingType: 'full_numbers'
-      };
-    })
+  getAllVenues(): void {
+    this.venueService.getAllVenues().subscribe(
+      (result) => {
+        let venueList: any[] = result;
+        venueList.forEach((element) => {
+          this.filterVenue.push(element);
+          this.venues.unshift(element);
+        });
+        this.dtOptions = {
+          pagingType: 'full_numbers'
+        };
+      },
+      (error) => {
+        console.error('Error loading venues:', error);
+        alert('Failed to load venues. Please try again later.');
+      }
+    );
   }
-
-  deleteById(venueId: number){
-    const confirmDelete = window.confirm('Are you sure you want to delete?');
-
-    if (confirmDelete){
-      this.venueService.deleteVenueById(parseInt(venueId+ ''))
-      .subscribe(response => {
-        if (response != null)
-          {
+  
+  deleteById(venueId: number): void {
+    const confirmDelete = window.confirm('Are you sure you want to remove this venue?');
+  
+    if (confirmDelete) {
+      this.venueService.deleteVenueById(parseInt(venueId + '')).subscribe(
+        (response) => {
+          if (response != null) {
+            alert('Venue has been removed succesfully');
             location.reload();
+          } else {
+            alert('Failed to remove venue');
           }
-      })
+        },
+        (error) => {
+          console.error('Error removing venue:', error);
+          alert('Failed to remove venue. Please try again later.');
+        }
+      );
     }
   }
+  
 
 
 filterVenues(){

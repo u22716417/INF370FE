@@ -30,7 +30,7 @@ export class ServiceListComponent implements OnInit {
         console.log('Fetched services:', this.services);
       },
       error: (err) => {
-        console.error('Error fetching services', err);
+        console.error('There are no services avaialable', err);
       }
     });
   }
@@ -46,7 +46,7 @@ export class ServiceListComponent implements OnInit {
     if (confirmDelete) {
       this.serviceService.deleteServiceById(serviceId).subscribe({
         next: () => {
-          console.log('Service deleted successfully');
+          console.log('Service has been deleted successfully');
           this.loadServices();
         },
         error: (err) => {

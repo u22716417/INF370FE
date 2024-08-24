@@ -49,12 +49,12 @@ export class SponsorCreateUpdateComponent {
           if (response != null) {
             this.router.navigate(['/sponsors']);
           } else {
-            alert('Update failed');
+            alert('Sponsor already exists');
           }
         });
       }
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill in the required fields');
     }
   }
 

@@ -30,11 +30,24 @@ export class ViewAllEventsComponent implements OnInit {
     this.closeModal();
   }
 
-  getbyID(id: number) {
-    this.eventService.getEventById(id).subscribe(response => {
-        this.currentEvent = response;
-    });
+  getbyID(id: number): void {
+    this.eventService.getEventById(id).subscribe(
+      response => {
+        if (response) {
+          this.currentEvent = response;
+        } else {
+          console.error('There are no upcoming events');
+          this.currentEvent = null;  // Set to null if no event is found
+        }
+      },
+      error => {
+        console.error('Error fetching event:', error);
+        console.error('Failed to load events. Please try again later');
+        this.currentEvent = null;  
+      }
+    );
   }
+  
 
   satinizaeImage(base64String: string) {
     return this.sanitizer.bypassSecurityTrustResourceUrl(base64String);
