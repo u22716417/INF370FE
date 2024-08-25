@@ -20,6 +20,7 @@ import { event } from 'jquery';
 })
 export class HireServiceComponent implements OnInit {
 
+
   ServiceType: number = 0;
   isEquipment: boolean = false;
   equipmentOptions: any[] = [];
@@ -71,6 +72,9 @@ export class HireServiceComponent implements OnInit {
     };
   }
 
+  closeEqPopup() {
+    this.showEqupmentPopup = false;
+  }
   onServiceSelected() {
     if (this.ServiceType == 1) {
       this.isService = true;
@@ -247,7 +251,7 @@ export class HireServiceComponent implements OnInit {
         this.hireItemService.createHireItem(hireRequest).subscribe(x=>{
           if(x)
           {
-            this.closePopup();
+            this.closeEqPopup();
           }
         })
    
