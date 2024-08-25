@@ -169,7 +169,7 @@ export class EventCreateUpdateComponent implements OnInit {
         this.venues = data;
       }, error => {
 
-        console.error('Error fetching venues:', error);
+        console.error('Error loading venues:', error);
       });
   }
 

@@ -29,15 +29,31 @@ export class SponsorListComponent implements OnInit {
   }
 
   loadSponsors(): void {
-    this.sponsorService.getSponsors().subscribe((data: Sponsor[]) => {
-      this.sponsors = data;
-    });
+    this.sponsorService.getSponsors().subscribe(
+      (data: Sponsor[]) => {
+        this.sponsors = data;
+      },
+      (error) => {
+        console.error('Error loading sponsors:', error);
+        alert('Failed to load sponsors. Please try again later.');
+      }
+    );
   }
+  
+
   deleteSponsor(sponsorId: number): void {
-    this.sponsorService.deleteSponsor(sponsorId).subscribe(() => {
-      this.sponsors = this.sponsors.filter(s => s.sponsorId !== sponsorId);
-    });
+    this.sponsorService.deleteSponsor(sponsorId).subscribe(
+      () => {
+        this.sponsors = this.sponsors.filter(s => s.sponsorId !== sponsorId);
+        alert('Sponsor has been removed successfully');
+      },
+      (error) => {
+        console.error('Error deleting sponsor:', error);
+        alert('Failed to delete sponsor. Please try again later.');
+      }
+    );
   }
+  
 
   selectSponsor(sponsor: Sponsor): void {
     this.editSponsor = { ...sponsor };

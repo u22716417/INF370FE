@@ -72,7 +72,6 @@ import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/crea
 import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
 import { HelpComponent } from './HelpSubsystem/help/help.component';
 import { HireEmployeeComponent } from './AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
-import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component';
 
 
 @NgModule({
@@ -124,8 +123,7 @@ import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component
     CreateUpdateComponent,
     CouponCodeViewComponent,
     HelpComponent,
-    HireEmployeeComponent,
-    AuditLogsComponent
+    HireEmployeeComponent
   ],
   imports: [
     CommonModule,

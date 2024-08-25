@@ -39,23 +39,43 @@ export class EquipmentListComponent implements OnInit {
     this.loadEquipmentTypes();
 }
 
-  loadEquipments(): void {
-    this.equipmentService.getAllEquipments().subscribe((data: Equipment[]) => {
+loadEquipments(): void {
+  this.equipmentService.getAllEquipments().subscribe(
+    (data: Equipment[]) => {
       this.equipments = data;
-    });
-  }
+    },
+    (error) => {
+      console.error('Error loading equipment:', error);
+      alert('Failed to load equipment. Please try again later.');
+    }
+  );
+}
 
-  loadEquipmentTypes(): void {
-    this.equipmentService.getAllEquipmentTypes().subscribe((data: EquipmentType[]) => {
+loadEquipmentTypes(): void {
+  this.equipmentService.getAllEquipmentTypes().subscribe(
+    (data: EquipmentType[]) => {
       this.equipmentTypes = data;
-    });
-  }
+    },
+    (error) => {
+      console.error('Error loading equipment types:', error);
+      alert('Failed to load equipment types. Please try again later.');
+    }
+  );
+}
 
-  deleteEquipment(equipmentId: number): void {
-    this.equipmentService.deleteEquipment(equipmentId).subscribe(() => {
+deleteEquipment(equipmentId: number): void {
+  this.equipmentService.deleteEquipment(equipmentId).subscribe(
+    () => {
       this.equipments = this.equipments.filter(e => e.equipmentId !== equipmentId);
-    });
-  }
+      alert('Equipment has been removed successfully');
+    },
+    (error) => {
+      console.error('Error removing equipment:', error);
+      alert('Failed to remove equipment. Please try again later.');
+    }
+  );
+}
+
 
   selectEquipment(equipment: Equipment): void {
     this.editEquipment = { ...equipment };

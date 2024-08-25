@@ -32,10 +32,10 @@ export class CreateQuotationComponent {
       };
 
       this.http.post<any>(this.apiUrl, quotationData).subscribe(response => {
-        alert('Quotation created successfully');
+        alert('Quotation requested successfully');
         this.closeScreen();
       }, error => {
-        alert('Error creating quotation');
+        alert('Error requesting quotation');
       });
     }
   }

@@ -22,20 +22,36 @@ export class EventListComponent implements OnInit {
   }
 
   getEvents(): void {
-    this.eventService.getEvents().subscribe(events => {
-      console.log(events)
-      this.events = events});
-      this.dtOptions = {
-        pagingType: 'full_numbers'
-      };
-    
+    this.eventService.getEvents().subscribe(
+      (events) => {
+        console.log(events);
+        this.events = events;
+      },
+      (error) => {
+        console.error('Error fetching events:', error);
+        alert('There are no upcoming events.');
+      }
+    );
+  
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
   }
+  
 
   deleteEvent(eventId: number): void {
-    this.eventService.deleteEvent(eventId).subscribe(() => {
-      this.events = this.events.filter(event => event.eventId !== eventId);
-    });
+    this.eventService.deleteEvent(eventId).subscribe(
+      () => {
+        this.events = this.events.filter(event => event.eventId !== eventId);
+        alert('Event has been removed successfully');
+      },
+      (error) => {
+        console.error('Error deleting event:', error);
+        alert('Failed to remove event. Please try again later.');
+      }
+    );
   }
+  
 
   exportToJson(): void {
     const dataStr = JSON.stringify(this.events, null, 2);

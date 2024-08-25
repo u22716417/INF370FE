@@ -58,29 +58,42 @@ export class EquipmentCreateUpdateComponent {
     });
   }
 
-  addEquipment(equipmentForm: NgForm) {
+  addEquipment(equipmentForm: NgForm): void {
     if (equipmentForm.valid) {
       if (this.newEquipment.equipmentId === 0) {
-        this.equipmentService.createEquipment(this.newEquipment).subscribe((response: any) => {
-          if (response != null) {
-            this.router.navigate(['/equipment']);
-          } else {
-            this.router.navigate(['/equipment']);
+        this.equipmentService.createEquipment(this.newEquipment).subscribe(
+          (response: any) => {
+            if (response != null) {
+              alert('Equipment has been added successfully');
+              this.router.navigate(['/equipment']);
+            } else {
+              this.router.navigate(['/equipment']);
+            }
+          },
+          (error) => {
+            console.error('Error adding equipment:', error);
           }
-        });
+        );
       } else {
-        this.equipmentService.updateEquipment(this.newEquipment.equipmentId, this.newEquipment).subscribe((response: any) => {
-          if (response != null) {
-            this.router.navigate(['/equipment']);
-          } else {
-            this.router.navigate(['/equipment']);
+        this.equipmentService.updateEquipment(this.newEquipment.equipmentId, this.newEquipment).subscribe(
+          (response: any) => {
+            if (response != null) {
+              alert('Equipment has been added successfully');
+              this.router.navigate(['/equipment']);
+            } else {
+              this.router.navigate(['/equipment']);
+            }
+          },
+          (error) => {
+            console.error('Error updating equipment:', error);
           }
-        });
+        );
       }
     } else {
       alert('Please fill all the fields');
     }
   }
+  
  
   uploadFile(event: Event) {
     const input = event.target as HTMLInputElement;

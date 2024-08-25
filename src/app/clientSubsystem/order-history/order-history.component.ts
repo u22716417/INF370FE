@@ -32,18 +32,24 @@ export class OrderHistoryComponent implements OnInit {
 
   fetchOrderHistory(): void {
     if (this.clientId) {
-    this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
-      (data: any[]) => {
-        this.orderHistory = data;
-      },
-      (error) => {
-        console.error('Error fetching order history', error);
-      }
-    );
+      this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
+        (data: any[]) => {
+          if (data && data.length > 0) {
+            this.orderHistory = data;
+          } else {
+            console.log('You have no orders');
+            this.orderHistory = [];  // Ensure the order history is empty
+          }
+        },
+        (error) => {
+          console.error('Error fetching order history', error);
+        }
+      );
     } else {
       console.error('Client ID is not available');
     }
   }
+  
 
   getStars(rating: number | undefined): string[] {
     const stars = [];

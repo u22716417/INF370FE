@@ -47,7 +47,7 @@ export class ServiceCreateUpdateComponent implements OnInit {
       if (this.service.serviceId === 0) {
         // Create new service
         this.servicesService.createService(this.service).subscribe(() => {
-          alert('Service successfully added');
+          alert('Service has been successfully added');
           this.router.navigate(['/component/service-list']);
         }, error => {
           alert('Create failed: ' + error.message);
@@ -55,14 +55,14 @@ export class ServiceCreateUpdateComponent implements OnInit {
       } else {
         // Update existing service
         this.servicesService.updateService(this.service).subscribe(() => {
-          alert('Service successfully updated');
+          alert('Service has been updated successfully ');
           this.router.navigate(['/component/service-list']);
         }, error => {
           alert('Update failed: ' + error.message);
         });
       }
     } else {
-      alert('Please fill all the fields');
+      alert('Please fill the required fields');
     }
   }
   
