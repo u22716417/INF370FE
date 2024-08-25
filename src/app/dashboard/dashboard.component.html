@@ -62,16 +62,17 @@ app-clock, app-mini-calendar {
   </div>
   <div style="width: 100%;">
     <app-feeds></app-feeds>
-    <div *ngIf="isAdmin">
+    <div *ngIf="isAdmin || isOwner">
        <input [(ngModel)]="feedItem.task"  class="form-control" type=" text" placeholder="Add Feed">
        <br>
-       <select [(ngModel)]="feedItem.icon" aria-placeholder="Choose Icon" class="form-control">
-        
-          <option value="bi bi-hdd" >Alert</option>
-          <option value="bi bi-bag-check" >Notification</option>
-          <option value="bi bi-bell" >New Event</option>
-          <option value="bi bi-person" >General News</option>
-       </select>
+        <select [(ngModel)]="feedItem.icon" class="form-control">
+          <option disabled selected value="">Feed Type</option>
+          <option value="bi bi-hdd">Alert</option>
+          <option value="bi bi-bag-check">Notification</option>
+          <option value="bi bi-bell">New Event</option>
+          <option value="bi bi-person">General News</option>
+      </select>
+    
        <br>
        <input type="submit" (click)="SubmitFeed()" value="Add Feed" style="width: 100%;" class="btn btn-primary" >
     </div>

@@ -21,8 +21,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   calculateTotals(): void {
-    this.total = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    this.vat = this.total * 0.15;
+    let temptotal = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    this.vat = temptotal * 0.15;
+    this.total = temptotal - this.vat; 
     this.grandTotal = this.total + this.vat;
   }
   

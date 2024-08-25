@@ -6,24 +6,24 @@
           <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of cartItems">
             <div class="d-flex flex-column">
               <h5>{{ item.title }}</h5>
-              <small>Price: R{{ item.price }} x {{ item.quantity }}</small>
+              <small>Price: {{ item.price | currency: 'ZAR' }} x {{ item.quantity }}</small>
             </div>
-            <span>Total: R{{ item.price * item.quantity }}</span>
+            <span>Total: {{ item.price * item.quantity  | currency: 'R'}}</span>
           </li>
         </ul>
         <hr>
         <div class="d-flex justify-content-between">
           <h5>Subtotal:</h5>
-          <h5>R{{ total }}</h5>
+          <h5>{{ total | currency: 'R' }}</h5>
         </div>
         <div class="d-flex justify-content-between">
           <h5>VAT (15%):</h5>
-          <h5>R{{ vat }}</h5>
+          <h5>{{ vat | currency: 'R' }}</h5>
         </div>
         <hr>
         <div class="d-flex justify-content-between">
           <h3>Grand Total:</h3>
-          <h3>R{{ grandTotal }}</h3>
+          <h3>{{ grandTotal | currency: 'R' }}</h3>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router, RouterLink } from '@angular/router';
+import { cu } from '@fullcalendar/core/internal-common';
 import { NgbDropdownModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
@@ -23,6 +24,7 @@ export class NavigationComponent implements AfterViewInit {
   email : string ='';
   phone : string ='';
   title: string ='';
+  currentUsertype : string = '';
   usertype: string = '';
   base64Image: SafeResourceUrl  ='';
   itemCount: number = 0;
@@ -41,6 +43,12 @@ export class NavigationComponent implements AfterViewInit {
      this.phone = response.phoneNumber; 
      this.usertype = response.userType;
    });
+
+   let cut = sessionStorage.getItem("CurrentUser")
+    if(cut!=null)
+    {
+       this.currentUsertype = cut; 
+    }
 
   }
   cartItems = [

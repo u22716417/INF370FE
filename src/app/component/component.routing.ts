@@ -47,6 +47,7 @@ import { HireServiceReportComponent } from '../Reporting/hire-service-report/hir
 import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
 import { HireEmployeeComponent } from '../AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
 import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.component';
+import { HelpComponent } from '../HelpSubsystem/help/help.component';
 
 
 
@@ -94,7 +95,7 @@ export const ComponentsRoutes: Routes = [
 				path: 'orderHistory',
 				component: OrderHistoryComponent,
 				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+				data: { roles: ['Client'] } // Specify allowed roles here
 			},
 			{
 				path: 'ViewService',
@@ -238,13 +239,13 @@ export const ComponentsRoutes: Routes = [
 				path: 'faq-list',
 				component: FaqListComponent,
 				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
-				path: 'faq-create-update',
+				path: 'faq-create-update/:id',
 				component: FaqCreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'hire-service',
@@ -358,13 +359,6 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
-		    {
-				path: 'hire-items-return',
-				component: HireItemsReturnComponent,
-				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
-			
-			},
 			{
 				path: 'event-create-update/:id',
 				component: EventCreateUpdateComponent,
@@ -382,6 +376,18 @@ export const ComponentsRoutes: Routes = [
 				component: AuditLogsComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'help',
+				component: HelpComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
+			},
+			{
+				path: 'Recieved',
+				component: HireItemsReceivedComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
 			}
 
 

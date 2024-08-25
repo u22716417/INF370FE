@@ -110,6 +110,7 @@
   <!-- ============================================================== -->
   <li class="nav-item" ngbDropdown placement="bottom-end">
     <a
+    *ngIf="this.currentUsertype == 'Client'"
       ngbDropdownToggle
       class="nav-link waves-effect waves-dark pro-pic"
       href="javascript:void(0)"

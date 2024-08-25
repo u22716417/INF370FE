@@ -3,31 +3,33 @@ import { Faq } from '../faq';
 import { FaqService } from '../service/faq-service.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Config } from 'datatables.net';
 @Component({
   selector: 'app-faq-list',
   templateUrl: './faq-list.component.html',
   styleUrls: ['./faq-list.component.css']
 })
 export class FaqListComponent implements OnInit{
-  faqs:Faq[]=[]
+  faqs:any[]=[]
   filterFaq: Faq[]=[];
   searchTerm: string = '';
   isPopupVisible: boolean = false;
+  dtOptions: Config = {};
 
   constructor(private faqService: FaqService){}
 
   ngOnInit(): void {
     this.getAllFaqs();
-    // console.log(this.faqs);
+    
   }
 
   getAllFaqs() {
     this.faqService.getAllFaqs().subscribe(result =>{
-      let faqList:any[] = result
-      faqList.forEach((element) => {
-        this.filterFaq.push(element);
-        this.faqs.unshift(element)
-      });
+      this.faqs  = [...result];
+      console.log(this.faqs);
+      this.dtOptions = {
+        pagingType: 'full_numbers'
+      };
     })
   }
 

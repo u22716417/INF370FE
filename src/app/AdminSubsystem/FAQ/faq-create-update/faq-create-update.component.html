@@ -1,14 +1,15 @@
 <div class="container">
-  <h2 style="text-align: center;">Edit Faq</h2>
+  <h2 style="text-align: center;">Answer Faq</h2>
   <form #FaqForm="ngForm" (ngSubmit)="addFaq(FaqForm)" novalidate>
     <div style="margin-bottom: 10px;">
-      <label for="question">Questiom</label>
+      <label for="question">Question</label>
       <input 
+        disabled="true"
         id="Question" 
         class="form-control" 
         type="text" 
         name="question" 
-        [(ngModel)]="newFaq.Question" 
+        [(ngModel)]="newFaq.question" 
         required 
         title="Please enter a question" 
         #question="ngModel" 
@@ -25,7 +26,7 @@
         class="form-control" 
         type="text" 
         name="answer" 
-        [(ngModel)]="newFaq.Answer" 
+        [(ngModel)]="newFaq.answer" 
         required 
         title="Please enter an answer" 
         #answer="ngModel" 
@@ -37,7 +38,7 @@
 
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/faq-list'])">Close</button>
-      <input type="submit" class="btn btn-primary" [disabled]="!FaqForm.form.valid" name="Save" (click)="router.navigate(['/component/faq-list'])"/> 
+      <input type="submit" class="btn btn-primary" [disabled]="!FaqForm.form.valid" name="Save"/> 
     </div>
   </form>
 </div>
