@@ -44,6 +44,9 @@ import { CustomerSatisfactionReportComponent } from '../Reporting/customer-satis
 import { EventCreateUpdateComponent } from '../AdminSubsystem/event/event-create-update/event-create-update.component';
 import { EventAttendanceReportComponent } from '../Reporting/event-attendance-report/event-attendance-report.component';
 import { HireServiceReportComponent } from '../Reporting/hire-service-report/hire-service-report.component';
+import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuard';
+import { HireEmployeeComponent } from '../AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
+import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.component';
 
 
 
@@ -370,9 +373,16 @@ export const ComponentsRoutes: Routes = [
 			},
 			{
 				path: 'hire-employee',
-				component: HireEmployeeComponent
+				component: HireEmployeeComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Owner'] } // Specify allowed roles here
+			},			
+			{
+				path: 'audit',
+				component: AuditLogsComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			}
-
 
 
 		]
