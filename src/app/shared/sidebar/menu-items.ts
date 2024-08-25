@@ -82,9 +82,17 @@ export const ADMINROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/assignment',
-    title: 'Assignment',
+    path: 'component/audit',
+    title: 'Audit Logs',
     icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/help',
+    title: 'Help',
+    icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
@@ -171,6 +179,14 @@ export const CLIENTROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+  {
+    path: 'component/help',
+    title: 'Help',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
   }
 ];
 
@@ -202,6 +218,30 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/ViewService',
     title: 'View Service',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/audit',
+    title: 'Audit Logs',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hire-employee',
+    title: 'Hire Employee',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/help',
+    title: 'Help',
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,

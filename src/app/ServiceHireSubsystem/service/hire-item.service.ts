@@ -22,10 +22,8 @@ export class HireItemService {
     return this.http.get<HireItem[]>(this.apiUrl);
   }
 
-  getEquipmentOptions(): Observable<string[]> {
-    return this.http.get<any[]>(this.equipmentApiUrl).pipe(
-      map(response => response.map(item => item.equipmentName))
-    );
+  getEquipmentOptions(): Observable<any[]> {
+    return this.http.get<any[]>(this.equipmentApiUrl)
   }
 
  

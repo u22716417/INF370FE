@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ServicesServiceService {
-  
+ 
   
  
 
@@ -29,6 +29,11 @@ export class ServicesServiceService {
   {
     return this.http.get<any>(`${this.apiUrl+'/GetBookingSchedule'}/${serviceId}`)
   }
+  getEquipmentBookingSchedule(equipmentId: number) : Observable<any[]>  
+  {
+    return this.http.get<any>('https://localhost:7149/api/HireItem/'+equipmentId)
+  }
+  
 
   getQuotes(userid: number): Observable<any[]>  
   {
