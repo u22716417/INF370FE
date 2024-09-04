@@ -35,7 +35,7 @@ export class EventServiceService {
   }
 
   // Update an existing event
-  updateEvent(event: Event): Observable<Event> {
+  updateEvent(event: Event, formData: FormData): Observable<Event> {
     const url = `${this.apiUrl}/${event.eventId}`;
     return this.http.put<Event>(url, event, this.httpOptions);
   }

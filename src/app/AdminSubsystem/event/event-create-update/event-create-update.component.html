@@ -13,7 +13,7 @@
     <!-- Date -->
     <div style="margin-bottom: 10px;">
       <label for="eventDate">Date</label>
-      <input id="eventDate" class="form-control" type="date" name="date" [(ngModel)]="newEvent.eventDate" #eventDate="ngModel" required title="Please enter a date">
+      <input id="eventDate" class="form-control" type="date" name="eventDate" [(ngModel)]="newEvent.eventDate" #eventDate="ngModel" required title="Please enter a date">
       <div *ngIf="eventDate.invalid && eventDate.touched" class="text-danger">
         <small *ngIf="eventDate.errors?.['required']">Event date is required.</small>
       </div>
@@ -22,7 +22,7 @@
     <!-- Time -->
     <div style="margin-bottom: 10px;">
       <label for="eventTime">Time</label>
-      <input id="eventTime" class="form-control" type="time" name="time" [(ngModel)]="newEvent.eventTime" #eventTime="ngModel" required title="Please enter a time">
+      <input id="eventTime" class="form-control" type="time" name="eventTime" [(ngModel)]="newEvent.eventTime" #eventTime="ngModel" required title="Please enter a time">
       <div *ngIf="eventTime.invalid && eventTime.touched" class="text-danger">
         <small *ngIf="eventTime.errors?.['required']">Event time is required.</small>
       </div>
@@ -40,7 +40,7 @@
     <!-- Type -->
     <div style="margin-bottom: 10px;">
       <label for="eventType">Type</label>
-      <input id="eventType" class="form-control" type="text" name="type" [(ngModel)]="newEvent.eventType" #eventType="ngModel" required title="Please enter an event type">
+      <input id="eventType" class="form-control" type="text" name="eventType" [(ngModel)]="newEvent.eventType" #eventType="ngModel" required title="Please enter an event type">
       <div *ngIf="eventType.invalid && eventType.touched" class="text-danger">
         <small *ngIf="eventType.errors?.['required']">Event type is required.</small>
       </div>
@@ -49,7 +49,7 @@
     <!-- Location -->
     <div style="margin-bottom: 10px;">
       <label for="eventLocation">Location</label>
-      <input id="eventLocation" class="form-control" type="text" name="location" [(ngModel)]="newEvent.eventAddress" #location="ngModel" required title="Please enter a location">
+      <input id="eventLocation" class="form-control" type="text" name="eventAddress" [(ngModel)]="newEvent.eventAddress" #location="ngModel" required title="Please enter a location">
       <div *ngIf="location.invalid && location.touched" class="text-danger">
         <small *ngIf="location.errors?.['required']">Event location is required.</small>
       </div>
@@ -58,7 +58,7 @@
     <!-- Price -->
     <div style="margin-bottom: 10px;">
       <label for="eventPrice">Price</label>
-      <input id="eventPrice" class="form-control" type="text" name="price" [(ngModel)]="newEvent.eventPrice" #price="ngModel" required title="Please enter a price">
+      <input id="eventPrice" class="form-control" type="number" name="eventPrice" [(ngModel)]="newEvent.eventPrice" #price="ngModel" required title="Please enter a price">
       <div *ngIf="price.invalid && price.touched" class="text-danger">
         <small *ngIf="price.errors?.['required']">Event price is required.</small>
       </div>
@@ -67,7 +67,7 @@
     <!-- Remaining Tickets -->
     <div style="margin-bottom: 10px;">
       <label for="eventRemainingTickets">Remaining Tickets</label>
-      <input id="eventRemainingTickets" class="form-control" type="text" name="eventRemainingTickets" [(ngModel)]="newEvent.eventRemainingTickets" #eventRemainingTickets="ngModel" required title="Please enter the number of tickets">
+      <input id="eventRemainingTickets" class="form-control" type="number" name="eventRemainingTickets" [(ngModel)]="newEvent.eventRemainingTickets" #eventRemainingTickets="ngModel" required title="Please enter the number of tickets">
       <div *ngIf="eventRemainingTickets.invalid && eventRemainingTickets.touched" class="text-danger">
         <small *ngIf="eventRemainingTickets.errors?.['required']">Number of remaining tickets is required.</small>
       </div>
@@ -85,6 +85,7 @@
       </div>
     </div>
 
+    <!-- Image Upload -->
     <div class="form-group">
       <label for="image">Image</label>
       <input type="file" id="image" class="form-control" (change)="onFileChange($event)" accept="image/*" #imageInput required>
@@ -95,13 +96,20 @@
         {{ this.errorMessage }}
       </div>
     </div>
+    
+    <!-- Image Preview -->
     <div *ngIf="profileImagePreview">
       <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail mt-2" />
     </div>
+
+    <!-- Buttons -->
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" routerLink="/component/event-list">Close</button>
-      <input type="submit" class="btn btn-primary" routerLink="/component/events" name="Save"/> 
+      <input type="submit" class="btn btn-primary" value="Save"/> 
     </div>    
 
   </form>
+</div>
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
 </div>
