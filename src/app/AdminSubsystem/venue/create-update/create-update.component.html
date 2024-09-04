@@ -4,7 +4,7 @@
     
     <div style="margin-bottom: 10px;">
       <label for="venueName">Name</label>
-      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" #venueName="ngModel" required title="Please enter a venue name">
+      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" #venueName="ngModel" placeholder="Enter the venue name" required title="Please enter a venue name">
       <div *ngIf="venueName.invalid && venueName.touched" class="text-danger">
         Venue name is required.
       </div>
@@ -12,7 +12,7 @@
 
     <div style="margin-bottom: 10px;">
       <label for="venueDescription">Description</label>
-      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" #venueDescription="ngModel" required title="Please enter a description">
+      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" #venueDescription="ngModel" placeholder="Enter the venue description" required title="Please enter a description">
       <div *ngIf="venueDescription.invalid && venueDescription.touched" class="text-danger">
         Venue description is required.
       </div>
@@ -20,7 +20,7 @@
 
     <div style="margin-bottom: 10px;">
       <label for="venueAddress">Address</label>
-      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" #venueAddress="ngModel" required title="Please enter an address">
+      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" #venueAddress="ngModel" placeholder="Enter the venue address" required title="Please enter an address">
       <div *ngIf="venueAddress.invalid && venueAddress.touched" class="text-danger">
         Venue address is required.
       </div>
@@ -28,27 +28,40 @@
 
     <div style="margin-bottom: 10px;">
       <label for="venueCapacity">Capacity</label>
-      <input id="venueCapacity" class="form-control" type="text" name="capacity" [(ngModel)]="venue.venueCapacity" #venueCapacity="ngModel" required title="Please enter a capacity">
+      <input id="venueCapacity" class="form-control" type="number" name="capacity" [(ngModel)]="venue.venueCapacity" 
+             [min]="0" [max]="10000" #venueCapacity="ngModel" placeholder="Enter the venue capacity" required title="Please enter a capacity">
       <div *ngIf="venueCapacity.invalid && venueCapacity.touched" class="text-danger">
-        Venue capacity is required.
+        <div *ngIf="venueCapacity.errors?.['required']">Venue capacity is required.</div>
+        <div *ngIf="venueCapacity.errors?.['min']">Capacity cannot be negative.</div>
+        <div *ngIf="venueCapacity.errors?.['max']">Capacity cannot exceed 10,000.</div>
       </div>
     </div>
-
-    <div style="margin-bottom: 10px;">
-      <label for="venueContactPerson">Contact Person</label>
-      <input id="venueContactPerson" class="form-control" type="text" name="contactPerson" [(ngModel)]="venue.venueContactPerson" #venueContactPerson="ngModel" required title="Please enter a contact person">
-      <div *ngIf="venueContactPerson.invalid && venueContactPerson.touched" class="text-danger">
-        Contact person is required.
-      </div>
-    </div>
-
+    
     <div style="margin-bottom: 10px;">
       <label for="venueContactNumber">Contact Number</label>
-      <input id="venueContactNumber" class="form-control" type="text" name="contactNumber" [(ngModel)]="venue.venueContactNumber" #venueContactNumber="ngModel" required title="Please enter a contact number">
+      <input 
+        id="venueContactNumber" 
+        class="form-control" 
+        type="text" 
+        name="contactNumber" 
+        [(ngModel)]="venue.venueContactNumber" 
+        #venueContactNumber="ngModel" 
+        placeholder="Enter the venue contact number" 
+        pattern="^\d{10}$" 
+        minlength="10" 
+        maxlength="10" 
+        required 
+        title="Please enter a 10-digit contact number">
+        
       <div *ngIf="venueContactNumber.invalid && venueContactNumber.touched" class="text-danger">
-        Contact number is required.
+        <div *ngIf="venueContactNumber.errors?.['required']">Contact number is required.</div>
+
+        <div *ngIf="venueContactNumber.errors?.['minlength'] || venueContactNumber.errors?.['maxlength']">
+          Contact number must be exactly 10 digits long.
+        </div>
       </div>
     </div>
+    
 
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/venues'])">Close</button>
@@ -56,3 +69,7 @@
     </div>
   </form>
 </div>
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
+</div>
+

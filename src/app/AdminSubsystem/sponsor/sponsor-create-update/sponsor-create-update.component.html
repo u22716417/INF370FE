@@ -28,11 +28,27 @@
 
         <div style="margin-bottom: 10px;">
             <label for="sponsorPhone">Phone</label>
-            <input id="sponsorPhone" class="form-control" type="text" name="phone" [(ngModel)]="newSponsor.sponsorPhone" #sponsorPhone="ngModel" required pattern="[0-9]+" title="Please enter a valid phone number">
+            <input 
+              id="sponsorPhone" 
+              class="form-control" 
+              type="text" 
+              name="phone" 
+              [(ngModel)]="newSponsor.sponsorPhone"  
+              #sponsorPhone="ngModel" 
+              required 
+              pattern="^\d{10}$" 
+              minlength="10" 
+              maxlength="10" 
+              title="Please enter a valid 10-digit phone number">
+            
             <div *ngIf="sponsorPhone.invalid && sponsorPhone.touched" class="text-danger">
-                Please enter a valid phone number (digits only).
+              <div *ngIf="sponsorPhone.errors?.['required']">Phone number is required.</div>
+              <div *ngIf="sponsorPhone.errors?.['minlength'] || sponsorPhone.errors?.['maxlength']">
+                Phone number must be exactly 10 digits long.
+              </div>
             </div>
-        </div>
+          </div>
+          
 
         <div style="text-align: center;">
             <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/sponsor-list'])">Close</button>

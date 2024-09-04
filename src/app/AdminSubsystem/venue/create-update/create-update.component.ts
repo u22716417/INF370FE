@@ -19,6 +19,8 @@ export class CreateUpdateComponent implements OnInit{
   isSubmitted:boolean = false;
 
   heading: string = '';
+  showNotification: boolean = false;
+  notificationMessage: string = '';
 
   
 
@@ -75,6 +77,14 @@ export class CreateUpdateComponent implements OnInit{
     }
   }
   
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+      this.notificationMessage = '';
+    }, 3000);
+  }
 
   
   

@@ -130,4 +130,10 @@ export class EventCreateUpdateComponent implements OnInit {
       this.notificationMessage = '';
     }, 3000);
   }
+
+  onPriceChange() {
+    if (this.newEvent.eventPrice < 0) {
+      this.newEvent.eventPrice = 0;
+    }
+  }
 }

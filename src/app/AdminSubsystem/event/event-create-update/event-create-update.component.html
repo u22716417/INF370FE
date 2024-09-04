@@ -4,7 +4,7 @@
     <!-- Name -->
     <div style="margin-bottom: 10px;">
       <label for="title">Name</label>
-      <input id="title" class="form-control" type="text" name="title" [(ngModel)]="newEvent.title" #title="ngModel" required title="Please enter an event name">
+      <input id="title" class="form-control" type="text" name="title" [(ngModel)]="newEvent.title" #title="ngModel" placeholder="Enter the event name" required title="Please enter an event name">
       <div *ngIf="title.invalid && title.touched" class="text-danger">
         <small *ngIf="title.errors?.['required']">Event name is required.</small>
       </div>
@@ -13,7 +13,7 @@
     <!-- Date -->
     <div style="margin-bottom: 10px;">
       <label for="eventDate">Date</label>
-      <input id="eventDate" class="form-control" type="date" name="eventDate" [(ngModel)]="newEvent.eventDate" #eventDate="ngModel" required title="Please enter a date">
+      <input id="eventDate" class="form-control" type="date" name="eventDate" [(ngModel)]="newEvent.eventDate" #eventDate="ngModel"  required title="Please enter a date">
       <div *ngIf="eventDate.invalid && eventDate.touched" class="text-danger">
         <small *ngIf="eventDate.errors?.['required']">Event date is required.</small>
       </div>
@@ -31,7 +31,7 @@
     <!-- Description -->
     <div style="margin-bottom: 10px;">
       <label for="eventDescription">Description</label>
-      <input id="eventDescription" class="form-control" type="text" name="description" [(ngModel)]="newEvent.description" #description="ngModel" required title="Please enter a description">
+      <input id="eventDescription" class="form-control" type="text" name="description" [(ngModel)]="newEvent.description" #description="ngModel" placeholder="Enter the event description" required title="Please enter a description">
       <div *ngIf="description.invalid && description.touched" class="text-danger">
         <small *ngIf="description.errors?.['required']">Event description is required.</small>
       </div>
@@ -40,7 +40,7 @@
     <!-- Type -->
     <div style="margin-bottom: 10px;">
       <label for="eventType">Type</label>
-      <input id="eventType" class="form-control" type="text" name="eventType" [(ngModel)]="newEvent.eventType" #eventType="ngModel" required title="Please enter an event type">
+      <input id="eventType" class="form-control" type="text" name="eventType" [(ngModel)]="newEvent.eventType" #eventType="ngModel" placeholder="Enter the event type" required title="Please enter an event type">
       <div *ngIf="eventType.invalid && eventType.touched" class="text-danger">
         <small *ngIf="eventType.errors?.['required']">Event type is required.</small>
       </div>
@@ -49,7 +49,7 @@
     <!-- Location -->
     <div style="margin-bottom: 10px;">
       <label for="eventLocation">Location</label>
-      <input id="eventLocation" class="form-control" type="text" name="eventAddress" [(ngModel)]="newEvent.eventAddress" #location="ngModel" required title="Please enter a location">
+      <input id="eventLocation" class="form-control" type="text" name="eventAddress" [(ngModel)]="newEvent.eventAddress" #location="ngModel" placeholder="Enter the event address" required title="Please enter a location">
       <div *ngIf="location.invalid && location.touched" class="text-danger">
         <small *ngIf="location.errors?.['required']">Event location is required.</small>
       </div>
@@ -58,10 +58,21 @@
     <!-- Price -->
     <div style="margin-bottom: 10px;">
       <label for="eventPrice">Price</label>
-      <input id="eventPrice" class="form-control" type="number" name="eventPrice" [(ngModel)]="newEvent.eventPrice" #price="ngModel" required title="Please enter a price">
+      <input id="eventPrice" 
+      class="form-control" 
+      type="number" 
+      name="eventPrice" 
+      min="0"
+      max="10000"
+    
+      [(ngModel)]="newEvent.eventPrice" 
+      #price="ngModel" placeholder="Enter the event price"
+      required title="Please enter a price">
       <div *ngIf="price.invalid && price.touched" class="text-danger">
         <small *ngIf="price.errors?.['required']">Event price is required.</small>
+        <small *ngIf="price.errors?.['min']">Event Price cannot be negative.</small>
       </div>
+      
     </div>
 
     <!-- Remaining Tickets -->
@@ -76,7 +87,7 @@
     <!-- Venue -->
     <div style="margin-bottom: 10px;">
       <label for="eventVenue">Select Venue</label>
-      <select id="eventVenue" class="form-control" name="eventVenue" [(ngModel)]="newEvent.venueId" #eventVenue="ngModel" required>
+      <select id="eventVenue" class="form-control" name="eventVenue" [(ngModel)]="newEvent.venueId" #eventVenue="ngModel" placeholder="Select a venue" required>
         <option value="" disabled selected>Select a venue</option>
         <option *ngFor="let venue of venues" [value]="venue.venueId">{{ venue.venueName }}</option>
       </select>
@@ -105,7 +116,7 @@
     <!-- Buttons -->
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" routerLink="/component/event-list">Close</button>
-      <input type="submit" class="btn btn-primary" value="Save"/> 
+      <input type="submit" class="btn btn-primary" [disabled]="!eventForm.form.valid" value="Save"/> 
     </div>    
 
   </form>
