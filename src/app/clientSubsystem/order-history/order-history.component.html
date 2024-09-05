@@ -21,6 +21,7 @@
     <!-- Order History Details in a responsive col -->
     <div class="col-md-10 col-sm-9 col-12">
       <h2>Order History</h2>
+      <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Need Help?</a>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let order of orderHistory">
           <div class="order-details">
@@ -46,3 +47,81 @@
     </div>
   </div>
 </div>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Order History</h2>
+    <ol>
+      <li>Find the order you want to rate.</li>
+      <li>Click on the star rating you want to give (1 to 5 stars).</li>
+      <li>Your rating will be saved automatically.</li>
+      <li>You can change your rating anytime by clicking on a different star.</li>
+    </ol>
+  </div>
+</div>
+
+<style>
+.help-text {
+  cursor: pointer;
+  color: #007bff;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.help-icon {
+  margin-right: 5px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  z-index: 1; /* Sit on top */
+  overflow: auto; /* Enable scroll if needed */
+}
+
+.modal.show {
+  display: flex; /* Show modal */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #888;
+  width: 80%; /* Smaller width */
+  max-width: 600px; /* Maximum width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* To position the close button */
+}
+
+.close {
+  color: #aaa;
+  position: absolute; /* Position relative to modal content */
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.rating-legend,
+.order-details {
+  padding: 10px; /* Add some padding */
+}
+
+</style>

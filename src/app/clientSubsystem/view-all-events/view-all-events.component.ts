@@ -63,7 +63,7 @@ export class ViewAllEventsComponent implements OnInit {
 
   openHelpModal() {
     this.isHelpModalVisible = true;
-    this.helpContent = 'Here is some general help information for using this page. You can add events to your cart or view more details about each event by clicking the corresponding buttons.';
+    this.helpContent = ' You can add events to your cart or view more details about each event by clicking the corresponding buttons.';
   }
 
   closeHelpModal() {
@@ -74,7 +74,7 @@ export class ViewAllEventsComponent implements OnInit {
     this.isHelpModalVisible = true;
     switch (field) {
       case 'eventTitle':
-        this.helpContent = 'The event title provides a brief name for the event. Clicking "Add To Cart" will add this event to your shopping cart.';
+        this.helpContent = 'Clicking "Add To Cart" will add this event to your shopping cart. The "View Event" button allows you to view more details of the event';
         break;
       // Add more cases as needed for other fields
       default:

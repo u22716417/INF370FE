@@ -13,7 +13,7 @@ export class OrderHistoryComponent implements OnInit {
   clientId: number | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
-  
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private orderHistoryService: TicketService, private users: UserManagementService) { }
 
@@ -92,5 +92,15 @@ export class OrderHistoryComponent implements OnInit {
       this.showNotification = false;
       this.notificationMessage = '';
     }, 3000);
+  }
+
+  // Method to open help modal
+  openHelpModal() {
+    this.showHelpModal = true;
+  }
+
+  // Method to close help modal
+  closeHelpModal() {
+    this.showHelpModal = false;
   }
 }
