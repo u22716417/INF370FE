@@ -65,13 +65,11 @@
         type="text" 
         name="availability" 
         [(ngModel)]="newEquipment.equipmentAvailability" 
-        required 
-        title="Please enter availability" 
         #availability="ngModel" 
+        [disabled]="true"
+        value="true" 
         [class.is-invalid]="availability.invalid && (availability.dirty || availability.touched)">
-      <div *ngIf="availability.invalid && (availability.dirty || availability.touched)" class="invalid-feedback">
-        Equipment availability required.Please enter availability.
-      </div>
+     
     </div>
 
     <div style="margin-bottom: 10px;">

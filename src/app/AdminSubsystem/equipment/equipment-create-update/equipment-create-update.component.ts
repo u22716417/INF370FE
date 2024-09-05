@@ -17,7 +17,7 @@ export class EquipmentCreateUpdateComponent {
     equipmentTypeId:0,
     equipmentName: '', 
     equipmentDescription: '', 
-    equipmentAvailability: '', 
+    equipmentAvailability: 'True', 
     equipmentCondition: '', 
     equipmentImage:'', 
     assignments: [], 
