@@ -15,6 +15,8 @@ filterVenue: Venue[]=[];
 searchTerm: string = '';
 isPopupVisible: boolean = false;
 dtOptions: Config = {};
+showHelpModal = false;  // State for displaying help modal
+
 
 constructor(private venueService: VenueService){}
 
@@ -87,6 +89,15 @@ exportToJson(): void {
   linkElement.setAttribute('href', dataUri);
   linkElement.setAttribute('download', exportFileName);
   linkElement.click();
+}
+// Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
 }
 
 }

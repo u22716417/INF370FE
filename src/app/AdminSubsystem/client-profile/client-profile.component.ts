@@ -17,7 +17,8 @@ export class ClientProfileComponent implements OnInit {
   selectedClientOrders: any[] = [];
   isOrderHistoryOpen: boolean = false;
   dtOptions: Config = {};
-  
+  showHelpModal = false;  // State for displaying help modal
+
   constructor(private clientProfileService: ClientProfileService, private router: Router, private route: ActivatedRoute, private orderHistory: TicketService) {   
    }
 
@@ -60,6 +61,15 @@ export class ClientProfileComponent implements OnInit {
         return encodeURIComponent(value);
       }
 
+// Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 
 

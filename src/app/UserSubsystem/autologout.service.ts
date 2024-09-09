@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export class AutologoutService {
 
   private idleTimeout: any;
-  private readonly idleTimeoutDuration = 60 * 1000;  // 60 seconds in milliseconds
+  private readonly idleTimeoutDuration = 30 * 60 * 1000;  // 30 minutes in milliseconds
   private readonly logoutUrl = 'https://localhost:7149/api/Authentication/logout';  
 
 

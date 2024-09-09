@@ -28,6 +28,8 @@ export class EquipmentCreateUpdateComponent {
   isSubmitted: boolean = false;
   heading: string = '';
   equipmentTypes: EquipmentType[] = [];
+  showHelpModal = false;  // State for displaying help modal
+
 
   constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
 
@@ -111,6 +113,14 @@ export class EquipmentCreateUpdateComponent {
     reader.readAsDataURL(fileToUpload);
   }
   
-  
+   // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
   
 }

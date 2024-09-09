@@ -1,5 +1,6 @@
 <div class="container">
   <h2>Venues</h2>
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
   <a class="btn btn-primary" routerLink="/create-update/0" routerLinkActive="active">Add New</a> |
   <!-- Export to JSON Button -->
   <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
@@ -24,4 +25,86 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Venues list</h2>
+    <p>This page allows you to manage venues within the system. Here are the available actions:</p>
+        <ul>
+          <li><strong>Add New Venue:</strong> Click on the <em>"Add New"</em> button to add a new venue. This will redirect you to the form where you can enter the details for a new venue.</li>
+          <li><strong>Export to JSON:</strong> Use the <em>"Export to JSON"</em> button to export the list of venues as a JSON file. This is useful for data backup or integration purposes.</li>
+          <li><strong>View Venues List:</strong> The table below displays all the venues currently in the system, including their name, location, and contact person.</li>
+          <li><strong>Edit Venue:</strong> To edit a venue, click on the <em>"Edit"</em> button next to the venue you want to modify. This will open a form pre-filled with the venue's current information.</li>
+          <li><strong>Delete Venue:</strong> To delete a venue, click on the <em>"Delete"</em> button next to the corresponding venue. A confirmation dialog may appear to ensure you want to proceed with the deletion. Note that this action is irreversible.</li>
+        </ul>
+  </div>
 </div>
+</div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
+  </style>
+  
+

@@ -27,6 +27,7 @@ export class EquipmentListComponent implements OnInit {
     assignments: [], // Adjust as needed
     equipmentType: undefined // Adjust as needed
   };
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private equipmentService: EquipmentServiceService) { }
 
@@ -85,4 +86,14 @@ deleteEquipment(equipmentId: number): void {
     const type = this.equipmentTypes.find(t => t.equipmentTypeId === equipmentTypeId);
     return type ? type.equipmentTypeDescription : 'Unknown'; // Return the description or 'Unknown' if not found
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

@@ -21,6 +21,7 @@ export class CreateUpdateComponent implements OnInit{
   heading: string = '';
   showNotification: boolean = false;
   notificationMessage: string = '';
+  showHelpModal = false;  // State for displaying help modal
 
   
 
@@ -86,6 +87,14 @@ export class CreateUpdateComponent implements OnInit{
     }, 3000);
   }
 
-  
+  // Method to open help modal
+  openHelpModal() {
+    this.showHelpModal = true;
+  }
+
+  // Method to close help modal
+  closeHelpModal() {
+    this.showHelpModal = false;
+  }
   
 }

@@ -1,4 +1,5 @@
 <div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 1; top: 30px;">Help</a>
   <h2 style="text-align: center;">Edit Equipment</h2>
   <form #equipmentForm="ngForm" (ngSubmit)="addEquipment(equipmentForm)" novalidate>
     <div style="margin-bottom: 10px;">
@@ -111,6 +112,25 @@
       <input type="submit" class="btn btn-primary" [disabled]="!equipmentForm.form.valid" name="Save" (click)="router.navigate(['/component/equipment-list'])"/> 
     </div>
   </form>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Create/Update Equipment</h2>
+    <p>This form allows you to create or update equipment. Here's a quick guide:</p>
+    <ul>
+      <li><strong>Name:</strong> Enter the name of the equipment. This field is required.</li>
+      <li><strong>Equipment Type:</strong> Select an equipment type from the dropdown. This field is required.</li>
+      <li><strong>Description:</strong> Provide a brief description of the equipment. This field is required.</li>
+      <li><strong>Availability:</strong> This is set to "True" by default.</li>
+      <li><strong>Condition:</strong> Specify the condition of the equipment. This field is required.</li>
+      <li><strong>Image:</strong> Select an image of the equipment from your local device. This field is required.</li>
+      <li>If you're editing equipment, the form will be pre-filled with the current details.</li>
+    </ul>
+  </div>
+</div>
+
 </div>
 
 <style>
@@ -120,5 +140,67 @@
   .invalid-feedback {
     color: red;
   }
+
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
 </style>
 

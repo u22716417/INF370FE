@@ -40,6 +40,7 @@ export class EventCreateUpdateComponent implements OnInit {
   imageInputTouched: boolean = false;
   imageInputInvalid: boolean = false;
   selectedFile: File | null = null;
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(public router: Router, private eventService: EventServiceService, private route: ActivatedRoute, private http: HttpClient) { }
 
@@ -136,4 +137,14 @@ export class EventCreateUpdateComponent implements OnInit {
       this.newEvent.eventPrice = 0;
     }
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

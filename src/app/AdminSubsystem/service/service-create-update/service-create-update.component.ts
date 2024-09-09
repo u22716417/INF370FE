@@ -16,6 +16,7 @@ export class ServiceCreateUpdateComponent implements OnInit {
     assignments: ''
   };
   heading: string = '';
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(
     public router: Router,
@@ -69,6 +70,16 @@ export class ServiceCreateUpdateComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/component/service-list']);
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 
 

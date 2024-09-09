@@ -1,4 +1,5 @@
 <div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 1; top: 30px;">Help</a>
   <h5 style="text-align: center;">{{ heading }}</h5>
   <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" novalidate>
     <!-- Name -->
@@ -121,6 +122,93 @@
 
   </form>
 </div>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Create/Update Event</h2>
+    <p>This form allows you to create or update an event. Here's a quick guide:</p>
+    <ul>
+      <li><strong>Name:</strong> Enter the name of the event. This field is required.</li>
+      <li><strong>Date:</strong> Select the date of the event. This field is required.</li>
+      <li><strong>Time:</strong> Specify the time of the event. This field is required.</li>
+      <li><strong>Description:</strong> Provide a bried description of the event. This field is required.</li>
+      <li><strong>Type:</strong> Enter the event type. This field is required.</li>
+      <li><strong>Location:</strong> Enter the address where the event will be held. This field is required.</li>
+      <li><strong>Price:</strong> Enter the event ticket price. This field is required.</li>
+      <li><strong>Remaining Tickets:</strong> Specify the number of tickets up for sale. This field is required.</li>
+      <li><strong>Venue:</strong> Select the venue that will be used to host the event. This field is required.</li>
+      <li><strong>Image:</strong> Select an image of the event poster from your local device. This field is required.</li>
+      <li>If you're editing an event, the form will be pre-filled with the current details.</li>
+    </ul>
+  </div>
+</div>
+
 <div id="notification" [class.show]="showNotification">
   {{ notificationMessage }}
 </div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
+</style>

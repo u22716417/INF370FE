@@ -31,6 +31,7 @@ export class SettingsComponent implements OnInit {
   displaymsg1: boolean = false;
   displayErrormsg1: boolean = false;
   displayvalmsg1: boolean = false;
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private profileService:UserManagementService){}
 
@@ -117,5 +118,14 @@ export class SettingsComponent implements OnInit {
         console.error('Error updating profile', error);
       });
     // Handle password change logic
+  }
+   // Method to open help modal
+   openHelpModal() {
+    this.showHelpModal = true;
+  }
+
+  // Method to close help modal
+  closeHelpModal() {
+    this.showHelpModal = false;
   }
 }

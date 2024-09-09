@@ -13,6 +13,7 @@ export class ServiceListComponent implements OnInit {
 
   filteredService: Service[] = [];
   searchTerm: string = '';
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private serviceService: ServicesServiceService) {}
 
@@ -70,5 +71,15 @@ export class ServiceListComponent implements OnInit {
       );
     }
   }
+  
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 

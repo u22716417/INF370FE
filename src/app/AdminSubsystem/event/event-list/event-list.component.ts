@@ -10,6 +10,7 @@ import { Config } from 'datatables.net';
 export class EventListComponent implements OnInit {
   events: Event[] = [];
   dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private eventService: EventServiceService) { }
 
@@ -64,4 +65,14 @@ export class EventListComponent implements OnInit {
     linkElement.setAttribute('download', exportFileName);
     linkElement.click();
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
