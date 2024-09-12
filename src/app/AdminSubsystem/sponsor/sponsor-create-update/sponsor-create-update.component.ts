@@ -16,6 +16,7 @@ export class SponsorCreateUpdateComponent {
   newSponsor: Sponsor = { sponsorId: 0, sponsorName: '', sponsorDescription: '', sponsorEmail: '', sponsorPhone: 0 };
   isSubmitted: boolean = false;
   heading: string = '';
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(public router: Router, private sponsorService: SponsorServiceService, private route: ActivatedRoute) { }
 
@@ -57,5 +58,16 @@ export class SponsorCreateUpdateComponent {
       alert('Please fill in the required fields');
     }
   }
+
+    // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
+  
 
 }

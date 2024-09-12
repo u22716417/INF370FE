@@ -16,7 +16,7 @@ export class CodesListComponent implements OnInit{
   showNotification: boolean = false;
   notificationMessage: string = '';
   dtOptions: Config = {};
-
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private codeService: CodeServiceService){
 
@@ -100,4 +100,14 @@ export class CodesListComponent implements OnInit{
     linkElement.click();
   }
 
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

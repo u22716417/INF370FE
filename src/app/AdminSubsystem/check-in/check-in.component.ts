@@ -20,7 +20,9 @@ export class CheckInComponent {
   inputValue: string = '';
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   showAttendeeModal = false;
+  showHelpModal = false;  // State for displaying help modal
   private usedBarcodes: Set<string> = new Set();
+
 
   constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router) {
     this.checkInForm = this.fb.group({
@@ -118,4 +120,15 @@ export class CheckInComponent {
       this.notificationMessage = '';
     }, 3000);
   }
+
+  
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

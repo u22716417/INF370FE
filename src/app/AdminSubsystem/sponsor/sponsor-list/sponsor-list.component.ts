@@ -20,6 +20,7 @@ export class SponsorListComponent implements OnInit {
     sponsorPhone: 0
   };
   dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private sponsorService: SponsorServiceService) { }
 
@@ -68,4 +69,14 @@ export class SponsorListComponent implements OnInit {
     downloadAnchorNode.click();
     downloadAnchorNode.remove();
   }
+
+   // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

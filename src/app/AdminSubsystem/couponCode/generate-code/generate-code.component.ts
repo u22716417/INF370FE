@@ -20,6 +20,7 @@ export class GenerateCodeComponent implements OnInit {
   sponsorId: number | null = null;
   generatedCouponCode: CouponCode | null = null;
   sponsors: any[] = [];
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private couponCodeService: CodeServiceService, public router: Router) {}
 
@@ -62,4 +63,15 @@ export class GenerateCodeComponent implements OnInit {
       }
     );
   }
+
+  
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

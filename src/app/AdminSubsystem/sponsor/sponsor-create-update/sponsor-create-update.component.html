@@ -1,4 +1,5 @@
 <div class="container">
+    <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 1; top: 30px;">Help</a>
     <h5 style="text-align: center;">{{ heading }}</h5>
     <form #sponsorForm="ngForm" (ngSubmit)="addSponsor(sponsorForm)" novalidate>
 
@@ -55,4 +56,94 @@
             <button type="submit" class="btn btn-primary" [disabled]="!sponsorForm.form.valid">Save</button>
         </div>
     </form>
+
+    <!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+    <div class="modal-content">
+      <span class="close" (click)="closeHelpModal()">&times;</span>
+      <h2>Help-Create/Update Sponsor</h2>
+      <p>This form allows you to create or update a sponsor. Here's a quick guide:</p>
+      <ul>
+        <li><strong>Name:</strong> Enter the name of the sponsor. This field is required.</li>
+        <li><strong>Description:</strong> Provide a brief description of the sponsor. This field is required.</li>
+        <li><strong>Email:</strong> Provide the sponsor's email address. This field is required.</li>
+        <li><strong>Phone</strong> Provide the sponsor's contact number. This field is required.</li>
+        <li>If you're editing a sponsor, the form will be pre-filled with the current details.</li>
+      </ul>
+    </div>
+  </div>
+  
 </div>
+
+<style>
+    .is-invalid {
+      border-color: red;
+    }
+    .invalid-feedback {
+      color: red;
+    }
+  
+    .help-text {
+      cursor: pointer;
+      color: #007bff;
+      font-size: 16px;
+      margin-right: 20px;
+    }
+    
+    .help-icon {
+      margin-right: 5px;
+    }
+    
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+      z-index: 1; /* Sit on top */
+      overflow: auto; /* Enable scroll if needed */
+    }
+    
+    .modal.show {
+      display: flex; /* Show modal */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      padding: 20px;
+      border-radius: 8px; /* Rounded corners */
+      border: 1px solid #888;
+      width: 80%; /* Smaller width */
+      max-width: 600px; /* Maximum width */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative; /* To position the close button */
+    }
+    
+    .close {
+      color: #aaa;
+      position: absolute; /* Position relative to modal content */
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+    
+    .rating-legend,
+    .order-details {
+      padding: 10px; /* Add some padding */
+    }
+    
+  </style>
+  
+  

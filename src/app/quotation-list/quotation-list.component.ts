@@ -11,6 +11,7 @@ export class QuotationListComponent implements OnInit {
   quotations: any[] = [];
   filteredQuotations: any[] = [];
   dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private quotationService: QuotationService) {}
 
@@ -42,5 +43,15 @@ export class QuotationListComponent implements OnInit {
       }
     });
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 
