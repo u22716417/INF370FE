@@ -73,6 +73,7 @@ import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code
 import { HelpComponent } from './HelpSubsystem/help/help.component';
 import { HireEmployeeComponent } from './AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
 import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component';
+import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-warning.component';
 
 
 @NgModule({
@@ -125,7 +126,8 @@ import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component
     CouponCodeViewComponent,
     HelpComponent,
     HireEmployeeComponent,
-    AuditLogsComponent
+    AuditLogsComponent,
+    LogoutWarningComponent
   ],
   imports: [
     CommonModule,

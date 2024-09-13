@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { AutologoutService } from '../autologout.service';
 
 @Component({
   selector: 'app-settings',
@@ -33,9 +34,14 @@ export class SettingsComponent implements OnInit {
   displayvalmsg1: boolean = false;
   showHelpModal = false;  // State for displaying help modal
 
-  constructor(private profileService:UserManagementService){}
+  autoLogoutTimer: number = 45; // Default timer in minutes
+  timerUpdated: boolean = false; // Flag to show success message
+
+
+  constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService){}
 
   ngOnInit(): void {
+    this.loadSettings();
     this.displaymsg = false;
     this.displayErrormsg = false;
     this.displaymsg1 = false;
@@ -66,9 +72,34 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+  loadSettings() {
+    const savedTimer = localStorage.getItem('idleTimeoutDuration');
+    if (savedTimer) {
+      this.autoLogoutTimer = Math.floor(parseInt(savedTimer, 10) / (60 * 1000)); // Convert ms to minutes
+    }
+  }
+
+  saveSettings() {
+    localStorage.setItem('idleTimeoutDuration', (this.autoLogoutTimer * 60 * 1000).toString()); // Convert minutes to ms
+    this.autoLogoutService.updateTimer(this.autoLogoutTimer); // Update the timer in the service
+    console.log('Auto-logout timer updated to:', this.autoLogoutTimer);
+  }
   showSection(section: string) {
     this.activeSection = section;
   }
+
+   // Method to update the auto-logout timer
+   updateAutoLogoutTimer(): void {
+    // Logic to handle timer update, you can perform validation or backend call here.
+    // For now, we just set the timerUpdated flag to true
+    this.timerUpdated = true;
+
+    // Optionally, reset the success message after a timeout
+    setTimeout(() => {
+      this.timerUpdated = false;
+    }, 3000); // Hide message after 3 seconds
+  }
+
 
   updateProfile() {
     // Handle profile update logic

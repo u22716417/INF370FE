@@ -1,3 +1,12 @@
-<router-outlet>
+<app-logout-warning *ngIf="showWarning" (extendSession)="onExtendSession()">
+    <div class="popup">
+      <h3>Warning: You will be logged out soon!</h3>
+      <p>You will be logged out in {{ countdown }} seconds due to inactivity.</p>
+      <button (click)="onExtendSession()">Stay Logged In</button>
+    </div>
+  </app-logout-warning>
+ 
+
+<router-outlet (click)="resetIdleTimer">
     <app-spinner></app-spinner>
 </router-outlet>
