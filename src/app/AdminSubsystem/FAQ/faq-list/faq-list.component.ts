@@ -15,6 +15,8 @@ export class FaqListComponent implements OnInit{
   searchTerm: string = '';
   isPopupVisible: boolean = false;
   dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
+
 
   constructor(private faqService: FaqService){}
 
@@ -59,4 +61,15 @@ else{
   ));
   }
 }
+
+// Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
+
 }

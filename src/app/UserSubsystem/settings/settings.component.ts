@@ -47,6 +47,7 @@ export class SettingsComponent implements OnInit {
     this.displaymsg1 = false;
     this.displayErrormsg1 = false;
     this.displayvalmsg1 = false;
+    this.loadSettings();  // Load the saved auto-logout timer
 
     const userId = sessionStorage.getItem('CurrentUserId');
     if (userId) {
@@ -70,37 +71,48 @@ export class SettingsComponent implements OnInit {
     } else {
       console.error('No CurrentUserId found in session storage');
     }
+     // Initialize the auto-logout timer in the service
+  const savedTimer = localStorage.getItem('idleTimeoutDuration');
+  if (savedTimer) {
+    const savedDurationMs = parseInt(savedTimer, 10);
+    this.autoLogoutService.setIdleTimeoutDuration(savedDurationMs);
+  }
   }
 
   loadSettings() {
     const savedTimer = localStorage.getItem('idleTimeoutDuration');
     if (savedTimer) {
-      this.autoLogoutTimer = Math.floor(parseInt(savedTimer, 10) / (60 * 1000)); // Convert ms to minutes
+      // Convert the stored value (milliseconds) to minutes
+      this.autoLogoutTimer = Math.floor(parseInt(savedTimer, 10) / (60 * 1000));
     }
   }
-
-  saveSettings() {
-    localStorage.setItem('idleTimeoutDuration', (this.autoLogoutTimer * 60 * 1000).toString()); // Convert minutes to ms
-    this.autoLogoutService.updateTimer(this.autoLogoutTimer); // Update the timer in the service
-    console.log('Auto-logout timer updated to:', this.autoLogoutTimer);
-  }
+ 
   showSection(section: string) {
     this.activeSection = section;
   }
 
-   // Method to update the auto-logout timer
-   updateAutoLogoutTimer(): void {
-    // Logic to handle timer update, you can perform validation or backend call here.
-    // For now, we just set the timerUpdated flag to true
-    this.timerUpdated = true;
-
-    // Optionally, reset the success message after a timeout
-    setTimeout(() => {
-      this.timerUpdated = false;
-    }, 3000); // Hide message after 3 seconds
+// Method to update the auto-logout timer
+updateAutoLogoutTimer(): void {
+  // Validation: Check if the timer is a valid positive number
+  if (this.autoLogoutTimer <= 0) {
+    alert('Please enter a valid time in minutes.'); // Display an error message
+    return; // Exit the function if the timer value is invalid
   }
 
+  // Convert minutes to milliseconds
+  const newDurationMs = this.autoLogoutTimer * 60 * 1000;
 
+  // Save the new timer value to the autologout service
+  this.autoLogoutService.setIdleTimeoutDuration(newDurationMs);
+  this.timerUpdated = true;
+
+  // Optionally, reset the success message after a timeout
+  setTimeout(() => {
+    this.timerUpdated = false;
+  }, 3000); // Hide message after 3 seconds
+}
+
+  
   updateProfile() {
     // Handle profile update logic
     console.log('Profile updated:', this.profile);

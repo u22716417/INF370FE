@@ -10,118 +10,180 @@ export class AutologoutService {
 
   private idleTimeout: any;
   private countdownTimeout: any;
-  private idleTimeoutDuration = 40* 60 * 1000;  // 5 minutes in milliseconds
-  private readonly countdownDuration = 60 * 1000;  // 60 seconds countdown
-  private readonly logoutUrl = 'https://localhost:7149/api/Authentication/logout';  
+  private idleTimeoutDuration = 2 * 60 * 1000; // Default fallback: 2 minutes
+  countdownInterval: any; // Interval reference for countdown
+  private countdownDuration = 60 * 1000; // 60 seconds countdown
+  private logoutUrl = 'https://localhost:7149/api/Authentication/logout';
 
+  public showWarningSubject = new Subject<boolean>();
 
-   // Subject to notify components about showing the warnings
-   public showWarningSubject = new Subject<boolean>();
-   
   constructor(private router: Router, private http: HttpClient) {
-    // Subscribe to router events to reset idle timer when navigating to a new page
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.resetIdleTimer();  // Reset idle timer when route changes
-    });
-
-    // Check for idle timeout on app initialization
-  const expiryTime = localStorage.getItem('idleTimeoutExpiry');
-  if (expiryTime && Date.now() > parseInt(expiryTime, 10)) {
-    this.logout(); // Automatically logout if the idle timeout has expired
-  } else {
-    this.resetIdleTimer();  // Initialize idle timer
-  }
-  }
-
-   // Method to update the idle timeout duration
-   updateTimer(minutes: number) {
-    this.idleTimeoutDuration = minutes * 60 * 1000; // Convert minutes to milliseconds
-    localStorage.setItem('idleTimeoutDuration', this.idleTimeoutDuration.toString());
-    this.resetIdleTimer();
-  }
-
-  resetIdleTimer() {
-    this.clearTimers(); // Clear any existing timer
+    console.log('AutologoutService initialized');
     
-    // Check if the current route is not the login page
+    // Subscribe to router events to reset the idle timer when navigating
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        console.log(`Navigated to: ${this.router.url}`);
+        this.resetIdleTimer(true); // Ensure reset to full duration when navigating
+      });
+
+    // Check if idleTimeoutExpiry is already in localStorage
+    const expiryTime = localStorage.getItem('idleTimeoutExpiry');
+    if (expiryTime && Date.now() < parseInt(expiryTime, 10)) {
+      console.log('Idle timeout found in localStorage. Resetting timer.');
+      this.resetIdleTimer(true); // Reset to the full duration on initial load
+    } else {
+      console.log('No idle timeout found. Starting new timer.');
+      this.resetIdleTimer(true); // Reset to the full duration on initial load
+    }
+
+    this.attachUserActivityListeners();
+  }
+
+  // Attach global event listeners for user activity
+  attachUserActivityListeners() {
+    console.log('Attaching user activity listeners');
+    ['mousemove', 'mousedown', 'touchstart', 'click', 'keydown'].forEach((event) => {
+      window.addEventListener(event, () => this.resetIdleTimer(true)); // Always reset to the full 2 minutes
+    });
+    window.addEventListener('scroll', () => this.resetIdleTimer(true), true);
+  }
+
+  resetIdleTimer(forceReset: boolean = false) {
+    console.log(`Current route: ${this.router.url}`);
+  
     const excludedRoutes = ['/login', '/register', '/sign-up'];
     if (excludedRoutes.includes(this.router.url)) {
-      return;  // Do not trigger idle timer if on login or register screen
+      console.log('Excluded route. Clearing timers and skipping idle timer.');
+      this.clearTimers();
+      return;
     }
   
-    // Save the current time plus idle timeout duration to local storage
-    const expiryTime = Date.now() + this.idleTimeoutDuration;
-    localStorage.setItem('idleTimeoutExpiry', expiryTime.toString());
+    console.log('Resetting idle timer');
+    this.clearTimers(); // Ensure both idle and countdown timers are cleared
   
-    // Set up a new idle timer
+    // Retrieve the idleTimeoutDuration from localStorage or use the current set value
+    const savedDuration = localStorage.getItem('idleTimeoutDuration');
+    const newDurationMs = savedDuration ? parseInt(savedDuration, 10) : this.idleTimeoutDuration;
+  
+    if (forceReset) {
+      console.log(`Force resetting idle timer to new duration: ${newDurationMs / (60 * 1000)} minutes.`);
+      this.idleTimeoutDuration = newDurationMs; // Use the value from localStorage or the updated value
+    }
+  
+    // Update localStorage with the new expiry time
+    const newExpiryTime = (Date.now() + this.idleTimeoutDuration).toString();
+    localStorage.setItem('idleTimeoutExpiry', newExpiryTime);
+    console.log(`New expiry time set in localStorage: ${newExpiryTime}`);
+  
+    // Start idle timeout
     this.idleTimeout = setTimeout(() => {
-      this.startCountdown();  // Show countdown pop-up
+      console.log('Idle timeout reached. Starting countdown.');
+      this.startCountdown(); // Start the countdown once idle timeout is reached
     }, this.idleTimeoutDuration);
   
-    // Reset the idle timer on user activity
-    window.onload = this.resetIdleTimer.bind(this);
-    window.onmousemove = this.resetIdleTimer.bind(this);
-    window.onmousedown = this.resetIdleTimer.bind(this);
-    window.ontouchstart = this.resetIdleTimer.bind(this);
-    window.onclick = this.resetIdleTimer.bind(this);
-    window.onkeydown = this.resetIdleTimer.bind(this);
-    window.addEventListener('scroll', this.resetIdleTimer.bind(this), true);
+    console.log(`Idle timer set for ${this.idleTimeoutDuration / 1000} seconds.`);
   }
   
-  // Clear both idle and countdown timers and remove expiry time from local storage
-  clearTimers() {
+
+// Clear both idle and countdown timers
+clearTimers() {
     if (this.idleTimeout) {
-      clearTimeout(this.idleTimeout);
+        console.log('Clearing idle timer.');
+        clearTimeout(this.idleTimeout);
+        this.idleTimeout = null;
     }
+
     if (this.countdownTimeout) {
-      clearTimeout(this.countdownTimeout);
+        console.log('Clearing countdown timer.');
+        clearTimeout(this.countdownTimeout);
+        this.countdownTimeout = null;
     }
-    localStorage.removeItem('idleTimeoutExpiry');
-  }
-  
 
-  startCountdown() {
-    this.showWarningSubject.next(true);  // Notify to show the warning popup
+    // Clear countdown interval (if any)
+    if (this.countdownInterval) {
+        console.log('Clearing countdown interval.');
+        clearInterval(this.countdownInterval);
+        this.countdownInterval = null;
+    }
+}
 
-    let countdown = 60; // 60 seconds countdown
+// Start the countdown (shows the warning)
+startCountdown() {
+    console.log('Starting countdown');
+    this.showWarningSubject.next(true); // Notify components to show the warning popup
 
-    const countdownInterval = setInterval(() => {
-      countdown--;
-      console.log(`You will be logged out in ${countdown} seconds.`);  // Log countdown (for debugging)
+    // Reset countdown value to 60 seconds
+    let countdown = 60; 
+    console.log('Countdown reset to 60 seconds.');
 
-      if (countdown <= 0) {
-        clearInterval(countdownInterval);
-        this.logout();  // Log out the user after countdown
-      }
+    // Clear any previous intervals before starting a new one
+    this.clearTimers(); // Ensure no countdowns are active
+
+    this.countdownInterval = setInterval(() => {
+        countdown--;
+        console.log(`Countdown: ${countdown} seconds left.`);
+        if (countdown <= 0) {
+            clearInterval(this.countdownInterval);
+            this.logout(); // Log out the user when countdown reaches 0
+        }
     }, 1000);
 
+    // Start countdown timeout (logout after countdown ends)
     this.countdownTimeout = setTimeout(() => {
-      clearInterval(countdownInterval);
-      this.logout();  // Log out the user if countdown ends
+        console.log('Countdown completed. Logging out.');
+        this.logout();
     }, this.countdownDuration);
-  }
-
- // Called when user extends the session
- extendSession() {
-  console.log('Session extended');
-  this.clearTimers();  // Clear both idle and countdown timers
-  localStorage.removeItem('idleTimeoutExpiry');  // Remove expiry time from local storage
-  this.resetIdleTimer();  // Reset the idle timer for the new session
 }
 
 
-  // Logout function
+  // Extend the session (reset timers)
+  extendSession() {
+    console.log('Session extended. Resetting timers.');
+    this.clearTimers(); // Clear any existing timers
+    this.resetIdleTimer(true); // Reset the idle timer to full 2 minutes and update localStorage
+  }
+
+  // Log the user out
   logout() {
-    this.clearTimers();
+    console.log('Logging out the user.');
+    this.clearTimers(); // Clear any active timers
+    localStorage.removeItem('idleTimeoutExpiry'); // Remove idleTimeoutExpiry from localStorage
     this.http.post(this.logoutUrl, {}).subscribe({
       next: () => {
-        this.router.navigate(['/login']);  // Redirect to login page
+        console.log('Logout successful. Redirecting to login.');
+        this.router.navigate(['/login']); // Redirect to the login page
       },
       error: (error) => {
         console.error('Logout failed', error);
-      }
+      },
     });
   }
+
+  setIdleTimeoutDuration(newDurationMs: number): void {
+    // Clear any existing timers
+    this.clearTimers();
+    
+    // Save the new duration in localStorage (in milliseconds)
+    localStorage.setItem('idleTimeoutDuration', newDurationMs.toString());
+    
+    // Set the new idleTimeoutDuration and start the timer
+    this.idleTimeoutDuration = newDurationMs;
+    this.startIdleTimer(newDurationMs);
+    
+    console.log('New auto-logout timer set to:', newDurationMs / (60 * 1000), 'minutes');
+  }
+  
+  
+  startIdleTimer(durationMs: number): void {
+    this.idleTimeout = setTimeout(() => {
+      console.log('Idle timeout reached. Starting countdown.');
+      this.startCountdown();
+    }, durationMs);
+    console.log(`Idle timer set for ${durationMs / (60 * 1000)} minutes.`);
+  }
+  
+  
+  
 }

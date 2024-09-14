@@ -19,7 +19,8 @@ export class FaqCreateUpdateComponent implements OnInit{
 
   heading: string = '';
 
-  
+  showHelpModal = false;  // State for displaying help modal
+
 
 
   constructor(public router: Router, private faqService:FaqService, private route: ActivatedRoute){}
@@ -65,4 +66,14 @@ export class FaqCreateUpdateComponent implements OnInit{
     }
     
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
