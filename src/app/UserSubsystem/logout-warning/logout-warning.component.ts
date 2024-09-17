@@ -9,7 +9,7 @@ import {EventEmitter, Output,OnInit } from '@angular/core';
 })
 export class LogoutWarningComponent {
   @Output() extendSession = new EventEmitter<void>();
-  countdown: number = 60;  // 60 seconds countdown
+  countdown: number = 20;  // 20 seconds countdown
   private interval: any;
 
   ngOnInit() {

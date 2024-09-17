@@ -114,9 +114,9 @@ startCountdown() {
     console.log('Starting countdown');
     this.showWarningSubject.next(true); // Notify components to show the warning popup
 
-    // Reset countdown value to 60 seconds
-    let countdown = 60; 
-    console.log('Countdown reset to 60 seconds.');
+    // Reset countdown value to 20 seconds
+    let countdown = 20; 
+    console.log('Countdown reset to 20 seconds.');
 
     // Clear any previous intervals before starting a new one
     this.clearTimers(); // Ensure no countdowns are active

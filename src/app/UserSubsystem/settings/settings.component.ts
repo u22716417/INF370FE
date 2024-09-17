@@ -35,8 +35,9 @@ export class SettingsComponent implements OnInit {
   showHelpModal = false;  // State for displaying help modal
 
   autoLogoutTimer: number = 45; // Default timer in minutes
+  autoLogoutValue: number = 30; // Default is 30 minutes
   timerUpdated: boolean = false; // Flag to show success message
-
+  timeUnit: string = 'minutes'; // Default time unit
 
   constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService){}
 
@@ -79,37 +80,50 @@ export class SettingsComponent implements OnInit {
   }
   }
 
-  loadSettings() {
-    const savedTimer = localStorage.getItem('idleTimeoutDuration');
-    if (savedTimer) {
-      // Convert the stored value (milliseconds) to minutes
-      this.autoLogoutTimer = Math.floor(parseInt(savedTimer, 10) / (60 * 1000));
-    }
-  }
- 
+  
   showSection(section: string) {
     this.activeSection = section;
   }
 
 // Method to update the auto-logout timer
 updateAutoLogoutTimer(): void {
-  // Validation: Check if the timer is a valid positive number
-  if (this.autoLogoutTimer <= 0) {
-    alert('Please enter a valid time in minutes.'); // Display an error message
-    return; // Exit the function if the timer value is invalid
+  let newDurationMs: number;
+
+  // Convert the selected time into milliseconds based on the selected unit
+  if (this.timeUnit === 'seconds') {
+    newDurationMs = this.autoLogoutValue * 1000; // Convert seconds to milliseconds
+  } else if (this.timeUnit === 'minutes') {
+    newDurationMs = this.autoLogoutValue * 60 * 1000; // Convert minutes to milliseconds
+  } else {
+    alert('Invalid time unit'); // Handle unexpected cases
+    return;
   }
 
-  // Convert minutes to milliseconds
-  const newDurationMs = this.autoLogoutTimer * 60 * 1000;
-
-  // Save the new timer value to the autologout service
+  // Save the new timer value to the auto-logout service and local storage
   this.autoLogoutService.setIdleTimeoutDuration(newDurationMs);
+  localStorage.setItem('idleTimeoutDuration', newDurationMs.toString());
   this.timerUpdated = true;
 
   // Optionally, reset the success message after a timeout
   setTimeout(() => {
     this.timerUpdated = false;
   }, 3000); // Hide message after 3 seconds
+}
+
+loadSettings(): void {
+  const savedTimer = localStorage.getItem('idleTimeoutDuration');
+  if (savedTimer) {
+    const savedDurationMs = parseInt(savedTimer, 10);
+    
+    // Determine whether the saved time was in seconds or minutes
+    if (savedDurationMs < 60000) {
+      this.timeUnit = 'seconds';
+      this.autoLogoutValue = savedDurationMs / 1000; // Convert ms to seconds
+    } else {
+      this.timeUnit = 'minutes';
+      this.autoLogoutValue = savedDurationMs / (60 * 1000); // Convert ms to minutes
+    }
+  }
 }
 
   

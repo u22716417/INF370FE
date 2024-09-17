@@ -8,7 +8,7 @@ import { AutologoutService } from './UserSubsystem/autologout.service';
 })
 export class AppComponent implements OnInit {
   showWarning = false;
-  countdown = 60; // Countdown starts from 60 seconds
+  countdown = 20; // Countdown starts from 20 seconds
   private countdownInterval: any;
 
   constructor(private autologoutService: AutologoutService) {}
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
   // Start countdown timer
   startCountdown() {
-    this.countdown = 60; // Reset countdown to 60 seconds
+    this.countdown = 20; // Reset countdown to 20 seconds
 
     this.countdownInterval = setInterval(() => {
       if (this.countdown > 0) {
