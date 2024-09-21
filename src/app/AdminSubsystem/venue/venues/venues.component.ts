@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Venue } from '../venue';
 import { VenueService } from '../service/venue-service.service';
 import { Config } from 'datatables.net';
@@ -16,7 +16,11 @@ searchTerm: string = '';
 isPopupVisible: boolean = false;
 dtOptions: Config = {};
 showHelpModal = false;  // State for displaying help modal
-
+errorMessage: string | null = null;
+isLoading = false;
+showNotification: boolean = false;
+notificationMessage: string = '';
+@ViewChild('fileInput') fileInput!: ElementRef; 
 
 constructor(private venueService: VenueService){}
 
@@ -39,11 +43,22 @@ constructor(private venueService: VenueService){}
       },
       (error) => {
         console.error('Error loading venues:', error);
-        alert('Failed to load venues. Please try again later.');
+        this.showPopupNotification('Failed to load venues. Please try again later.');
       }
     );
   }
-  
+  loadVenues(): void {
+    this.venueService.getAllVenues().subscribe(
+      (data: Venue[]) => {
+        this.venues = data;
+      },
+      (error) => {
+        console.error('Error loading sponsors:', error);
+        this.showPopupNotification('Failed to load sponsors. Please try again later.');
+      }
+    );
+  }
+
   deleteById(venueId: number): void {
     const confirmDelete = window.confirm('Are you sure you want to remove this venue?');
   
@@ -51,15 +66,15 @@ constructor(private venueService: VenueService){}
       this.venueService.deleteVenueById(parseInt(venueId + '')).subscribe(
         (response) => {
           if (response != null) {
-            alert('Venue has been removed succesfully');
+            this.showPopupNotification('Venue has been removed succesfully');
             location.reload();
           } else {
-            alert('Failed to remove venue');
+            this.showPopupNotification('Failed to remove venue');
           }
         },
         (error) => {
           console.error('Error removing venue:', error);
-          alert('Failed to remove venue. Please try again later.');
+          this.showPopupNotification('Failed to remove venue. Please try again later.');
         }
       );
     }
@@ -98,6 +113,59 @@ openHelpModal() {
 // Method to close help modal
 closeHelpModal() {
   this.showHelpModal = false;
+}
+
+onFileSelected(event: any): void {
+  const file = event.target.files[0];
+  console.log(file);  // Check if the file is correctly detected
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      try {
+        const jsonData = JSON.parse(e.target.result);
+        console.log('File content:', jsonData);  // Check file content
+        this.saveImportedVenues(jsonData);  // Save the parsed data
+      } catch (error) {
+        this.showPopupNotification('Invalid JSON file');
+        console.error('Error parsing JSON:', error);
+      }
+    };
+    reader.readAsText(file);  // Read the file as text
+  } else {
+    console.log('No file selected');
+  }
+}
+
+// Trigger file input click
+importVenues(): void {
+  console.log('Import button clicked');
+  this.fileInput.nativeElement.click();  // Trigger the file input click programmatically
+}
+
+// Save sponsors via the backend service
+saveImportedVenues(venues: Venue[]): void {
+  console.log('Sending data to the backend:', venues);  // Log the data sent to the backend
+  this.venueService.importVenues(venues).subscribe(
+    () => {
+      this.loadVenues();  // Reload the sponsor list after successful import
+      this.showPopupNotification('Venues imported successfully');
+      console.log('Import successful');
+    },
+    (error) => {
+      console.error('Error importing venues:', error);
+      this.showPopupNotification('Failed to import venues. Please try again.');
+    }
+  );
+}
+
+showPopupNotification(message: string): void {
+  this.notificationMessage = message;
+  this.showNotification = true;
+  setTimeout(() => {
+    this.showNotification = false;
+    this.notificationMessage = '';
+  }, 3000);
 }
 
 }

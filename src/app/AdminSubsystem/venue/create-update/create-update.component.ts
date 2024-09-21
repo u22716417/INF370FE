@@ -54,29 +54,42 @@ export class CreateUpdateComponent implements OnInit{
   }
 
   addVenue(venueForm: NgForm): void {
-    if (this.venue.venueName !== '' && this.venue.venueDescription !== '' && this.venue.venueCapacity && this.venue.venueContactPerson !== '' && this.venue.venueContactNumber) {
+    if (this.isFormValid()) {
+      // For creating a new venue
       if (this.venue.venueId === 0) {
         this.venueService.createVenue(this.venue).subscribe(
           (response) => {
             if (response != null) {
-              alert('Venue has been added successfully');
-              this.router.navigate(['/venues']);
+              this.showPopupNotification('Venue has been added successfully');
+              this.router.navigate(['/component/venues']);
             } else {
-              alert('Failed to add venue');
+              this.showPopupNotification('Failed to add venue');
             }
           },
           (error) => {
             console.error('Error adding venue:', error);
-            alert('Failed to add venue. Please try again later.');
+            this.showPopupNotification('Failed to add venue. Please try again later.');
           }
         );
       } else {
-        alert('Update failed');
+        this.showPopupNotification('Update failed');
       }
     } else {
-      alert('Please fill all the fields');
+      this.showPopupNotification('Please fill all the fields');
     }
   }
+  
+  // Check if all required fields are filled
+  isFormValid(): boolean {
+    return (
+      this.venue.venueName !== '' &&
+      this.venue.venueDescription !== '' &&
+      this.venue.venueCapacity > 0 &&
+      this.venue.venueContactPerson !== '' &&
+      this.venue.venueContactNumber !== ''
+    );
+  }
+  
   
   showPopupNotification(message: string): void {
     this.notificationMessage = message;

@@ -111,5 +111,16 @@
     color: red;
     font-size: 0.9em;
   }
+
+  zxing-scanner {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
   
   

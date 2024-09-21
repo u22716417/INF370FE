@@ -45,4 +45,8 @@ export class EventServiceService {
     const url = `${this.apiUrl}/${eventId}`;
     return this.http.delete<void>(url, this.httpOptions);
   }
+
+  importEvnts(events: Event[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/import`, events);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SponsorServiceService } from '../service/sponsor-service.service';
 import { Sponsor } from '../sponsor';
 import { RouterLink } from '@angular/router';
@@ -21,6 +21,11 @@ export class SponsorListComponent implements OnInit {
   };
   dtOptions: Config = {};
   showHelpModal = false;  // State for displaying help modal
+  errorMessage: string | null = null;
+  isLoading = false;
+  showNotification: boolean = false;
+  notificationMessage: string = '';
+  @ViewChild('fileInput') fileInput!: ElementRef; 
 
   constructor(private sponsorService: SponsorServiceService) { }
 
@@ -36,7 +41,7 @@ export class SponsorListComponent implements OnInit {
       },
       (error) => {
         console.error('Error loading sponsors:', error);
-        alert('Failed to load sponsors. Please try again later.');
+        this.showPopupNotification('Failed to load sponsors. Please try again later.');
       }
     );
   }
@@ -50,7 +55,7 @@ export class SponsorListComponent implements OnInit {
       },
       (error) => {
         console.error('Error deleting sponsor:', error);
-        alert('Failed to delete sponsor. Please try again later.');
+        this.showPopupNotification('Failed to delete sponsor. Please try again later.');
       }
     );
   }
@@ -79,4 +84,59 @@ openHelpModal() {
 closeHelpModal() {
   this.showHelpModal = false;
 }
+
+// Method to handle file input
+onFileSelected(event: any): void {
+  const file = event.target.files[0];
+  console.log(file);  // Check if the file is correctly detected
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      try {
+        const jsonData = JSON.parse(e.target.result);
+        console.log('File content:', jsonData);  // Check file content
+        this.saveImportedSponsors(jsonData);  // Save the parsed data
+      } catch (error) {
+        this.showPopupNotification('Invalid JSON file');
+        console.error('Error parsing JSON:', error);
+      }
+    };
+    reader.readAsText(file);  // Read the file as text
+  } else {
+    console.log('No file selected');
+  }
+}
+
+// Trigger file input click
+importSponsors(): void {
+  console.log('Import button clicked');
+  this.fileInput.nativeElement.click();  // Trigger the file input click programmatically
+}
+
+// Save sponsors via the backend service
+saveImportedSponsors(sponsors: Sponsor[]): void {
+  console.log('Sending data to the backend:', sponsors);  // Log the data sent to the backend
+  this.sponsorService.importSponsors(sponsors).subscribe(
+    () => {
+      this.loadSponsors();  // Reload the sponsor list after successful import
+      this.showPopupNotification('Sponsors imported successfully');
+      console.log('Import successful');
+    },
+    (error) => {
+      console.error('Error importing sponsors:', error);
+      this.showPopupNotification('Failed to import sponsors. Please try again.');
+    }
+  );
+}
+
+showPopupNotification(message: string): void {
+  this.notificationMessage = message;
+  this.showNotification = true;
+  setTimeout(() => {
+    this.showNotification = false;
+    this.notificationMessage = '';
+  }, 3000);
+}
+
 }

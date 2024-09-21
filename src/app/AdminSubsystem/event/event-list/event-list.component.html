@@ -7,7 +7,10 @@
      <!-- Export to JSON Button -->
 
 
-  <button  class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
+  <button  class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button> |
+
+  <a class="btn btn-primary" (click)="importEvents()">Import from JSON</a>
+  <input type="file" #fileInput (change)="onFileSelected($event)" style="display:none;">
   <br>
   <br>
 
@@ -39,7 +42,9 @@
         </tr>
       </tbody>
     </table>
-
+    <div id="notification" [class.show]="showNotification">
+      {{ notificationMessage }}
+    </div>
      <!-- Help Modal -->
 <div class="modal" [ngClass]="{'show': showHelpModal}">
   <div class="modal-content">

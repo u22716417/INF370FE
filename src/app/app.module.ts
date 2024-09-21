@@ -74,6 +74,7 @@ import { HelpComponent } from './HelpSubsystem/help/help.component';
 import { HireEmployeeComponent } from './AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
 import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component';
 import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-warning.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 @NgModule({
@@ -127,7 +128,8 @@ import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-wa
     HelpComponent,
     HireEmployeeComponent,
     AuditLogsComponent,
-    LogoutWarningComponent
+    LogoutWarningComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -143,7 +145,8 @@ import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-wa
     SidebarComponent,
     NgApexchartsModule,
     FullCalendarModule,
-    DataTablesModule
+    DataTablesModule,
+    ZXingScannerModule 
    
 
   ],

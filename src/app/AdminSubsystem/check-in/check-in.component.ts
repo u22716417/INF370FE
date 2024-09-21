@@ -22,7 +22,10 @@ export class CheckInComponent {
   showAttendeeModal = false;
   showHelpModal = false;  // State for displaying help modal
   private usedBarcodes: Set<string> = new Set();
-
+  hasDevices: boolean = false;
+  availableDevices: MediaDeviceInfo[] = [];
+  selectedDevice: MediaDeviceInfo | undefined;
+  hasPermission = false;
 
   constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router) {
     this.checkInForm = this.fb.group({
@@ -37,14 +40,27 @@ export class CheckInComponent {
     });
   }
 
-  appendNumber(num: number) {
-    this.inputValue += num;
-    this.checkInForm.controls['barcode'].setValue(this.inputValue);
+  
+
+  onCamerasFound(devices: MediaDeviceInfo[]): void {
+    this.availableDevices = devices;
+    if (devices.length > 0) {
+      this.selectedDevice = devices[0]; // Select the first available device by default
+    }
   }
 
-  clearInput() {
-    this.inputValue = '';
-    this.checkInForm.controls['barcode'].reset();
+  onDeviceSelect(event: Event): void {
+    const selectedDeviceId = (event.target as HTMLSelectElement).value;
+    this.selectedDevice = this.availableDevices.find(device => device.deviceId === selectedDeviceId);
+  }
+
+  onHasPermission(has: boolean): void {
+    this.hasPermission = has;
+  }
+
+  onScanSuccess(barcode: string): void {
+    this.checkInForm.controls['barcode'].setValue(barcode);
+    this.onSubmit();
   }
 
   onSubmit(): void {
@@ -62,9 +78,7 @@ export class CheckInComponent {
           this.isLoading = false;
           if (isValid) {
             this.showAttendeeModal = true;  // Show attendee modal on successful validation
-          } 
-          
-          else {
+          } else {
             this.showPopupNotification('Invalid barcode.');
           }
         },
@@ -74,7 +88,7 @@ export class CheckInComponent {
         }
       });
     } else {
-      this.showPopupNotification('Please enter a valid barcode');
+      this.showPopupNotification('Please enter a valid barcode.');
     }
   }
 

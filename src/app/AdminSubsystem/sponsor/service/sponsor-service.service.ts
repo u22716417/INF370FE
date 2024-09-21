@@ -32,4 +32,9 @@ export class SponsorServiceService {
   deleteSponsor(sponsorId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sponsorId}`);
   }
+
+  importSponsors(sponsors: Sponsor[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/import`, sponsors);
+  }
+  
 }

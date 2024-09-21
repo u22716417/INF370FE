@@ -6,6 +6,8 @@ export class Venue {
   venueDescription: string;
   venueId: number;
   venueName: string;
+  image?: string;
+ 
 
   constructor(
     venueAddress: string,
@@ -14,7 +16,8 @@ export class Venue {
     venueContactPerson: string,
     venueDescription: string,
     venueId: number,
-    venueName: string
+    venueName: string,
+    image?: string
   ) {
     this.venueAddress = venueAddress;
     this.venueCapacity = venueCapacity;
@@ -23,5 +26,6 @@ export class Venue {
     this.venueDescription = venueDescription;
     this.venueId = venueId;
     this.venueName = venueName;
+    this.image = image;
   }
 }
