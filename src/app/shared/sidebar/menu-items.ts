@@ -112,6 +112,14 @@ export const ADMINROUTES: RouteInfo[] = [
     class: '',
     extralink: false,
     submenu: []
+  },
+  {
+    path: 'component/Despense',
+    title: 'Dispense Hire Items',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
   }
 ];
 
@@ -152,6 +160,14 @@ export const CLIENTROUTES: RouteInfo[] = [
   {
     path: 'component/help',
     title: 'Help',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Collect',
+    title: 'Collect Hire Items',
     icon: 'bi bi-menu-app',
     class: '',
     extralink: false,

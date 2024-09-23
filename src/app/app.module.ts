@@ -76,6 +76,8 @@ import { HireEmployeeComponent } from './AdminSubsystem/hire-employee/hire-emplo
 import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component';
 import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-warning.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CollectHireItemsComponent } from './ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
+import { DispenseHireItemsComponent } from './ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 
 
 @NgModule({
@@ -130,6 +132,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     HireEmployeeComponent,
     AuditLogsComponent,
     LogoutWarningComponent,
+    CollectHireItemsComponent,
+    DispenseHireItemsComponent,
     
   ],
   imports: [

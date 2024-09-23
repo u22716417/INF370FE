@@ -48,6 +48,8 @@ import { RoleBasedAuthGuard } from '../AuthGuard/Authorization/RoleBasedAuthGuar
 import { HireEmployeeComponent } from '../AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
 import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.component';
 import { HelpComponent } from '../HelpSubsystem/help/help.component';
+import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
+import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
 
 
 
@@ -253,7 +255,8 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
-			{path:'equipment-list',
+			{
+				path:'equipment-list',
 				component: EquipmentListComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
@@ -386,6 +389,21 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'Recieved',
 				component: HireItemsReceivedComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
+			},
+
+
+			{
+				path: 'Despense',
+				component: DispenseHireItemsComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
+			},
+
+			{
+				path: 'Collect',
+				component: CollectHireItemsComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
 			}
