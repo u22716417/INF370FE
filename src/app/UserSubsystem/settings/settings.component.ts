@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { AutologoutService } from '../autologout.service';
+import { AuthService } from 'src/app/AuthGuard/Authorization/AuthGuard';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +22,9 @@ export class SettingsComponent implements OnInit {
     lastName: '',
     phoneNumber: ''
   };
-
+  isAdmin: boolean = false;
+  isClient: boolean = false;
+  isOwner: boolean = false;
 
   passwords = {
     userId: '',
@@ -39,9 +42,32 @@ export class SettingsComponent implements OnInit {
   timerUpdated: boolean = false; // Flag to show success message
   timeUnit: string = 'minutes'; // Default time unit
 
-  constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService){}
+  constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService, private userService: AuthService,){}
 
   ngOnInit(): void {
+
+
+    let currentUserRole = this.userService.getCurrentUserRole();
+    if(currentUserRole == 'Client')
+      {
+          this.isClient = true;
+          this.isAdmin = false;
+          this.isOwner = false;
+      }
+      if(currentUserRole == 'Admin')
+      {
+          this.isClient = false;
+          this.isAdmin = true;
+          this.isOwner = false;
+      }
+      if(currentUserRole == 'Owner')
+      {
+        this.isClient = false;
+        this.isAdmin = false;
+        this.isOwner = true;
+      }
+
+
     this.loadSettings();
     this.displaymsg = false;
     this.displayErrormsg = false;

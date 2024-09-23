@@ -71,7 +71,7 @@
     </div>
 
 <!-- Auto-Logout Timer Section -->
-<div *ngIf="activeSection === 'autoLogout'" class="section">
+<div *ngIf="activeSection === 'autoLogout' && (isAdmin || isOwner)" class="section">
   <h2>Auto-Logout Settings</h2>
   <form (ngSubmit)="updateAutoLogoutTimer()">
     
