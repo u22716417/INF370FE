@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { WebcamImage, WebcamModule } from 'ngx-webcam';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -146,7 +147,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     NgApexchartsModule,
     FullCalendarModule,
     DataTablesModule,
-    ZXingScannerModule 
+    WebcamModule
    
 
   ],

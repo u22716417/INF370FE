@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Attendee } from './classes/attendee';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckInService } from './service/check-in.service';
 import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage, WebcamModule } from 'ngx-webcam';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-check-in',
   templateUrl: './check-in.component.html',
   styleUrls: ['./check-in.component.scss']
 })
-export class CheckInComponent {
+export class CheckInComponent implements OnInit  {
   checkInForm: FormGroup;
   attendeeForm: FormGroup;
   attendee: Attendee | null = null;
@@ -22,12 +26,12 @@ export class CheckInComponent {
   showAttendeeModal = false;
   showHelpModal = false;  // State for displaying help modal
   private usedBarcodes: Set<string> = new Set();
-  hasDevices: boolean = false;
-  availableDevices: MediaDeviceInfo[] = [];
-  selectedDevice: MediaDeviceInfo | undefined;
-  hasPermission = false;
+  public webcamImage: WebcamImage | null = null;
+  private trigger: Subject<void> = new Subject<void>();
+  private imageUrl = 'http://api.qrserver.com/v1/read-qr-code/'; // API URL
+  Image: string = '';
 
-  constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router) {
+  constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router, private http: HttpClient) {
     this.checkInForm = this.fb.group({
       barcode: ['', Validators.required]
     });
@@ -40,88 +44,113 @@ export class CheckInComponent {
     });
   }
 
+  ngOnInit(): void {
   
-
-  onCamerasFound(devices: MediaDeviceInfo[]): void {
-    this.availableDevices = devices;
-    if (devices.length > 0) {
-      this.selectedDevice = devices[0]; // Select the first available device by default
-    }
   }
 
-  onDeviceSelect(event: Event): void {
-    const selectedDeviceId = (event.target as HTMLSelectElement).value;
-    this.selectedDevice = this.availableDevices.find(device => device.deviceId === selectedDeviceId);
+
+  
+  // Trigger the webcam capture
+  public triggerSnapshot(): void {
+    this.trigger.next();
   }
 
-  onHasPermission(has: boolean): void {
-    this.hasPermission = has;
-  }
-
-  onScanSuccess(barcode: string): void {
-    this.checkInForm.controls['barcode'].setValue(barcode);
-    this.onSubmit();
-  }
-
-  onSubmit(): void {
-    if (this.checkInForm.valid) {
-      const barcode = this.checkInForm.value.barcode;
-
-      if (this.usedBarcodes.has(barcode)) {
-        this.showPopupNotification('This barcode has already been checked in.');
-        return;
-      }
-
-      this.isLoading = true;
-      this.checkInService.validateBarcode(barcode).subscribe({
-        next: (isValid) => {
-          this.isLoading = false;
-          if (isValid) {
-            this.showAttendeeModal = true;  // Show attendee modal on successful validation
-          } else {
-            this.showPopupNotification('Invalid barcode.');
-          }
-        },
-        error: () => {
-          this.isLoading = false;
-          this.showPopupNotification('Error validating barcode.');
-        }
-      });
-    } else {
-      this.showPopupNotification('Please enter a valid barcode.');
-    }
-  }
-
-  submitAttendeeDetails(): void {
-    if (this.attendeeForm.valid) {
-      const checkInViewModel = {
-        ...this.checkInForm.value,
-        ...this.attendeeForm.value
-      };
-
-      this.checkInService.checkIn(checkInViewModel).subscribe({
-        next: (attendee) => {
-          this.isLoading = false;
-          if (attendee) {
-            this.attendee = attendee;
-            this.usedBarcodes.add(this.checkInForm.value.barcode);
-            this.showPopupNotification('Check-in successful.');
-            this.closeAttendeeModal();  // Close the modal after successful check-in
-          } else {
-            this.showPopupNotification('Check-in failed.');
-          }
-        },
-        error: () => {
-          this.isLoading = false;
-          this.showPopupNotification('An error occurred during check-in.');
-          this.attendee = null;
-        }
-      });
-    } else {
-      this.showPopupNotification('Please fill in all the required details.');
-    }
-  }
+  public handleImage(webcamImage: WebcamImage): void {
+    //console.log('Captured Image:', webcamImage);
     
+    // Check if the image is valid
+    if (!webcamImage || !webcamImage.imageAsBase64) {
+      console.error('No valid image captured.');
+      return;
+    }
+    console.log(webcamImage.imageAsBase64);
+     this.Image = 'data:image/png;base64,'+ webcamImage.imageAsBase64; /// Just to check what image was uploaded
+    this.webcamImage = webcamImage;
+    this.uploadImage();
+  }
+  
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+ // Convert base64 data URL to Blob
+private dataURItoBlob(dataURI: string): Blob {
+ 
+
+  const base64String = dataURI;
+
+  // Remove any whitespace characters from the base64 string
+  const cleanedBase64 = base64String.replace(/\s/g, '');
+
+  // Decode the base64 string
+  const byteString = atob(cleanedBase64);
+
+  // Create an ArrayBuffer and a Uint8Array to hold the binary data
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const intArray = new Uint8Array(arrayBuffer);
+
+  // Fill the Uint8Array with the decoded binary data
+  for (let i = 0; i < byteString.length; i++) {
+    intArray[i] = byteString.charCodeAt(i);
+  }
+
+  // Return the binary data as a Blob, with the correct MIME type
+  return new Blob([intArray], { type: '.png' });
+}
+
+
+  // Upload the captured image to the API
+ // Upload the captured image to the API
+ public uploadImage(): void {
+  if (this.webcamImage) {
+    const imageBlob = this.dataURItoBlob(this.webcamImage.imageAsBase64);
+    const formData = new FormData();
+    formData.append('file', imageBlob, 'webcam-image.png');
+
+    this.http.post(this.imageUrl, formData).subscribe(
+      (response: any) => {
+        if (response && response[0] && response[0].symbol && response[0].symbol[0].data) {
+          const qrCodeData = response[0].symbol[0].data;
+          console.log('QR Code Data:', qrCodeData);
+
+          // Send QR Code data to API for validation and check-in
+          this.sendQrCodeDataToApi(qrCodeData);
+        } else {
+          this.showPopupNotification('No QR code found in the image.');
+        }
+      },
+      (error) => {
+        console.error('Upload failed', error);
+      }
+    );
+  } else {
+    this.showPopupNotification('No image captured.');
+  }
+}
+
+sendQrCodeDataToApi(qrCodeData: string): void {
+  const checkInViewModel = {
+    QrCodeData: qrCodeData
+  };
+
+  this.http.post<Attendee>('https://localhost:7149/api/CheckIn/CheckIn', checkInViewModel).subscribe(
+    (response) => {
+      console.log('Check-In successful:', response);
+      this.showPopupNotification('Check-In successful!');
+    },
+    (error) => {
+      console.error('Check-In failed:', error);
+      if (error.status === 400 && error.error === "This ticket has already been checked in.") {
+        this.showPopupNotification('This ticket has already been checked in.');
+      } else {
+        this.showPopupNotification('Check-In failed. Please try again.');
+      }
+    }
+
+  );
+}
+
+
   closeAttendeeModal(): void {
     this.showAttendeeModal = false;
   }

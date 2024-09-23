@@ -9,7 +9,7 @@ import { Attendee } from '../classes/attendee'; // Assuming the class name is 'a
 })
 export class CheckInService {
 
-  private apiUrl = 'https://localhost:7149/api/CheckIn/CheckIn';
+  private apiUrl = 'https://localhost:7149/api/CheckIn/CheckInImage';
   private validateUrl = 'https://localhost:7149/api/CheckIn/ValidateBarcode';
   private httpOptions = {
     headers: new HttpHeaders({
@@ -28,14 +28,16 @@ export class CheckInService {
      
   }
 
+  checkInImage(imageData: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('qrCodeImage', imageData);
 
-  // Complete Check-In
-  checkIn(checkInData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, checkInData, this.httpOptions)
+    return this.http.post<any>(this.apiUrl, formData)
       .pipe(
         catchError(this.handleError)
       );
   }
+  
 
   // Error Handling
   private handleError(error: HttpErrorResponse) {
