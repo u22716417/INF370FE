@@ -42,6 +42,27 @@
           <label for="phoneNumber">Phone Number:</label>
           <input type="tel" id="phoneNumber" [(ngModel)]="profile.phoneNumber" name="phoneNumber" required />
         </div>
+        <div>
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="tel" 
+          id="phoneNumber" 
+          [(ngModel)]="profile.phoneNumber"
+          name="phoneNumber" 
+          required 
+          #phoneNumber="ngModel" 
+          pattern="^\d{10}$" 
+          minlength="10" 
+          maxlength="10" 
+          title="Please enter a valid 10-digit phone number">/>
+          
+          <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-danger">
+            <div *ngIf="phoneNumber.errors?.['required']">Phone number is required.</div>
+            <div *ngIf="phoneNumber.errors?.['minlength'] || phoneNumber.errors?.['maxlength']">
+              Phone number must be exactly 10 digits long.
+            </div>
+          </div>
+        </div>
+  
         <button type="submit">Save Changes</button>
       </form>
     </div>

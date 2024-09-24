@@ -24,6 +24,30 @@
     </div>
 
     <div class="form-group">
+      <label for="phone">Phone</label>
+      <input 
+        id="phone" 
+        class="form-control" 
+        type="text" 
+        name="phone" 
+        formControlName="phone"
+        required 
+        pattern="^\d{10}$" 
+        minlength="10" 
+        maxlength="10" 
+        title="Please enter a valid 10-digit phone number">
+      
+      <div *ngIf="hireEmployeeForm.get('phone')?.invalid && hireEmployeeForm.get('phone')?.touched" class="text-danger">
+        <div *ngIf="hireEmployeeForm.get('phone')?.errors?.['required']">Phone number is required.</div>
+        <div *ngIf="hireEmployeeForm.get('phone')?.errors?.['minlength'] || hireEmployeeForm.get('phone')?.errors?.['maxlength']">
+          Phone number must be exactly 10 digits long.
+        </div>
+      </div>
+    </div>
+    
+
+
+    <div class="form-group">
       <label for="titleId">Title</label>
       <select id="titleId" formControlName="titleId" class="form-control">
         <option *ngFor="let title of titles" [value]="title.titleId">{{ title.titleDescription}}</option>

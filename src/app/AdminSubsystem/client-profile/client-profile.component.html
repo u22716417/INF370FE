@@ -1,6 +1,7 @@
 <div>
-  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
-  <h2>Clients</h2>
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px; padding-right: 3%;">Help</a>
+  <br/>
+  <h2 style="text-align: center;">Clients</h2>
 
   <table datatable [dtOptions]="dtOptions" *ngIf="clients.length>0"  class="table table-striped">
     <thead>

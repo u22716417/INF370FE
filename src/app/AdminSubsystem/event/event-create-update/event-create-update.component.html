@@ -64,7 +64,7 @@
       type="number" 
       name="eventPrice" 
       min="0"
-      max="10000"
+      max="100000"
     
       [(ngModel)]="newEvent.eventPrice" 
       #price="ngModel" placeholder="Enter the event price"
@@ -76,14 +76,29 @@
       
     </div>
 
-    <!-- Remaining Tickets -->
-    <div style="margin-bottom: 10px;">
-      <label for="eventRemainingTickets">Remaining Tickets</label>
-      <input id="eventRemainingTickets" class="form-control" type="number" name="eventRemainingTickets" [(ngModel)]="newEvent.eventRemainingTickets" #eventRemainingTickets="ngModel" required title="Please enter the number of tickets">
-      <div *ngIf="eventRemainingTickets.invalid && eventRemainingTickets.touched" class="text-danger">
-        <small *ngIf="eventRemainingTickets.errors?.['required']">Number of remaining tickets is required.</small>
-      </div>
-    </div>
+<!-- Remaining Tickets -->
+<div style="margin-bottom: 10px;">
+  <label for="eventRemainingTickets">Remaining Tickets</label>
+  <input 
+    id="eventRemainingTickets" 
+    class="form-control" 
+    type="number" 
+    name="eventRemainingTickets" 
+    [(ngModel)]="newEvent.eventRemainingTickets" 
+    #eventRemainingTickets="ngModel" 
+    required 
+    title="Please enter the number of tickets"
+    [class.is-invalid]="(eventRemainingTickets.invalid || newEvent.eventRemainingTickets < 0) && eventRemainingTickets.touched"
+    min="0">
+  
+  <div *ngIf="eventRemainingTickets.invalid && eventRemainingTickets.touched" class="text-danger">
+    <small *ngIf="eventRemainingTickets.errors?.['required']">Number of remaining tickets is required.</small>
+  </div>
+
+  <div *ngIf="newEvent.eventRemainingTickets < 0 && eventRemainingTickets.touched" class="text-danger">
+    <small>Number of remaining tickets cannot be negative.</small>
+  </div>
+</div>
 
     <!-- Venue -->
     <div style="margin-bottom: 10px;">

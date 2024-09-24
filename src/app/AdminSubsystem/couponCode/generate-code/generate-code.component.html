@@ -30,11 +30,18 @@
         required 
         title="Please enter a discount amount" 
         #discountAmountModel="ngModel" 
-        [class.is-invalid]="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)">
+        [class.is-invalid]="(discountAmountModel.invalid || discountAmount < 0) && (discountAmountModel.dirty || discountAmountModel.touched)"
+        min="0">
+      
       <div *ngIf="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)" class="invalid-feedback">
         Discount amount is required. Please enter a discount amount.
       </div>
+      
+      <div *ngIf="discountAmount < 0 && (discountAmountModel.dirty || discountAmountModel.touched)" class="invalid-feedback">
+        Discount amount cannot be negative.
+      </div>
     </div>
+    
 
     <div style="margin-bottom: 10px;">
       <label for="sponsor">Sponsor:</label>

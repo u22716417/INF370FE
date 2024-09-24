@@ -30,11 +30,11 @@
     <div style="margin-bottom: 10px;">
       <label for="venueCapacity">Capacity</label>
       <input id="venueCapacity" class="form-control" type="number" name="capacity" [(ngModel)]="venue.venueCapacity" 
-             [min]="0" [max]="10000" #venueCapacity="ngModel" placeholder="Enter the venue capacity" required title="Please enter a capacity">
+             [min]="0" [max]="1000000" #venueCapacity="ngModel" placeholder="Enter the venue capacity" required title="Please enter a capacity">
       <div *ngIf="venueCapacity.invalid && venueCapacity.touched" class="text-danger">
         <div *ngIf="venueCapacity.errors?.['required']">Venue capacity is required.</div>
         <div *ngIf="venueCapacity.errors?.['min']">Capacity cannot be negative.</div>
-        <div *ngIf="venueCapacity.errors?.['max']">Capacity cannot exceed 10,000.</div>
+        <div *ngIf="venueCapacity.errors?.['max']">Capacity cannot exceed 1,000,000.</div>
       </div>
     </div>
     
