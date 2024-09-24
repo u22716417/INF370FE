@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class ReportComponent {
 
+  showHelpModal = false;  // State for displaying help modal
+
+   // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

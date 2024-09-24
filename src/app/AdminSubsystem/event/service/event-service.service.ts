@@ -8,7 +8,7 @@ import { Event } from '../eventClass';
 })
 export class EventServiceService {
 
-  private apiUrl = 'http://localhost:5196/api/Events';
+  private apiUrl = 'https://localhost:7149/api/Events';
   private venueUrl = 'http://localhost:5196/api/Venues'
   private httpOptions = {
     headers: new HttpHeaders({
@@ -42,9 +42,10 @@ export class EventServiceService {
 
   // Delete an event
   deleteEvent(eventId: number): Observable<void> {
-    const url = `${this.apiUrl}/${eventId}`;
+    const url = `${this.apiUrl}/deleteEvent/${eventId}`;
     return this.http.delete<void>(url, this.httpOptions);
   }
+  
 
   importEvnts(events: Event[]): Observable<any> {
     return this.http.post(`${this.apiUrl}/import`, events);

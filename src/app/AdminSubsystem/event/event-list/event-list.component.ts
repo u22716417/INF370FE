@@ -30,8 +30,9 @@ export class EventListComponent implements OnInit {
   getEvents(): void {
     this.eventService.getEvents().subscribe(
       (events) => {
-        console.log(events);
-        this.events = events;
+        // Filter out events that are soft-deleted (i.e., IsActive == false)
+        this.events = events.filter(event => event.isActive !== false);
+        console.log(this.events);
       },
       (error) => {
         console.error('Error fetching events:', error);

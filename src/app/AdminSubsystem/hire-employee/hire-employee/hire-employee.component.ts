@@ -16,6 +16,8 @@ export class HireEmployeeComponent implements OnInit {
   errorMessage: string | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
+  showHelpModal = false;  // State for displaying help modal
+
 
   constructor(private fb: FormBuilder, private userService: HireEmployeeServiceService) {
     this.hireEmployeeForm = this.fb.group({
@@ -119,4 +121,15 @@ export class HireEmployeeComponent implements OnInit {
       this.notificationMessage = '';
     }, 3000);
   }
+
+  
+   // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

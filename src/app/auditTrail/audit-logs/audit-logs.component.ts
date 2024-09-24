@@ -13,6 +13,8 @@ export class AuditLogsComponent  implements OnInit {
   filteredAuditLogs: any[] = [];
   isLoading = true;
   error: string | null = null;
+  showHelpModal = false;  // State for displaying help modal
+
 
   // Filter properties
   startDate: string = '';
@@ -62,4 +64,14 @@ export class AuditLogsComponent  implements OnInit {
     this.distinctProducts = [...new Set(this.auditLogs.map(log => log.product))];
     this.distinctSubsystems = [...new Set(this.auditLogs.map(log => log.subSystem))];
   }
+
+   // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

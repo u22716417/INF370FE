@@ -1,6 +1,7 @@
 <div *ngIf="isLoading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 <div style="padding-top: 5%;">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
     <h1>Audit Trail Manager</h1>
 </div>
 <br>
@@ -73,3 +74,82 @@
     </tr>
   </tbody>
 </table>
+
+    <!-- Help Modal -->
+    <div class="modal" [ngClass]="{'show': showHelpModal}">
+      <div class="modal-content">
+        <span class="close" (click)="closeHelpModal()">&times;</span>
+        <h2>Help-Audit Trail Manager</h2>
+        <p>This page allows you to manage and view client transactions on the system. Here the filtering actions available:</p>
+            <ul>
+              <li><strong>Select Start Date</strong> Click on the <em>Calendar icon</em> to add select a start date.</li>
+              <li><strong>Select End Date</strong> Click on the <em>Calendar icon</em> to add an end date.</li>
+              <li><strong>Select Specific User</strong> In the "Actioned by" dropdown list, you can select the specific client user to display the details of that client's details only. Choosing the "All" option will display all the clients and their transactions.</li>
+              <li><strong>Select Product Type</strong>In the "Product Type" dropdown list, you can select to display either ticket purchases by clients or service hire by clients. Choosing the "All" option will display both. </li>
+              <li><strong>Select Subsystem</strong>In the "Subsystem" dropdown list, you can select to display the specific subsystem transactions.</li>
+            </ul>
+      </div>
+    </div>
+
+    <style>
+      .help-text {
+        cursor: pointer;
+        color: #007bff;
+        font-size: 16px;
+        margin-right: 20px;
+      }
+      
+      .help-icon {
+        margin-right: 5px;
+      }
+      
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+        z-index: 1; /* Sit on top */
+        overflow: auto; /* Enable scroll if needed */
+      }
+      
+      .modal.show {
+        display: flex; /* Show modal */
+        align-items: center; /* Center vertically */
+        justify-content: center; /* Center horizontally */
+      }
+      
+      .modal-content {
+        background-color: #fefefe;
+        padding: 20px;
+        border-radius: 8px; /* Rounded corners */
+        border: 1px solid #888;
+        width: 80%; /* Smaller width */
+        max-width: 600px; /* Maximum width */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        position: relative; /* To position the close button */
+      }
+      
+      .close {
+        color: #aaa;
+        position: absolute; /* Position relative to modal content */
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+      }
+      
+      </style>
+    
+    
+    
+    

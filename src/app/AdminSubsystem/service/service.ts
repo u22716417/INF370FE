@@ -4,6 +4,7 @@ export class Service {
     serviceName: string;
     serviceDescription: string;
     assignments?: string;
+    isActive?: boolean; 
   
     constructor(
         serviceId: number,
