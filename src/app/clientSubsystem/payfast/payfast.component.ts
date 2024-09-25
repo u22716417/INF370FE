@@ -67,4 +67,9 @@ export class PayFastComponent implements OnInit {
       alert('Please fill in all fields correctly.');
     }
   }
+
+
+cancelPayment() {
+     window.history.back();
+  }
 }

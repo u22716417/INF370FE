@@ -1,65 +1,278 @@
 <div class="container mt-5">
-    <h2>PayFast Payment</h2>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Order Summary</h5>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of cartItems">
-            <div class="d-flex flex-column">
-              <span>{{ item.title }}</span>
-              <small>Price: R{{ item.price }} x {{ item.quantity }}</small>
-            </div>
-            <span>Total: R{{ item.price * item.quantity }}</span>
-          </li>
-        </ul>
-        <hr>
-        <div class="d-flex justify-content-between">
-          <h5>Subtotal:</h5>
-          <h5>R{{ total }}</h5>
+    <div class="payfast-header">
+        <h2>Test Merchant</h2>
+        <div class="powered-by">
+            <span>Secured and powered by</span>
+            <img src="assets/images/payfast-logo.png" alt="PayFast Logo" class="payfast-logo">
         </div>
-        <div class="d-flex justify-content-between">
-          <h5>VAT (15%):</h5>
-          <h5>R{{ vat }}</h5>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-between">
-          <h3>Grand Total:</h3>
-          <h3>R{{ grandTotal }}</h3>
-        </div>
-        <hr>
-        <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
-          <div class="form-group">
-            <label for="cardNumber">Card Number</label>
-            <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
-            <div *ngIf="paymentForm.get('cardNumber')?.invalid && (paymentForm.get('cardNumber')?.dirty || paymentForm.get('cardNumber')?.touched)" class="text-danger">
-              <small *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card Number is required.</small>
-              <small *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Invalid Card Number.</small>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="expiryDate">Expiry Date</label>
-            <input type="text" id="expiryDate" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
-            <div *ngIf="paymentForm.get('expiryDate')?.invalid && (paymentForm.get('expiryDate')?.dirty || paymentForm.get('expiryDate')?.touched)" class="text-danger">
-              <small *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry Date is required.</small>
-              <small *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Invalid Expiry Date.</small>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="123">
-            <div *ngIf="paymentForm.get('cvv')?.invalid && (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)" class="text-danger">
-              <small *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</small>
-              <small *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Invalid CVV.</small>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-success mt-3" [disabled]="paymentForm.invalid">Pay Now</button>
-        </form>
-      </div>
     </div>
-  </div>
-  
-  <!-- Overlay with GIF -->
-  <div *ngIf="showOverlay" class="overlay">
-    <img style="height: 120%; width: 100%;"  src="https://i.pinimg.com/originals/b2/d4/b2/b2d4b2c0f0ff6c95b0d6021a430beda4.gif" alt="Processing Payment">
-  </div>
-  
+    <div class="testing-environment">
+        <p>You're in the sandbox. This is a <strong>testing environment</strong> used to ensure correct integration with PayFast. If unexpected, please contact the merchant you are trying to pay to resolve the matter.</p>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Order Summary</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of cartItems">
+                    <div class="d-flex flex-column">
+                        <span>{{ item.title }}</span>
+                        <small>Price: R{{ item.price }} x {{ item.quantity }}</small>
+                    </div>
+                    <span>Total: R{{ item.price * item.quantity }}</span>
+                </li>
+            </ul>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <h5>Subtotal:</h5>
+                <h5>R{{ total }}</h5>
+            </div>
+            <div class="d-flex justify-content-between">
+                <h5>VAT (15%):</h5>
+                <h5>R{{ vat }}</h5>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between">
+                <h3><strong>Grand Total:</strong></h3>
+                <h3>R{{ grandTotal }}</h3>
+            </div>
+            <hr>
+            <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+                    <div *ngIf="paymentForm.get('cardNumber')?.invalid && (paymentForm.get('cardNumber')?.dirty || paymentForm.get('cardNumber')?.touched)" class="text-danger">
+                        <small *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card Number is required.</small>
+                        <small *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Invalid Card Number.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
+                    <div *ngIf="paymentForm.get('expiryDate')?.invalid && (paymentForm.get('expiryDate')?.dirty || paymentForm.get('expiryDate')?.touched)" class="text-danger">
+                        <small *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry Date is required.</small>
+                        <small *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Invalid Expiry Date.</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="123">
+                    <div *ngIf="paymentForm.get('cvv')?.invalid && (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)" class="text-danger">
+                        <small *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</small>
+                        <small *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Invalid CVV.</small>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger mt-3" [disabled]="paymentForm.invalid">Complete Payment</button>
+                <button type="button" class="btn btn-secondary mt-3" (click)="cancelPayment()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contact PayFast Section -->
+    <div class="contact-section">
+        <hr class="red-line">
+        <h5>Having trouble with your transaction? Contact PayFast:</h5>
+        <ul class="contact-info">
+            <li>
+                <i class="fas fa-phone"></i> Support: <strong>0861 729 327</strong>
+            </li>
+            <li>
+                <i class="fas fa-envelope"></i> Email: <strong>support@payfast.co.za</strong>
+            </li>
+            <li>
+                <i class="fas fa-globe"></i> Website: <strong><a href="https://www.payfast.co.za" target="_blank">www.payfast.co.za</a></strong>
+            </li>
+        </ul>
+    </div>
+
+   <!-- Overlay with a professional loading modal -->
+<div *ngIf="showOverlay" class="modal-overlay">
+    <div class="modal-content">
+        <h5 class="mt-3">Processing your payment, please stand by...</h5>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+
+
+<style>
+   .container {
+    max-width: 600px;
+    margin-top: 50px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+
+
+.payfast-logo {
+    max-height: 50px;
+}
+
+.powered-by {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.powered-by span {
+    margin-right: 10px; /* Adjust the spacing as needed */
+}
+
+.payfast-header h2 {
+    margin-right: 10px; /* Add spacing between the header and the powered-by section */
+    display: inline-block; /* Make sure header and powered-by are inline */
+}
+
+
+.testing-environment {
+    background-color: #fcf8e3;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #f0ad4e;
+    font-size: 0.9em;
+}
+
+.testing-environment p {
+    margin: 0;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: white;
+    width: 100%;
+}
+
+.btn-danger:hover {
+    background-color: #ec1d16;
+    border-color: #ac2925;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.text-danger small {
+    font-size: 0.85em;
+}
+
+.contact-section {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 16px;
+}
+
+.contact-section h5 {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.contact-info {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.contact-info li {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    color: #dc3545;
+}
+
+.red-line {
+    border: none;
+    height: 4px;
+    background-color: red;
+    margin: 20px 0;
+}
+
+.contact-info a {
+    color: #dc3545;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-secondary {
+    background-color: silver;
+    border-color: #6c757d;
+    width: 100%;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #ec1d16;
+    border-color: #545b62;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Above all elements */
+}
+
+.modal-content {
+    background: #fff; /* White modal background */
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Light shadow */
+    width: 300px; /* Fixed width */
+    max-width: 90%; /* Responsive width */
+}
+
+.spinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #d9534f; /* Red */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; /* Spin animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.modal-content h5 {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #333; /* Neutral text color */
+    margin-top: 20px; /* Space above text */
+}
+
+
+       
+</style>
