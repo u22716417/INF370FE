@@ -18,13 +18,9 @@
       <input type="email" id="employeeEmail" formControlName="email" class="form-control" />
     </div>
 
-    <div class="form-group">
-      <label for="phone">Phone</label>
-      <input type="text" id="phone" formControlName="phone" class="form-control" />
-    </div>
 
     <div class="form-group">
-      <label for="phone">Phone</label>
+      <label for="phone">Phone Number</label>
       <input 
         id="phone" 
         class="form-control" 
@@ -64,12 +60,13 @@
     <div *ngIf="profileImagePreview">
       <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail" style="max-width: 200px;" />
     </div>
-
+<br/>
     <button type="submit" class="btn btn-primary">Hire Employee</button>
 
-    <div *ngIf="showNotification" class="notification">
+    <div id="notification" [class.show]="showNotification">
       {{ notificationMessage }}
     </div>
+    
   </form>
 
    <!-- Help Modal -->

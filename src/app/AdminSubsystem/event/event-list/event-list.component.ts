@@ -36,7 +36,7 @@ export class EventListComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching events:', error);
-        alert('There are no upcoming events.');
+        this.showPopupNotification('There are no upcoming events.');
       }
     );
   
@@ -54,7 +54,7 @@ export class EventListComponent implements OnInit {
       },
       (error) => {
         console.error('Error deleting event:', error);
-        alert('Failed to remove event. Please try again later.');
+        this.showPopupNotification('Failed to remove event. Please try again later.');
       }
     );
   }
@@ -106,7 +106,7 @@ onFileSelected(event: any): void {
         console.log('File content:', jsonData);  // Check file content
         this.saveImportedEvents(jsonData);  // Save the parsed data
       } catch (error) {
-        alert('Invalid JSON file');
+        this.showPopupNotification('Invalid JSON file');
         console.error('Error parsing JSON:', error);
       }
     };

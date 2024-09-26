@@ -12,7 +12,8 @@ import { Config } from 'datatables.net';
   styleUrls: ['./equipment-list.component.css']
 })
 export class EquipmentListComponent implements OnInit {
-
+  showNotification: boolean = false;
+  notificationMessage: string = '';
   equipments: Equipment[] = [];
   equipmentTypes: EquipmentType[] = [];
   dtOptions: Config = {};
@@ -47,7 +48,7 @@ loadEquipments(): void {
     },
     (error) => {
       console.error('Error loading equipment:', error);
-      alert('Failed to load equipment. Please try again later.');
+      this.showPopupNotification('Failed to load equipment. Please try again later.');
     }
   );
 }
@@ -59,7 +60,7 @@ loadEquipmentTypes(): void {
     },
     (error) => {
       console.error('Error loading equipment types:', error);
-      alert('Failed to load equipment types. Please try again later.');
+      this.showPopupNotification('Failed to load equipment types. Please try again later.');
     }
   );
 }
@@ -68,11 +69,11 @@ deleteEquipment(equipmentId: number): void {
   this.equipmentService.deleteEquipment(equipmentId).subscribe(
     () => {
       this.equipments = this.equipments.filter(e => e.equipmentId !== equipmentId);
-      alert('Equipment has been removed successfully');
+      this.showPopupNotification('Equipment has been removed successfully');
     },
     (error) => {
       console.error('Error removing equipment:', error);
-      alert('Failed to remove equipment. Please try again later.');
+      this.showPopupNotification('Failed to remove equipment. Please try again later.');
     }
   );
 }
@@ -96,4 +97,13 @@ openHelpModal() {
 closeHelpModal() {
   this.showHelpModal = false;
 }
+
+showPopupNotification(message: string): void {
+  this.notificationMessage = message;
+  this.showNotification = true;
+  setTimeout(() => {
+    this.showNotification = false;
+  }, 3000);
+}
+
 }
