@@ -14,10 +14,16 @@ export class PayFastComponent implements OnInit {
   total: number = 0;
   vat: number = 0;
   grandTotal: number = 0;
+  discountAmount: number = 0;
   paymentForm: FormGroup;
   showOverlay: boolean = false;
 
-  constructor(private cartService: TicketService, private fb: FormBuilder, private user: UserManagementService, private route:Router) {
+  constructor(
+    private cartService: TicketService,
+    private fb: FormBuilder,
+    private user: UserManagementService,
+    private route: Router
+  ) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
       expiryDate: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
@@ -31,13 +37,14 @@ export class PayFastComponent implements OnInit {
   }
 
   calculateTotals(): void {
-
     let temptotal = this.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-
     this.vat = temptotal * 0.15;
-    this.total = temptotal - this.vat; 
-    this.grandTotal = this.total + this.vat;
+    this.total = temptotal - this.vat;
 
+    // Retrieve discount from session storage
+    const storedDiscount = sessionStorage.getItem('discountAmount');
+    this.discountAmount = storedDiscount ? +storedDiscount : 0; // Convert to number if exists
+    this.grandTotal = (this.total + this.vat) - this.discountAmount;
   }
 
   processPayment(): void {
@@ -48,15 +55,14 @@ export class PayFastComponent implements OnInit {
         userId: this.user.getcurrentUserID(),
         cartItems: this.cartItems
       };
-      
 
       this.cartService.processPayment(paymentRequest).subscribe(
         response => {
           this.showOverlay = false;
           alert('Payment processed successfully! Please check your Email');
           this.cartService.resetCart();
-          this.route.navigate(['/component/orderHistory'])
-
+          sessionStorage.removeItem('discountAmount'); // Clear discount from session storage
+          this.route.navigate(['/component/orderHistory']);
         },
         error => {
           this.showOverlay = false;
@@ -68,8 +74,9 @@ export class PayFastComponent implements OnInit {
     }
   }
 
-
-cancelPayment() {
-     window.history.back();
+  cancelPayment() {
+    // Clear the discount when canceling payment
+    sessionStorage.removeItem('discountAmount'); 
+    window.history.back(); // Redirect to checkout or cart page
   }
 }
