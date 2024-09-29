@@ -59,7 +59,7 @@ export class BackupAndRestoreComponent implements OnInit {
           this.closeModal(); // Close the modal after restore
         },
         (error) => {
-          this.isLoading = false;
+        this.isLoading = false;
           this.showPopupNotification('Restore failed. Please try again.');
           console.error('Error during restore', error);
         }

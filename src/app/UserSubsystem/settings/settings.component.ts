@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { AutologoutService } from '../autologout.service';
 import { AuthService } from 'src/app/AuthGuard/Authorization/AuthGuard';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-settings',
@@ -13,6 +14,15 @@ export class SettingsComponent implements OnInit {
   activeSection: string = 'updateProfile';
   displaymsg : boolean = false; 
   displayErrormsg : boolean = false; 
+
+  backups: any[] = []; // To store the list of backups from the API
+  isModalOpen = false; // To control the display of the modal
+  selectedBackupId: number | null = null; // To store the selected backup ID
+  showNotification: boolean = false;
+  notificationMessage: string = '';
+  isLoading: boolean = false; // Flag to indicate loading state for restore operation
+  isBackingUp: boolean = false;
+
 
   profile = {
     userId: '',
@@ -42,11 +52,13 @@ export class SettingsComponent implements OnInit {
   timerUpdated: boolean = false; // Flag to show success message
   timeUnit: string = 'minutes'; // Default time unit
 
-  constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService, private userService: AuthService,){}
+  constructor(private profileService:UserManagementService,private autoLogoutService: AutologoutService, private userService: AuthService,
+    private http: HttpClient
+  ){}
 
   ngOnInit(): void {
 
-
+    this.getBackups();
     let currentUserRole = this.userService.getCurrentUserRole();
     if(currentUserRole == 'Client')
       {
@@ -110,7 +122,75 @@ export class SettingsComponent implements OnInit {
   showSection(section: string) {
     this.activeSection = section;
   }
+ // Method to trigger a database backup
+ backupDatabase() {
+  this.isBackingUp = true;
+  this.http.post('https://localhost:7149/api/Database/backup', {}).subscribe(
+    
+    (response: any) => {
+      this.isBackingUp = false;
+      this.showPopupNotification('Backup completed successfully');
+      this.getBackups(); // Refresh the backups list
+    },
+    (error) => {
+      this.isBackingUp = false;
+      console.error('Error during backup', error);
+    }
+  );
+}
 
+// Method to open the restore modal
+openRestoreModal() {
+  this.isModalOpen = true;
+}
+
+// Method to close the modal
+closeModalRestore() {
+  this.isModalOpen = false;
+}
+
+// Method to restore a backup
+restoreDatabase() {
+  if (this.selectedBackupId) {
+    this.isLoading = true; // Start loading
+    this.http.post(`https://localhost:7149/api/Database/restore/${this.selectedBackupId}`, {}).subscribe(
+      (response: any) => {
+        this.isLoading = false;
+        this.showPopupNotification('Restore completed successfully');
+        this.closeModalRestore(); // Close the modal after restore
+        this.autoLogoutService.logout();
+      },
+      (error) => {
+      this.isLoading = false;
+        this.showPopupNotification('Restore failed. Please try again.');
+        console.error('Error during restore', error);
+      }
+    );
+  } else {
+    this.showPopupNotification('Please select a backup to restore');
+  }
+}
+
+// Method to fetch the list of backups from the API
+getBackups() {
+  this.http.get('https://localhost:7149/api/Database/backups').subscribe(
+    (response: any) => {
+      this.backups = response;
+    },
+    (error) => {
+      console.error('Error fetching backups', error);
+    }
+  );
+}
+
+showPopupNotification(message: string): void {
+  this.notificationMessage = message;
+  this.showNotification = true;
+  setTimeout(() => {
+    this.showNotification = false;
+    this.notificationMessage = '';
+  }, 3000);
+}
 // Method to update the auto-logout timer
 updateAutoLogoutTimer(): void {
   let newDurationMs: number;
