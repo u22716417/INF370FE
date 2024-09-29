@@ -225,6 +225,14 @@ export const OWNERROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: 'component/backup-and-restore',
+    title: 'Backup and Restore',
+    icon: 'bi bi-speedometer2',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: 'component/help',
     title: 'Help',
     icon: 'bi bi-menu-app',

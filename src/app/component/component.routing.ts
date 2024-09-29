@@ -52,6 +52,7 @@ import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hir
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
 import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
 import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
+import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
 
 
 
@@ -108,6 +109,12 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 
+			},
+			{
+				path: 'backup-and-restore',
+				component: BackupAndRestoreComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'payfast',
