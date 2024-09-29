@@ -39,6 +39,8 @@ export class VenueService {
     .pipe(map(result => result));
   }
 
+  
+
   // Deletes a venue
   deleteVenue(id: number): Observable<Venue> {
     return this.http.delete<Venue>(`${this.apiUrl}/${id}`)

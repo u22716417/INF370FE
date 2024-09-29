@@ -29,7 +29,8 @@ export class EquipmentCreateUpdateComponent {
   heading: string = '';
   equipmentTypes: EquipmentType[] = [];
   showHelpModal = false;  // State for displaying help modal
-
+  showNotification: boolean = false;
+  notificationMessage: string = '';
 
   constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
 
@@ -66,10 +67,10 @@ export class EquipmentCreateUpdateComponent {
         this.equipmentService.createEquipment(this.newEquipment).subscribe(
           (response: any) => {
             if (response != null) {
-              alert('Equipment has been added successfully');
-              this.router.navigate(['/equipment']);
+              this.showPopupNotification('Equipment has been added successfully');
+              this.router.navigate(['/component/equipment-list']);
             } else {
-              this.router.navigate(['/equipment']);
+              this.router.navigate(['/component/equipment-list']);
             }
           },
           (error) => {
@@ -80,10 +81,11 @@ export class EquipmentCreateUpdateComponent {
         this.equipmentService.updateEquipment(this.newEquipment.equipmentId, this.newEquipment).subscribe(
           (response: any) => {
             if (response != null) {
-              alert('Equipment has been added successfully');
-              this.router.navigate(['/equipment']);
+             
+              this.router.navigate(['/component/equipment-list']);
+              this.showPopupNotification('Equipment has been updated successfully');
             } else {
-              this.router.navigate(['/equipment']);
+              this.router.navigate(['/component/equipment-list']);
             }
           },
           (error) => {
@@ -92,7 +94,7 @@ export class EquipmentCreateUpdateComponent {
         );
       }
     } else {
-      alert('Please fill all the fields');
+      this.showPopupNotification('Please fill all the fields');
     }
   }
   
@@ -122,5 +124,12 @@ openHelpModal() {
 closeHelpModal() {
   this.showHelpModal = false;
 }
-  
+showPopupNotification(message: string): void {
+  this.notificationMessage = message;
+  this.showNotification = true;
+  setTimeout(() => {
+    this.showNotification = false;
+    this.notificationMessage = '';
+  }, 3000);
+}
 }

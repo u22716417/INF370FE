@@ -1,23 +1,19 @@
 export class Service {
-    serviceId: number;
-    serviceTypeId: number;
+    id: number;
     serviceName: string;
     serviceDescription: string;
-    assignments?: string;
     isActive?: boolean; 
   
     constructor(
-        serviceId: number,
-        serviceTypeId: number,
+        id: number,
         serviceName: string,
         serviceDescription: string,
-        assignments: string
+  
     ) {
-      this.serviceId = serviceId;
-      this.serviceTypeId = serviceTypeId;
+      this.id = id;
       this.serviceName = serviceName;
       this.serviceDescription = serviceDescription;
-      this.assignments = assignments;
+
     }
   }
   
