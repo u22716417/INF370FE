@@ -51,6 +51,7 @@ export class HireServiceComponent implements OnInit {
   SelectedEquipment: number = 0;
   showEqupmentPopup: boolean = false;
   CurrentEquipment: any;
+  isValid: boolean =  true;
 
   constructor(
     private serviceService: ServicesServiceService,
@@ -215,6 +216,13 @@ export class HireServiceComponent implements OnInit {
 
     this.errorMessage = ''; // Clear any previous error message
 
+
+    const isOverlapping = (start1: Date, end1: Date, start2: Date, end2: Date): boolean => {
+      return start1 <= end2 && start2 <= end1;
+    };
+
+
+
     if (!this.startDate || (this.startDate && this.endDate)) {
       // First date selected or both dates already selected (resetting)
       this.startDate = clickedDate;
@@ -228,6 +236,25 @@ export class HireServiceComponent implements OnInit {
       } else {
         this.endDate = clickedDate;
       }
+
+      for (let event of this.getBookedEvents()) {
+        const eventStart = new Date(event.start);
+        const eventEnd = new Date(event.end);
+    
+        // Check if the new event's range overlaps with any existing event's range
+        if(this.startDate && this.endDate)
+        {
+          if (isOverlapping(eventStart, eventEnd, new Date(this.startDate) , new Date(this.endDate) )) {
+            this.errorMessage = 'This booking overlaps with an existing Booking.';
+            this.endDate = '';
+            this.startDate ='';
+            this.isValid = false;
+
+            return;
+          }
+        }
+      }
+
     }
 
     // Update date fields
@@ -238,8 +265,6 @@ export class HireServiceComponent implements OnInit {
 
   onSubmit(): void {
    
-
-      
       const hireRequest: any = {
         HireEquipmentId: 0, 
         EquipmentId: this.SelectedEquipment,

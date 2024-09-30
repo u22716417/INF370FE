@@ -37,7 +37,13 @@
         <div *ngIf="venueCapacity.errors?.['max']">Capacity cannot exceed 1,000,000.</div>
       </div>
     </div>
-    
+    <div style="margin-bottom: 10px;">
+      <label for="contactPerson">Contact Person</label>
+      <input id="contactPerson" class="form-control" type="text" name="address" [(ngModel)]="venue.contactPerson" #contactPerson="ngModel" placeholder="Enter the contact person" required title="Please enter an address">
+      <div *ngIf="contactPerson.invalid && contactPerson.touched" class="text-danger">
+        Venue contact person is required.
+      </div>
+    </div>
     <div style="margin-bottom: 10px;">
       <label for="venueContactNumber">Contact Number</label>
       <input 

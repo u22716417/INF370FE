@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule,Routes } from '@angular/router';
 import { NgbdpaginationBasicComponent } from './pagination/pagination.component';
 import { NgbdAlertBasicComponent } from './alert/alert.component';
 
@@ -50,6 +50,13 @@ import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.componen
 import { HelpComponent } from '../HelpSubsystem/help/help.component';
 import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
+<<<<<<< HEAD
+import { NgModule } from '@angular/core';
+=======
+import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
+import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
+>>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
 
 
 
@@ -57,6 +64,7 @@ export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+
 			{
 				path: 'UnSoldTicketReport',
 				component: UnSoldTicketReportComponent,
@@ -105,6 +113,12 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 
+			},
+			{
+				path: 'backup-and-restore',
+				component: BackupAndRestoreComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'payfast',
@@ -175,8 +189,8 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-				path: 'venues',
-				component: VenuesComponent,
+				path: 'create-update',
+				component: CreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 				
@@ -266,7 +280,7 @@ export const ComponentsRoutes: Routes = [
 				  path: 'equipment-create-update/:id',
 				  component: EquipmentCreateUpdateComponent,
 				  canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+				data: { roles: ['Admin'] } // Specify allowed roles here
 				},
 				{
 				  path: 'generate-code/:id',
@@ -292,6 +306,24 @@ export const ComponentsRoutes: Routes = [
 				component: ViewClientProfileComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'sponsor-list',
+				component: SponsorListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'venue',
+				component: VenuesComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'sponsor-list',
+				component: SponsorListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
 				path: 'codes-list',
@@ -350,7 +382,7 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 	        {
-				path:'service-create-update',
+				path:'service-create-update/:id',
 				component:ServiceCreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
@@ -365,6 +397,12 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'event-create-update/:id',
 				component: EventCreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'sponsor-create-update/:id',
+				component: SponsorCreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
@@ -406,6 +444,12 @@ export const ComponentsRoutes: Routes = [
 				component: CollectHireItemsComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
+			},
+			{
+				path: 'create-update/:id',
+				component: CreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			}
 
 

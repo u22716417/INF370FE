@@ -78,6 +78,7 @@ import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-wa
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { CollectHireItemsComponent } from './ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
 import { DispenseHireItemsComponent } from './ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
+import { BackupAndRestoreComponent } from './AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
 
 
 @NgModule({
@@ -134,6 +135,7 @@ import { DispenseHireItemsComponent } from './ServiceHireSubsystem/dispense-hire
     LogoutWarningComponent,
     CollectHireItemsComponent,
     DispenseHireItemsComponent,
+    BackupAndRestoreComponent,
     
   ],
   imports: [

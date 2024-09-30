@@ -8,7 +8,7 @@
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
         <!-- Button trigger modal -->
-        <a class="btn btn-primary" routerLink="/component/service-create-update" routerLinkActive="active">
+        <a class="btn btn-primary" routerLink="/component/service-create-update/0" routerLinkActive="active">
           Add New
         </a>
       </div>
@@ -32,10 +32,9 @@
           <td>{{ service.serviceName }}</td>
           <td>{{ service.serviceDescription }}</td>
           <td>
-            <a class="btn btn-primary" [routerLink]="['/service-create-update', service.serviceId]" routerLinkActive="active">Edit</a>
-            <button (click)="deleteById(service.serviceId)" type="button" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
-            <!-- Debug line to show serviceId -->
-            <span *ngIf="service.serviceId">Service ID: {{ service.serviceId }}</span>
+            <a class="btn btn-primary" [routerLink]="['/component/service-create-update', service.id]" routerLinkActive="active">Edit</a> |
+            <button (click)="deleteById(service.id)" type="button" class="btn btn-danger" style="margin-left: 10px;">Delete</button>
+
           </td>
         </tr>
       </tbody>

@@ -1,36 +1,36 @@
 <div class="container">
-  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
-  <h2>Equipment</h2>
-  <a class="btn btn-primary" routerLink="/equipment-create-update/0" routerLinkActive="active" >
+  <h2>Equipment List</h2>
+  <a class="btn btn-primary" routerLink="/component/equipment-create-update/0">
     Add New
   </a>
-  <table datatable [dtOptions]="dtOptions" *ngIf="equipments.length>0"  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Availability</th>
-      <th>Equipment Type</th>
-      <th>Condition</th>
-      <th>Image</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let equipment of equipments">
-      <td>{{ equipment.equipmentName }}</td>
-      <td>{{ equipment.equipmentDescription }}</td>
-      <td>{{ equipment.equipmentAvailability }}</td>
-      <td>{{ getEquipmentTypeDescription(equipment.equipmentTypeId) }}</td>
-      <td>{{ equipment.equipmentCondition }}</td>
-      <td> <img [src]="equipment.equipmentImage" alt="Equipment Image" style="max-width: 100px; height: auto;"></td>
-      <td>
-        <a class="btn btn-primary" [routerLink]="['/equipment-create-update', equipment.equipmentId]">Edit</a> |
-        <button class="btn btn-primary" (click)="deleteEquipment(equipment.equipmentId)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+  <br><br>
+
+  <table datatable [dtOptions]="dtOptions" *ngIf="equipments.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Condition</th>
+        <th>Availability</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let equipment of equipments">
+        <td>{{ equipment.equipmentName}}</td>
+        <td>{{ equipment.equipmentDescription }}</td>
+        <td>{{ equipment.equipmentCondition }}</td>
+        <td>{{equipment.equipmentAvailability}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="editEquipment(equipment.id)">Edit</button> |
+          <button class="btn btn-danger btn-sm" (click)="deleteEquipment(equipment.equipmentId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
 
    <!-- Help Modal -->
    <div class="modal" [ngClass]="{'show': showHelpModal}">
