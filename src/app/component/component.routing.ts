@@ -310,7 +310,7 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
-				path: 'venue',
+				path: 'venues',
 				component: VenuesComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
