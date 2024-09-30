@@ -28,7 +28,6 @@ import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-cod
 import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
 import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
-import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
 import { UnSoldTicketReportComponent } from '../Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
@@ -50,6 +49,10 @@ import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.componen
 import { HelpComponent } from '../HelpSubsystem/help/help.component';
 import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
+import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
+import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
+import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 
 
 

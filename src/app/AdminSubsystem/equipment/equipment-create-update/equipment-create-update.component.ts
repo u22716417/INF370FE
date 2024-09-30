@@ -27,15 +27,14 @@ export class EquipmentCreateUpdateComponent implements OnInit {
   heading: string = '';
   equipmentTypes: EquipmentType[] = [];
   showHelpModal = false;  // State for displaying help modal
+  notificationMessage: string = '';
+  showNotification: boolean = false;
 
-
-  constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
-
-  cancel() {
-    console.log('Cancel button clicked');
-    this.router.navigate(['/component/equipment-list']);
-  }
->>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
+  constructor(
+    public router: Router,
+    private equipmentService: EquipmentService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -57,51 +56,12 @@ export class EquipmentCreateUpdateComponent implements OnInit {
     });
 
     // Fetch equipment types
-<<<<<<< HEAD
     this.equipmentService.getEquipmentTypes().subscribe(
       (response: EquipmentType[]) => {
         this.equipmentTypes = response;
       },
       (error) => {
         console.error('Error fetching equipment types:', error);
-=======
-    this.equipmentService.getAllEquipmentTypes().subscribe((response: EquipmentType[]) => {
-      this.equipmentTypes = response;
-    });
-  }
-
-  addEquipment(equipmentForm: NgForm): void {
-    if (equipmentForm.valid) {
-      if (this.newEquipment.equipmentId === 0) {
-        this.equipmentService.createEquipment(this.newEquipment).subscribe(
-          (response: any) => {
-            if (response != null) {
-              this.showPopupNotification('Equipment has been added successfully');
-              this.router.navigate(['/component/equipment-list']);
-            } else {
-              this.router.navigate(['/component/equipment-list']);
-            }
-          },
-          (error) => {
-            console.error('Error adding equipment:', error);
-          }
-        );
-      } else {
-        this.equipmentService.updateEquipment(this.newEquipment.equipmentId, this.newEquipment).subscribe(
-          (response: any) => {
-            if (response != null) {
-             
-              this.router.navigate(['/component/equipment-list']);
-              this.showPopupNotification('Equipment has been updated successfully');
-            } else {
-              this.router.navigate(['/component/equipment-list']);
-            }
-          },
-          (error) => {
-            console.error('Error updating equipment:', error);
-          }
-        );
->>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
       }
     );
 }
@@ -123,7 +83,16 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
         }
       );
     } else {
-      alert('Please fill all the fields');
+      // Updating existing equipment
+      this.equipmentService.updateEquipment(this.newEquipment.equipment_ID, this.newEquipment as any).subscribe(
+        () => {
+          alert('Equipment updated successfully.');
+          this.router.navigate(['/component/equipment-list']);
+        },
+        (error) => {
+          console.error('Error updating equipment:', error);
+        }
+      );
     }
   } else {
     alert('Please fill all the required fields.');
@@ -149,7 +118,6 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
     reader.readAsDataURL(fileToUpload);
   }
 
-<<<<<<< HEAD
   // Cancel button to navigate back to the equipment list
   cancel(): void {
     this.router.navigate(['/component/equipment-list']);
@@ -164,10 +132,5 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
   closeHelpModal(): void {
     this.showHelpModal = false;
   }
-=======
-// Method to close help modal
-closeHelpModal() {
-  this.showHelpModal = false;
 }
-  
-}
+
