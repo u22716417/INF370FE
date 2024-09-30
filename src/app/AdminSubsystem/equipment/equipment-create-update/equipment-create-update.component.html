@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container"></div>
   <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 1; top: 30px;">Help</a>
-  <h2 style="text-align: center;">Edit Equipment</h2>
-  <form #equipmentForm="ngForm" (ngSubmit)="addEquipment(equipmentForm)" novalidate>
+  <h5 style="text-align: center;">{{ heading }}</h5>
+  <form #equipmentForm="ngForm" (ngSubmit)="addOrUpdateEquipment(equipmentForm)" novalidate>
     <div style="margin-bottom: 10px;">
       <label for="equipmentName">Name</label>
       <input 
@@ -9,13 +9,13 @@
         class="form-control" 
         type="text" 
         name="name" 
-        [(ngModel)]="newEquipment.equipmentName" 
+        [(ngModel)]="newEquipment.name" 
         required 
         title="Please enter an equipment name" 
         #name="ngModel" 
         [class.is-invalid]="name.invalid && (name.dirty || name.touched)">
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
-        Equipment name required.Please enter an equipment name.
+        Equipment name required. Please enter an equipment name.
       </div>
     </div>
 
@@ -25,21 +25,19 @@
         id="equipmentType" 
         class="form-control" 
         name="equipmentType" 
-        [(ngModel)]="newEquipment.equipmentTypeId" 
+        [(ngModel)]="newEquipment.equipment_Type_ID" 
         #equipmentType="ngModel" 
         required
         [class.is-invalid]="equipmentType.invalid && (equipmentType.dirty || equipmentType.touched)">
         <option value="" disabled>Select an Equipment Type</option>
         <option *ngFor="let type of equipmentTypes" [value]="type.equipmentTypeId">
-          {{ type.equipmentTypeDescription }}
+          {{ type.equipmentTypeDescription}}
         </option>
       </select>
       <div *ngIf="equipmentType.invalid && (equipmentType.dirty || equipmentType.touched)" class="invalid-feedback">
-        Equipment type is required. Please select an equipment type
+        Equipment type is required. Please select an equipment type.
       </div>
     </div>
-
-
 
     <div style="margin-bottom: 10px;">
       <label for="equipmentDescription">Description</label>
@@ -48,13 +46,13 @@
         class="form-control" 
         type="text" 
         name="description" 
-        [(ngModel)]="newEquipment.equipmentDescription" 
+        [(ngModel)]="newEquipment.description" 
         required 
         title="Please enter a description" 
         #description="ngModel" 
         [class.is-invalid]="description.invalid && (description.dirty || description.touched)">
       <div *ngIf="description.invalid && (description.dirty || description.touched)" class="invalid-feedback">
-        Equipment descriptionm required.Please enter a description.
+        Equipment description required. Please enter a description.
       </div>
     </div>
 
@@ -65,12 +63,11 @@
         class="form-control" 
         type="text" 
         name="availability" 
-        [(ngModel)]="newEquipment.equipmentAvailability" 
+        [(ngModel)]="newEquipment.availability" 
         #availability="ngModel" 
         [disabled]="true"
-        value="true" 
+        value="True" 
         [class.is-invalid]="availability.invalid && (availability.dirty || availability.touched)">
-     
     </div>
 
     <div style="margin-bottom: 10px;">
@@ -80,13 +77,13 @@
         class="form-control" 
         type="text" 
         name="condition" 
-        [(ngModel)]="newEquipment.equipmentCondition" 
+        [(ngModel)]="newEquipment.condition" 
         required 
         title="Please enter condition" 
         #condition="ngModel" 
         [class.is-invalid]="condition.invalid && (condition.dirty || condition.touched)">
       <div *ngIf="condition.invalid && (condition.dirty || condition.touched)" class="invalid-feedback">
-        Equipment condition required.Please enter equipment condition.
+        Equipment condition required. Please enter equipment condition.
       </div>
     </div>
 
@@ -102,14 +99,14 @@
       <span *ngIf="fileNameUploaded.length > 0">{{ fileNameUploaded }}</span>
     </div>
 
-    <div *ngIf="newEquipment.equipmentImage" style="margin-bottom: 10px;">
+    <div *ngIf="newEquipment.image" style="margin-bottom: 10px;">
       <label>Current Image</label>
-      <img [src]="newEquipment.equipmentImage" alt="Equipment Image" style="max-width: 100%; height: auto;"/>
+      <img [src]="newEquipment.image" alt="Equipment Image" style="max-width: 100%; height: auto;"/>
     </div>
 
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/equipment-list'])">Close</button>
-      <input type="submit" class="btn btn-primary" [disabled]="!equipmentForm.form.valid" name="Save" (click)="router.navigate(['/component/equipment-list'])"/> 
+      <input type="submit" class="btn btn-primary" [disabled]="!equipmentForm.form.valid" name="Save" /> 
     </div>
   </form>
 
@@ -130,8 +127,10 @@
     </ul>
   </div>
 </div>
-
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
 </div>
+
 
 <style>
   .is-invalid {
@@ -197,10 +196,6 @@
     text-decoration: none;
   }
   
-  .rating-legend,
-  .order-details {
-    padding: 10px; /* Add some padding */
-  }
   
 </style>
 

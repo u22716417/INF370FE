@@ -46,22 +46,33 @@ export class EventCreateUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVenues(); // Fetch the list of venues
-
+  
     this.route.params.subscribe(params => {
       const id = parseInt(params['id'], 10); 
-    
+      
       if (id > 0) {
         this.heading = 'Edit Event';
         this.eventService.getEventById(id).subscribe((response: any) => {
           this.newEvent = response;
+          
+          // Ensure these functions are returning correctly formatted values
           this.newEvent.eventDate = this.formatDateToISO(this.newEvent.eventDate);
           this.newEvent.eventTime = this.formatTimeToISO(this.newEvent.eventTime);
+          
+          // Set the image preview if the image exists
+          if (this.newEvent.image) {
+            this.profileImagePreview = this.newEvent.image; 
+          }
+        }, error => {
+          console.error('Error fetching event:', error); // Add error handling
         });
       } else {
         this.heading = 'Add Event';
       }
     });
   }
+  
+
 
   addEvent(eventForm: NgForm) {
     if (this.newEvent.id === 0) {
@@ -70,18 +81,21 @@ export class EventCreateUpdateComponent implements OnInit {
         this.showPopupNotification('Event successfully created!');
       }, error => {
         console.error('Error creating event:', error);
+        this.showPopupNotification('Error creating event. Please try again.');
+
       });
     } else {
-      this.eventService.updateEvent(this.newEvent.id, this.newEvent).subscribe((response: any) => {
+      this.eventService.updateEvent(this.newEvent, this.newEvent.id).subscribe((response: any) => {
         this.handleNavigation(response);
         this.showPopupNotification('Event successfully updated!');
       }, error => {
         console.error('Error updating event:', error);
+        this.errorMessage = 'Error updating event. Please try again.'; // Set an error message
+        this.showPopupNotification('Error updating event. Please try again.');
       });
     }
   }
   
-
   private handleNavigation(response: any) {
     if (response != null) {
       this.router.navigate(['/component/events']);
@@ -114,10 +128,16 @@ export class EventCreateUpdateComponent implements OnInit {
     this.http.get<any[]>('https://localhost:7149/api/Venues')
       .subscribe(data => {
         this.venues = data;
+  
+        // Pre-select the venue in edit mode
+        if (this.newEvent.venueId && this.venues.length > 0) {
+          this.newEvent.venueId = this.newEvent.venueId;  // Ensure it's set to the right value
+        }
       }, error => {
         console.error('Error loading venues:', error);
       });
   }
+  
 
   cancel() {
     this.router.navigate(['/component/events']);

@@ -28,7 +28,8 @@ export class SponsorServiceService {
   updateSponsor(sponsorId: number, sponsor: Sponsor): Observable<Sponsor> {
     return this.http.put<Sponsor>(`${this.apiUrl}/${sponsorId}`, sponsor);
   }
-
+  
+  
   deleteSponsor(sponsorId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sponsorId}`);
   }

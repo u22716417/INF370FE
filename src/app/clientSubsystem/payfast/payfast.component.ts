@@ -17,6 +17,8 @@ export class PayFastComponent implements OnInit {
   discountAmount: number = 0;
   paymentForm: FormGroup;
   showOverlay: boolean = false;
+  showNotification: boolean = false;
+  notificationMessage: string = '';
 
   constructor(
     private cartService: TicketService,
@@ -59,18 +61,18 @@ export class PayFastComponent implements OnInit {
       this.cartService.processPayment(paymentRequest).subscribe(
         response => {
           this.showOverlay = false;
-          alert('Payment processed successfully! Please check your Email');
+          this.showPopupNotification('Payment processed successfully! Please check your Email');
           this.cartService.resetCart();
           sessionStorage.removeItem('discountAmount'); // Clear discount from session storage
           this.route.navigate(['/component/orderHistory']);
         },
         error => {
           this.showOverlay = false;
-          alert('Payment failed. Please try again.');
+          this.showPopupNotification('Payment failed. Please try again.');
         }
       );
     } else {
-      alert('Please fill in all fields correctly.');
+      this.showPopupNotification('Please fill in all fields correctly.');
     }
   }
 
@@ -78,5 +80,14 @@ export class PayFastComponent implements OnInit {
     // Clear the discount when canceling payment
     sessionStorage.removeItem('discountAmount'); 
     window.history.back(); // Redirect to checkout or cart page
+  }
+
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+      this.notificationMessage = '';
+    }, 3000);
   }
 }

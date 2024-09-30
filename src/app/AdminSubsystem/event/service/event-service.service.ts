@@ -35,14 +35,16 @@ export class EventServiceService {
   }
 
   // Update an existing event
-  updateEvent(event: Event, formData: FormData): Observable<Event> {
-    const url = `${this.apiUrl}/${event.eventId}`;
-    return this.http.put<Event>(url, event, this.httpOptions);
+  updateEvent(event: any, eventId:number): Observable<Event> {
+    const url = `${this.apiUrl}/${eventId}`;
+    console.log("Hitting: ", url);
+    console.log(event);
+    return this.http.put<any>(url, event);
   }
 
   // Delete an event
-  deleteEvent(eventId: number): Observable<void> {
-    const url = `${this.apiUrl}/deleteEvent/${eventId}`;
+  deleteEvent(id: number): Observable<void> {
+    const url = `${this.apiUrl}/deleteEvent/${id}`;
     return this.http.delete<void>(url, this.httpOptions);
   }
   

@@ -29,6 +29,7 @@
           </option>
         </select>
         <br>
+        <h3 style="color: red;">{{this.errorMessage}}</h3>
       <div  *ngIf="isService">
             <h2>Enter Service Details</h2>
 
@@ -173,31 +174,59 @@
 
 <div *ngIf="showPaymentPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 1000;">
   <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 1001; max-width: 400px; width: 100%;">
+    <div class="payfast-header">
+      <h2>Test Merchant</h2>
+      <div class="powered-by">
+          <span>Secured and powered by</span>
+          <img src="assets/images/payfast-logo.png" alt="PayFast Logo" class="payfast-logo">
+      </div>
+  </div>
+  <div class="testing-environment">
+      <p>You're in the sandbox. This is a <strong>testing environment</strong> used to ensure correct integration with PayFast. If unexpected, please contact the merchant you are trying to pay to resolve the matter.</p>
+  </div>
     <h2>Make Payment</h2>
-    <p>Service: {{paymentServiceName}}</p>
-    <p>Amount Payable: R{{paymentAmount}}</p>
-    <form (ngSubmit)="processPayment()">
-      <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 5px;">Card Number:</label>
-        <input type="text" [(ngModel)]="cardNumber" name="cardNumber" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter your card number.">
+    <p>Service: {{ paymentServiceName }}</p>
+    <p>Amount Payable: R{{ paymentAmount }}</p>
+    
+    <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+      <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+        <div *ngIf="paymentForm.get('cardNumber')?.invalid && (paymentForm.get('cardNumber')?.dirty || paymentForm.get('cardNumber')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card Number is required.</small>
+          <small *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Invalid Card Number.</small>
+        </div>
       </div>
-      <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 5px;">Expiry Date:</label>
-        <input type="text" [(ngModel)]="expiryDate" name="expiryDate" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the card expiry date.">
+
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date</label>
+        <input type="text" id="expiryDate" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
+        <div *ngIf="paymentForm.get('expiryDate')?.invalid && (paymentForm.get('expiryDate')?.dirty || paymentForm.get('expiryDate')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry Date is required.</small>
+          <small *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Invalid Expiry Date.</small>
+        </div>
       </div>
-      <div style="margin-bottom: 15px;">
-        <label style="display: block; margin-bottom: 5px;">CVV:</label>
-        <input type="text" [(ngModel)]="cvv" name="cvv" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter the 3-digit CVV code.">
+
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="123">
+        <div *ngIf="paymentForm.get('cvv')?.invalid && (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</small>
+          <small *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Invalid CVV.</small>
+        </div>
       </div>
+
       <div *ngIf="processing" style="margin-bottom: 15px;">
         <p>Processing payment, please wait...</p>
         <div class="spinner"></div>
       </div>
-      <button type="submit" [disabled]="processing" class="btn btn-success" style="margin-right: 10px; padding: 10px 20px; border: none; border-radius: 4px; background-color: #28a745; color: white; cursor: pointer;">Approve</button>
-      <button type="button" class="btn btn-danger" (click)="closePaymentPopup()" [disabled]="processing" style="padding: 10px 20px; border: none; border-radius: 4px; background-color: #dc3545; color: white; cursor: pointer;">Cancel</button>
+      
+      <button type="submit" class="btn btn-success" (click)="processPayment()" [disabled]="processing || paymentForm.invalid">Approve</button>
+      <button type="button" class="btn btn-danger" (click)="closePaymentPopup()" [disabled]="processing">Cancel</button>
     </form>
   </div>
 </div>
+
 
 <style>
   /* Modal Styles */

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule,Routes } from '@angular/router';
 import { NgbdpaginationBasicComponent } from './pagination/pagination.component';
 import { NgbdAlertBasicComponent } from './alert/alert.component';
 
@@ -28,7 +28,6 @@ import { CouponCodeViewComponent } from '../AdminSubsystem/couponCode/coupon-cod
 import { GenerateCodeComponent } from '../AdminSubsystem/couponCode/generate-code/generate-code.component';
 import { FaqListComponent } from '../AdminSubsystem/FAQ/faq-list/faq-list.component';
 import { HireServiceComponent } from '../ServiceHireSubsystem/hireService/hire-service/hire-service.component';
-import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { ViewClientProfileComponent } from '../AdminSubsystem/client-profile/view-client-profile/view-client-profile.component';
 import { CheckoutComponent } from '../clientSubsystem/checkout/checkout.component';
 import { UnSoldTicketReportComponent } from '../Reporting/un-sold-ticket-report/un-sold-ticket-report.component';
@@ -50,8 +49,10 @@ import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.componen
 import { HelpComponent } from '../HelpSubsystem/help/help.component';
 import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
-import { SalesAttendanceReportComponent } from '../Reporting/sales-attendance-report/sales-attendance-report.component';
-import { NonAttendanceReportComponent } from '../Reporting/non-attendance-report/non-attendance-report.component';
+import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
+import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
+import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 
 
 
@@ -59,6 +60,7 @@ export const ComponentsRoutes: Routes = [
 	{
 		path: '',
 		children: [
+
 			{
 				path: 'UnSoldTicketReport',
 				component: UnSoldTicketReportComponent,
@@ -96,18 +98,6 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
-				path: 'SalesAttendanceReport',
-				component: SalesAttendanceReportComponent,
-				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
-			},
-			{
-				path: 'NonAttendanceReport',
-				component: NonAttendanceReportComponent,
-				canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
-			},
-			{
 				path: 'orderHistory',
 				component: OrderHistoryComponent,
 				canActivate: [RoleBasedAuthGuard],
@@ -119,6 +109,12 @@ export const ComponentsRoutes: Routes = [
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 
+			},
+			{
+				path: 'backup-and-restore',
+				component: BackupAndRestoreComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
 			{
 				path: 'payfast',
@@ -189,8 +185,8 @@ export const ComponentsRoutes: Routes = [
 				component: LoginComponent
 			},
 			{
-				path: 'venues',
-				component: VenuesComponent,
+				path: 'create-update',
+				component: CreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 				
@@ -280,7 +276,7 @@ export const ComponentsRoutes: Routes = [
 				  path: 'equipment-create-update/:id',
 				  component: EquipmentCreateUpdateComponent,
 				  canActivate: [RoleBasedAuthGuard],
-				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+				data: { roles: ['Admin'] } // Specify allowed roles here
 				},
 				{
 				  path: 'generate-code/:id',
@@ -306,6 +302,24 @@ export const ComponentsRoutes: Routes = [
 				component: ViewClientProfileComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'sponsor-list',
+				component: SponsorListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'venue',
+				component: VenuesComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			  },
+			  {
+				path: 'sponsor-list',
+				component: SponsorListComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			  },
 			  {
 				path: 'codes-list',
@@ -364,7 +378,7 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['Client','Admin','Owner'] } // Specify allowed roles here
 			},
 	        {
-				path:'service-create-update',
+				path:'service-create-update/:id',
 				component:ServiceCreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
@@ -379,6 +393,12 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'event-create-update/:id',
 				component: EventCreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'sponsor-create-update/:id',
+				component: SponsorCreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},
@@ -420,6 +440,12 @@ export const ComponentsRoutes: Routes = [
 				component: CollectHireItemsComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
+			},
+			{
+				path: 'create-update/:id',
+				component: CreateUpdateComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			}
 
 

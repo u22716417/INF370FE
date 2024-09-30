@@ -14,6 +14,8 @@
         <th>Name</th>
         <th>Location</th>
         <th>Contact Person</th>
+        <th>Contact Number</th>
+
         <th>Actions</th>
       </tr>
     </thead>
@@ -21,9 +23,10 @@
       <tr *ngFor="let venue of filterVenue">
         <td>{{ venue.venueName }}</td>
         <td>{{ venue.venueAddress }}</td>
-        <td>{{ venue.venueContactPerson }}</td>
+        <td>{{ venue.contactPerson }}</td>
+        <td>{{ venue.venueContactNumber }}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/create-update', venue.venueId]" routerLinkActive="active">Edit</a> |
+          <a class="btn btn-primary" [routerLink]="['/component/create-update', venue.venueId]" routerLinkActive="active">Edit</a> |
           <button class="btn btn-danger btn-sm" (click)="deleteById(venue.venueId)">Delete</button>
         </td>
       </tr>

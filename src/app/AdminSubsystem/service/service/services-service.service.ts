@@ -47,7 +47,7 @@ export class ServicesServiceService {
 
   // Gets a single service by ID
   getServiceById(id: number): Observable<Service> {
-    return this.http.get<Service>(`${this.apiUrl}/${id}`);
+    return this.http.get<Service>(`${this.apiUrl}/${id}`)
   }
   
 
@@ -58,8 +58,8 @@ export class ServicesServiceService {
   }
 
   // Updates an existing venue
-  updateService(service: Service): Observable<Service> {
-    return this.http.put<Service>(`${this.apiUrl}/${service.serviceId}`, service)
+  updateService(id: number, service: Service): Observable<Service> {
+    return this.http.put<Service>(`${this.apiUrl}/${id}`, service)
     .pipe(map(result => result));
   }
 

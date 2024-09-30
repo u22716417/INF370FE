@@ -1,109 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipment, EquipmentType } from '../equipmentClass';
-import { EquipmentServiceService } from '../service/equipment-service.service';
-import { Router, RouterLink } from '@angular/router';
 import { Config } from 'datatables.net';
-
+import { EquipmentService } from '../service/equipment-service.service';
+import { Router } from '@angular/router';
 
 @Component({
-
   selector: 'app-equipment-list',
   templateUrl: './equipment-list.component.html',
   styleUrls: ['./equipment-list.component.css']
 })
 export class EquipmentListComponent implements OnInit {
+  equipments: any[] = [];  // Changed to 'any[]'
+  showHelpModal: boolean = false;
+  dtOptions: Config = {};
   showNotification: boolean = false;
   notificationMessage: string = '';
-  equipments: Equipment[] = [];
-  equipmentTypes: EquipmentType[] = [];
-  dtOptions: Config = {};
-  newEquipment: Equipment = {
-    equipmentId: 0,
-    equipmentTypeId:0,
-    equipmentName: '',
-    equipmentDescription: '',
-    equipmentAvailability: '',
-    equipmentCondition: '',
-    equipmentImage: '', // Adjust as needed
-    assignments: [], // Adjust as needed
-    equipmentType: undefined // Adjust as needed
-  };
-  showHelpModal = false;  // State for displaying help modal
 
-  constructor(private equipmentService: EquipmentServiceService) { }
+  constructor(private equipmentService: EquipmentService, private router:Router) {}
 
-  editEquipment: Equipment | null = null;
-
-  
-  
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.loadEquipments();
-    this.loadEquipmentTypes();
-}
-
-loadEquipments(): void {
-  this.equipmentService.getAllEquipments().subscribe(
-    (data: Equipment[]) => {
-      this.equipments = data;
-    },
-    (error) => {
-      console.error('Error loading equipment:', error);
-      this.showPopupNotification('Failed to load equipment. Please try again later.');
-    }
-  );
-}
-
-loadEquipmentTypes(): void {
-  this.equipmentService.getAllEquipmentTypes().subscribe(
-    (data: EquipmentType[]) => {
-      this.equipmentTypes = data;
-    },
-    (error) => {
-      console.error('Error loading equipment types:', error);
-      this.showPopupNotification('Failed to load equipment types. Please try again later.');
-    }
-  );
-}
-
-deleteEquipment(equipmentId: number): void {
-  this.equipmentService.deleteEquipment(equipmentId).subscribe(
-    () => {
-      this.equipments = this.equipments.filter(e => e.equipmentId !== equipmentId);
-      this.showPopupNotification('Equipment has been removed successfully');
-    },
-    (error) => {
-      console.error('Error removing equipment:', error);
-      this.showPopupNotification('Failed to remove equipment. Please try again later.');
-    }
-  );
-}
-
-
-  selectEquipment(equipment: Equipment): void {
-    this.editEquipment = { ...equipment };
   }
 
-  getEquipmentTypeDescription(equipmentTypeId: number): string {
-    const type = this.equipmentTypes.find(t => t.equipmentTypeId === equipmentTypeId);
-    return type ? type.equipmentTypeDescription : 'Unknown'; // Return the description or 'Unknown' if not found
+  loadEquipments(): void {
+    this.equipmentService.getEquipments().subscribe(
+      (data: any[]) => {  // Expect 'any[]' data
+        this.equipments = data;
+        console.log('Equipment fetched: ', this.equipments);  
+      },
+      (error) => {
+        console.error('Error fetching equipment:', error);
+      }
+    );
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
   }
 
-  // Method to open help modal
-openHelpModal() {
-  this.showHelpModal = true;
-}
+  editEquipment(equipmentId: number): void {
+    console.log('Editing equipment with ID:', equipmentId);  // Add this line for debugging
+    if (equipmentId) {
+      this.router.navigate(['/equipment-create-update', equipmentId]);
+    } else {
+      console.error('ID is undefined or null');
+    }
+  }
+  
 
-// Method to close help modal
-closeHelpModal() {
-  this.showHelpModal = false;
-}
 
-showPopupNotification(message: string): void {
-  this.notificationMessage = message;
-  this.showNotification = true;
-  setTimeout(() => {
-    this.showNotification = false;
-  }, 3000);
-}
+  deleteEquipment(id: number): void {
+    if (confirm('Are you sure you want to delete this equipment?')) {
+      this.equipmentService.deleteEquipment(id).subscribe({
+        next: () => {
+          this.loadEquipments(); // Reload the equipment list after deletion
+        },
+        error: (err) => {
+          console.error('Error deleting equipment', err);
+        }
+      });
+    }
+  }
 
+  openHelpModal() {
+    this.showHelpModal = true;
+  }
+
+  closeHelpModal() {
+    this.showHelpModal = false;
+  }
+
+  showNotificationMessage(message: string) {
+    this.notificationMessage = message;
+    this.showNotification = true;
+  
+    // Optionally hide the notification after a few seconds
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 3000);  // 3 seconds
+  }
 }
