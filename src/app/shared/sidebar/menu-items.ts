@@ -143,7 +143,7 @@ export const CLIENTROUTES: RouteInfo[] = [
   {
     path: 'component/orderHistory',
     title: 'Order History',
-    icon: 'bi bi-menu-app',
+    icon: 'bi bi-list-check',
     class: '',
     extralink: false,
     submenu: []
@@ -151,7 +151,7 @@ export const CLIENTROUTES: RouteInfo[] = [
   {
     path: 'component/hire-service',
     title: 'Hire Service',
-    icon: 'bi bi-people',
+    icon: 'bi bi-briefcase',
     class: '',
     extralink: false,
     submenu: []
@@ -160,7 +160,7 @@ export const CLIENTROUTES: RouteInfo[] = [
   {
     path: 'component/help',
     title: 'Help',
-    icon: 'bi bi-menu-app',
+    icon: 'bi bi-question-circle',
     class: '',
     extralink: false,
     submenu: []
@@ -187,7 +187,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/Reporting',
     title: 'Reports',
-    icon: 'bi bi-bell',
+    icon: 'bi bi-graph-up',
     class: '',
     extralink: false,
     submenu: []
@@ -195,7 +195,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/audit',
     title: 'Audit Logs',
-    icon: 'bi bi-people',
+    icon: 'bi bi-clipboard',
     class: '',
     extralink: false,
     submenu: []
@@ -203,7 +203,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/hire-employee',
     title: 'Hire Employee',
-    icon: 'bi bi-bell',
+    icon: 'bi bi-person-plus',
     class: '',
     extralink: false,
     submenu: []
@@ -211,7 +211,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: '/component/clients',
     title: 'View Clients',
-    icon: 'bi bi-dice-1',
+    icon: 'bi bi-person-lines-fill',
     class: '',
     extralink: false,
     submenu: []
@@ -219,7 +219,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/faq-list',
     title: 'Faq',
-    icon: 'bi bi-people',
+    icon: 'bi bi-info-circle',
     class: '',
     extralink: false,
     submenu: []
@@ -228,7 +228,7 @@ export const OWNERROUTES: RouteInfo[] = [
   {
     path: 'component/help',
     title: 'Help',
-    icon: 'bi bi-menu-app',
+    icon: 'bi bi-question-circle',
     class: '',
     extralink: false,
     submenu: []

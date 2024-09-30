@@ -2,269 +2,130 @@
   <nav class="settings-menu">
     <ul>
       <li (click)="showSection('updateProfile')">
-        <button>Update Profile</button>
+        <button class="btn btn-outline-primary">Update Profile</button>
       </li>
       <li (click)="showSection('changePassword')">
-        <button>Change Password</button>
+        <button class="btn btn-outline-primary">Change Password</button>
       </li>
       <li (click)="showSection('autoLogout')">
-        <button>Auto-Logout Settings</button>
+        <button class="btn btn-outline-primary">Auto-Logout Settings</button>
       </li>
       <li (click)="showSection('backupRestore')">
-        <button>Backup and Restore</button>
+        <button class="btn btn-outline-primary">Backup and Restore</button>
       </li>
     </ul>
   </nav>
 
   <div class="settings-content">
     <div *ngIf="activeSection === 'updateProfile'" class="section">
-      <a href="javascript:void(0)" (click)="openHelpModal()" style="position:right; right: 0; top: 30px;">Help</a>
       <h2>Update Profile</h2>
-      <p *ngIf="displaymsg" style="color: green;">Update Successful</p>
-      <p *ngIf="displayErrormsg" style="color: red;">Update Failed</p>
+      <p *ngIf="displaymsg" class="success-message">Update Successful</p>
+      <p *ngIf="displayErrormsg" class="error-message">Update Failed</p>
 
-      <!-- Form for updating profile -->
-      <form (ngSubmit)="updateProfile()">
-        <div>
+      <form (ngSubmit)="updateProfile()" class="settings-form">
+        <div class="form-group">
           <label for="username">Username:</label>
-          <input type="text" id="username" [(ngModel)]="profile.username" name="username" required />
+          <input type="text" id="username" [(ngModel)]="profile.username" name="username" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="email">Email:</label>
-          <input type="email" id="email" [(ngModel)]="profile.email" name="email" required />
+          <input type="email" id="email" [(ngModel)]="profile.email" name="email" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="firstName">First Name:</label>
-          <input type="text" id="firstName" [(ngModel)]="profile.firstName" name="firstName" required />
+          <input type="text" id="firstName" [(ngModel)]="profile.firstName" name="firstName" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="lastName">Last Name:</label>
-          <input type="text" id="lastName" [(ngModel)]="profile.lastName" name="lastName" required />
+          <input type="text" id="lastName" [(ngModel)]="profile.lastName" name="lastName" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" 
-          id="phoneNumber" 
-          [(ngModel)]="profile.phoneNumber"
-          name="phoneNumber" 
-          required 
-          #phoneNumber="ngModel" 
-          pattern="^\d{10}$" 
-          minlength="10" 
-          maxlength="10" 
-          title="Please enter a valid 10-digit phone number">
-          
+          <input type="tel" id="phoneNumber" [(ngModel)]="profile.phoneNumber" name="phoneNumber" required #phoneNumber="ngModel" pattern="^\d{10}$" minlength="10" maxlength="10" title="Please enter a valid 10-digit phone number" class="form-control" />
           <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-danger">
             <div *ngIf="phoneNumber.errors?.['required']">Phone number is required.</div>
-            <div *ngIf="phoneNumber.errors?.['minlength'] || phoneNumber.errors?.['maxlength']">
-              Phone number must be exactly 10 digits long.
-            </div>
+            <div *ngIf="phoneNumber.errors?.['minlength'] || phoneNumber.errors?.['maxlength']">Phone number must be exactly 10 digits long.</div>
           </div>
         </div>
-  
-        <button type="submit">Save Changes</button>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
       </form>
     </div>
 
     <div *ngIf="activeSection === 'changePassword'" class="section">
       <h2>Change Password</h2>
-      <!-- Form for changing password -->
-      <p *ngIf="displaymsg1" style="color: green;">Update Successful</p>
-      <p *ngIf="displayErrormsg1" style="color: red;">Update Failed</p>
-      <p *ngIf="displayvalmsg1" style="color: red;">Update Failed: New Passwords do not Match</p>
+      <p *ngIf="displaymsg1" class="success-message">Update Successful</p>
+      <p *ngIf="displayErrormsg1" class="error-message">Update Failed</p>
+      <p *ngIf="displayvalmsg1" class="error-message">Update Failed: New Passwords do not Match</p>
 
-      <form (ngSubmit)="changePassword()">
-        <div>
+      <form (ngSubmit)="changePassword()" class="settings-form">
+        <div class="form-group">
           <label for="currentPassword">Current Password:</label>
-          <input type="password" id="currentPassword" [(ngModel)]="passwords.currentPassword" name="currentPassword" required />
+          <input type="password" id="currentPassword" [(ngModel)]="passwords.currentPassword" name="currentPassword" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="newPassword">New Password:</label>
-          <input type="password" id="newPassword" [(ngModel)]="passwords.newPassword" name="newPassword" required />
+          <input type="password" id="newPassword" [(ngModel)]="passwords.newPassword" name="newPassword" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label for="confirmPassword">Confirm New Password:</label>
-          <input type="password" id="confirmPassword" [(ngModel)]="passwords.confirmPassword" name="confirmPassword" required />
+          <input type="password" id="confirmPassword" [(ngModel)]="passwords.confirmPassword" name="confirmPassword" required class="form-control" />
         </div>
-        <button type="submit">Change Password</button>
+        <button type="submit" class="btn btn-primary">Change Password</button>
       </form>
     </div>
 
-<!-- Auto-Logout Timer Section -->
-<div *ngIf="activeSection === 'autoLogout' && (isAdmin || isOwner)" class="section">
-  <h2>Auto-Logout Settings</h2>
-  <form (ngSubmit)="updateAutoLogoutTimer()">
-    
-    <div class="form-group">
-      <!-- Dropdown to choose seconds or minutes -->
-      <label for="timeUnit">Select Unit:</label>
-      <select 
-        id="timeUnit"
-        name="timeUnit"
-        [(ngModel)]="timeUnit"
-        class="form-control"
-      >
-        <option value="seconds">Seconds</option>
-        <option value="minutes">Minutes</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="autoLogoutValue">Set Auto-Logout Timer:</label>
-      <select 
-        id="autoLogoutValue"
-        name="autoLogoutValue"
-        [(ngModel)]="autoLogoutValue"
-        class="form-control"
-        required
-      >
-        <!-- Time value options (in seconds or minutes) -->
-        <option *ngIf="timeUnit === 'seconds'" value="30">30 seconds</option>
-        <option *ngIf="timeUnit === 'seconds'" value="60">60 seconds</option>
-        <option *ngIf="timeUnit === 'minutes'" value="5">5 minutes</option>
-        <option *ngIf="timeUnit === 'minutes'" value="10">10 minutes</option>
-        <option *ngIf="timeUnit === 'minutes'" value="30">30 minutes</option>
-
-      </select>
-    </div>
-
-
-    <button type="submit" class="btn btn-primary">Update Timer</button>
-  </form>
-
-  <!-- Success message -->
-  <div *ngIf="timerUpdated" class="alert alert-success" role="alert">
-    Auto-Logout timer updated successfully!
-  </div>
-</div>
-
-  </div>
-
-<!-- Back up and restore section -->
-<!-- Main content -->
-<div *ngIf="activeSection === 'backupRestore' && (isAdmin || isOwner)" class="section">
-  <h2>Backup and Restore</h2>
-  <!-- Backup and Restore buttons -->
-  <div class="button-container">
-      <button *ngIf="!isBackingUp" (click)="backupDatabase()" class="btn btn-primary">Backup</button>
-      <div *ngIf="isBackingUp" class="loading">
-        <p>Backing up, please wait...</p>
-        <div class="spinner-border" role="status">
-          <span class="sr-only"></span>
+    <div *ngIf="activeSection === 'autoLogout' && (isAdmin || isOwner)" class="section">
+      <h2>Auto-Logout Settings</h2>
+      <form (ngSubmit)="updateAutoLogoutTimer()" class="settings-form">
+        <div class="form-group">
+          <label for="timeUnit">Select Unit:</label>
+          <select id="timeUnit" name="timeUnit" [(ngModel)]="timeUnit" class="form-control">
+            <option value="seconds">Seconds</option>
+            <option value="minutes">Minutes</option>
+          </select>
         </div>
-      </div>
-    <button (click)="openRestoreModal()" class="btn btn-secondary">Restore</button>
-  </div>
-</div>
-<div id="notification" [class.show]="showNotification">
-  {{ notificationMessage }}
-</div>
-<!-- Modal for restore -->
-<div *ngIf="isModalOpen" class="modalRestore">
-  <div class="modal-content-restore">
-    <span class="close" (click)="closeModalRestore()">&times;</span>
-    <h2 style="text-align: center;">Select Backup to Restore</h2>
-
-    <label for="backupDropdown">Choose Backup:</label>
-    <br/>
-    <select id="backupDropdown" [(ngModel)]="selectedBackupId"  class="form-control" >
-      <option *ngFor="let backup of backups" [value]="backup.id">
-        {{ backup.fileName }} - {{ backup.createdAt | date:'medium' }}
-      </option>
-    </select>
-    <br/>
-    <button *ngIf="!isLoading" (click)="restoreDatabase()" class="btn btn-success">Restore</button>
-    <div *ngIf="isLoading" class="loading">
-      <p>Restoring, please wait...</p>
-      <!-- You can also add a spinner here -->
-      <div class="spinner-border" role="status">
-        <span class="sr-only"></span>
+        <div class="form-group">
+          <label for="autoLogoutValue">Set Auto-Logout Timer:</label>
+          <select id="autoLogoutValue" name="autoLogoutValue" [(ngModel)]="autoLogoutValue" class="form-control" required>
+            <option *ngIf="timeUnit === 'seconds'" value="30">30 seconds</option>
+            <option *ngIf="timeUnit === 'seconds'" value="60">60 seconds</option>
+            <option *ngIf="timeUnit === 'minutes'" value="5">5 minutes</option>
+            <option *ngIf="timeUnit === 'minutes'" value="10">10 minutes</option>
+            <option *ngIf="timeUnit === 'minutes'" value="30">30 minutes</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Timer</button>
+      </form>
+      <div *ngIf="timerUpdated" class="alert alert-success" role="alert">
+        Auto-Logout timer updated successfully!
       </div>
     </div>
 
+    <div *ngIf="activeSection === 'backupRestore' && (isAdmin || isOwner)" class="section">
+      <h2>Backup and Restore</h2>
+      <div class="button-container">
+        <button *ngIf="!isBackingUp" (click)="backupDatabase()" class="btn btn-primary">Backup</button>
+        <div *ngIf="isBackingUp" class="loading">
+          <p>Backing up, please wait...</p>
+          <div class="spinner-border" role="status"><span class="sr-only"></span></div>
+        </div>
+        <button (click)="openRestoreModal()" class="btn btn-secondary">Restore</button>
+      </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" [ngClass]="{'show': showHelpModal}">
+      <div class="modal-content">
+        <span class="close" (click)="closeHelpModal()">&times;</span>
+        <h2>Help - Profile Settings</h2>
+        <p>Here you can find help on how to update your profile and change your password.</p>
+        <ul>
+          <li>To update your profile, fill in the required fields and click "Save Changes".</li>
+          <li>To change your password, provide the correct current password and confirm your new password.</li>
+          <li>If you have any questions, please contact support.</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
-
-
-
-  <!-- Help Modal -->
-<div class="modal" [ngClass]="{'show': showHelpModal}">
-  <div class="modal-content">
-    <span class="close" (click)="closeHelpModal()">&times;</span>
-    <h2>Help-Profile Settings</h2>
-    <p>Here you can find help on how to update your profile and change your password.</p>
-    <ul>
-      <li>To update your profile, fill in the required fields and click "Save Changes".</li>
-      <li>To change your password, make sure to provide the correct current password and confirm your new password.</li>
-      <li>If you have any questions, please contact support.</li>
-    </ul>
-  </div>
-</div>
-  
-</div>
-
-<style>
-  .help-text {
-    cursor: pointer;
-    color: #007bff;
-    font-size: 16px;
-    margin-right: 20px;
-  }
-  
-  .help-icon {
-    margin-right: 5px;
-  }
-  
-  .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
-    z-index: 1; /* Sit on top */
-    overflow: auto; /* Enable scroll if needed */
-  }
-  
-  .modal.show {
-    display: flex; /* Show modal */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    border: 1px solid #888;
-    width: 80%; /* Smaller width */
-    max-width: 600px; /* Maximum width */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative; /* To position the close button */
-  }
-  
-  .close {
-    color: #aaa;
-    position: absolute; /* Position relative to modal content */
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-  }
-  
-  .rating-legend,
-  .order-details {
-    padding: 10px; /* Add some padding */
-  }
-  
-  </style>
-  

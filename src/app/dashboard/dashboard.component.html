@@ -1,57 +1,71 @@
 <style>
-.clock-date-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-}
-
-.card {
-  display: flex;
-  justify-content: flex-end; /* Aligns the card to the right side */
-  padding: 20px; /* Optional: Add padding if needed */
-}
-.container {
-  display: flex;
-  justify-content: space-between; /* Ensures space between the child divs */
-}
-
-.clock-date-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-}
-
-
-app-clock, app-mini-calendar {
-  flex: 0 1 auto;
-  text-align: center;
-}
-
+  /* Container Styles */
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+    border: 2px solid #FF7F00; /* Vivid orange border */
+    border-radius: 8px; /* Smooth, professional look */
+  }
+  
+  /* Card Styles */
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #FF7F00; /* Vivid orange border for the card */
+  }
+  
+  /* Clock and Date Container Styles */
+  .clock-date-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #e9ecef;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #FF7F00; /* Vivid orange border for the clock/date container */
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin-bottom: 0;
+    color: #333;
+  }
+  
+  /* Flexibility for app-clock and app-date */
+  app-clock, app-date {
+    flex: 1;
+    text-align: center;
+    color: #555;
+  }
 </style>
-<br>
 
 <div *ngIf="isOwner">
   <app-top-cards></app-top-cards>
 </div>
+
 <div class="container">
   <div style="width: 40%;" class="card">
     <div>
       <h1>Hello {{fullName}}</h1>
     </div>
-    <br>
   </div>
-  <div style="width: 40%; align-items: center; " class="card">
-    <br><br><br>
+  <div style="width: 40%;" class="card">
     <div class="clock-date-container">
       <app-clock></app-clock>
       <app-date></app-date>
     </div>
-    <br>
   </div>
-
 </div>
+
+  
 
 <!-- ============================================================== -->
 <!-- Sales chart -->

@@ -1,12 +1,13 @@
 <div class="container">
-  <div style="position: relative; text-align: center;">
+  <div class="header">
       <h1>Upcoming Events</h1>
-      <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Help</a>
+      <a href="javascript:void(0)" (click)="openHelpModal()" class="help-link">Help</a>
+  </div>
 
   <div class="row">
-      <div class="col-md-4" *ngFor="let event of events">
-          <div class="card" style="height: 90%;">
-              <img style="height: 70%;" class="card-img-top img-responsive" [src]="satinizaeImage(event.image)" alt="Card image cap" />
+      <div class="col-md-4 event-card" *ngFor="let event of events">
+          <div class="card">
+              <img class="card-img-top img-responsive" [src]="satinizaeImage(event.image)" alt="Card image cap" />
               <div class="card-body">
                   <h4 class="card-title">
                       {{ event.title }}
@@ -16,8 +17,10 @@
                   <p class="card-text">{{ event.eventTime }}</p>
                   <p class="card-text">Price: {{ event.eventPrice | currency: 'R' }}</p>
 
-                  <a (click)="addtoCart(event.title,event.eventPrice, event.id)" class="btn btn-primary">Add To Cart</a> |
-                  <a (click)="openModal(); getbyID(event.id)" class="btn btn-success">View Event</a>
+                  <div class="button-group">
+                      <a (click)="addtoCart(event.title,event.eventPrice, event.id)" class="btn btn-primary">Add To Cart</a>
+                      <a (click)="openModal(); getbyID(event.id)" class="btn btn-success">View Event</a>
+                  </div>
               </div>
           </div>
       </div>
@@ -31,20 +34,20 @@
       <button (click)="closeModal()" class="close-button">&times;</button>
   </div>
   <div class="modal-body">
-      <div style="float: left;">
+      <div class="event-details">
           <p>Event Name: {{currentEvent.title}} <span class="help-icon" (click)="showHint('eventTitle')" title="Click for more information">&#9432;</span></p>
           <p>Event Location: {{currentEvent.eventAddress}}</p>
           <p>Event Description: {{currentEvent.description}}</p>
           <p>Event Type: {{currentEvent.eventType}}</p>
           <p>Event Time: <b>{{currentEvent.eventTime}}</b></p>
-          <p>Event Price: <b> {{currentEvent.eventPrice | currency: 'R'}}</b></p>
+          <p>Event Price: <b>{{currentEvent.eventPrice | currency: 'R'}}</b></p>
       </div>
-      <div style="float: right;">
-          <img style="height: 70%;" class="card-img-top img-responsive" [src]="satinizaeImage(currentEvent.image)" alt="Card image cap" />
+      <div class="event-image">
+          <img class="card-img-top img-responsive" [src]="satinizaeImage(currentEvent.image)" alt="Card image cap" />
       </div>
   </div>
   <div class="modal-footer">
-      <button (click)="closeModal()" class="btn btn-primary">Close</button> |
+      <button (click)="closeModal()" class="btn btn-primary">Close</button>
       <button (click)="addtoCart(currentEvent.title,currentEvent.eventPrice, currentEvent.id)" class="btn btn-success">Add To Cart</button>
   </div>
 </div>
@@ -62,55 +65,115 @@
 </div>
 
 <style>
-    .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
+  .header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-.modal-content {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  z-index: 1001;
-  width: 60%;
-  max-height: 80%;
-  overflow-y: auto;
-}
+  .help-link {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+  }
 
-.modal-header,
-.modal-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .event-card {
+    margin-bottom: 30px;
+  }
 
-.modal-body {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
+  .card {
+    height: 100%;
+    border: 2px solid #ff6f00; /* Vivid orange border */
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+  }
 
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-}
+  .card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+  }
 
-.help-icon {
-  font-size: 16px;
-  margin-left: 5px;
-  cursor: pointer;
-  color: #007bff;
-}
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #ff6f00; /* Orange border under the image */
+  }
 
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 3px solid #ff6f00; /* Add orange border to modal */
+    z-index: 1001;
+    width: 60%;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+
+  .modal-header,
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-body {
+    margin: 20px 0;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .help-icon {
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #ff6f00; /* Use orange for the help icon */
+  }
+
+  .event-details {
+    float: left;
+    width: 60%;
+  }
+
+  .event-image {
+    float: right;
+    width: 35%;
+  }
+
+  .event-image img {
+    height: auto;
+    max-height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
 </style>
-
