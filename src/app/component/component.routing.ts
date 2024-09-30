@@ -51,6 +51,7 @@ import { HelpComponent } from '../HelpSubsystem/help/help.component';
 import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
 import { SalesAttendanceReportComponent } from '../Reporting/sales-attendance-report/sales-attendance-report.component';
+import { NonAttendanceReportComponent } from '../Reporting/non-attendance-report/non-attendance-report.component';
 
 
 
@@ -97,6 +98,12 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'SalesAttendanceReport',
 				component: SalesAttendanceReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'NonAttendanceReport',
+				component: NonAttendanceReportComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},

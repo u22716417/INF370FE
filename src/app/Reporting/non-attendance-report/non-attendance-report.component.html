@@ -1,4 +1,4 @@
-<div class="container" id="reportContent">
+<div class="container" id="reportContent"></div>
 
     <!-- Logo -->
     <div class="text-center mb-4">
@@ -53,34 +53,29 @@
             </apx-chart>
           </div>
         </div>
-      </div>
 
- <!-- Sales Data Table -->
- <div id="reportContent">
-    <table id="reportTable" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Event Name</th>
-          <th>Event Date</th>
-          <th>Number of Tickets Sold</th>
-          <th>Attendee Count</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of filteredSalesAttendance">
-          <td>{{ report.EventName }}</td>
-          <td>{{ report.EventDate }}</td>
-          <td>{{ report.NumberOfTicketsSold }}</td>
-          <td>{{ report.EventAttendanceCount }}</td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
-
-</div>
-
+        <div id="reportContent">
+            <table id="reportTable" class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Event Name</th>
+                  <th>Event Date</th>
+                  <th>Number of Tickets Sold</th>
+                  <th>Attendee Count</th>
+                  <th>NonAttendanceCount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let report of filteredEventsNonAttendance">
+                  <td>{{ report.EventName }}</td>
+                  <td>{{ report.EventDate }}</td>
+                  <td>{{ report.NumberOfTicketsSold }}</td>
+                  <td>{{ report.EventAttendanceCount }}</td>
+                  <td>{{ report.UnattendanceCount }}</td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
         
 
-  
-
-
+      </div>

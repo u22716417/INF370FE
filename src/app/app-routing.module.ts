@@ -29,6 +29,7 @@ import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-
 import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HelpComponent } from './HelpSubsystem/help/help.component';
 import { SalesAttendanceReportComponent } from './Reporting/sales-attendance-report/sales-attendance-report.component';
+import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/non-attendance-report.component';
 
 
 export const Approutes: Routes = [

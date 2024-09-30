@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../report.service';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
@@ -14,6 +13,7 @@ import {
   ApexTitleSubtitle
 } from 'ng-apexcharts';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { dA } from '@fullcalendar/core/internal-common';
 import autoTable from 'jspdf-autotable';
 
 export type ChartOptions = {
@@ -25,34 +25,30 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-sales-attendance-report',
-  templateUrl: './sales-attendance-report.component.html',
-  styleUrls: ['./sales-attendance-report.component.css']
+  selector: 'app-non-attendance-report',
+  templateUrl: './non-attendance-report.component.html',
+  styleUrls: ['./non-attendance-report.component.css']
 })
-export class SalesAttendanceReportComponent implements OnInit {
-  salesAttendance: any[] = [];
-  filteredSalesAttendance: any [] = [];
+export class NonAttendanceReportComponent implements OnInit {
+  eventNonAttendance: any[] = [];
+  ticketSales: any[] = [];
+  filteredEventsNonAttendance: any[] = [];
+  attendanceRecords: any[] = [];
   public chartOptions: Partial<ChartOptions> | any;
   reportGeneratedDate: string = '';
   reportGeneratedBy: string = '';
-  startDate: string | null = '';
-  endDate: string | null  = '';
-  attendanceRecords: any[] = [];
+  public startDate: string | null = '';
+  public endDate: string | null  = '';
   events: any[] = [];
   eventNames: string[] = [];
   eventsfromDb: any[] = [];
   selectedEvent: string = '';
-  ticketSales: any[] = [];
 
-  constructor(private reportService: ReportService, private userManagementService: UserManagementService) {}
+  constructor( private reportService: ReportService, private userManagementService: UserManagementService ) {}
 
   ngOnInit(): void {
-    this.getCurrentUser();
-    this.reportGeneratedDate = this.getCurrentDateAndTime();
-    this.getSalesAttendanceReport();
-    this.events = [...this.getUniqueEventNames()];
+    throw new Error('Method not implemented.');
   }
-
   getCurrentUser(): void {
     this.userManagementService.getUser().subscribe(
       (user) => {
@@ -63,20 +59,9 @@ export class SalesAttendanceReportComponent implements OnInit {
       }
     );
   }
-
   getCurrentDateAndTime(): string {
     const now = new Date();
     return now.toLocaleString();
-  }
-
-  getUniqueEventNames(): string[] {
-    const eventNames = this.eventsfromDb.map(event => event.eventName);
-    return [...new Set(eventNames)];
-  }
-
-  onEventChange(event: any) {
-    this.selectedEvent = event.target.value;
-    this.filterSalesAttendance();
   }
 
   exportToExcel(): void {
@@ -86,6 +71,74 @@ export class SalesAttendanceReportComponent implements OnInit {
   
     // Generate Excel file and trigger download
     XLSX.writeFile(wb, 'sold-tickets-report.xlsx');
+  }
+
+  onEventChange(event: any) {
+    this.selectedEvent = event.target.value;
+    this.filterEventNonAttendance();
+  }
+  
+  getUniqueEventNames(): string[] {
+    const eventNames = this.eventsfromDb.map(event => event.eventName);
+    return [...new Set(eventNames)];
+  }
+
+  filterEventNonAttendance(): void {
+    if (this.selectedEvent) {
+      this.filteredEventsNonAttendance = this.eventNonAttendance.filter(report => report.eventName === this.selectedEvent);
+    } else {
+      this.filteredEventsNonAttendance = [...this.eventNonAttendance];
+    }
+    this.initializeChart();
+  }
+
+  getEventNonAttendanceReport(): void {
+    this.reportService.getEventNonAttendanceReport().subscribe((data: any[]) => {
+      this.eventNonAttendance = data;
+      this.initializeChart();
+    });
+  }
+
+  initializeChart(): void {
+    //const categories = this.filteredEventsNonAttendance.map(report => report.eventName);
+    const eventNames = this.attendanceRecords.map(record => record.eventName);
+    const nonAttendanceCounts = this.attendanceRecords.map(record => record.eventNonAttendanceCount)
+    const ticketsSold = this.ticketSales.map(record => record.ticketSales)
+
+    this.chartOptions = {
+      series: [
+        {
+          name: 'Tickets Sold',
+          data: ticketsSold
+        },
+        {
+          name: 'Attendees',
+          data: nonAttendanceCounts
+        }
+      ],
+      chart: {
+        type: 'bar',
+        height: 350,
+        stacked: false
+      },
+      title: {
+        text: 'Event Non Attendance vs Tickets Sold'
+      },
+      xaxis: {
+        categories: eventNames,
+        title: {
+          text: 'Events'
+        }
+      },
+      yaxis: {
+        title: {
+          text: 'Count'
+        }
+      },
+      legend: {
+        position: 'top'
+      }
+    };
   }
 
   exportToPDF(): void {
@@ -131,7 +184,7 @@ export class SalesAttendanceReportComponent implements OnInit {
                     styles: { cellPadding: 2, fontSize: 10 }  // Customize table cell styles
                 });
                 // Save the PDF
-                pdf.save('SalesAttendanceReport.pdf');
+                pdf.save('EventNonAttendance.pdf');
             }).catch(error => {
                 console.error('Error generating chart canvas:', error);
             });
@@ -141,84 +194,7 @@ export class SalesAttendanceReportComponent implements OnInit {
     }
   }
 
-  //getSalesAttendanceReport(): void {
-    //this.reportService.getSalesAttendanceReport().subscribe(
-      //(data: any[]) => {
-        //this.salesAttendance = data;
-        //console.log('Sales Attendance Data:', this.salesAttendance);
-        //this.generateChart();
-      //},
-      //(error) => {
-    //console.error('Error fetching sales attendance report', error);
-     //}
-    //);
-  //}
-
-  getSalesAttendanceReport(): void {
-    this.reportService.getSalesAttendanceReport().subscribe(
-      (data: any[]) => {
-        // Save the full response to a list
-        this.salesAttendance = data;
-  
-        // Extract specific properties into separate lists
-        const eventNames = this.salesAttendance.map(item => item.eventName);
-        const ticketsSold = this.salesAttendance.map(item => item.NumberOfTicketsSold);
-        const attendanceCounts = this.salesAttendance.map(item => item.AttendanceCount);
-  
-        // Now you can use these lists to generate the chart
-        this.generateChart();
-      },
-      (error) => {
-        console.error('Error fetching sales attendance report', error);
-      }
-    );
-  }
-  
-  filterSalesAttendance(): void {
-    if (this.selectedEvent) {
-      this.filteredSalesAttendance= this.salesAttendance.filter(report => report.eventName === this.selectedEvent);
-    } else {
-      this.filteredSalesAttendance = [...this.salesAttendance];
-    }
-    this.generateChart();
-  }
-
-  generateChart() {
-    const eventNames = this.attendanceRecords.map(record => record.eventName);
-    const attendanceCounts = this.attendanceRecords.map(record => record.eventAttendanceCount)
-    const ticketsSold = this.ticketSales.map(record => record.ticketSales)
-  
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Tickets Sold', 
-          data: ticketsSold
-        },
-        {
-          name: 'Attendance Count',
-          data: attendanceCounts
-        },
-      ],
-      chart: {
-        type: 'bar',
-        height: 350
-      },
-      title: {
-        text: 'Sales and Attendance Report',
-        align: 'center'
-      },
-      xaxis: {
-        categories: eventNames,
-        title: {
-          text: 'Events'
-        }
-      },
-      dataLabels: {
-        enabled: true
-      },
-      colors: ['#FF5733', '#33FF57']
-    };
-  }
-  
-  
 }
+
+
+

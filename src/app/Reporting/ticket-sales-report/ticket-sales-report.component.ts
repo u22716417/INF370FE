@@ -108,7 +108,6 @@ export class TicketSalesReportComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-
   filterServiceReportByDate(): void {
     this.filteredServiceReport = this.serviceReport.filter(service => {
       const serviceDate = new Date(service.serviceDate);
