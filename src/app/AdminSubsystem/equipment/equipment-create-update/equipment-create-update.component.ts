@@ -27,17 +27,7 @@ export class EquipmentCreateUpdateComponent implements OnInit {
   heading: string = '';
   equipmentTypes: EquipmentType[] = [];
   showHelpModal = false;  // State for displaying help modal
-<<<<<<< HEAD
-  
 
-  constructor(
-    private router: Router,
-    private equipmentService: EquipmentService,
-    private route: ActivatedRoute
-  ) {}
-=======
-  showNotification: boolean = false;
-  notificationMessage: string = '';
 
   constructor(public router: Router, private equipmentService: EquipmentServiceService, private route: ActivatedRoute) { }
 
@@ -133,20 +123,7 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
         }
       );
     } else {
-<<<<<<< HEAD
-      // Updating existing equipment
-      this.equipmentService.updateEquipment(this.newEquipment.equipment_ID, this.newEquipment as any).subscribe(
-        () => {
-          alert('Equipment updated successfully.');
-          this.router.navigate(['/component/equipment-list']);
-        },
-        (error) => {
-          console.error('Error updating equipment:', error);
-        }
-      );
-=======
-      this.showPopupNotification('Please fill all the fields');
->>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
+      alert('Please fill all the fields');
     }
   } else {
     alert('Please fill all the required fields.');
@@ -192,13 +169,5 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
 closeHelpModal() {
   this.showHelpModal = false;
 }
-showPopupNotification(message: string): void {
-  this.notificationMessage = message;
-  this.showNotification = true;
-  setTimeout(() => {
-    this.showNotification = false;
-    this.notificationMessage = '';
-  }, 3000);
-}
->>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
+  
 }

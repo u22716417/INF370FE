@@ -50,13 +50,6 @@ import { AuditLogsComponent } from '../auditTrail/audit-logs/audit-logs.componen
 import { HelpComponent } from '../HelpSubsystem/help/help.component';
 import { DispenseHireItemsComponent } from '../ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
 import { CollectHireItemsComponent } from '../ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
-<<<<<<< HEAD
-import { NgModule } from '@angular/core';
-=======
-import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
-import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
-import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
->>>>>>> 8f8a14be3e5a5d8479e9aa448b39e3d9620048b3
 
 
 

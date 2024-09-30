@@ -106,7 +106,7 @@
 
     <div style="text-align: center;">
       <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/equipment-list'])">Close</button>
-      <input type="submit" class="btn btn-primary" [disabled]="!equipmentForm.form.valid" name="Save" (click)="router.navigate(['/component/equipment-list'])"/> 
+      <input type="submit" class="btn btn-primary" [disabled]="!equipmentForm.form.valid" name="Save" /> 
     </div>
   </form>
 
@@ -127,7 +127,9 @@
     </ul>
   </div>
 </div>
-
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
+</div>
 </div>
 
 <style>
