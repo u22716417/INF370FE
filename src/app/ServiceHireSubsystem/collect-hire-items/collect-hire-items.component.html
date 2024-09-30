@@ -1,5 +1,3 @@
-
-
 <div class="container" *ngIf="todaysBookings">
       <h2>Today's Hire Items</h2>
       <table class="table">
@@ -17,13 +15,18 @@
             <td>{{ item.itemName }}</td>
             <td>{{ item.status }}</td>
             <td>{{ item.id }}</td>
+            <td>
+                <a class="btn btn-success" *ngIf="item.status == 'Hired'" (click)="CollectItem(item.id)">Collect Item</a>
+
+
+            </td>
           </tr>
         </tbody>
       </table>
 </div>
     
 <div class="container">
-      <h2>Other hired Items</h2>
+      <h2>My Hire Items</h2>
       <table class="table">
         <thead>
           <tr>
@@ -39,6 +42,10 @@
             <td>{{ item.itemName }}</td>
             <td>{{ item.status }}</td>
             <td>{{ item.id }}</td>
+            <td>
+                <a class="btn btn-success" *ngIf="item.status == 'Collected'" (click)="returnItem(item.id)">Return Item</a>
+
+            </td>
           </tr>
         </tbody>
       </table>

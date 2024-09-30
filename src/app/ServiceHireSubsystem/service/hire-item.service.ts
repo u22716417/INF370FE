@@ -10,6 +10,7 @@ import { HireItem } from '../HireItem';
   providedIn: 'root'
 })
 export class HireItemService {
+   
   private baseUrl = 'https://localhost:7149/api';
   private apiUrl = 'https://localhost:7149/api/HireItem'; 
   private equipmentApiUrl = 'https://localhost:7149/api/Equipments';
@@ -20,6 +21,14 @@ export class HireItemService {
 
   getHireItems(): Observable<HireItem[]> {
     return this.http.get<HireItem[]>(this.apiUrl);
+  }
+
+  collectItems(arg0: any): Observable<any>  {
+    return this.http.get<any>('https://localhost:7149/CompleteItems/'+arg0)
+  }
+
+  returnItems(arg0: any): Observable<any>  {
+    return this.http.get<any>('https://localhost:7149/ReturnItems/'+arg0)
   }
 
   getEquipmentOptions(): Observable<any[]> {
