@@ -47,10 +47,14 @@ export class SalesAttendanceReportComponent implements OnInit {
   constructor(private reportService: ReportService, private userManagementService: UserManagementService) {}
 
   ngOnInit(): void {
+
     this.getCurrentUser();
     this.reportGeneratedDate = this.getCurrentDateAndTime();
     this.getSalesAttendanceReport();
     this.events = [...this.getUniqueEventNames()];
+
+   
+
   }
 
   getCurrentUser(): void {
@@ -158,12 +162,10 @@ export class SalesAttendanceReportComponent implements OnInit {
     this.reportService.getSalesAttendanceReport().subscribe(
       (data: any[]) => {
         // Save the full response to a list
-        this.salesAttendance = data;
-  
+        this.salesAttendance = [...data];
+        console.log(data);
         // Extract specific properties into separate lists
-        const eventNames = this.salesAttendance.map(item => item.eventName);
-        const ticketsSold = this.salesAttendance.map(item => item.NumberOfTicketsSold);
-        const attendanceCounts = this.salesAttendance.map(item => item.AttendanceCount);
+        
   
         // Now you can use these lists to generate the chart
         this.generateChart();
@@ -175,19 +177,26 @@ export class SalesAttendanceReportComponent implements OnInit {
   }
   
   filterSalesAttendance(): void {
-    if (this.selectedEvent) {
+    if (this.selectedEvent != '') {
       this.filteredSalesAttendance= this.salesAttendance.filter(report => report.eventName === this.selectedEvent);
     } else {
       this.filteredSalesAttendance = [...this.salesAttendance];
     }
     this.generateChart();
+
+    
   }
 
   generateChart() {
-    const eventNames = this.attendanceRecords.map(record => record.eventName);
-    const attendanceCounts = this.attendanceRecords.map(record => record.eventAttendanceCount)
-    const ticketsSold = this.ticketSales.map(record => record.ticketSales)
+    
+    
+    const eventNames = this.salesAttendance.map(item => item.eventName);
+    const ticketsSold = this.salesAttendance.map(item => item.numberOfTicketsSold);
+    const attendanceCounts = this.salesAttendance.map(item => item.eventAttendanceCount);
+
+
   
+
     this.chartOptions = {
       series: [
         {
