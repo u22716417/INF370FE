@@ -1,7 +1,7 @@
 <div class="container">
   <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
   <h2>Coupon Codes List</h2>
-  <a class="btn btn-primary" routerLink="/generate-code/0" routerLinkActive="active">
+  <a class="btn btn-primary" routerLink="/component/generate-code/0" routerLinkActive="active">
     Generate New Code
   </a> |
   <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button>
@@ -18,7 +18,7 @@
         <td>{{ i + 1 }}</td>
         <td>{{ code.code }}</td>
         <td>
-          <a class="btn btn-primary" [routerLink]="['/coupon-code-view', code.couponCodeId]">View</a> |
+          <a class="btn btn-primary" [routerLink]="['/component/coupon-code-view', code.couponCodeId]">View</a> |
           <button (click)="openSendEmailModal(code)" class="btn btn-secondary">Send email</button> |
           <button (click)="deleteById(code.couponCodeId)" type="button" class="btn btn-danger">Delete</button>
         </td>
