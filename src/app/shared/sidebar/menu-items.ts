@@ -12,7 +12,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/venue',
     title: 'Venues',
-    icon: 'bi bi-patch-check',
+    icon: 'bi bi-building',
     class: '',
     extralink: false,
     submenu: []
@@ -20,7 +20,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/service-list',
     title: 'Services',
-    icon: 'bi bi-hdd-stack',
+    icon: 'bi bi-hand-thumbs-up',
     class: '',
     extralink: false,
     submenu: []
@@ -28,7 +28,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/equipment-list',
     title: 'Equipment',
-    icon: 'bi bi-card-text',
+    icon: 'bi bi-headset',
     class: '',
     extralink: false,
     submenu: []
@@ -36,7 +36,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/clients',
     title: 'Clients',
-    icon: 'bi bi-dice-1',
+    icon: 'bi bi-person',
     class: '',
     extralink: false,
     submenu: []
@@ -44,7 +44,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/events',
     title: 'Events',
-    icon: 'bi bi-pause-btn',
+    icon: 'bi bi-calendar',
     class: '',
     extralink: false,
     submenu: []
@@ -52,7 +52,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/component/check-in',
     title: 'Check In',
-    icon: 'bi bi-layout-split',
+    icon: 'bi bi-person-check',
     class: '',
     extralink: false,
     submenu: []
@@ -60,7 +60,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: 'component/sponsor-list',
     title: 'Sponsors',
-    icon: 'bi bi-people',
+    icon: 'bi bi-briefcase',
     class: '',
     extralink: false,
     submenu: []
@@ -68,7 +68,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: 'component/codes-list',
     title: 'Coupon Codes',
-    icon: 'bi bi-people',
+    icon: 'bi bi-percent',
     class: '',
     extralink: false,
     submenu: []
@@ -84,7 +84,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: 'component/faq-list',
     title: 'Faq',
-    icon: 'bi bi-people',
+    icon: 'bi bi-info-circle',
     class: '',
     extralink: false,
     submenu: []
@@ -108,7 +108,7 @@ export const ADMINROUTES: RouteInfo[] = [
   {
     path: 'component/help',
     title: 'Help',
-    icon: 'bi bi-menu-app',
+    icon: 'bi bi-question-circle',
     class: '',
     extralink: false,
     submenu: []
