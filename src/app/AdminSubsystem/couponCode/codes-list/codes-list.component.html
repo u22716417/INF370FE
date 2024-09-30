@@ -28,7 +28,7 @@
 </div>
 
 <!-- Modal for confirmation -->
-<div *ngIf="showModal" class="modal">
+<div [ngClass]="{'show': showModal}" class="modal">
   <div class="modal-content">
     <h2>Confirmation</h2>
     <p>Are you sure you want to send the coupon code email?</p>

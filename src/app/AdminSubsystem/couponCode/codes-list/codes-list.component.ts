@@ -52,6 +52,7 @@ export class CodesListComponent implements OnInit{
   }
 
   openSendEmailModal(code: CouponCode) {
+    console.log("----------->", code);
     this.selectedCouponCode = code;
     this.showModal = true;
   }
