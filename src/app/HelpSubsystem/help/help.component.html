@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h2>User Manual</h2>
+  
+  <!-- Help Sections Table -->
+  <table datatable [dtOptions]="dtOptions" *ngIf="sections.length > 0" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Section</th>
+        <th>Title</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let section of sections">
+        <td>{{ section.title }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let item of section.items">
+              {{ item.title }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li *ngFor="let item of section.items">
+              <ul>
+                <li *ngFor="let detail of item.details">{{ detail }}</li>
+              </ul>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Action Buttons -->
+  <button class="btn btn-primary" (click)="downloadPDF()">Download PDF</button>
+  <button class="btn btn-secondary" (click)="goBack()">Back</button>
+</div>

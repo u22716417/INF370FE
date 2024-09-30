@@ -1,21 +1,132 @@
 <div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 0; top: 30px;">Help</a>
   <h1 style="text-align: center;">{{heading}}</h1>
   <form #serviceForm="ngForm" (ngSubmit)="saveService(serviceForm)" novalidate>
     <div style="margin-bottom: 10px;">
       <label for="serviceName">Name</label>
-      <input id="serviceName" class="form-control" type="text" name="serviceName" [(ngModel)]="service.serviceName" required title="Please enter a service name">
+      <input 
+        id="serviceName" 
+        class="form-control" 
+        type="text" 
+        name="serviceName" 
+        [(ngModel)]="service.serviceName" 
+        #serviceName="ngModel" 
+        required 
+        title="Please enter a service name"
+       
+      >
+      <div *ngIf="serviceName.invalid && serviceName.touched" class="text-danger">
+        <small *ngIf="serviceName.errors?.['required']">Service name is required.</small>
+        
+      </div>
     </div>
   
     <div style="margin-bottom: 10px;">
       <label for="serviceDescription">Description</label>
-      <input id="serviceDescription" class="form-control" type="text" name="serviceDescription" [(ngModel)]="service.serviceDescription" required title="Please enter a description">
+      <input 
+        id="serviceDescription" 
+        class="form-control" 
+        type="text" 
+        name="serviceDescription" 
+        [(ngModel)]="service.serviceDescription" 
+        #serviceDescription="ngModel" 
+        required 
+        title="Please enter a description"
+       
+      >
+      <div *ngIf="serviceDescription.invalid && serviceDescription.touched" class="text-danger">
+        <small *ngIf="serviceDescription.errors?.['required']">Service description is required.</small>
+        
+      </div>
     </div>
     
     <div style="text-align: center;">
-      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="cancel()">Close</button>
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/service-list'])">Close</button>
       <input type="submit" class="btn btn-primary" [disabled]="!serviceForm.form.valid" name="Save"/> 
     </div>
   </form>
+
+  <!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Create/Update Service</h2>
+    <p>This form allows you to create or update a service. Here's a quick guide:</p>
+    <ul>
+      <li><strong>Name:</strong> Enter the name of the service. This field is required.</li>
+      <li><strong>Description:</strong> Provide a brief description of the service. This field is required.</li>
+      <li>If you're editing an existing service, the form will be pre-filled with the current details.</li>
+    </ul>
+  </div>
+</div>
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
+</div>
 </div>
 
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
   
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
+  </style>
+  
+
+

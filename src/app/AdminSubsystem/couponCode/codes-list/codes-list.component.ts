@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CouponCode } from '../couponCode';
 import { CodeServiceService } from '../service/code-service.service';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-codes-list',
@@ -14,7 +15,8 @@ export class CodesListComponent implements OnInit{
   selectedCouponCode: CouponCode | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
-
+  dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private codeService: CodeServiceService){
 
@@ -86,6 +88,26 @@ export class CodesListComponent implements OnInit{
     }, 3000);
   }
   
-  
+  exportToJson(): void {
+    const dataStr = JSON.stringify(this.codes, null, 2);
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
+    const exportFileName = 'coupon_codes.json';
+
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', dataUri);
+    linkElement.setAttribute('download', exportFileName);
+    linkElement.click();
+  }
+
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

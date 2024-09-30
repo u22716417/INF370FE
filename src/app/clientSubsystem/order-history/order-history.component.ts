@@ -10,28 +10,46 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
 })
 export class OrderHistoryComponent implements OnInit {
   orderHistory: any[] = [];
-  clientId = 1; // Set this to the actual client ID
+  clientId: number | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
-  
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private orderHistoryService: TicketService, private users: UserManagementService) { }
 
   ngOnInit(): void {
+    const userId = this.users.getcurrentUserID();
+    this.users.getClientId(userId).subscribe(
+      (clientId: number) => {
+        this.clientId = clientId;
     this.fetchOrderHistory();
-    this.clientId = this.users.getcurrentUserID();
-  }
-
-  fetchOrderHistory(): void {
-    this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
-      (data: any[]) => {
-        this.orderHistory = data;
       },
       (error) => {
-        console.error('Error fetching order history', error);
+        console.error('Error fetching client ID', error);
       }
     );
   }
+
+  fetchOrderHistory(): void {
+    if (this.clientId) {
+      this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
+        (data: any[]) => {
+          if (data && data.length > 0) {
+            this.orderHistory = data;
+          } else {
+            console.log('You have no orders');
+            this.orderHistory = [];  // Ensure the order history is empty
+          }
+        },
+        (error) => {
+          console.error('Error fetching order history', error);
+        }
+      );
+    } else {
+      console.error('Client ID is not available');
+    }
+  }
+  
 
   getStars(rating: number | undefined): string[] {
     const stars = [];
@@ -74,5 +92,15 @@ export class OrderHistoryComponent implements OnInit {
       this.showNotification = false;
       this.notificationMessage = '';
     }, 3000);
+  }
+
+  // Method to open help modal
+  openHelpModal() {
+    this.showHelpModal = true;
+  }
+
+  // Method to close help modal
+  closeHelpModal() {
+    this.showHelpModal = false;
   }
 }

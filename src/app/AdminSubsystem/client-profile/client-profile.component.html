@@ -1,25 +1,146 @@
 <div>
-    <h2>Client List</h2>
-  
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Surname</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let client of clients">
-          <td>{{ client.clientName }}</td>
-          <td>{{ client.clientSurname }}</td>
-          <td>{{ client.clientPhone }}</td>
-          <td>
-            <a class="btn btn-primary" routerLink="/view-client-profile/{{client.clientId}}" routerLinkActive="active">View</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px; padding-right: 3%;">Help</a>
+  <br/>
+  <h2 style="text-align: center;">Clients</h2>
+
+  <table datatable [dtOptions]="dtOptions" *ngIf="clients.length>0"  class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.clientName }}</td>
+        <td>{{ client.clientSurname }}</td>
+        <td>{{ client.clientPhone }}</td>
+        <td>
+          <a [href]="'mailto:' + client.clientEmail">
+            {{ client.clientEmail }}
+          </a>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="openOrderHistory(client)">View</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+ <!-- Order History Popup -->
+ <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': isOrderHistoryOpen}" [ngStyle]="{'display': isOrderHistoryOpen ? 'block' : 'none'}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center">Order History for {{ selectedClientName }}</h3>
+        <button type="button" class="close" (click)="closeOrderHistory()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Order Date</th>
+              <th>Total Amount</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of selectedClientOrders">
+              <td>{{ order.eventName }}</td>
+              <td>R {{ order.ticketPrice }}</td>
+              <td>{{ order.purchaseDate | date:'short' }}</td>
+              <td>{{order.rating}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeOrderHistory()">Close</button>
+      </div>
+    </div>
   </div>
+</div>
+
+  <!-- Help Modal -->
+  <div class="modal" [ngClass]="{'show': showHelpModal}">
+    <div class="modal-content">
+      <span class="close" (click)="closeHelpModal()">&times;</span>
+      <h2>Help-Client List</h2>
+      <p>This page allows you to view registered client's order history information. Here are the available actions:</p>
+          <ul>
+            <li><strong>View Client Profile:</strong> To view a client's order history, click on the <em>"View"</em> button to view the specific client's order history.</li>
+            <li><strong>View Client List:</strong> The table below displays all current registered clients, including their name, surname, phone and email.</li>
+          </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
   
-    
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
+</style>

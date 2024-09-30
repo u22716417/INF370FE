@@ -1,0 +1,42 @@
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Space between each filter group */
+    margin-bottom: 1rem; /* Space below the filters */
+  }
+  
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 200px; /* Flex-grow, flex-shrink, flex-basis */
+  }
+  
+  .filter-group label {
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Space between label and input */
+    color: #333; /* Dark color for label text */
+  }
+  
+  .filter-group input[type="date"],
+  .filter-group select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .filter-group input[type="date"]:focus,
+  .filter-group select:focus {
+    border-color: #007bff; /* Focus border color */
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25); /* Focus shadow */
+  }
+  
+  .filter-group select {
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    -moz-appearance: none; /* Remove default styling in Firefox */
+    appearance: none; /* Remove default styling */
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path d="M0 0l5 5 5-5H0z" fill="%23666"/></svg>') no-repeat right 0.7rem center; /* Custom dropdown arrow */
+    background-size: 12px 12px; /* Size of the custom dropdown arrow */
+  }
+  

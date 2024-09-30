@@ -23,6 +23,15 @@ export class HireServiceService {
     return this.http.get<any[]>(this.serviceApiUrl)
   }
 
+  approveQuote(id:number) :Observable<any> 
+  {
+    return this.http.get<any[]>('https://localhost:7149/api/Services/AcceptQuote/'+id)
+  }
+  rejectQuote(id:number) :Observable<any> 
+  {
+    return this.http.get<any[]>('https://localhost:7149/api/Services/RejectQuote/'+id)
+  }
+
   createHireService(HireService: ServiceSchedule): Observable<ServiceSchedule> {
     return this.http.post<ServiceSchedule>(this.apiUrl, HireService);
   }

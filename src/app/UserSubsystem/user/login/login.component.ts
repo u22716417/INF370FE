@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.loginForm.value; 
     this.authService.authenticate(username, password).subscribe(
       (response: boolean) => {
-        this.stopLoadingAnimation();
+        this.isLoading = false;
         if (response) {
           this.openPopup();
           console.log(response);

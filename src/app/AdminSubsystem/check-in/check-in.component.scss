@@ -82,4 +82,45 @@
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
   }
 
+  .modal {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-dialog {
+    margin-top: 10%;
+  }
+  
+  .modal-content {
+    border-radius: 5px;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: red;
+    font-size: 0.9em;
+  }
+
+  zxing-scanner {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuotationService } from '../quotation.service';
+import { Config } from 'datatables.net';
 
 @Component({
   selector: 'app-quotation-list',
@@ -9,6 +10,8 @@ import { QuotationService } from '../quotation.service';
 export class QuotationListComponent implements OnInit {
   quotations: any[] = [];
   filteredQuotations: any[] = [];
+  dtOptions: Config = {};
+  showHelpModal = false;  // State for displaying help modal
 
   constructor(private quotationService: QuotationService) {}
 
@@ -40,5 +43,15 @@ export class QuotationListComponent implements OnInit {
       }
     });
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 

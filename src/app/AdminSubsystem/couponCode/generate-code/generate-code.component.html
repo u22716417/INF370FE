@@ -1,4 +1,5 @@
 <div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 0; top: 30px;">Help</a>
   <h2 style="text-align: center;">Generate Coupon Code</h2>
   <form #couponForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <div style="margin-bottom: 10px;">
@@ -29,11 +30,18 @@
         required 
         title="Please enter a discount amount" 
         #discountAmountModel="ngModel" 
-        [class.is-invalid]="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)">
+        [class.is-invalid]="(discountAmountModel.invalid || discountAmount < 0) && (discountAmountModel.dirty || discountAmountModel.touched)"
+        min="0">
+      
       <div *ngIf="discountAmountModel.invalid && (discountAmountModel.dirty || discountAmountModel.touched)" class="invalid-feedback">
         Discount amount is required. Please enter a discount amount.
       </div>
+      
+      <div *ngIf="discountAmount < 0 && (discountAmountModel.dirty || discountAmountModel.touched)" class="invalid-feedback">
+        Discount amount cannot be negative.
+      </div>
     </div>
+    
 
     <div style="margin-bottom: 10px;">
       <label for="sponsor">Sponsor:</label>
@@ -65,6 +73,25 @@
     <p><strong>Description:</strong> {{ generatedCouponCode.couponCodeDescription }}</p>
     <p><strong>Discount Amount:</strong> {{ generatedCouponCode.discountAmount }}</p>
   </div>
+  <div id="notification" [class.show]="showNotification">
+    {{ notificationMessage }}
+  </div>
+</div>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Create/Update Coupon Code</h2>
+    <p>This form allows you to create or update a coupon code. Here's a quick guide:</p>
+    <ul>
+      <li><strong>Description:</strong> Provide a brief description of the coupon code. This field is required.</li>
+      <li><strong>Discount Amount:</strong> Enter the discount amount for the coupon code. This field is required.</li>
+      <li><strong>Sponsor:</strong> Choose a sponsor from the drop down list. This field is required</li>
+      <li>If you're editing an existing coupon code, the form will be pre-filled with the current details.</li>
+    </ul>
+  </div>
+
 </div>
 
 <style>
@@ -74,4 +101,65 @@
   .invalid-feedback {
     color: red;
   }
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
 </style>

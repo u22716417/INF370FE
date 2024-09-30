@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
 })
 export class ClientProfileService {
 
-private apiUrl = 'https://localhost:7149/api/ClientProfile'
+private apiUrl = 'https://localhost:7149/api/Client'
 
   constructor(private httpClient: HttpClient) { }
 

@@ -1,40 +1,164 @@
-
- <div class="container">
-  <h5 style="text-align: center;">{{heading}}</h5>
+<div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:left; right: 0; top: 30px;">Help</a>
+  <h5 style="text-align: center;">{{ heading }}</h5>
   <form #venueForm="ngForm" (ngSubmit)="addVenue(venueForm)" novalidate>
+    
     <div style="margin-bottom: 10px;">
       <label for="venueName">Name</label>
-      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" required title="Please enter a venue name">
+      <input id="venueName" class="form-control" type="text" name="name" [(ngModel)]="venue.venueName" #venueName="ngModel" placeholder="Enter the venue name" required title="Please enter a venue name">
+      <div *ngIf="venueName.invalid && venueName.touched" class="text-danger">
+        Venue name is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueDescription">Description</label>
-      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" required title="Please enter a description">
+      <input id="venueDescription" class="form-control" type="text" name="description" [(ngModel)]="venue.venueDescription" #venueDescription="ngModel" placeholder="Enter the venue description" required title="Please enter a description">
+      <div *ngIf="venueDescription.invalid && venueDescription.touched" class="text-danger">
+        Venue description is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueAddress">Address</label>
-      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" required title="Please enter an address">
+      <input id="venueAddress" class="form-control" type="text" name="address" [(ngModel)]="venue.venueAddress" #venueAddress="ngModel" placeholder="Enter the venue address" required title="Please enter an address">
+      <div *ngIf="venueAddress.invalid && venueAddress.touched" class="text-danger">
+        Venue address is required.
+      </div>
     </div>
 
     <div style="margin-bottom: 10px;">
       <label for="venueCapacity">Capacity</label>
-      <input id="venueCapacity" class="form-control" type="text" name="capacity" [(ngModel)]="venue.venueCapacity" required title="Please enter a capacity">
+      <input id="venueCapacity" class="form-control" type="number" name="capacity" [(ngModel)]="venue.venueCapacity" 
+             [min]="0" [max]="1000000" #venueCapacity="ngModel" placeholder="Enter the venue capacity" required title="Please enter a capacity">
+      <div *ngIf="venueCapacity.invalid && venueCapacity.touched" class="text-danger">
+        <div *ngIf="venueCapacity.errors?.['required']">Venue capacity is required.</div>
+        <div *ngIf="venueCapacity.errors?.['min']">Capacity cannot be negative.</div>
+        <div *ngIf="venueCapacity.errors?.['max']">Capacity cannot exceed 1,000,000.</div>
+      </div>
     </div>
-
     <div style="margin-bottom: 10px;">
-      <label for="venueContactPerson">Contact Person</label>
-      <input placeholder="Contact Person" id="venueContactPerson" class="form-control" type="text" name="contact person" [(ngModel)]="venue.venueContactPerson" required title="Please enter a contact person">
+      <label for="contactPerson">Contact Person</label>
+      <input id="contactPerson" class="form-control" type="text" name="address" [(ngModel)]="venue.contactPerson" #contactPerson="ngModel" placeholder="Enter the contact person" required title="Please enter an address">
+      <div *ngIf="contactPerson.invalid && contactPerson.touched" class="text-danger">
+        Venue contact person is required.
+      </div>
     </div>
-
     <div style="margin-bottom: 10px;">
       <label for="venueContactNumber">Contact Number</label>
-      <input id="venueContactNumber" class="form-control" type="text" name="contact number" [(ngModel)]="venue.venueContactNumber" required title="Please enter a contact number">
+      <input 
+        id="venueContactNumber" 
+        class="form-control" 
+        type="text" 
+        name="contactNumber" 
+        [(ngModel)]="venue.venueContactNumber" 
+        #venueContactNumber="ngModel" 
+        placeholder="Enter the venue contact number" 
+        pattern="^\d{10}$" 
+        minlength="10" 
+        maxlength="10" 
+        required 
+        title="Please enter a 10-digit contact number">
+        
+      <div *ngIf="venueContactNumber.invalid && venueContactNumber.touched" class="text-danger">
+        <div *ngIf="venueContactNumber.errors?.['required']">Contact number is required.</div>
+
+        <div *ngIf="venueContactNumber.errors?.['minlength'] || venueContactNumber.errors?.['maxlength']">
+          Contact number must be exactly 10 digits long.
+        </div>
+      </div>
     </div>
+    
 
     <div style="text-align: center;">
-      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/Venues'])">Close</button>
+      <button type="button" class="btn btn-secondary" style="margin-right: 10px;" (click)="router.navigate(['/component/venues'])">Close</button>
       <input type="submit" class="btn btn-primary" [disabled]="!venueForm.form.valid" name="Save"/> 
     </div>
   </form>
 </div>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Create/Update Venue</h2>
+    <p>This form allows you to create or update a venue. Here's a quick guide:</p>
+    <ul>
+      <li><strong>Name:</strong> Enter the name of the venue. This field is required.</li>
+      <li><strong>Description:</strong> Provide a brief description of the venue. This field is required.</li>
+      <li><strong>Address:</strong> Specify the address where the venue is located. This field is required.</li>
+      <li><strong>Capacity:</strong> Enter the maximum capacity of the venue. The capacity should be a number between 0 and 10,000.</li>
+      <li><strong>Contact Number:</strong> Provide a 10-digit contact number for the venue. This field is required and must be exactly 10 digits.</li>
+      <li>If you're editing an existing venue, the form will be pre-filled with the current details.</li>
+    </ul>
+  </div>
+</div>
+  
+<div id="notification" [class.show]="showNotification">
+  {{ notificationMessage }}
+</div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .rating-legend,
+  .order-details {
+    padding: 10px; /* Add some padding */
+  }
+  
+  </style>
+  

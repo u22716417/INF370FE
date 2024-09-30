@@ -1,11 +1,17 @@
 <div>
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
   <h2>Sponsors</h2>
 
   <a class="btn btn-primary" routerLink="/sponsor-create-update/0" routerLinkActive="active" >
     Add New
-  </a>
+  </a> |
+  <button class="btn btn-secondary" (click)="exportToJson()">Export to JSON</button> |
 
-  <table class="table">
+  <a class="btn btn-primary" (click)="importSponsors()">Import from JSON</a>
+<input type="file" #fileInput (change)="onFileSelected($event)" style="display:none;">
+
+
+  <table datatable [dtOptions]="dtOptions" *ngIf="sponsors.length>0"  class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>
@@ -24,11 +30,89 @@
         <td>{{ sponsor.sponsorEmail }}</td>
         <td>{{ sponsor.sponsorPhone }}</td>
         <td>
-            <a class="btn btn-primary" routerLink="/sponsor-create-update/1" routerLinkActive="active">Edit</a> |
-            <button class="btn btn-primary" (click)="deleteSponsor(sponsor.sponsorId)">Delete</button>
+            <a class="btn btn-primary" [routerLink]="['/component/sponsor-create-update',sponsor.sponsorId]" routerLinkActive="active">Edit</a> |
+            <button class="btn btn-danger" (click)="deleteSponsor(sponsor.sponsorId)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div id="notification" [class.show]="showNotification">
+    {{ notificationMessage }}
+  </div>
+  
+     <!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Sponsor list</h2>
+    <p>This page allows you to manage sponsors within the system. Here are the available actions:</p>
+        <ul>
+          <li><strong>Add New Sponsor:</strong> Click on the <em>"Add New"</em> button to add a new sponsor. This will redirect you to the form where you can enter the details for a new sponsor.</li>
+          <li><strong>Export to JSON:</strong> Click on the <em>"Export to JSON"</em> button to export the sponsor details to a JSON file.The file will be downloaded and saved to your local device.</li>
+          <li><strong>Edit Sponsor:</strong> To edit a specific sponsor's details, click on the <em>"Edit"</em> button next to the sponsor you want to modify. This will open a form pre-filled with the sponsor's current information.</li>
+          <li><strong>Delete Sponsor:</strong> To delete a sponsor, click on the <em>"Delete"</em> button next to the corresponding sponsor. A confirmation dialog may appear to ensure you want to proceed with the deletion. Note that this action is irreversible.</li>
+        </ul>
+  </div>
+</div>
 
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  
+  </style>
+  
   

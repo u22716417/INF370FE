@@ -36,9 +36,14 @@
             ],
             "styles": [
               "src/assets/scss/style.scss",
+              "node_modules/datatables.net-dt/css/dataTables.dataTables.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net/js/dataTables.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,66 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { Equipment, EquipmentType } from '../equipmentClass';
-import { EquipmentServiceService } from '../service/equipment-service.service';
-import { Router, RouterLink } from '@angular/router';
-
+import { Config } from 'datatables.net';
+import { EquipmentService } from '../service/equipment-service.service';
+import { Router } from '@angular/router';
 
 @Component({
-
   selector: 'app-equipment-list',
   templateUrl: './equipment-list.component.html',
   styleUrls: ['./equipment-list.component.css']
 })
 export class EquipmentListComponent implements OnInit {
+  equipments: any[] = [];  // Changed to 'any[]'
+  showHelpModal: boolean = false;
+  dtOptions: Config = {};
+  showNotification: boolean = false;
+  notificationMessage: string = '';
 
-  equipments: Equipment[] = [];
-  equipmentTypes: EquipmentType[] = [];
-  newEquipment: Equipment = {
-    equipmentId: 0,
-    equipmentTypeId:0,
-    equipmentName: '',
-    equipmentDescription: '',
-    equipmentAvailability: '',
-    equipmentCondition: '',
-    equipmentImage: '', // Adjust as needed
-    assignments: [], // Adjust as needed
-    equipmentType: undefined // Adjust as needed
-  };
+  constructor(private equipmentService: EquipmentService, private router:Router) {}
 
-  constructor(private equipmentService: EquipmentServiceService) { }
-
-  editEquipment: Equipment | null = null;
-
-  
-  
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.loadEquipments();
-    this.loadEquipmentTypes();
-}
+  }
 
   loadEquipments(): void {
-    this.equipmentService.getAllEquipments().subscribe((data: Equipment[]) => {
-      this.equipments = data;
-    });
+    this.equipmentService.getEquipments().subscribe(
+      (data: any[]) => {  // Expect 'any[]' data
+        this.equipments = data;
+        console.log('Equipment fetched: ', this.equipments);  
+      },
+      (error) => {
+        console.error('Error fetching equipment:', error);
+      }
+    );
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
   }
 
-  loadEquipmentTypes(): void {
-    this.equipmentService.getAllEquipmentTypes().subscribe((data: EquipmentType[]) => {
-      this.equipmentTypes = data;
-    });
+  editEquipment(equipmentId: number): void {
+    console.log('Editing equipment with ID:', equipmentId);  // Add this line for debugging
+    if (equipmentId) {
+      this.router.navigate(['/equipment-create-update', equipmentId]);
+    } else {
+      console.error('ID is undefined or null');
+    }
+  }
+  
+
+
+  deleteEquipment(id: number): void {
+    if (confirm('Are you sure you want to delete this equipment?')) {
+      this.equipmentService.deleteEquipment(id).subscribe({
+        next: () => {
+          this.loadEquipments(); // Reload the equipment list after deletion
+        },
+        error: (err) => {
+          console.error('Error deleting equipment', err);
+        }
+      });
+    }
   }
 
-  deleteEquipment(equipmentId: number): void {
-    this.equipmentService.deleteEquipment(equipmentId).subscribe(() => {
-      this.equipments = this.equipments.filter(e => e.equipmentId !== equipmentId);
-    });
+  openHelpModal() {
+    this.showHelpModal = true;
   }
 
-  selectEquipment(equipment: Equipment): void {
-    this.editEquipment = { ...equipment };
+  closeHelpModal() {
+    this.showHelpModal = false;
   }
 
-  getEquipmentTypeDescription(equipmentTypeId: number): string {
-    const type = this.equipmentTypes.find(t => t.equipmentTypeId === equipmentTypeId);
-    return type ? type.equipmentTypeDescription : 'Unknown'; // Return the description or 'Unknown' if not found
+  showNotificationMessage(message: string) {
+    this.notificationMessage = message;
+    this.showNotification = true;
+  
+    // Optionally hide the notification after a few seconds
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 3000);  // 3 seconds
   }
 }

@@ -10,45 +10,49 @@ import { CartItem } from '../CartItem';
 })
 export class ViewAllEventsComponent implements OnInit {
 
- 
-  constructor(private eventService: TicketService, private sanitizer: DomSanitizer) {
-    
-  }
- 
-
-  events : any[] = [];
+  events: any[] = [];
   currentEvent: any;
+  isModalVisible = false;
+  isHelpModalVisible = false;
+  helpContent: string = '';
+
+  constructor(private eventService: TicketService, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.eventService.getAllEvents().subscribe(response=>{
-        console.log(response);
-        this.events = [...response]
+    this.eventService.getAllEvents().subscribe(response => {
+        this.events = [...response];
     });
   }
 
- 
-  addtoCart(Title:string, Price: number, id: number)
-  {
+  addtoCart(Title: string, Price: number, id: number) {
     const newItem = new CartItem(id, Title, Price);
-
     this.eventService.addToCart(newItem);
     this.closeModal();
   }
 
-  getbyID(id: number)
-  {
-      this.eventService.getEventById(id).subscribe(response=>{
-         this.currentEvent = response;
-         console.log(this.currentEvent);
-      });
+  getbyID(id: number): void {
+    this.eventService.getEventById(id).subscribe(
+      response => {
+        if (response) {
+          this.currentEvent = response;
+        } else {
+          console.error('There are no upcoming events');
+          this.currentEvent = null;  // Set to null if no event is found
+        }
+      },
+      error => {
+        console.error('Error fetching event:', error);
+        console.error('Failed to load events. Please try again later');
+        this.currentEvent = null;  
+      }
+    );
   }
   
-  isModalVisible = false;
 
-  satinizaeImage(base64String: string)
-  {
-      return this.sanitizer.bypassSecurityTrustResourceUrl(base64String);
+  satinizaeImage(base64String: string) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(base64String);
   }
+
   openModal() {
     this.isModalVisible = true;
   }
@@ -57,4 +61,24 @@ export class ViewAllEventsComponent implements OnInit {
     this.isModalVisible = false;
   }
 
+  openHelpModal() {
+    this.isHelpModalVisible = true;
+    this.helpContent = ' You can add events to your cart or view more details about each event by clicking the corresponding buttons.';
+  }
+
+  closeHelpModal() {
+    this.isHelpModalVisible = false;
+  }
+
+  showHint(field: string) {
+    this.isHelpModalVisible = true;
+    switch (field) {
+      case 'eventTitle':
+        this.helpContent = 'Clicking "Add To Cart" will add this event to your shopping cart. The "View Event" button allows you to view more details of the event';
+        break;
+      // Add more cases as needed for other fields
+      default:
+        this.helpContent = 'No specific help available for this field.';
+    }
+  }
 }

@@ -1,13 +1,82 @@
-<app-top-cards></app-top-cards>
+<style>
+.clock-date-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  justify-content: flex-end; /* Aligns the card to the right side */
+  padding: 20px; /* Optional: Add padding if needed */
+}
+.container {
+  display: flex;
+  justify-content: space-between; /* Ensures space between the child divs */
+}
+
+.clock-date-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+
+app-clock, app-mini-calendar {
+  flex: 0 1 auto;
+  text-align: center;
+}
+
+</style>
+<br>
+
+<div *ngIf="isOwner">
+  <app-top-cards></app-top-cards>
+</div>
+<div class="container">
+  <div style="width: 40%;" class="card">
+    <div>
+      <h1>Hello {{fullName}}</h1>
+    </div>
+    <br>
+  </div>
+  <div style="width: 40%; align-items: center; " class="card">
+    <br><br><br>
+    <div class="clock-date-container">
+      <app-clock></app-clock>
+      <app-date></app-date>
+    </div>
+    <br>
+  </div>
+
+</div>
+
 <!-- ============================================================== -->
 <!-- Sales chart -->
 <!-- ============================================================== -->
 <div class="row">
-  <div class="col-lg-7">
+  <div *ngIf="false" class="col-lg-7">
     <app-sales-ratio></app-sales-ratio>
   </div>
-  <div class="col-lg-5">
+  <div style="width: 100%;">
     <app-feeds></app-feeds>
+    <div *ngIf="isAdmin || isOwner">
+       <input [(ngModel)]="feedItem.task"  class="form-control" type=" text" placeholder="Add Feed">
+       <br>
+        <select [(ngModel)]="feedItem.icon" class="form-control">
+          <option disabled selected value="">Feed Type</option>
+          <option value="bi bi-hdd">Alert</option>
+          <option value="bi bi-bag-check">Notification</option>
+          <option value="bi bi-bell">New Event</option>
+          <option value="bi bi-person">General News</option>
+      </select>
+    
+       <br>
+       <input type="submit" (click)="SubmitFeed()" value="Add Feed" style="width: 100%;" class="btn btn-primary" >
+    </div>
+ 
   </div>
 </div>
 <!-- ============================================================== -->
@@ -16,7 +85,7 @@
 <!-- ============================================================== -->
 <!-- Table -->
 <!-- ============================================================== -->
-<div class="row">
+<div *ngIf="isOwner" class="row">
   <!-- column -->
   <div class="col-12">
     <app-top-selling></app-top-selling>
@@ -28,7 +97,7 @@
 <!-- ============================================================== -->
 <!-- cards -->
 <!-- ============================================================== -->
-<app-blog-cards></app-blog-cards>
+
 <!-- ============================================================== -->
 <!-- cards -->
 <!-- ============================================================== -->

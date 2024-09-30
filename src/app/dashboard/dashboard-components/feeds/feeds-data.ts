@@ -39,3 +39,31 @@ export const Feeds: Feed[] = [
     },
 
 ] 
+
+import { HttpClient,HttpHeaders,HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FeedService {
+  
+
+  constructor(private http: HttpClient) { }
+
+  getFeed(): Observable<any[]> {
+  
+    return this.http.get<any[]>('https://localhost:7149/api/Feed');
+  }
+
+  postFeed(feed: any): Observable<Feed> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>('https://localhost:7149/api/Feed', feed, { headers });
+  }
+
+  
+
+
+}
+

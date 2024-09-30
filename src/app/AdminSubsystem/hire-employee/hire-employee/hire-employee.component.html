@@ -1,0 +1,153 @@
+<div class="container">
+  <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
+  <h2 style="text-align: center;">Hire Employee</h2>
+  <form [formGroup]="hireEmployeeForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" formControlName="surname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <!-- Change the id to a unique value, e.g., employeeEmail -->
+      <input type="email" id="employeeEmail" formControlName="email" class="form-control" />
+    </div>
+
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input 
+        id="phone" 
+        class="form-control" 
+        type="text" 
+        name="phone" 
+        formControlName="phone"
+        required 
+        pattern="^\d{10}$" 
+        minlength="10" 
+        maxlength="10" 
+        title="Please enter a valid 10-digit phone number">
+      
+      <div *ngIf="hireEmployeeForm.get('phone')?.invalid && hireEmployeeForm.get('phone')?.touched" class="text-danger">
+        <div *ngIf="hireEmployeeForm.get('phone')?.errors?.['required']">Phone number is required.</div>
+        <div *ngIf="hireEmployeeForm.get('phone')?.errors?.['minlength'] || hireEmployeeForm.get('phone')?.errors?.['maxlength']">
+          Phone number must be exactly 10 digits long.
+        </div>
+      </div>
+    </div>
+    
+
+
+    <div class="form-group">
+      <label for="titleId">Title</label>
+      <select id="titleId" formControlName="titleId" class="form-control">
+        <option *ngFor="let title of titles" [value]="title.titleId">{{ title.titleDescription}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Profile Image</label>
+      <input type="file"  class="form-control" (change)="onFileChange($event)" />
+      
+      <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
+    </div>
+
+    <div *ngIf="profileImagePreview">
+      <img [src]="profileImagePreview" alt="Profile Image Preview" class="img-thumbnail" style="max-width: 200px;" />
+    </div>
+<br/>
+    <button type="submit" class="btn btn-primary">Hire Employee</button>
+
+    <div id="notification" [class.show]="showNotification">
+      {{ notificationMessage }}
+    </div>
+    
+  </form>
+
+   <!-- Help Modal -->
+   <div class="modal" [ngClass]="{'show': showHelpModal}">
+    <div class="modal-content">
+      <span class="close" (click)="closeHelpModal()">&times;</span>
+      <h2>Help-Hire Employee</h2>
+      <p>This page allows you to register new employees on the system. Here the actions available:</p>
+          <ul>
+            <li><strong>Employee Name:</strong> Enter the employee name in the <em>Name</em> input box.</li>
+            <li><strong>Employee Surname:</strong> Enter the employee surname in the <em>Surname</em> input box.</li>
+            <li><strong>Employee Email:</strong> Enter the employee email address in the <em>Email</em> input box</li>
+            <li><strong>Employee Phone:</strong> lay the details of that client's details only. Choosing the "All" option will display all the clients and their transactions.</li>
+            <li><strong>Employee Title:</strong>In the "Title" dropdown list, select the employee title. </li>
+            <li><strong>Employee Profile Image</strong>Click on "Choose file" and you will be redirected to your files on your local device.Choose the employee profile image to upload</li>
+          </ul>
+          <p>After filling in all the required details, click on the "Hire Employee" button to add the employee.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  </style>
+
+
+
+
+

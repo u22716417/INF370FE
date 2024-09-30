@@ -18,12 +18,9 @@ export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  getUnsoldTicketsReport(month?: string): Observable<any[]> {
-    let params = new HttpParams();
-    if (month) {
-      params = params.append('month', month);
-    }
-    return this.http.get<any[]>(this.apiUrl, { params });
+  getUnsoldTicketsReport(): Observable<any[]> {
+  
+    return this.http.get<any[]>('https://localhost:7149/api/Events/UnTicketSalesReport');
   }
 
   getTicketSalesReport(): Observable<any[]> {
@@ -37,8 +34,20 @@ export class ReportService {
   getEventAttendanceReport(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl4}`);
   }
- 
-  getHireServiceReport(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl3);
+
+  getServiceReportData(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/api/Services/GetServices');
   }
+ 
+
+ getHireServiceReport(): Observable<any[]> {
+  return this.http.get<any[]>(this.apiUrl3);
 }
+
+  getEventAttendanceDetails(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/api/Events/GenerateEventAttendanceDetailedReport');
+  }
+
+
+}
+

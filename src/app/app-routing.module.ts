@@ -23,6 +23,12 @@ import { ForgotPasswordComponent } from './UserSubsystem/user/forgot-password/fo
 import { SignupComponent } from './UserSubsystem/sign-up/sign-up.component';
 import { ReportComponent } from './Reporting/report/report.component';
 import { TicketSalesReportComponent } from './Reporting/ticket-sales-report/ticket-sales-report.component';
+import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
+import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
+import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
+import { HelpComponent } from './HelpSubsystem/help/help.component';
+
 
 export const Approutes: Routes = [
   {
@@ -79,8 +85,50 @@ export const Approutes: Routes = [
   {
     path:'ticket-sales-report',
     component:TicketSalesReportComponent
-  }
-
+  },
+  {
+    path: 'equipment-create-update/0',
+    component: EquipmentCreateUpdateComponent
+  },
+  {
+    path: 'generate-code/0',
+    component: GenerateCodeComponent
+  },
+  {
+    path: 'sponsor-create-update/0',
+    component: SponsorCreateUpdateComponent
+  },
+  {
+    path: 'create-update/0',
+    component: CreateUpdateComponent
+  },
+  {
+    path: 'coupon-code-view/:id',
+    component: CouponCodeViewComponent
+  },
+  {
+    path: 'sponsor-create-update/:id',
+    component: SponsorCreateUpdateComponent
+  },
+  {
+    path: 'event-create-update/:id',
+    component: EventCreateUpdateComponent
+  },
+  {
+    path: 'create-update/:Id',
+    component: CreateUpdateComponent
+  },
+  {
+    path: 'create-update/:Id',
+    component: CreateUpdateComponent
+  },
+  { path: 'equipment-create-update',
+    component: EquipmentCreateUpdateComponent
+   },
+  // {
+   // path: 'equipment-create-update/:Id',
+   // component: EquipmentCreateUpdateComponent
+  //}
   
 
 ];

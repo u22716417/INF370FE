@@ -1,7 +1,6 @@
 import { RouteInfo } from './sidebar.metadata';
 
-export const ROUTES: RouteInfo[] = [
- 
+export const ADMINROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
     title: 'Dashboard',
@@ -11,40 +10,7 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/eventShop',
-    title: 'Event Tickets',
-    icon: 'bi bi-bell',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/Reporting',
-    title: 'Reports',
-    icon: 'bi bi-bell',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  
-  {
-    path: 'component/orderHistory',
-    title: 'Order History',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/ViewService',
-    title: 'View Service',
-    icon: 'bi bi-menu-app',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '/component/venues',
+    path: '/component/venue',
     title: 'Venues',
     icon: 'bi bi-patch-check',
     class: '',
@@ -108,50 +74,9 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/assignment',
-    title: 'Assignment',
-    icon: 'bi bi-people',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/checkout',
-    title: 'Check Out ',
-    icon: 'bi bi-box-arrow-right',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
     path: 'component/returnitems',
-    title: 'Return Items',
-    icon: 'bi bi-arrow-return-left',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/quotationlist',
-    title: 'Quotations',
-    icon: 'bi bi-file-earmark-text',
-    class: '',
-    extralink: false,
-    submenu: []
-
-  },
-  {
-    path: 'component/hire-equipment',
-    title: 'Hire Equipment',
-    icon: 'bi bi-people',
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: 'component/hire-service',
-    title: 'Hire Service',
-    icon: 'bi bi-people',
+    title: 'Hire Items Returned',
+    icon: 'bi bi-layout-split',
     class: '',
     extralink: false,
     submenu: []
@@ -165,22 +90,147 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: 'component/hire-items-received',
-    title: 'Hire Items Received',
+    path: 'component/Recieved',
+    title: 'Hire Items Recieved',
     icon: 'bi bi-people',
     class: '',
     extralink: false,
     submenu: []
   },
   {
-    path: 'component/hire-items-return',
-    title: 'Hire Items Returned',
-    icon: 'bi bi-people',
+    path: 'component/quotationlist',
+    title: 'Quotations',
+    icon: 'bi bi-file-earmark-text',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/help',
+    title: 'Help',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Despense',
+    title: 'Dispense Hire Items',
+    icon: 'bi bi-menu-app',
     class: '',
     extralink: false,
     submenu: []
   }
+];
+
+export const CLIENTROUTES: RouteInfo[] = [
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: 'bi bi-speedometer2',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/eventShop',
+    title: 'Event Tickets',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/orderHistory',
+    title: 'Order History',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hire-service',
+    title: 'Hire Service',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
  
-  
-  
+  {
+    path: 'component/help',
+    title: 'Help',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Collect',
+    title: 'Collect Hire Items',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  }
+];
+
+export const OWNERROUTES: RouteInfo[] = [
+  {
+    path: '/dashboard',
+    title: 'Dashboard',
+    icon: 'bi bi-speedometer2',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/Reporting',
+    title: 'Reports',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/audit',
+    title: 'Audit Logs',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/hire-employee',
+    title: 'Hire Employee',
+    icon: 'bi bi-bell',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: '/component/clients',
+    title: 'View Clients',
+    icon: 'bi bi-dice-1',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
+    path: 'component/faq-list',
+    title: 'Faq',
+    icon: 'bi bi-people',
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+
+  {
+    path: 'component/help',
+    title: 'Help',
+    icon: 'bi bi-menu-app',
+    class: '',
+    extralink: false,
+    submenu: []
+  }
 ];

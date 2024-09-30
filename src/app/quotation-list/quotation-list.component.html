@@ -3,6 +3,7 @@
   <div class="container mt-3">
     <div class="row">
       <div class="col-md-2">
+        <a href="javascript:void(0)" (click)="openHelpModal()" style="position:absolute; right: 0; top: 30px;">Help</a>
         <h1 style="color: #FF5F00;">Quotations</h1>
       </div>
       <div class="col-md-2" style="padding-top: 1%;">
@@ -16,7 +17,7 @@
   <br/>
   <br/>
   <div class="container">
-    <table class="table align-middle mb-0 bg-white">
+    <table datatable [dtOptions]="dtOptions" *ngIf="quotations.length>0"  class="table table-striped">
       <thead class="bg-light">
         <tr>
           <th>Client Name</th>
@@ -41,4 +42,77 @@
       </tbody>
     </table>
   </div>
+
+   <!-- Help Modal -->
+   <div class="modal" [ngClass]="{'show': showHelpModal}">
+    <div class="modal-content">
+      <span class="close" (click)="closeHelpModal()">&times;</span>
+      <h2>Help- Quotations list</h2>
+      <p>This page allows you to view the list of clients who have made a quotation on the system</p>
+          <ul>
+            <li>The table below displays the client details of the quotations made such their names,the name of the service they requested the code for,amount paid and the date of the quotation.</li>
+          </ul>
+    </div>
 </div>
+
+<style>
+  .help-text {
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  .help-icon {
+    margin-right: 5px;
+  }
+  
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+ 
+  </style>
+  
+  

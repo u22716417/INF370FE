@@ -1,3 +1,18 @@
-<router-outlet>
-    <app-spinner></app-spinner>
-</router-outlet>
+
+<app-logout-warning *ngIf="showWarning" (extendSession)="onExtendSession()">
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+      <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: center;">
+        <h3>Warning: You will be logged out soon!</h3>
+        <p>You will be logged out in {{ countdown }} seconds due to inactivity.</p>
+        <button (click)="onExtendSession()">Stay Logged In</button>
+      </div>
+    </div>
+  </app-logout-warning>
+  
+  
+  <div [ngClass]="{ 'blur-background': showWarning }" [style.filter]="showWarning ? 'blur(5px)' : 'none'">
+    <router-outlet (click)="resetIdleTimer()">
+      <app-spinner></app-spinner>
+    </router-outlet>
+  </div>
+  

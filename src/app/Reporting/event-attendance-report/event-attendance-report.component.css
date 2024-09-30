@@ -1,10 +1,10 @@
-container {
-    margin: 20px;
-    padding: 20px;
-    background-color: #f8f9fa; /* Light gray background for contrast */
-    border-radius: 8px; /* Rounded corners for a softer look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
+.container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
   
   h2 {
     font-weight: bold;
@@ -81,3 +81,10 @@ container {
   .apexcharts-canvas {
     margin-top: 20px;
   }    
+
+  h2 {
+    text-align: center; /* Center the title */
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+  }

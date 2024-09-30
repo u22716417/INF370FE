@@ -8,7 +8,7 @@ import { Sponsor } from '../sponsor';
 })
 export class SponsorServiceService {
 
-  private apiUrl = 'http://localhost:5196/api/Sponsors';
+  private apiUrl = 'https://localhost:7149/api/Sponsors';
   
   constructor(private http: HttpClient) { }
 
@@ -16,9 +16,10 @@ export class SponsorServiceService {
     return this.http.get<Sponsor[]>(this.apiUrl);
   }
 
-  getSponsorById(sponsorId: number): Observable<Sponsor> {
-    return this.http.get<Sponsor>(`${this.apiUrl}/${sponsorId}`);
+  getSponsorById(id: number): Observable<Sponsor> {
+    return this.http.get<Sponsor>(`${this.apiUrl}/${id}`); // Use full URL
   }
+  
 
   createSponsor(sponsor: Sponsor): Observable<Sponsor> {
     return this.http.post<Sponsor>(this.apiUrl, sponsor);
@@ -27,8 +28,14 @@ export class SponsorServiceService {
   updateSponsor(sponsorId: number, sponsor: Sponsor): Observable<Sponsor> {
     return this.http.put<Sponsor>(`${this.apiUrl}/${sponsorId}`, sponsor);
   }
-
+  
+  
   deleteSponsor(sponsorId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${sponsorId}`);
   }
+
+  importSponsors(sponsors: Sponsor[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/import`, sponsors);
+  }
+  
 }

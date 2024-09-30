@@ -1,6 +1,7 @@
 <div style="display: flex; flex-direction: column; align-items: center; padding: 5%; max-width: 1200px; margin: auto;">
-  <header style="text-align: center; width: 100%;">
+  <header  style="text-align: center; width: 100%; position: relative;">
     <h1>Request a Service Quote</h1>
+    <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Help</a>
   </header>
 
   <div class="card" style="padding: 10%; width: 120%;">
@@ -11,29 +12,86 @@
 
     <div *ngIf="activeTab === 'calendar'" style="display: flex; width: 100%; margin-top: 20px;">
       <div style="flex: 3; padding-right: 10px;">
-        <full-calendar
-          [options]="calendarOptions"
-          (dateClick)="handleDateClick($event)"></full-calendar>
+        <full-calendar [options]="calendarOptions" (dateClick)="handleDateClick($event)"></full-calendar>
       </div>
       <div style="flex: 1; padding-left: 10px;">
-        <h2>Enter Service Details</h2>
-        <label>Choose A Service:</label>
-        <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)">
+
+        <label>What Service do you want:
+          <span class="help-icon" title="Choose a service of your choice from the dropdown">&#9432;</span>
+        </label>
+        <select class="form-control" [(ngModel)]="ServiceType"  (change)="onServiceSelected()" >
           <option>Select Service</option>
-          <option *ngFor="let service of services" [value]="service.id">
-            {{ service.serviceName }}
+          <option value="1" >
+            Service
+          </option>
+          <option  value="2">
+            Equipment
           </option>
         </select>
         <br>
-        <label>Choose A Start Date:</label>
-        <input type="date" [value]="startDate" disabled class="form-control">
-        <br>
-        <label>Choose An End Date:</label>
-        <input type="date" [value]="endDate" disabled class="form-control">
-        <br>
-        <br>
-        <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
-      </div>
+        <h3 style="color: red;">{{this.errorMessage}}</h3>
+      <div  *ngIf="isService">
+            <h2>Enter Service Details</h2>
+
+            <!-- Service selection with tooltip -->
+            <label>Choose A Service:
+              <span class="help-icon" title="Choose a service of your choice from the dropdown">&#9432;</span>
+            </label>
+            <select class="form-control" #ServiceSelected (change)="handleServiceChange($event)" >
+              <option>Select Service</option>
+              <option *ngFor="let service of services" [value]="service.id">
+                {{ service.serviceName }}
+              </option>
+            </select>
+            <br>
+
+            <!-- Start Date input with tooltip -->
+            <label>Choose A Start Date:
+              <span class="help-icon" title="Select a start date for your service on the calendar">&#9432;</span>
+            </label>
+            <input type="date" [value]="startDate" disabled class="form-control" >
+            <br>
+
+            <!-- End Date input with tooltip -->
+            <label>Choose An End Date:
+              <span class="help-icon" title="Select an end date for your service on the calendar">&#9432;</span>
+            </label>
+            <input type="date" [value]="endDate" disabled class="form-control">
+            <br>
+            <br>
+
+            <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
+       </div>
+       <div *ngIf="isEquipment">
+
+        <div class="form-group">
+          <label for="equipment">Equipment</label>
+          <select
+            id="equipment"
+            class="form-control"
+            [(ngModel)]="SelectedEquipment">
+            <option value="" disabled>Select Equipment</option>
+            <option *ngFor="let item of equipmentOptions" (click)="handleEquipmentChange(item)"   [value]="item.equipmentId">{{ item.equipmentName }}</option>
+          </select>
+        </div>
+
+           <!-- Start Date input with tooltip -->
+           <label>Choose A Start Date:
+            <span class="help-icon" title="Select a start date for your service on the calendar">&#9432;</span>
+          </label>
+          <input type="date" [value]="startDate" disabled class="form-control" >
+          <br>
+
+          <!-- End Date input with tooltip -->
+          <label>Choose An End Date:
+            <span class="help-icon" title="Select an end date for your service on the calendar">&#9432;</span>
+          </label>
+          <input type="date" [value]="endDate" disabled class="form-control">
+          <br>
+          <br>
+          <input class="btn btn-success" (click)="openEquipmentPopup()" type="button" value="Request Quote">
+       </div>
+    </div>
     </div>
 
     <div *ngIf="activeTab === 'quotes'" style="margin-top: 20px;">
@@ -41,7 +99,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>ServiceName</th>
+            <th>Service/Equipment Name</th>
             <th>Start</th>
             <th>End</th>
             <th>Quote Price</th>
@@ -52,15 +110,15 @@
         <tbody>
           <tr *ngFor="let item of quotes">
               <td>{{item.serviceName}}</td>
-              <td>{{item.start}}</td>
-              <td>{{item.end}}</td>
+              <td>{{item.start | date}} </td>
+              <td>{{item.end | date}}</td>
               <td>{{item.quotePrice}}</td>
               <td *ngIf="item.approved ==null " >No Action</td>
               <td *ngIf="item.approved =='True' " >Approved</td>
               <td *ngIf="item.approved =='False' " >Rejected</td>
               <td *ngIf="item.approved == null" > 
-                <button class="btn btn-success">Approve</button> |
-                <button class="btn btn-danger">Reject</button>
+                <button (click)="acceptQuote(item)"  class="btn btn-success">Approve</button> |
+                <button (click)="rejectQuote(item.id)" class="btn btn-danger">Reject</button>
               </td>
           </tr>
         </tbody>
@@ -69,15 +127,151 @@
   </div>
 </div>
 
+<!-- Quote Request Confirmation Popup -->
 <div *ngIf="showPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
   <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 1001;">
     <h2>Quote Request Confirmation</h2>
-    <p>You have selected the service: {{this.SelectedServiceName }}</p>
+    <p>You have selected the Service: {{SelectedServiceName}}</p>
     <p>Start Date: {{ startDate }}</p>
     <p>End Date: {{ endDate }}</p>
     <p>A comprehensive quote will be sent to your email.</p>
     <button class="btn btn-success" (click)="postQuote()">Confirm</button>
-
     <button class="btn btn-danger" (click)="closePopup()">Cancel</button>
   </div>
 </div>
+
+
+<!-- Quote Equipment Request Confirmation Popup -->
+<div *ngIf="showEqupmentPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; z-index: 1001;">
+    <h2>Equipment Quote Request Confirmation</h2>
+    <p>You have selected the Equipment Item : {{ this.CurrentEquipment.equipmentName}}</p>
+    <p>Start Date: {{ startDate }}</p>
+    <p>End Date: {{ endDate }}</p>
+    <p>A comprehensive quote will be sent to your email.</p>
+    <button class="btn btn-success" (click)="onSubmit()">Confirm</button>
+    <button class="btn btn-danger" (click)="closeEqPopup()">Cancel</button>
+  </div>
+</div>
+
+<!-- Help Modal -->
+<div class="modal" [ngClass]="{'show': showHelpModal}">
+  <div class="modal-content">
+    <span class="close" (click)="closeHelpModal()">&times;</span>
+    <h2>Help-Request service quote</h2>
+    <p>Follow these steps to request a service quote:</p>
+    <ol>
+      <li>Select a service from the dropdown list.</li>
+      <li>Choose a start date and an end date for the service.</li>
+      <li>Click the "Request Quote" button to submit your request.</li>
+      <li>A confirmation popup will appear. Click "Confirm" to proceed.</li>
+      <li>You will receive a comprehensive quote via email.</li>
+      <li>After successfully receiving the quote via email, revert back to the page and click on the Quotes tab.</li>
+      <li>In the quotes tab, you can choose to accept or reject the quote.</li>
+    </ol>
+  </div>
+</div>
+
+<div *ngIf="showPaymentPopup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 1000;">
+  <div style="background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 1001; max-width: 400px; width: 100%;">
+    <div class="payfast-header">
+      <h2>Test Merchant</h2>
+      <div class="powered-by">
+          <span>Secured and powered by</span>
+          <img src="assets/images/payfast-logo.png" alt="PayFast Logo" class="payfast-logo">
+      </div>
+  </div>
+  <div class="testing-environment">
+      <p>You're in the sandbox. This is a <strong>testing environment</strong> used to ensure correct integration with PayFast. If unexpected, please contact the merchant you are trying to pay to resolve the matter.</p>
+  </div>
+    <h2>Make Payment</h2>
+    <p>Service: {{ paymentServiceName }}</p>
+    <p>Amount Payable: R{{ paymentAmount }}</p>
+    
+    <form [formGroup]="paymentForm" (ngSubmit)="processPayment()">
+      <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" placeholder="1234 5678 9012 3456">
+        <div *ngIf="paymentForm.get('cardNumber')?.invalid && (paymentForm.get('cardNumber')?.dirty || paymentForm.get('cardNumber')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card Number is required.</small>
+          <small *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Invalid Card Number.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date</label>
+        <input type="text" id="expiryDate" class="form-control" formControlName="expiryDate" placeholder="MM/YY">
+        <div *ngIf="paymentForm.get('expiryDate')?.invalid && (paymentForm.get('expiryDate')?.dirty || paymentForm.get('expiryDate')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">Expiry Date is required.</small>
+          <small *ngIf="paymentForm.get('expiryDate')?.errors?.['pattern']">Invalid Expiry Date.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" class="form-control" formControlName="cvv" placeholder="123">
+        <div *ngIf="paymentForm.get('cvv')?.invalid && (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)" class="text-danger">
+          <small *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</small>
+          <small *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Invalid CVV.</small>
+        </div>
+      </div>
+
+      <div *ngIf="processing" style="margin-bottom: 15px;">
+        <p>Processing payment, please wait...</p>
+        <div class="spinner"></div>
+      </div>
+      
+      <button type="submit" class="btn btn-success" (click)="processPayment()" [disabled]="processing || paymentForm.invalid">Approve</button>
+      <button type="button" class="btn btn-danger" (click)="closePaymentPopup()" [disabled]="processing">Cancel</button>
+    </form>
+  </div>
+</div>
+
+
+<style>
+  /* Modal Styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    z-index: 1000; /* Sit on top */
+    overflow: auto; /* Enable scroll if needed */
+  }
+  
+  .modal.show {
+    display: flex; /* Show modal */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #888;
+    width: 80%; /* Smaller width */
+    max-width: 600px; /* Maximum width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* To position the close button */
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute; /* Position relative to modal content */
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+  }
+  </style>

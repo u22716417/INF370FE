@@ -84,14 +84,23 @@
           <th>Event Date</th>
           <th>Ticket Price</th>
           <th>Number of Unsold Tickets</th>
+          <th>Running Losses</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let report of filteredUnsoldTickets">
-          <td>{{ report.eventName }}</td>
-          <td>{{ report.eventDate | date:'yyyy-MM-dd' }}</td>
-          <td>R {{ report.ticketPrice }}</td>
-          <td>{{ report.unsoldTickets }}</td>
+          <td>{{ report.event_name }}</td>
+          <td>{{ report.eventdate | date:'yyyy-MM-dd' }}</td>
+          <td>R {{ report.ticket_price | number:'1.2-2'  }}</td>
+          <td>{{ report.number_of_tickets_sold }}</td>
+          <td>R {{ report.ticket_price * report.number_of_tickets_sold | number:'1.2-2'  }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total: </td>
+          <td>R {{this.total | number:'1.2-2' }}</td>
         </tr>
       </tbody>
     </table>

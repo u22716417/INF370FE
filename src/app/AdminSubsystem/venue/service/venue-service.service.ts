@@ -25,9 +25,12 @@ export class VenueService {
   }
 
   // Creates a new venue
-  createVenue(venue: Venue): Observable<Venue> {
-    return this.http.post<Venue>(this.apiUrl, venue)
-    .pipe(map(result => result));
+  createVenue(venue: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, venue).pipe(map(result => result));
+  }
+  
+  importVenues(venues: Venue[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/import`, venues);
   }
 
   // Updates an existing venue
@@ -35,6 +38,8 @@ export class VenueService {
     return this.http.put<Venue>(`${this.apiUrl}/${venue.venueId}`, venue)
     .pipe(map(result => result));
   }
+
+  
 
   // Deletes a venue
   deleteVenue(id: number): Observable<Venue> {
@@ -47,5 +52,7 @@ export class VenueService {
     return this.http.delete<Venue>(`${this.apiUrl}/${id}`)
     .pipe(map(result => result));
 }
+
+
 
 }

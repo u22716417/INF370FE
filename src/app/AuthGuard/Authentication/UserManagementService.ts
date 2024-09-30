@@ -14,6 +14,7 @@ export class UserManagementService {
 
   private baseUrl = 'https://localhost:7149/api/Users';
   private apiOtp = 'https://localhost:7149/api/Authentication/AuthenticateOTP';
+  private apiClient = 'https://localhost:7149/api/Client';
 
   constructor(private http: HttpClient) { }
 
@@ -53,6 +54,12 @@ export class UserManagementService {
   // Get all users
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getClientId(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiClient}/clientId/${userId}`).pipe(
       catchError(this.handleError)
     );
   }

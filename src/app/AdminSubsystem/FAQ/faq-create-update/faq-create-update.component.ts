@@ -13,13 +13,14 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./faq-create-update.component.css']
 })
 export class FaqCreateUpdateComponent implements OnInit{
-  newFaq: Faq = {faqId: 0, Question: '', Answer: ''}
+  newFaq: Faq = {faqId: 0, question: '', answer: ''}
   
   isSubmitted:boolean = false;
 
   heading: string = '';
 
-  
+  showHelpModal = false;  // State for displaying help modal
+
 
 
   constructor(public router: Router, private faqService:FaqService, private route: ActivatedRoute){}
@@ -30,83 +31,49 @@ export class FaqCreateUpdateComponent implements OnInit{
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = parseInt(params['Id']);
+      const id = parseInt(params['id']);
 
       if (id > 0) {
         this.heading = 'Edit Faq';
         this.faqService.getFaqById(id).subscribe((response: any) => {
           this.newFaq = response;
-          
-     
+          if( this.newFaq.answer == 'Pending')
+          {
+            this.newFaq.answer = '';
+          }
+
         });
       } else {
         this.heading = 'Add Faq';
       }
     });
-    // this.faq = { faqId: 0, Question: '',Answer: ''};
-    // this.route.params.subscribe(params =>{
-    //   const id = parseInt(params['Id']);
-
-    //   if(id > 0) 
-    //   {
-
-    //     this.heading = 'Edit Faq';
-    //     this.faqService.getFaqById(id)
-    //     .subscribe(response => this.faq = response)
-    //   }
-    //   else
-    //   {
-    //     this.heading = 'Add FAQ'
-    //   }
-    
-  // })
+   
   }
   addFaq(faqForm:NgForm){
     if (faqForm.valid) {
       if (this.newFaq.faqId === 0) {
         this.faqService.createFaq(this.newFaq).subscribe((response: any) => {
-          if (response != null) {
-            this.router.navigate(['/faq']);
-          } else {
-            this.router.navigate(['/faq']);
-          }
+          
+            this.router.navigate(['/component/faq-list'])
         });
       } else {
         this.faqService.updateFaq(this.newFaq.faqId,this.newFaq).subscribe((response: any) => {
-          if (response != null) {
-            this.router.navigate(['/faq']);
-          } else {
-            this.router.navigate(['/faq']);
-          }
+            this.router.navigate(['/component/faq-list']);          
         });
       }
     } else {
       alert('Please fill all the fields');
     }
-    // if (this.newFaq.Question != '' && this.newFaq.Answer != '' )
-    // {
-    //   if (this.newFaq.faqId === 0)
-    //     {
-    //       this.faqService.createFaq(this.newFaq)
-    //       .subscribe(response => {
-    //         if(response != null)
-    //           {
-    //             this.router.navigate(['/faq.ts']);
-    //           }
-    //           else
-    //           {
-    //             alert('Create failed');
-    //           }
-    //     })
-    //     }
-    //     else
-    //     {
-    //       alert('Update failed');
-    //     }
-    // }
-    // else
-    //   {
-    //    alert('Please fill all the fields');
-    //   }
+    
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }

@@ -1,16 +1,16 @@
 export class Faq {
     
-    Answer: string;
+    answer: string;
     faqId: number;
-    Question: string;
+    question: string;
   
     constructor(
-      Answer: string,
+      answer: string,
       faqId: number,
-      Question: string
+      question: string
     ) {
-      this.Answer = Answer;
+      this.answer = answer;
       this.faqId = faqId;
-      this.Question = Question;
+      this.question = question;
     }
   }

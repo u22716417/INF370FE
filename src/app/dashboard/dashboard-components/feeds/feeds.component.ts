@@ -1,17 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Feeds,Feed } from './feeds-data';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Feeds,Feed, FeedService } from './feeds-data';
+
 
 @Component({
   selector: 'app-feeds',
   templateUrl: './feeds.component.html'
 })
+
+@Injectable({   providedIn: 'root' })
 export class FeedsComponent implements OnInit {
 
-  feeds:Feed[];
+  feeds:any[] = [];
 
-  constructor() {
+  constructor(private feedService: FeedService) {
 
-    this.feeds = Feeds;
+    this.feedService.getFeed().subscribe(s=>{
+      console.log(s)
+
+      this.feeds = [...s];
+    })
+
+   // this.feeds = Feeds;
   }
 
   ngOnInit(): void {

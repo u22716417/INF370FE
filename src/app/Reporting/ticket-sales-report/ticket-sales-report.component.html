@@ -1,6 +1,5 @@
-<div class="container" id="reportContent">
-  <div class="card">
-    <div class="card-body">
+<div class="container" >
+
       
       <!-- Logo -->
       <div class="text-center mb-4">
@@ -57,7 +56,7 @@
       <!-- Chart Card -->
       <div class="card mb-4">
         <div class="card-body">
-          <div id="chart">
+          <div id="chart" #chart>
             <apx-chart 
               [series]="chartOptions.series"
               [chart]="chartOptions.chart"
@@ -100,8 +99,37 @@
             </tr>
           </tfoot>
         </table>
+
+
+          <h1> Total Sales </h1>
+        <table id="reportTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Total Quantity</th>
+              <th>Total Sales (VAT Incl)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr >
+              <td>Tickets</td>
+              <td>{{ getTotalQuantity()}}</td>
+              <td><strong>R {{ getTotalSales() | number:'1.2-2' }}</strong></td>
+              <td></td>
+            </tr>
+            <tr >
+              <td>Services</td>
+              <td>{{getTotalServiceQuantity()}}</td>
+              <td>R {{getTotalServiceSales()}}</td> 
+            </tr>
+            <tr >
+              <td></td>
+              <td>Total Sales</td>
+              <td>R {{getTotalServiceSales() + getTotalSales()}}</td> 
+            </tr>
+          </tbody>
+        </table>
       </div>
 
     </div>
-  </div>
-</div>
+

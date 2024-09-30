@@ -10,6 +10,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class HireItemsReturnComponent {
   hireItemsReturnForm: FormGroup;
+  showHelpModal = false;  // State for displaying help modal
+
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.hireItemsReturnForm = this.fb.group({
@@ -41,5 +43,15 @@ export class HireItemsReturnComponent {
         })
       );
   }
+
+  // Method to open help modal
+openHelpModal() {
+  this.showHelpModal = true;
+}
+
+// Method to close help modal
+closeHelpModal() {
+  this.showHelpModal = false;
+}
 }
 

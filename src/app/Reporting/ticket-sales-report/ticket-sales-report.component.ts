@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportService } from '../report.service';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import {
@@ -13,6 +14,7 @@ import {
 } from 'ng-apexcharts';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { dA } from '@fullcalendar/core/internal-common';
+import autoTable from 'jspdf-autotable';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -36,6 +38,9 @@ export class TicketSalesReportComponent implements OnInit {
   public startDate: string | null = '';
   public endDate: string | null  = '';
   filteredSales = this.ticketSales;
+  serviceReport: any[] = [];
+  filteredServiceReport: any[] = [];
+
   constructor(private ticketSalesReportService: ReportService,  private userManagementService: UserManagementService) {}
 
   public months = [
@@ -94,6 +99,7 @@ export class TicketSalesReportComponent implements OnInit {
       this.endDate = this.formatDate(lastDay);    
     }
     this.filterSalesByDate();
+    this.filterServiceReportByDate(); // Filter service report data by date
   }
   formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -102,6 +108,30 @@ export class TicketSalesReportComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+
+  filterServiceReportByDate(): void {
+    this.filteredServiceReport = this.serviceReport.filter(service => {
+      const serviceDate = new Date(service.serviceDate);
+      const startDate = this.startDate ? new Date(this.startDate) : null;
+      const endDate = this.endDate ? new Date(this.endDate) : null;
+    
+      
+      // If both dates are provided, filter between the dates
+      if (startDate && endDate) {
+        return serviceDate >= startDate && serviceDate <= endDate;
+      }
+      // If only start date is provided, filter from that date onward
+      if (startDate) {
+        return serviceDate >= startDate;
+      }
+      // If only end date is provided, filter up to that date
+      if (endDate) {
+        return serviceDate <= endDate;
+      }
+      // If neither date is provided, return all results
+      return true;
+    });
+  }
  
   setDefaultDates(): void {
     const currentYear = new Date().getFullYear();
@@ -136,38 +166,7 @@ export class TicketSalesReportComponent implements OnInit {
     this.updateChartOptions();
   }
   
-
-exportToPDF(): void {
-  const data = document.getElementById('reportContent');
-  if (data) {
-    html2canvas(data).then(canvas => {
-      const imgWidth = 208; // A4 width in mm
-      const pageHeight = 295; // A4 height in mm
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      let position = 40; // Start position for the content, after the image
-
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      // Add your image to the top of the PDF
-      const img = new Image();
-      img.src = 'https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png';
-      img.onload = () => {
-        const imgHeightPDF = 30; // Desired height of the image in the PDF
-        const imgWidthPDF = (img.width / img.height) * imgHeightPDF; // Maintain aspect ratio
-        const imgX = (imgWidth - imgWidthPDF) / 2; // Center the image horizontally
-        //pdf.addImage(img, 'PNG', imgX, 10, imgWidthPDF, imgHeightPDF);
-
-        // Add the captured content below the image
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, position, imgWidth, imgHeight);
-
-        // Save the PDF
-        pdf.save('TicketSalesReport.pdf');
-      };
-    });
-  }
-}
-
-
+  
   
 
   fetchTicketSalesReport(): void {
@@ -182,6 +181,14 @@ exportToPDF(): void {
         console.error('Error fetching ticket sales report', error);
       }
     );
+
+
+    this.ticketSalesReportService.getServiceReportData().subscribe(s=>{
+      console.log(s);
+      this.serviceReport = [...s];
+      this.filteredServiceReport = [...s];
+    })
+
   }
 
   updateChartOptions(): void {
@@ -228,9 +235,86 @@ exportToPDF(): void {
 
 
 
+getTotalServiceQuantity(): number {
+  return this.filteredServiceReport.length;
+}
+  getTotalServiceSales(): number {
+    console.log("Ping!!!!!!!!!!!!")
+    
+    return this.filteredServiceReport.reduce((total, report) => {
+      return total + (report.servicePrice);
+    }, 0);
+  }
+
+
+getTotalQuantity(): number {
+  return this.filteredSales.reduce((total, report) => {
+    return total + (report.number_of_tickets_sold);
+  }, 0);
+}
   getTotalSales(): number {
     return this.filteredSales.reduce((total, report) => {
       return total + (report.ticket_price * report.number_of_tickets_sold);
     }, 0);
   }
+
+  exportToPDF(): void {
+    const chartElement = document.getElementById('chart');
+    const tableElement = document.getElementById('reportTable');
+    const date = new Date().toLocaleDateString();
+    const generatedBy = this.reportGeneratedBy;
+  
+    if (chartElement && tableElement) {
+        // Create a new jsPDF instance
+        const pdf = new jsPDF('p', 'mm', 'a4');
+  
+        // Add the logo image
+        const logoImg = new Image();
+        logoImg.src = 'assets/images/Protea-logo.png';  // Path to the image
+        logoImg.onload = () => {
+            // Add the logo image to the PDF
+            pdf.addImage(logoImg, 'PNG', 105 - 15, 10, 30, 30); // Centered image at top
+  
+            // Add the title below the image
+            pdf.setFontSize(18);
+            pdf.text('Ticket Sales Report', 105, 50, { align: 'center' });
+  
+            // Add date and generated by info
+            pdf.setFontSize(12);
+            pdf.text(`Date: ${date}`, 10, 60);
+            pdf.text(`Generated by: ${generatedBy}`, 10, 65);
+  
+            // Capture the chart as an image using html2canvas
+            html2canvas(chartElement, { scale: 2 }).then(chartCanvas => {
+                const chartImgData = chartCanvas.toDataURL('image/png');
+                const chartImgWidth = 190; // Width in mm (adjust according to your needs)
+                const chartImgHeight = (chartCanvas.height * chartImgWidth) / chartCanvas.width; // Height in mm proportional to the chart's original aspect ratio
+                pdf.addImage(chartImgData, 'PNG', 10, 70, chartImgWidth, chartImgHeight);
+  
+                // Add the table data using autoTable
+                autoTable(pdf,{
+                    startY: 80 + chartImgHeight,  // Position to start the table after the chart
+                    html: '#reportTable',  // ID of the table element
+                    useCss: true,  // Optionally use styles from the HTML table
+                    theme: 'striped',  // Table theme, can be 'striped', 'grid', 'plain'
+                    headStyles: { fillColor: [41, 128, 185] },  // Customize header style
+                    styles: { cellPadding: 2, fontSize: 10 }  // Customize table cell styles
+                });
+
+                
+  
+                // Save the PDF
+                pdf.save('TicketSalesReport.pdf');
+            }).catch(error => {
+                console.error('Error generating chart canvas:', error);
+            });
+        };
+    } else {
+        console.error('Could not find chart or table element.');
+    }
+  }
+
+ 
 }
+
+

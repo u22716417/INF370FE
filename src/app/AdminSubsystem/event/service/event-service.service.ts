@@ -8,7 +8,7 @@ import { Event } from '../eventClass';
 })
 export class EventServiceService {
 
-  private apiUrl = 'http://localhost:5196/api/Events';
+  private apiUrl = 'https://localhost:7149/api/Events';
   private venueUrl = 'http://localhost:5196/api/Venues'
   private httpOptions = {
     headers: new HttpHeaders({
@@ -24,9 +24,8 @@ export class EventServiceService {
   }
 
   // Get a single event by ID
-  getEventById(eventId: number): Observable<Event> {
-    const url = `${this.apiUrl}/${eventId}`;
-    return this.http.get<Event>(url);
+  getEventById(id: number): Observable<Event> {
+    return this.http.get<Event>(`${this.apiUrl}/${id}`); // Use full URL
   }
 
   // Create a new event
@@ -36,14 +35,19 @@ export class EventServiceService {
   }
 
   // Update an existing event
-  updateEvent(event: Event): Observable<Event> {
-    const url = `${this.apiUrl}/${event.eventId}`;
-    return this.http.put<Event>(url, event, this.httpOptions);
+  updateEvent(event: any, eventId:number): Observable<Event> {
+    const url = `${this.apiUrl}/${eventId}`;
+    return this.http.put<any>(url, event, this.httpOptions);
   }
 
   // Delete an event
-  deleteEvent(eventId: number): Observable<void> {
-    const url = `${this.apiUrl}/${eventId}`;
+  deleteEvent(id: number): Observable<void> {
+    const url = `${this.apiUrl}/deleteEvent/${id}`;
     return this.http.delete<void>(url, this.httpOptions);
+  }
+  
+
+  importEvnts(events: Event[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/import`, events);
   }
 }

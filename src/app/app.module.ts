@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { WebcamImage, WebcamModule } from 'ngx-webcam';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -64,8 +65,20 @@ import { EventAttendanceReportComponent } from './Reporting/event-attendance-rep
 import { FullCalendarModule } from '@fullcalendar/angular'; // Import FullCalendarModule
 import dayGridPlugin from '@fullcalendar/daygrid'; // import the dayGrid plugin
 import { HireServiceReportComponent } from './Reporting/hire-service-report/hire-service-report.component';
+import { SponsorListComponent } from './AdminSubsystem/sponsor/sponsor-list/sponsor-list.component';
+import { SponsorCreateUpdateComponent } from './AdminSubsystem/sponsor/sponsor-create-update/sponsor-create-update.component';
+import { DataTablesModule } from 'angular-datatables';
 
-
+import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/create-update.component';
+import { CouponCodeViewComponent } from './AdminSubsystem/couponCode/coupon-code-view/coupon-code-view.component';
+import { HelpComponent } from './HelpSubsystem/help/help.component';
+import { HireEmployeeComponent } from './AdminSubsystem/hire-employee/hire-employee/hire-employee.component';
+import { AuditLogsComponent } from './auditTrail/audit-logs/audit-logs.component';
+import { LogoutWarningComponent } from './UserSubsystem/logout-warning/logout-warning.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { CollectHireItemsComponent } from './ServiceHireSubsystem/collect-hire-items/collect-hire-items.component';
+import { DispenseHireItemsComponent } from './ServiceHireSubsystem/dispense-hire-items/dispense-hire-items.component';
+import { BackupAndRestoreComponent } from './AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
 
 
 @NgModule({
@@ -112,7 +125,18 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     CreateQuotationComponent,
     QuotationListComponent,
     EventCreateUpdateComponent,
-    HireServiceReportComponent
+    HireServiceReportComponent,
+    SponsorListComponent,
+    CreateUpdateComponent,
+    CouponCodeViewComponent,
+    HelpComponent,
+    HireEmployeeComponent,
+    AuditLogsComponent,
+    LogoutWarningComponent,
+    CollectHireItemsComponent,
+    DispenseHireItemsComponent,
+    BackupAndRestoreComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -127,7 +151,9 @@ import { HireServiceReportComponent } from './Reporting/hire-service-report/hire
     NavigationComponent,
     SidebarComponent,
     NgApexchartsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    DataTablesModule,
+    WebcamModule
    
 
   ],

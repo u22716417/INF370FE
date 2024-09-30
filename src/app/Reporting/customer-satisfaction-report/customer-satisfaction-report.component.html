@@ -1,8 +1,16 @@
-<div id="reportContent" class="container">
-  <h2>Customer Satisfaction Report</h2>
-  <button (click)="exportToPDF()" class="btn btn-primary mb-3">Export to PDF</button> |
-  <button (click)="exportToExcel()" class="btn btn-primary mb-3">Export to Excel</button>
+<div class="container" id="reportContent">
 
+        <!-- Logo -->
+        <div class="text-center mb-4">
+          <img src="https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png" alt="Protea Logo" class="img-fluid" style="max-width: 150px;">
+        </div>
+  <h2 class="text-center">Customer Satisfaction Report</h2>
+
+  <div >
+    <button (click)="exportToPDF()" class="btn btn-primary">Export to PDF</button> |
+    <button (click)="exportToExcel()" class="btn btn-primary">Export to Excel</button>
+  </div>
+<br/>
   <!-- Flex container for Event Selector and Generated Info Card -->
   <div class="d-flex justify-content-between align-items-start mb-4">
     <!-- Event Selector -->
@@ -73,6 +81,8 @@
     </table>
   </div>
 </div>
+
+
 
 <style>
   #reportContent img {

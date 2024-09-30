@@ -1,0 +1,39 @@
+.min,
+.hour,
+.second {
+    background-repeat: no-repeat;
+    display: block;
+    position: relative;
+}
+
+.second {
+    background-image: url('../../../../assets/images/second.png');
+    background-size: 100%;
+    background-position: 1px -69px;
+    height: 480px;
+    margin-left: 225px;
+    width: 32px;
+    z-index: 9;
+}
+
+.min {
+    background-image: url('../../../../assets/images/mn.png');
+    background-size: 100%;
+    background-position: 3px 26px;
+    height: 480px;
+    margin-bottom: -480px;
+    margin-left: 224px;
+    width: 32px;
+    z-index: 7;
+}
+
+.hour {
+    background-image: url('../../../../assets/images/hr.png');
+    background-size: 100%;
+    background-position: -3px -18px;
+    height: 480px;
+    margin-bottom: -480px;
+    margin-left: 220px;
+    width: 48px;
+    z-index: 5;
+}

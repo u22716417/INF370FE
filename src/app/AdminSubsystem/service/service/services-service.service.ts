@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class ServicesServiceService {
-  
+ 
   
  
 
@@ -29,6 +29,11 @@ export class ServicesServiceService {
   {
     return this.http.get<any>(`${this.apiUrl+'/GetBookingSchedule'}/${serviceId}`)
   }
+  getEquipmentBookingSchedule(equipmentId: number) : Observable<any[]>  
+  {
+    return this.http.get<any>('https://localhost:7149/api/HireItem/'+equipmentId)
+  }
+  
 
   getQuotes(userid: number): Observable<any[]>  
   {
@@ -43,8 +48,8 @@ export class ServicesServiceService {
   // Gets a single service by ID
   getServiceById(id: number): Observable<Service> {
     return this.http.get<Service>(`${this.apiUrl}/${id}`)
-    .pipe(map(result => result));
   }
+  
 
   // Creates a new service
   createService(service: Service): Observable<Service> {
@@ -53,8 +58,8 @@ export class ServicesServiceService {
   }
 
   // Updates an existing venue
-  updateService(service: Service): Observable<Service> {
-    return this.http.put<Service>(`${this.apiUrl}/${service.serviceId}`, service)
+  updateService(id: number, service: Service): Observable<Service> {
+    return this.http.put<Service>(`${this.apiUrl}/${id}`, service)
     .pipe(map(result => result));
   }
 

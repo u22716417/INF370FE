@@ -16,6 +16,7 @@ export  interface Event {
     tickets: any[]; // Adjust the type if you know what the structure of tickets will be
     venue: any; // Adjust the type if you know what the structure of venue will be
     venueId: number;
+    isActive?: boolean;  
 }
 
 export interface EventVM {
