@@ -73,6 +73,9 @@
     <p><strong>Description:</strong> {{ generatedCouponCode.couponCodeDescription }}</p>
     <p><strong>Discount Amount:</strong> {{ generatedCouponCode.discountAmount }}</p>
   </div>
+  <div id="notification" [class.show]="showNotification">
+    {{ notificationMessage }}
+  </div>
 </div>
 
 <!-- Help Modal -->
@@ -88,9 +91,7 @@
       <li>If you're editing an existing coupon code, the form will be pre-filled with the current details.</li>
     </ul>
   </div>
-  <div id="notification" [class.show]="showNotification">
-    {{ notificationMessage }}
-  </div>
+
 </div>
 
 <style>

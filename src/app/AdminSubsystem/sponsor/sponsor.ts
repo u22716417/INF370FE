@@ -9,6 +9,7 @@ export interface Admin {
   }
   
   export interface Sponsor {
+  
     sponsorId: number;
     adminId?: number;
     couponCodeId?: number;

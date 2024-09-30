@@ -136,6 +136,10 @@
     </div>    
 
   </form>
+  <div id="notification" [class.show]="showNotification">
+    {{ notificationMessage }}
+  </div>
+  
 </div>
 
 <!-- Help Modal -->
@@ -160,9 +164,6 @@
   </div>
 </div>
 
-<div id="notification" [class.show]="showNotification">
-  {{ notificationMessage }}
-</div>
 
 <style>
   .help-text {

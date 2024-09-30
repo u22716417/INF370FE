@@ -51,7 +51,7 @@ export class SponsorListComponent implements OnInit {
     this.sponsorService.deleteSponsor(sponsorId).subscribe(
       () => {
         this.sponsors = this.sponsors.filter(s => s.sponsorId !== sponsorId);
-        alert('Sponsor has been removed successfully');
+        this.showPopupNotification('Sponsor has been removed successfully');
       },
       (error) => {
         console.error('Error deleting sponsor:', error);
