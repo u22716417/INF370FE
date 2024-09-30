@@ -10,7 +10,7 @@ export const ADMINROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/venue',
+    path: '/component/venues',
     title: 'Venues',
     icon: 'bi bi-building',
     class: '',

@@ -26,7 +26,14 @@ export class HireItemService {
     return this.http.get<any[]>(this.equipmentApiUrl)
   }
 
- 
+  getHireItemsForToday(id: number): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/ClientCollectHireItems/'+id);
+  }
+
+  
+  getAllHireItems(id: number): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/ClientCollectHireItems/'+id);
+  }
 
   createHireItem(hireItem: HireItem): Observable<HireItem> {
     return this.http.post<HireItem>(this.apiUrl, hireItem);

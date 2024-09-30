@@ -85,7 +85,7 @@ export class EventCreateUpdateComponent implements OnInit {
 
       });
     } else {
-      this.eventService.updateEvent(this.newEvent.id, this.newEvent).subscribe((response: any) => {
+      this.eventService.updateEvent(this.newEvent, this.newEvent.id).subscribe((response: any) => {
         this.handleNavigation(response);
         this.showPopupNotification('Event successfully updated!');
       }, error => {

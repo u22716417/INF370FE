@@ -12,7 +12,7 @@ import { EquipmentService } from '../service/equipment-service.service';
 })
 export class EquipmentCreateUpdateComponent implements OnInit {
   
-  newEquipment: Equipment = {
+  newEquipment: any = {
     equipment_ID: 0,
     equipment_Type_ID: 0,
     name: '',
@@ -22,6 +22,15 @@ export class EquipmentCreateUpdateComponent implements OnInit {
     image: ''
   };
   
+  copyEquipment: any = {
+    equipment_ID: 0,
+    equipment_Type_ID: 0,
+    name: '',
+    description: '',
+    availability: 'True',
+    condition: '',
+    image: ''
+  };
   fileNameUploaded = '';
   isSubmitted: boolean = false;
   heading: string = '';
@@ -29,7 +38,15 @@ export class EquipmentCreateUpdateComponent implements OnInit {
   showHelpModal = false;  // State for displaying help modal
   notificationMessage: string = '';
   showNotification: boolean = false;
-
+  equipment : Equipment = {
+    equipment_ID: 0,
+    equipment_Type_ID: 0,
+    name: '',
+    description: '',
+    availability: 'True',
+    condition: '',
+    image: ''
+  };
   constructor(
     public router: Router,
     private equipmentService: EquipmentService,
@@ -38,13 +55,26 @@ export class EquipmentCreateUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = parseInt(params['id'], 10);  // Use 'id' to match the new route param
-  
+      const id = parseInt(params['id']);  // Use 'id' to match the new route param
       if (id > 0) {
+        console.log("edit");
         this.heading = 'Edit Equipment';
         this.equipmentService.getEquipmentById(id).subscribe(
-          (response: Equipment) => {
+          (response: any) => {
             this.newEquipment = response;
+            console.log(this.newEquipment);
+
+            this.copyEquipment = JSON.parse(JSON.stringify(response));
+
+            this.newEquipment.equipment_ID =  this.copyEquipment.equipmentId;
+            this.newEquipment.equipment_Type_ID =  this.copyEquipment.equipmentTypeId;
+            this.newEquipment.name =  this.copyEquipment.equipmentName;
+            this.newEquipment.description =  this.copyEquipment.equipmentDescription;
+            this.newEquipment.availability =  this.copyEquipment.equipmentAvailability;
+            this.newEquipment.condition =  this.copyEquipment.equipmentCondition;
+            this.newEquipment.image =  this.copyEquipment.equipmentImage;
+
+
           },
           (error) => {
             console.error('Error fetching equipment by ID:', error);
@@ -53,8 +83,9 @@ export class EquipmentCreateUpdateComponent implements OnInit {
       } else {
         this.heading = 'Add Equipment';
       }
-    });
 
+
+    });
     // Fetch equipment types
     this.equipmentService.getEquipmentTypes().subscribe(
       (response: EquipmentType[]) => {
@@ -83,8 +114,22 @@ addOrUpdateEquipment(equipmentForm: NgForm): void {
         }
       );
     } else {
-      // Updating existing equipment
-      this.equipmentService.updateEquipment(this.newEquipment.equipment_ID, this.newEquipment as any).subscribe(
+   
+      console.log(this.newEquipment);
+
+      
+      this.newEquipment.EquipmentName = this.newEquipment.name;
+      this.newEquipment.EquipmentDescription = this.newEquipment.description;
+
+      this.newEquipment.EquipmentAvailability = this.newEquipment.availability;
+      this.newEquipment.EquipmentCondition = this.newEquipment.condition;
+      this.newEquipment.EquipmentImage = this.newEquipment.image;
+      this.newEquipment.IsActive = true;
+      this.newEquipment.EquipmentTypeId = this.newEquipment.equipment_Type_ID;
+
+
+
+      this.equipmentService.updateEquipment(this.newEquipment.equipment_ID, this.newEquipment).subscribe(
         () => {
           alert('Equipment updated successfully.');
           this.router.navigate(['/component/equipment-list']);

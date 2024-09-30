@@ -37,7 +37,9 @@ export class EventServiceService {
   // Update an existing event
   updateEvent(event: any, eventId:number): Observable<Event> {
     const url = `${this.apiUrl}/${eventId}`;
-    return this.http.put<any>(url, event, this.httpOptions);
+    console.log("Hitting: ", url);
+    console.log(event);
+    return this.http.put<any>(url, event);
   }
 
   // Delete an event

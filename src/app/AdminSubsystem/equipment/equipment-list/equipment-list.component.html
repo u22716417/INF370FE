@@ -23,7 +23,7 @@
         <td>{{ equipment.equipmentCondition }}</td>
         <td>{{equipment.equipmentAvailability}}</td>
         <td>
-          <button class="btn btn-primary" (click)="editEquipment(equipment.id)">Edit</button> |
+          <a class="btn btn-primary" [routerLink]="['/component/equipment-create-update', equipment.equipmentId]" routerLinkActive="active" >Edit</a> |
           <button class="btn btn-danger btn-sm" (click)="deleteEquipment(equipment.equipmentId)">Delete</button>
         </td>
       </tr>
