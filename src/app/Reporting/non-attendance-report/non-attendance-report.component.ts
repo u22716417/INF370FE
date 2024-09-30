@@ -121,8 +121,8 @@ export class NonAttendanceReportComponent implements OnInit {
           data: ticketsSold
         },
         {
-          name: 'Attendance Count',
-          data: attendanceCounts
+          name: 'Non Attendance Count',
+          data: nonAttendanceCounts
         }
       ],
       chart: {
