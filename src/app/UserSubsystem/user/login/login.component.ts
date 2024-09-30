@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   message: string = '';
   number: number = 0;
   private intervalId: any;
+  isLoading: boolean = false;
 
   constructor(private authService: UserManagementService, private router: Router) { }
 
@@ -45,10 +46,10 @@ export class LoginComponent implements OnInit {
   }
 
   authenticate() {
-    this.startLoadingAnimation();
+    this.isLoading = true;
     this.authService.authenticate(this.username, this.password).subscribe(
       (response: boolean) => {
-        this.stopLoadingAnimation();
+        this.isLoading = false;
         if (response) {
           this.openPopup();
           console.log(response);
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (error: string) => {
-        this.stopLoadingAnimation();
+        this.isLoading = false;
         this.message=('Invalid Credentials');
       }
     );

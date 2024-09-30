@@ -12,6 +12,8 @@ import { HireItemService } from '../../service/hire-item.service';
 import { HireEquipmentViewModel } from '../../HireItem';
 import { filter } from 'rxjs';
 import { event } from 'jquery';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hire-service',
@@ -24,7 +26,8 @@ export class HireServiceComponent implements OnInit {
   ServiceType: number = 0;
   isEquipment: boolean = false;
   equipmentOptions: any[] = [];
-
+  paymentForm!: FormGroup;
+  showOverlay: boolean = false;
   services: any[] = [];
   selectedServiceId: number = 0;
   calendarOptions: CalendarOptions;
@@ -47,7 +50,8 @@ export class HireServiceComponent implements OnInit {
   isService: boolean = false;
   errorMessage: string = ''; // Property to store error messages
   Equipmentid: number = 0;
-
+  showNotification: boolean = false;
+  notificationMessage: string = '';
   SelectedEquipment: number = 0;
   showEqupmentPopup: boolean = false;
   CurrentEquipment: any;
@@ -58,7 +62,7 @@ export class HireServiceComponent implements OnInit {
     private usermanagement: UserManagementService,
     private hireService: HireServiceService,
     private cartService: TicketService,
-    private hireItemService: HireItemService
+    private hireItemService: HireItemService, private route: Router, private fb: FormBuilder
   ) {
     this.calendarOptions = {
       initialView: 'dayGridMonth',
@@ -71,6 +75,12 @@ export class HireServiceComponent implements OnInit {
       dateClick: this.handleDateClick.bind(this),
       events: []
     };
+
+    this.paymentForm = this.fb.group({
+      cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{16}$')]],
+      expiryDate: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
+      cvv: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]]
+    });
   }
 
   closeEqPopup() {
@@ -106,22 +116,7 @@ export class HireServiceComponent implements OnInit {
         this.calendarOptions.events = events; // Set events directly without concatenation
       });
     }
-  processPayment() {
-    this.processing = true;
-    setTimeout(() => {
-      // logic to process the payment
-      console.log('Processing payment for:', {
-        cardNumber: this.cardNumber,
-        expiryDate: this.expiryDate,
-        cvv: this.cvv,
-        amount: this.paymentAmount
-      });
-      this.processing = false;
-      this.showPaymentPopup = false;
-      this.Confirm();
-      this.ngOnInit();
-    }, 5000);
-  }
+
 
   fetchEquipmentOptions(): void {
     this.hireItemService.getEquipmentOptions().subscribe(
@@ -151,7 +146,7 @@ export class HireServiceComponent implements OnInit {
   rejectQuote(id: number) {
     this.hireService.rejectQuote(id).subscribe(res => {
       console.log(res);
-      alert('Successfully Rejected Quote');
+      this.showPopupNotification('Successfully Rejected Quote');
       this.ngOnInit();
     });
   }
@@ -167,7 +162,7 @@ export class HireServiceComponent implements OnInit {
     const id = this.quoteId;
     this.hireService.approveQuote(id).subscribe(res => {
       console.log(res);
-      alert('Successfully Approved Quote');
+      this.showPopupNotification('Successfully Approved Quote');
     });
   }
 
@@ -347,5 +342,41 @@ export class HireServiceComponent implements OnInit {
   // Method to close the help modal
   closeHelpModal() {
     this.showHelpModal = false;
+  }
+
+  processPayment(): void {
+    if (this.paymentForm.valid) {
+      this.showOverlay = true;
+
+      const paymentRequest = {
+        userId: this.usermanagement.getcurrentUserID(),
+
+      };
+      this.processing = true;
+      setTimeout(() => {
+        // logic to process the payment
+        console.log('Processing payment for:', {
+          cardNumber: this.cardNumber,
+          expiryDate: this.expiryDate,
+          cvv: this.cvv,
+          amount: this.paymentAmount
+        });
+        this.processing = false;
+        this.showPaymentPopup = false;
+        this.Confirm();
+        this.ngOnInit();
+      }, 5000);
+
+  }
+
+  }
+
+  showPopupNotification(message: string): void {
+    this.notificationMessage = message;
+    this.showNotification = true;
+    setTimeout(() => {
+      this.showNotification = false;
+      this.notificationMessage = '';
+    }, 3000);
   }
 }

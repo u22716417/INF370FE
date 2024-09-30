@@ -43,10 +43,6 @@
         </div>
         <div>
           <label for="phoneNumber">Phone Number:</label>
-          <input type="tel" id="phoneNumber" [(ngModel)]="profile.phoneNumber" name="phoneNumber" required />
-        </div>
-        <div>
-          <label for="phoneNumber">Phone Number:</label>
           <input type="tel" 
           id="phoneNumber" 
           [(ngModel)]="profile.phoneNumber"
@@ -56,7 +52,7 @@
           pattern="^\d{10}$" 
           minlength="10" 
           maxlength="10" 
-          title="Please enter a valid 10-digit phone number">/>
+          title="Please enter a valid 10-digit phone number">
           
           <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="text-danger">
             <div *ngIf="phoneNumber.errors?.['required']">Phone number is required.</div>

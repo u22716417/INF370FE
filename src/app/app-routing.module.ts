@@ -125,10 +125,10 @@ export const Approutes: Routes = [
   { path: 'equipment-create-update',
     component: EquipmentCreateUpdateComponent
    },
-   {
-    path: 'equipment-create-update/:Id',
-    component: EquipmentCreateUpdateComponent
-  }
+  // {
+   // path: 'equipment-create-update/:Id',
+   // component: EquipmentCreateUpdateComponent
+  //}
   
 
 ];
