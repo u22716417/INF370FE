@@ -1,4 +1,5 @@
 <div class="background-image">
+<<<<<<< Updated upstream
 <!-- Overlay -->
 <div id="overlay" *ngIf="this.isPopupVisible" class="overlay">
   <div  style="margin-left: 35%; margin-top: 10%; width: 20%; height: 20%;" class="popup" class="card">
@@ -15,6 +16,25 @@
           <br>  
           <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>  |
           <button type="button" class="btn btn-primary" (click)="verifyOTP()">Verify</button>
+=======
+  <!-- Overlay -->
+  <div id="overlay" *ngIf="this.isPopupVisible" class="overlay">
+    <div class="card">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Enter OTP</h5>
+            <h2>{{this.message}}</h2>
+            <br/>
+            <br/>
+          </div>
+          <div class="modal-body">
+            <input type="number" [(ngModel)]="number" id="otpInput" class="form-control" placeholder="Enter OTP">
+            <br>
+            <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button> |
+            <button type="button" class="btn btn-primary" (click)="verifyOTP()">Verify</button>
+          </div>
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>
@@ -25,14 +45,52 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
 
+<<<<<<< Updated upstream
           <!-- Username input -->
           <div data-mdb-input-init class="form-outline mb-4">
             <input [(ngModel)]="username" type="text" id="form3Example3" class="form-control form-control-lg"
               placeholder="Enter your username" />
             <label class="form-label" for="form3Example3">Username</label>
+=======
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-indicator">
+    <div class="spinner"></div>
+  </div>
+
+  <section class="login-container">
+    <div class="login-card">
+      <!-- Company Logo -->
+      <div class="logo-container text-center">
+        <img src="assets/images/Protea-logo.png" alt="Protea-logo" class="Protea-logo">
+      </div>
+
+      <div class="card-header">
+        <h3>Login</h3>
+      </div>
+      
+      <div class="card-body">
+        <form [formGroup]="loginForm">
+          <!-- Username input -->
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="form-control" placeholder="Enter your username" formControlName="username">
+            <div *ngIf="loginForm.controls['username']?.invalid && loginForm.controls['username']?.touched" class="error-message">
+              Username is required.
+            </div>
+          </div>
+          
+          <!-- Password input -->
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="Enter your password" formControlName="password">
+            <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched" class="error-message">
+              Password is required.
+            </div>
+>>>>>>> Stashed changes
           </div>
           
 
+<<<<<<< Updated upstream
           <!-- Password input -->
           <div data-mdb-input-init class="form-outline mb-3">
             <input  [(ngModel)]="password" type="password" id="form3Example4" class="form-control form-control-lg"
@@ -52,6 +110,23 @@
             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="/signUp"
                 class="link-danger">Register</a></p>
           </div>
+=======
+          <!-- Forgot Password Link -->
+          <div class="form-footer">
+            <a routerLink="/forgotpassword" class="forgot-password">Forgot password?</a>
+          </div>
+
+          <!-- Login Button -->
+          <div class="form-group">
+            <button (click)="authenticate()" type="button" class="btn btn-primary btn-block">Login</button>
+          </div>
+
+          <!-- Sign Up Link -->
+          <div class="register-link">
+            <p>Don't have an account? <a routerLink="/signUp" class="link-register vivid-orange">Register</a></p>
+          </div>
+        </form>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>

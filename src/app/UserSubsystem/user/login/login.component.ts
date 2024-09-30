@@ -1,31 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
-import { RouterModule, Routes } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  username: string = '';
-  password: string = '';
+  loginForm: FormGroup; 
   isPopupVisible: boolean = false;
   message: string = '';
   number: number = 0;
   private intervalId: any;
+  isLoading: boolean = false; 
 
-  constructor(private authService: UserManagementService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: UserManagementService, private router: Router) {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
-    
     this.message = '';
   }
 
   startLoadingAnimation(): void {
+    this.isLoading = true; // Set isLoading to true
     let dots = '';
     this.intervalId = setInterval(() => {
       if (dots.length < 3) {
@@ -34,31 +37,33 @@ export class LoginComponent implements OnInit {
         dots = '';
       }
       this.message = `Loading${dots}`;
-    }, 500); // Update every 500 milliseconds
+    }, 500); 
   }
 
   stopLoadingAnimation(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);
-      this.message = ''; // Optionally reset the message
+      this.message = ''; 
+      this.isLoading = false; // Set isLoading to false
     }
   }
 
   authenticate() {
     this.startLoadingAnimation();
-    this.authService.authenticate(this.username, this.password).subscribe(
+    const { username, password } = this.loginForm.value; 
+    this.authService.authenticate(username, password).subscribe(
       (response: boolean) => {
         this.stopLoadingAnimation();
         if (response) {
           this.openPopup();
           console.log(response);
         } else {
-          this.message=('Invalid Credentials');
+          this.message = 'Invalid Credentials';
         }
       },
       (error: string) => {
         this.stopLoadingAnimation();
-        this.message=('Invalid Credentials');
+        this.message = 'Invalid Credentials';
       }
     );
   }
@@ -80,15 +85,14 @@ export class LoginComponent implements OnInit {
         if (response) {
           sessionStorage.setItem('CurrentUser', response.c);
           sessionStorage.setItem('CurrentUserId', response.u);
-
-          this.router.navigate(['/dashboard']); // When Login Is A success
+          this.router.navigate(['/dashboard']); 
         } else {
-          this.message=('Invalid OTP');
+          this.message = 'Invalid OTP';
         }
       },
       error: (error) => {
         this.stopLoadingAnimation();
-        this.message =('Invalid OTP');
+        this.message = 'Invalid OTP';
       }
     });
   }

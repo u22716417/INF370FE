@@ -1,87 +1,185 @@
-.background-image {
-  /* The image used */
-  background-image: url('https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png');
-
-  /* Full height */
-  height: 100%; 
-
-   /* Center the image */
-   background-position: center;
-   background-size: contain; /* Maintain original size of the image */
-   background-repeat: no-repeat;
-   
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff, #f2f2f2); /* Light gray gradient for professionalism */
 }
 
-.divider:after,
-.divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
-}
-.h-custom {
-height: calc(100% - 73px);
-}
-@media (max-width: 450px) {
-.h-custom {
-height: 100%;
-}
+.Protea-logo {
+  max-width: 120px; /* Set max width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 0 auto 20px auto; /* Center the logo and add some spacing below */
 }
 
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  }
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
-    z-index: 10; /* Ensure the overlay is above the background */
-  }
+/* Centering the login container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .card {
-    width: 300px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  }
+/* Login Card */
+.login-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  animation: fadeIn 0.8s ease-in-out;
+  border-top: 5px solid #ff6600; /* Vivid orange accent on top */
+}
 
- /* styles.css or your component CSS */
-/* styles.css */
-.toast {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  background-color: #333;
-  color: #fff;
+/* Logo Styling */
+.logo-container {
   text-align: center;
-  border-radius: 2px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-  font-size: 17px;
-  padding: 16px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.23);
-  opacity: 0;
-  transition: opacity 0.5s, bottom 0.5s;
+  margin-bottom: 20px;
 }
 
-.toast.show {
-  visibility: visible;
-  opacity: 1;
-  bottom: 50px;
+/* Card Header */
+.card-header h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #ff6600; /* Vivid orange border on focus */
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 102, 0, 0.25); /* Orange glow */
+}
+
+/* Error Message Styles */
+.error-message {
+  color: red; /* Red color for error messages */
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Forgot Password Link */
+.forgot-password {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #ff6600;
+  margin-bottom: 15px;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Modal Styles for OTP */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 300px; /* Adjust based on your requirement */
+}
+
+.modal-header h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.modal-body {
+  margin-top: 10px;
+}
+
+.modal-body input {
+  margin-bottom: 10px;
+}
+
+/* Button Styles */
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9; /* Slight opacity change on hover */
+}
+
+/* Loading Indicator Styles */
+.loading-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it overlays above other elements */
+}
+
+.spinner {
+  border: 8px solid rgba(0, 0, 0, 0.1); /* Light border */
+  border-top: 8px solid #ff6600; /* Vivid orange border */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite; /* Spin animation */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Vivid Orange Color for Register Link */
+.vivid-orange {
+  color: #ff6600; /* Vivid orange color */
 }
