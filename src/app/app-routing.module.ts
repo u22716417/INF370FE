@@ -28,6 +28,8 @@ import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/crea
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HelpComponent } from './HelpSubsystem/help/help.component';
+import { SalesAttendanceReportComponent } from './Reporting/sales-attendance-report/sales-attendance-report.component';
+import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/non-attendance-report.component';
 
 
 export const Approutes: Routes = [
@@ -85,6 +87,10 @@ export const Approutes: Routes = [
   {
     path:'ticket-sales-report',
     component:TicketSalesReportComponent
+  },
+  {
+    path:'sales-attendance-report',
+    component: SalesAttendanceReportComponent
   },
   {
     path: 'equipment-create-update/0',

@@ -48,6 +48,14 @@ export class ReportService {
     return this.http.get<any[]>('https://localhost:7149/api/Events/GenerateEventAttendanceDetailedReport');
   }
 
+  getSalesAttendanceReport(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/api/Events/SalestToAttendanceReport');
+  }
+
+  getEventNonAttendanceReport(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7149/api/Events/UnattendanceReport');
+  }
+
 
 }
 
