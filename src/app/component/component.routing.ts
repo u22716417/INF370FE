@@ -53,6 +53,8 @@ import { SponsorCreateUpdateComponent } from '../AdminSubsystem/sponsor/sponsor-
 import { BackupAndRestoreComponent } from '../AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
 import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/create-update.component';
 import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
+import { SalesAttendanceReportComponent } from '../Reporting/sales-attendance-report/sales-attendance-report.component';
+import { NonAttendanceReportComponent } from '../Reporting/non-attendance-report/non-attendance-report.component';
 
 
 
@@ -94,6 +96,18 @@ export const ComponentsRoutes: Routes = [
 			{
 				path: 'HireServiceReport',
 				component: HireServiceReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'SalesAttendanceReport',
+				component: SalesAttendanceReportComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'NonAttendanceReport',
+				component: NonAttendanceReportComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
 			},

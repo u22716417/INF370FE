@@ -1,10 +1,10 @@
-<div class="container" id="reportContent"></div>
+<div class="container" id="reportContent">
 
     <!-- Logo -->
     <div class="text-center mb-4">
       <img src="https://pevents.co.za/wp-content/uploads/2020/03/Protea-logo-edited-2048x2048.png" alt="Protea Logo" class="img-fluid" style="max-width: 150px;">
     </div>
-<h2 class="text-center">Sales to Attendance Report</h2>
+<h2 class="text-center">Event Non-Attendance Report</h2>
 
 <div >
 <button (click)="exportToPDF()" class="btn btn-primary">Export to PDF</button> |
@@ -13,16 +13,16 @@
 <br/>
 <!-- Flex container for Event Selector and Generated Info Card -->
 <div class="d-flex justify-content-between align-items-start mb-4">
-<!-- Event Selector -->
-<div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
-  <div class="card-body">
-    <label for="eventSelector" class="form-label">Select Event:</label>
-    <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
-      <option value="">All Events</option>
-      <option *ngFor="let eventName of getUniqueEventNames()" [value]="eventName">{{ eventName }}</option>
-    </select>
+  <!-- Event Selector -->
+  <div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
+    <div class="card-body">
+      <label for="eventSelector" class="form-label">Select Event:</label>
+      <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
+        <option value="">All Events</option>
+        <option *ngFor="let eventName of getUniqueEventNames()" [value]="eventName">{{ eventName }}</option>
+      </select>
+    </div>
   </div>
-</div>
 
 <!-- Generated Info Card -->
 <div class="card" style="width: 30%; margin-left: 0; justify-self: start;">
@@ -53,29 +53,34 @@
             </apx-chart>
           </div>
         </div>
+      </div>
 
-        <div id="reportContent">
-            <table id="reportTable" class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Event Name</th>
-                  <th>Event Date</th>
-                  <th>Number of Tickets Sold</th>
-                  <th>Attendee Count</th>
-                  <th>NonAttendanceCount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let report of filteredEventsNonAttendance">
-                  <td>{{ report.EventName }}</td>
-                  <td>{{ report.EventDate }}</td>
-                  <td>{{ report.NumberOfTicketsSold }}</td>
-                  <td>{{ report.EventAttendanceCount }}</td>
-                  <td>{{ report.UnattendanceCount }}</td>
-                </tr>
-              </tbody>
-              </table>
-            </div>
+ <!-- Sales Data Table -->
+ <div id="reportContent">
+    <table id="reportTable" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Event Date</th>
+          <th>Number of Tickets Sold</th>
+          <th>Number of Non Attendance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of eventNonAttendance">
+          <td>{{ report.eventName }}</td>
+          <td>{{ report.eventDate }}</td>
+          <td>{{ report.numberOfTicketsSold }}</td>
+          <td>{{ report.unnattendanceCount }}</td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+
+</div>
+
         
 
-      </div>
+  
+
+

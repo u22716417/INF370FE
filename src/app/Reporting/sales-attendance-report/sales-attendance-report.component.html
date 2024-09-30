@@ -13,16 +13,16 @@
 <br/>
 <!-- Flex container for Event Selector and Generated Info Card -->
 <div class="d-flex justify-content-between align-items-start mb-4">
-<!-- Event Selector -->
-<div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
-  <div class="card-body">
-    <label for="eventSelector" class="form-label">Select Event:</label>
-    <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
-      <option value="">All Events</option>
-      <option *ngFor="let eventName of getUniqueEventNames()" [value]="eventName">{{ eventName }}</option>
-    </select>
+  <!-- Event Selector -->
+  <div class="card" style="width: 35%; margin-left: 0; justify-self: start;">
+    <div class="card-body">
+      <label for="eventSelector" class="form-label">Select Event:</label>
+      <select id="eventSelector" class="form-select" (change)="onEventChange($event)">
+        <option value="">All Events</option>
+        <option *ngFor="let eventName of getUniqueEventNames()" [value]="eventName">{{ eventName }}</option>
+      </select>
+    </div>
   </div>
-</div>
 
 <!-- Generated Info Card -->
 <div class="card" style="width: 30%; margin-left: 0; justify-self: start;">
@@ -67,7 +67,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let report of filteredSalesAttendance">
+        <tr *ngFor="let report of salesAttendance">
           <td>{{ report.eventName }}</td>
           <td>{{ report.eventDate }}</td>
           <td>{{ report.numberOfTicketsSold }}</td>

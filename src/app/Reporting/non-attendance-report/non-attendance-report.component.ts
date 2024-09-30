@@ -73,38 +73,47 @@ export class NonAttendanceReportComponent implements OnInit {
     XLSX.writeFile(wb, 'sold-tickets-report.xlsx');
   }
 
-  onEventChange(event: any) {
-    this.selectedEvent = event.target.value;
-    this.filterEventNonAttendance();
-  }
-  
   getUniqueEventNames(): string[] {
     const eventNames = this.eventsfromDb.map(event => event.eventName);
     return [...new Set(eventNames)];
   }
 
+  onEventChange(event: any): void {
+    this.selectedEvent = event.target.value; // Capture selected event
+    this.filterEventNonAttendance();  // Filter data and update chart
+  }
+
   filterEventNonAttendance(): void {
-    if (this.selectedEvent) {
+    if (this.selectedEvent !== '') {
       this.filteredEventsNonAttendance = this.eventNonAttendance.filter(report => report.eventName === this.selectedEvent);
     } else {
       this.filteredEventsNonAttendance = [...this.eventNonAttendance];
     }
-    this.initializeChart();
+    this.initializeChart();  // Regenerate chart with filtered data
   }
 
   getEventNonAttendanceReport(): void {
-    this.reportService.getEventNonAttendanceReport().subscribe((data: any[]) => {
-      this.eventNonAttendance = data;
-      this.initializeChart();
-    });
+    this.reportService.getEventNonAttendanceReport().subscribe(
+      (data: any[]) => {
+        this.eventNonAttendance = [...data];
+        this.eventsfromDb = [...data];  
+        this.initializeChart();
+      },
+      (error) => {
+        console.error('Error fetching sales attendance report', error);
+      }
+    );
   }
 
   initializeChart(): void {
-    //const categories = this.filteredEventsNonAttendance.map(report => report.eventName);
-    const eventNames = this.attendanceRecords.map(record => record.eventName);
-    const nonAttendanceCounts = this.attendanceRecords.map(record => record.eventNonAttendanceCount)
-    const ticketsSold = this.ticketSales.map(record => record.ticketSales)
-
+    // Extract event names, ticket sales, and attendance counts
+    const eventNames = this.eventNonAttendance.map(record => record.eventName);
+    const ticketsSold = this.eventNonAttendance.map(record => record.NumberOfTicketsSold);
+    const attendanceCounts = this.eventNonAttendance.map(record => record.EventAttendanceCount);
+  
+    // Calculate non-attendance counts (tickets sold - attendance count)
+    const nonAttendanceCounts = ticketsSold.map((sold, index) => sold - attendanceCounts[index]);
+  
     this.chartOptions = {
       series: [
         {
@@ -112,17 +121,17 @@ export class NonAttendanceReportComponent implements OnInit {
           data: ticketsSold
         },
         {
-          name: 'Attendees',
-          data: nonAttendanceCounts
+          name: 'Attendance Count',
+          data: attendanceCounts
         }
       ],
       chart: {
         type: 'bar',
-        height: 350,
-        stacked: false
+        height: 350
       },
       title: {
-        text: 'Event Non Attendance vs Tickets Sold'
+        text: 'Sales and Attendance Report',
+        align: 'center'
       },
       xaxis: {
         categories: eventNames,
@@ -130,17 +139,13 @@ export class NonAttendanceReportComponent implements OnInit {
           text: 'Events'
         }
       },
-      yaxis: {
-        title: {
-          text: 'Count'
-        }
+      dataLabels: {
+        enabled: true
       },
-      legend: {
-        position: 'top'
-      }
+      colors: ['#0B2F9F', '#06D001']
     };
   }
-
+  
   exportToPDF(): void {
     const chartElement = document.getElementById('chart');
     const tableElement = document.getElementById('reportTable');

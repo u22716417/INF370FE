@@ -53,8 +53,6 @@ export class SalesAttendanceReportComponent implements OnInit {
     this.getSalesAttendanceReport();
     this.events = [...this.getUniqueEventNames()];
 
-   
-
   }
 
   getCurrentUser(): void {
@@ -78,9 +76,9 @@ export class SalesAttendanceReportComponent implements OnInit {
     return [...new Set(eventNames)];
   }
 
-  onEventChange(event: any) {
-    this.selectedEvent = event.target.value;
-    this.filterSalesAttendance();
+  onEventChange(event: any): void {
+    this.selectedEvent = event.target.value; // Capture selected event
+    this.filterSalesAttendance();  // Filter data and update chart
   }
 
   exportToExcel(): void {
@@ -145,29 +143,11 @@ export class SalesAttendanceReportComponent implements OnInit {
     }
   }
 
-  //getSalesAttendanceReport(): void {
-    //this.reportService.getSalesAttendanceReport().subscribe(
-      //(data: any[]) => {
-        //this.salesAttendance = data;
-        //console.log('Sales Attendance Data:', this.salesAttendance);
-        //this.generateChart();
-      //},
-      //(error) => {
-    //console.error('Error fetching sales attendance report', error);
-     //}
-    //);
-  //}
-
   getSalesAttendanceReport(): void {
     this.reportService.getSalesAttendanceReport().subscribe(
       (data: any[]) => {
-        // Save the full response to a list
         this.salesAttendance = [...data];
-        console.log(data);
-        // Extract specific properties into separate lists
-        
-  
-        // Now you can use these lists to generate the chart
+        this.eventsfromDb = [...data];  
         this.generateChart();
       },
       (error) => {
@@ -177,36 +157,29 @@ export class SalesAttendanceReportComponent implements OnInit {
   }
   
   filterSalesAttendance(): void {
-    if (this.selectedEvent != '') {
-      this.filteredSalesAttendance= this.salesAttendance.filter(report => report.eventName === this.selectedEvent);
+    if (this.selectedEvent !== '') {
+      this.filteredSalesAttendance = this.salesAttendance.filter(report => report.eventName === this.selectedEvent);
     } else {
       this.filteredSalesAttendance = [...this.salesAttendance];
     }
-    this.generateChart();
-
-    
+    this.generateChart();  // Regenerate chart with filtered data
   }
-
-  generateChart() {
-    
-    
-    const eventNames = this.salesAttendance.map(item => item.eventName);
-    const ticketsSold = this.salesAttendance.map(item => item.numberOfTicketsSold);
-    const attendanceCounts = this.salesAttendance.map(item => item.eventAttendanceCount);
-
-
   
-
+  generateChart(): void {
+    const eventNames = this.filteredSalesAttendance.map(item => item.eventName);
+    const ticketsSold = this.filteredSalesAttendance.map(item => item.numberOfTicketsSold);
+    const attendanceCounts = this.filteredSalesAttendance.map(item => item.eventAttendanceCount);
+  
     this.chartOptions = {
       series: [
         {
-          name: 'Tickets Sold', 
+          name: 'Tickets Sold',
           data: ticketsSold
         },
         {
           name: 'Attendance Count',
           data: attendanceCounts
-        },
+        }
       ],
       chart: {
         type: 'bar',
@@ -225,9 +198,8 @@ export class SalesAttendanceReportComponent implements OnInit {
       dataLabels: {
         enabled: true
       },
-      colors: ['#FF5733', '#33FF57']
+      colors: ['#0B2F9F', '#06D001']
     };
   }
-  
   
 }
