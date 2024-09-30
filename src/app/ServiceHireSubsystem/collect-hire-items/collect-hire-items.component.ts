@@ -7,6 +7,7 @@ import { HireItemService } from '../service/hire-item.service';
   styleUrls: ['./collect-hire-items.component.css']
 })
 export class CollectHireItemsComponent implements OnInit {
+
   todaysBookings: any[] = [];
 
   constructor(private hireItemsService: HireItemService) {}
@@ -26,4 +27,36 @@ export class CollectHireItemsComponent implements OnInit {
       console.error('Error fetching hire items:', error);
     });
   }
+
+
+    CollectItem(arg0: any) {
+        console.log(arg0);
+
+
+        this.hireItemsService.collectItems(arg0).subscribe(response => {
+                  console.log(response);
+                alert("Items collected Successfully");
+                this.ngOnInit();
+                }, error => {
+                  console.error('Error collecting hire items:', error);
+                });
+        
+    }
+
+
+    
+    returnItem(arg0: any) {
+        console.log(arg0);
+
+
+        this.hireItemsService.returnItems(arg0).subscribe(response => {
+                  console.log(response);
+                alert("Items Returned Successfully");
+                this.ngOnInit();
+                }, error => {
+                  console.error('Error collecting hire items:', error);
+                });
+        
+    }
+
 }
