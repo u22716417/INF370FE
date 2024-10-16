@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Attendee } from './classes/attendee';
+import { Attendee } from './classes/check-in';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckInService } from './service/check-in.service';
 import { Router } from '@angular/router';
@@ -137,6 +137,7 @@ sendQrCodeDataToApi(qrCodeData: string): void {
     (response) => {
       console.log('Check-In successful:', response);
       this.showPopupNotification('Check-In successful!');
+      this.getAttendeeDetails(qrCodeData);
     },
     (error) => {
       console.error('Check-In failed:', error);
@@ -174,4 +175,25 @@ openHelpModal() {
 closeHelpModal() {
   this.showHelpModal = false;
 }
+
+// New method to fetch attendee details based on the ticket's ClientId after check-in
+getAttendeeDetails(qrCodeData: string): void {
+  // This API endpoint should return the attendee details based on the QR code data
+  this.http.get<Attendee>(`https://localhost:7149/api/CheckIn/GetAttendeeDetails/${qrCodeData}`).subscribe(
+    (attendee) => {
+      this.attendee = attendee; // assuming the API returns the attendee details in this format
+      console.log('Attendee Details:', this.attendee);
+      this.showAttendeeModal = true;
+
+      
+    },
+    (error) => {
+      console.error('Failed to fetch attendee details:', error);
+      this.showPopupNotification('Failed to fetch attendee details. Please try again.');
+    }
+    
+  );
+}
+
+
 }
