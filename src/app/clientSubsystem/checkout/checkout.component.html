@@ -6,7 +6,13 @@
         <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of cartItems">
           <div class="d-flex flex-column">
             <h5>{{ item.title }}</h5>
-            <small>Price: {{ item.price | currency: 'ZAR' }} x {{ item.quantity }}</small>
+            <small>Price: {{ item.price | currency: 'ZAR' }} x {{ item.quantity }}
+              <button class="btn-quantity" (click)="decreaseQuantity(item.id)">-</button>
+              <span class="item-quantity">{{ item.quantity }}</span>
+              <button class="btn-quantity" (click)="increaseQuantity(item.id)">+</button>
+              
+            </small>
+      
           </div>
           <span>Total: {{ item.price * item.quantity  | currency: 'R'}}</span>
         </li>
@@ -38,3 +44,36 @@
   </div>
   <a class="btn btn-primary mt-3" routerLink="/component/payfast">Make Payment</a>
 </div>
+
+
+<style>
+  .btn-quantity {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #007bff;
+  background-color: #fff;
+  color: #007bff;
+  font-weight: bold;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-quantity:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.item-quantity {
+  font-weight: bold;
+  margin: 0 10px;
+  min-width: 20px;
+  display: inline-block;
+  text-align: center;
+}
+
+</style>
