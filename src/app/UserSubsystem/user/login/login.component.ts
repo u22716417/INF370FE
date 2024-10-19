@@ -29,23 +29,14 @@ export class LoginComponent implements OnInit {
 
   startLoadingAnimation(): void {
     this.isLoading = true; // Set isLoading to true
-    let dots = '';
-    this.intervalId = setInterval(() => {
-      if (dots.length < 3) {
-        dots += '.';
-      } else {
-        dots = '';
-      }
-      this.message = `Loading${dots}`;
-    }, 500); 
+    
   }
 
   stopLoadingAnimation(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
+   
       this.message = ''; 
       this.isLoading = false; // Set isLoading to false
-    }
+    
   }
 
   authenticate() {

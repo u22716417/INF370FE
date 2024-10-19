@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { WebcamImage, WebcamModule } from 'ngx-webcam';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -30,8 +31,8 @@ export class CheckInComponent implements OnInit  {
   private trigger: Subject<void> = new Subject<void>();
   private imageUrl = 'http://api.qrserver.com/v1/read-qr-code/'; // API URL
   Image: string = '';
-
-  constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router, private http: HttpClient) {
+  base64Image: SafeResourceUrl  ='';
+  constructor(private fb: FormBuilder, private checkInService: CheckInService, private router: Router, private http: HttpClient,  private sanitizer: DomSanitizer) {
     this.checkInForm = this.fb.group({
       barcode: ['', Validators.required]
     });
@@ -45,7 +46,7 @@ export class CheckInComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-  
+
   }
 
 
@@ -183,8 +184,10 @@ getAttendeeDetails(qrCodeData: string): void {
     (attendee) => {
       this.attendee = attendee; // assuming the API returns the attendee details in this format
       console.log('Attendee Details:', this.attendee);
+      const profileImageUrl = attendee.profileImageUrl || ''; 
+      this.base64Image = this.sanitizer.bypassSecurityTrustResourceUrl(profileImageUrl);
       this.showAttendeeModal = true;
-
+     
       
     },
     (error) => {
