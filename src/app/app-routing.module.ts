@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { FullComponent } from './layouts/full/full.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
-import { VerificationComponent } from './AdminSubsystem/check-in/verification/verification.component';
 import { VenueService } from './AdminSubsystem/venue/service/venue-service.service';
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';
@@ -28,6 +27,8 @@ import { CreateUpdateComponent } from './AdminSubsystem/venue/create-update/crea
 import { EventCreateUpdateComponent } from './AdminSubsystem/event/event-create-update/event-create-update.component';
 import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-create-update/service-create-update.component';
 import { HelpComponent } from './HelpSubsystem/help/help.component';
+import { SalesAttendanceReportComponent } from './Reporting/sales-attendance-report/sales-attendance-report.component';
+import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/non-attendance-report.component';
 
 
 export const Approutes: Routes = [
@@ -85,6 +86,10 @@ export const Approutes: Routes = [
   {
     path:'ticket-sales-report',
     component:TicketSalesReportComponent
+  },
+  {
+    path:'sales-attendance-report',
+    component: SalesAttendanceReportComponent
   },
   {
     path: 'equipment-create-update/0',
