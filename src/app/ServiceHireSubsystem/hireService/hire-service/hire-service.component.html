@@ -66,14 +66,16 @@
 
         <div class="form-group">
           <label for="equipment">Equipment</label>
-          <select
-            id="equipment"
-            class="form-control"
-            [(ngModel)]="SelectedEquipment">
-            <option value="" disabled>Select Equipment</option>
-            <option *ngFor="let item of equipmentOptions" (click)="handleEquipmentChange(item)"   [value]="item.equipmentId">{{ item.equipmentName }}</option>
-          </select>
-        </div>
+          <div *ngFor="let item of equipmentOptions" class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [value]="item.equipmentId"
+              (change)="handleEquipmentChange($event, item)"
+              [checked]="isEquipmentSelected(item.equipmentId)">
+            <label class="form-check-label">{{ item.equipmentName }}</label>
+          </div>
+        </div>
 
            <!-- Start Date input with tooltip -->
            <label>Choose A Start Date:
