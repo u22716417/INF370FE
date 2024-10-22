@@ -63,16 +63,18 @@
             <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
        </div>
        <div *ngIf="isEquipment">
+        <h2>Enter Equipment Details</h2>
 
         <div class="form-group">
           <label for="equipment">Equipment</label>
-          <select
-            id="equipment"
-            class="form-control"
-            [(ngModel)]="SelectedEquipment">
+          <select id="equipment" class="form-control" [(ngModel)]="SelectedEquipment" (change)="handleEquipmentChange($event)">
             <option value="" disabled>Select Equipment</option>
-            <option *ngFor="let item of equipmentOptions" (click)="handleEquipmentChange(item)"   [value]="item.equipmentId">{{ item.equipmentName }}</option>
+            <option *ngFor="let equipment of equipmentOptions" [value]="equipment.equipmentId">
+              {{ equipment.equipmentName }}
+          </option>
           </select>
+          
+          
         </div>
 
            <!-- Start Date input with tooltip -->

@@ -3,13 +3,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { ServicesServiceService } from 'src/app/AdminSubsystem/service/service/services-service.service';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { HireServiceService } from '../../hireService-service/hire-service.service';
 import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
 import { HireItemService } from '../../service/hire-item.service';
-import { HireEquipmentViewModel } from '../../HireItem';
+import { HireEquipmentViewModel, HireItem } from '../../HireItem';
 import { filter } from 'rxjs';
 import { event } from 'jquery';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -100,35 +100,71 @@ export class HireServiceComponent implements OnInit {
   closePaymentPopup() {
     this.showPaymentPopup = false;
   }
-    handleEquipmentChange(event: any) {
-      this.fetchEquipmentBookingSchedule(event.equipmentId);
-    }
+  handleEquipmentChange(event: any) {
+    const equipmentId = event.target.value;
+    this.SelectedEquipment = +equipmentId; // Convert to number
+    console.log('Selected Equipment ID:', this.SelectedEquipment); // Log the selected ID
+    this.fetchEquipmentBookingSchedule(this.SelectedEquipment); // Fetch the booking schedule
+}
 
-    fetchEquipmentBookingSchedule(equipmentId: number) {
-      this.serviceService.getEquipmentBookingSchedule(equipmentId).subscribe(bookings => {
-        console.log('---------------->', bookings);
-        const events = bookings.map((booking: any) => ({
-          title: 'Booked',
-          start: booking.startDate,
-          end: booking.endDate,
-          color: 'red'
-        }));
-        this.calendarOptions.events = events; // Set events directly without concatenation
-      });
-    }
+fetchEquipmentBookingSchedule(equipmentId: number) {
+  this.hireItemService.getHireItems().subscribe(
+      (hireItems: HireItem[]) => {
+          console.log('Fetched Hire Items:', hireItems);
 
+          // Filter for the specific equipment
+          const equipmentBookings = hireItems.filter(item => item.equipmentId === equipmentId);
+          console.log('Filtered Equipment Bookings:', equipmentBookings);
 
-  fetchEquipmentOptions(): void {
-    this.hireItemService.getEquipmentOptions().subscribe(
-      (options: any[]) => {
-        this.equipmentOptions = [...options];
-        console.log('Equipment options:', this.equipmentOptions);
+          if (equipmentBookings.length === 0) {
+              console.log('No bookings found for this equipment.');
+              this.calendarOptions.events = []; // Clear events if no bookings
+              return;
+          }
+
+          // Map the filtered bookings to events for the calendar
+          const mappedEvents = equipmentBookings.map(item => {
+              console.log('Item:', item); // Log each item to check the structure
+              const startDate = new Date(item.startDate); // Changed to match your interface
+              const endDate = new Date(item.endDate); // Changed to match your interface
+
+              // Check for valid dates
+              if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                  console.error(`Invalid date(s) for StartDate=${item.startDate}, EndDate=${item.endDate}`);
+                  return null; // Skip this event if dates are invalid
+              }
+
+              return {
+                  title: 'Hired',
+                  start: startDate,
+                  end: endDate,
+                  color: 'red',
+              };
+          }).filter(event => event !== null) as EventInput[];
+
+          this.calendarOptions.events = mappedEvents; // Assign mapped events to calendar options
       },
-      error => {
-        console.error('Error fetching equipment options', error);
+      (error) => {
+          console.error('Error fetching hire items:', error);
+          this.calendarOptions.events = []; // Clear events on error
       }
-    );
+  );
+}
+
+
+
+    fetchEquipmentOptions(): void {
+      this.hireItemService.getEquipmentOptions().subscribe(
+          (options: any[]) => {
+              console.log('Fetched Equipment Options:', options);
+              this.equipmentOptions = [...options]; // Save the options
+          },
+          error => {
+              console.error('Error fetching equipment options', error);
+          }
+      );
   }
+  
 
   ngOnInit(): void {
     this.fetchEquipmentOptions();

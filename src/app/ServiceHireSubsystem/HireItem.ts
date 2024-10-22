@@ -1,11 +1,11 @@
 
 export interface HireItem {
-    HireItemsId: number;
-    StartDate: Date;
-    EndDate: Date;
-    Status: string;
-    ClientId: number;
-    EquipmentId: number;
+    hireItemsId: number;
+    startDate: string;
+    endDate: string;
+    status: string;
+    clientId: number;
+    equipmentId: number;
   
   }
 
