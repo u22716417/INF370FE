@@ -87,26 +87,29 @@ export class HireServiceComponent implements OnInit {
     this.showEqupmentPopup = false;
   }
   onServiceSelected() {
-    if (this.ServiceType == 1) {
-      this.isService = true;
-      this.isEquipment = false;
+    this.calendarOptions.events = [];  // Clear calendar events
+
+    if (this.ServiceType == 1) {  // Service selected
+        this.isService = true;
+        this.isEquipment = false;
+    } else if (this.ServiceType == 2) {  // Equipment selected
+        this.isService = false;
+        this.isEquipment = true;
     }
-    if (this.ServiceType == 2) {
-      this.isService = false;
-      this.isEquipment = true;
-    }
-  }
+}
 
   closePaymentPopup() {
     this.showPaymentPopup = false;
   }
   handleEquipmentChange(event: any) {
-    const equipmentId = event.target.value;
-    this.SelectedEquipment = +equipmentId; // Convert to number
-    console.log('Selected Equipment ID:', this.SelectedEquipment); // Log the selected ID
-    this.fetchEquipmentBookingSchedule(this.SelectedEquipment); // Fetch the booking schedule
-}
+    this.SelectedEquipment = +event.target.value;  // Convert to number
 
+    if (this.SelectedEquipment) {
+        this.fetchEquipmentBookingSchedule(this.SelectedEquipment);  // Load equipment-specific bookings
+    } else {
+        this.calendarOptions.events = [];  // Clear calendar if no equipment is selected
+    }
+}
 fetchEquipmentBookingSchedule(equipmentId: number) {
   this.hireItemService.getHireItems().subscribe(
       (hireItems: HireItem[]) => {
@@ -203,13 +206,15 @@ fetchEquipmentBookingSchedule(equipmentId: number) {
   }
 
   handleServiceChange(event: any) {
-    this.selectedServiceId = +event.target.value; // Use unary + operator to convert string to number
-    this.SelectedServiceName = this.services.find(s => s.id == this.selectedServiceId).serviceName;
-    console.log("-------------------------->",this.SelectedServiceName);
+    this.selectedServiceId = +event.target.value; // Convert to number
+    this.SelectedServiceName = this.services.find(s => s.id == this.selectedServiceId)?.serviceName || '';
+
     if (this.selectedServiceId) {
-      this.fetchBookingSchedule(this.selectedServiceId);
+        this.fetchBookingSchedule(this.selectedServiceId);  // Load service-specific bookings
+    } else {
+        this.calendarOptions.events = [];  // Clear calendar if no service is selected
     }
-  }
+}
 
   postQuote() {
     const currentUser = this.usermanagement.getcurrentUserID();
