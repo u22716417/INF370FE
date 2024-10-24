@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from '../Services/ticket.service';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
+import { Order } from './order-history';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
   styleUrls: ['./order-history.component.css']
 })
 export class OrderHistoryComponent implements OnInit {
-  orderHistory: any[] = [];
+  orderHistory: Order[] = [];
   clientId: number | null = null;
   showNotification: boolean = false;
   notificationMessage: string = '';
@@ -33,12 +34,13 @@ export class OrderHistoryComponent implements OnInit {
   fetchOrderHistory(): void {
     if (this.clientId) {
       this.orderHistoryService.getOrderHistory(this.clientId).subscribe(
-        (data: any[]) => {
+        (data: Order[]) => {
+          console.log('Fetched Order History:', data); // Check if data has correct fields
           if (data && data.length > 0) {
-            this.orderHistory = data;
+            this.orderHistory = data; // Directly assign the fetched data
           } else {
             console.log('You have no orders');
-            this.orderHistory = [];  // Ensure the order history is empty
+            this.orderHistory = []; // Ensure the order history is empty
           }
         },
         (error) => {
@@ -49,6 +51,7 @@ export class OrderHistoryComponent implements OnInit {
       console.error('Client ID is not available');
     }
   }
+  
   
 
   getStars(rating: number | undefined): string[] {

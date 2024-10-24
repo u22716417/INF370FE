@@ -6,6 +6,12 @@ import { ServiceSchedule } from '../HireService';
   providedIn: 'root'
 })
 export class HireServiceService {
+  getHireItemsForEquipment(equipmentId: number) {
+    throw new Error('Method not implemented.');
+  }
+  getHireItems() {
+    throw new Error('Method not implemented.');
+  }
 
   private baseUrl = 'https://localhost:7149/api';
   private apiUrl = 'https://localhost:7149/api/HireService'; 

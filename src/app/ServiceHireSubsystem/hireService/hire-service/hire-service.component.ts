@@ -3,13 +3,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarOptions } from '@fullcalendar/core';
+import { CalendarOptions, EventInput } from '@fullcalendar/core';
 import { ServicesServiceService } from 'src/app/AdminSubsystem/service/service/services-service.service';
 import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserManagementService';
 import { HireServiceService } from '../../hireService-service/hire-service.service';
 import { TicketService } from 'src/app/clientSubsystem/Services/ticket.service';
 import { HireItemService } from '../../service/hire-item.service';
-import { HireEquipmentViewModel } from '../../HireItem';
+import { HireEquipmentViewModel, HireItem } from '../../HireItem';
 import { filter } from 'rxjs';
 import { event } from 'jquery';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -88,15 +88,16 @@ export class HireServiceComponent implements OnInit {
     this.showEqupmentPopup = false;
   }
   onServiceSelected() {
-    if (this.ServiceType == 1) {
-      this.isService = true;
-      this.isEquipment = false;
+    this.calendarOptions.events = [];  // Clear calendar events
+
+    if (this.ServiceType == 1) {  // Service selected
+        this.isService = true;
+        this.isEquipment = false;
+    } else if (this.ServiceType == 2) {  // Equipment selected
+        this.isService = false;
+        this.isEquipment = true;
     }
-    if (this.ServiceType == 2) {
-      this.isService = false;
-      this.isEquipment = true;
-    }
-  }
+}
 
   closePaymentPopup() {
     this.showPaymentPopup = false;
@@ -124,31 +125,59 @@ export class HireServiceComponent implements OnInit {
 
 
 
-    fetchEquipmentBookingSchedule(equipmentId: number) {
-      this.serviceService.getEquipmentBookingSchedule(equipmentId).subscribe(bookings => {
-        console.log('---------------->', bookings);
-        const events = bookings.map((booking: any) => ({
-          title: 'Booked',
-          start: booking.startDate,
-          end: booking.endDate,
-          color: 'red'
-        }));
-        this.calendarOptions.events = events; // Set events directly without concatenation
-      });
-    }
+          // Filter for the specific equipment
+          const equipmentBookings = hireItems.filter(item => item.equipmentId === equipmentId);
+          console.log('Filtered Equipment Bookings:', equipmentBookings);
 
+          if (equipmentBookings.length === 0) {
+              console.log('No bookings found for this equipment.');
+              this.calendarOptions.events = []; // Clear events if no bookings
+              return;
+          }
 
-  fetchEquipmentOptions(): void {
-    this.hireItemService.getEquipmentOptions().subscribe(
-      (options: any[]) => {
-        this.equipmentOptions = [...options];
-        console.log('Equipment options:', this.equipmentOptions);
+          // Map the filtered bookings to events for the calendar
+          const mappedEvents = equipmentBookings.map(item => {
+              console.log('Item:', item); // Log each item to check the structure
+              const startDate = new Date(item.startDate); // Changed to match your interface
+              const endDate = new Date(item.endDate); // Changed to match your interface
+
+              // Check for valid dates
+              if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                  console.error(`Invalid date(s) for StartDate=${item.startDate}, EndDate=${item.endDate}`);
+                  return null; // Skip this event if dates are invalid
+              }
+
+              return {
+                  title: 'Hired',
+                  start: startDate,
+                  end: endDate,
+                  color: 'red',
+              };
+          }).filter(event => event !== null) as EventInput[];
+
+          this.calendarOptions.events = mappedEvents; // Assign mapped events to calendar options
       },
-      error => {
-        console.error('Error fetching equipment options', error);
+      (error) => {
+          console.error('Error fetching hire items:', error);
+          this.calendarOptions.events = []; // Clear events on error
       }
-    );
+  );
+}
+
+
+
+    fetchEquipmentOptions(): void {
+      this.hireItemService.getEquipmentOptions().subscribe(
+          (options: any[]) => {
+              console.log('Fetched Equipment Options:', options);
+              this.equipmentOptions = [...options]; // Save the options
+          },
+          error => {
+              console.error('Error fetching equipment options', error);
+          }
+      );
   }
+  
 
   ngOnInit(): void {
     this.fetchEquipmentOptions();
@@ -187,13 +216,15 @@ export class HireServiceComponent implements OnInit {
   }
 
   handleServiceChange(event: any) {
-    this.selectedServiceId = +event.target.value; // Use unary + operator to convert string to number
-    this.SelectedServiceName = this.services.find(s => s.id == this.selectedServiceId).serviceName;
-    console.log("-------------------------->",this.SelectedServiceName);
+    this.selectedServiceId = +event.target.value; // Convert to number
+    this.SelectedServiceName = this.services.find(s => s.id == this.selectedServiceId)?.serviceName || '';
+
     if (this.selectedServiceId) {
-      this.fetchBookingSchedule(this.selectedServiceId);
+        this.fetchBookingSchedule(this.selectedServiceId);  // Load service-specific bookings
+    } else {
+        this.calendarOptions.events = [];  // Clear calendar if no service is selected
     }
-  }
+}
 
   postQuote() {
     const currentUser = this.usermanagement.getcurrentUserID();

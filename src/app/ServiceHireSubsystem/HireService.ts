@@ -5,6 +5,13 @@ export interface ServiceSchedule {
     TimeslotDescription: string;
   
   }
+  export interface EquipmentSchedule {
+    EquipmentId: number;
+    TimeslotId: number;
+    DateId: number;
+    TimeslotDescription: string;
+  
+  }
 
 export interface HireServiceViewModel{
 HireServiceId: number;
