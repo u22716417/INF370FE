@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Attendee } from '../classes/attendee'; // Assuming the class name is 'attendee'
+import { Attendee } from '../classes/check-in'; // Assuming the class name is 'attendee'
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class CheckInService {
 
   private apiUrl = 'https://localhost:7149/api/CheckIn/CheckInImage';
   private validateUrl = 'https://localhost:7149/api/CheckIn/ValidateBarcode';
+  private imageUrl = 'https://localhost:7149/api/CheckIn/GetAttendeeDetails'
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -38,7 +39,9 @@ export class CheckInService {
       );
   }
   
-
+  getAttendeeDetails(qrCodeData: string): Observable<Attendee> {
+    return this.http.get<Attendee>(`${this.imageUrl}/${qrCodeData}`);
+  }
   // Error Handling
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

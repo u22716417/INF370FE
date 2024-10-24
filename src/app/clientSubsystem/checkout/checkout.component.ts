@@ -19,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   errorMessage: string = '';
 
   constructor(
-    private cartService: TicketService,
+    public cartService: TicketService,
     private codeService: CodeServiceService // Inject the CodeServiceService
   ) { }
 
@@ -42,6 +42,7 @@ export class CheckoutComponent implements OnInit {
     this.total = temptotal - this.vat; 
     this.grandTotal = (this.total + this.vat) - this.discountAmount;
   }
+
 
   applyCoupon(): void {
     if (this.couponCode.trim() === '') {
@@ -70,4 +71,20 @@ export class CheckoutComponent implements OnInit {
     this.discountAmount = 0; // Reset discount amount
     sessionStorage.removeItem('discountAmount'); // Clear from session storage
   }
+
+  increaseQuantity(itemId: number): void {
+    this.cartService.AddQuantityCart(itemId);
+    this.updateCart(); // Update the cart items and recalculate totals
+  }
+  
+  decreaseQuantity(itemId: number): void {
+    this.cartService.removeFromCart(itemId);
+    this.updateCart(); // Update the cart items and recalculate totals
+  }
+  
+  updateCart(): void {
+    this.cartItems = this.cartService.getCartItems(); // Refresh the cart items
+    this.calculateTotals(); // Recalculate totals
+  }
+  
 }

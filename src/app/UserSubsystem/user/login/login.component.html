@@ -6,7 +6,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Enter OTP</h5>
-            <h2>{{message}}</h2>
+           
             <br/>
             <br/>
           </div>
@@ -62,7 +62,9 @@
                     Password is required.
                   </div>
                 </div>
-                
+                <div *ngIf="message" class="error-message alert alert-danger">
+                  {{ message }}
+                </div>
                 <!-- Forgot Password Link -->
                 <div class="form-footer">
                   <a routerLink="/forgotpassword" class="forgot-password">Forgot password?</a>

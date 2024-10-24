@@ -18,6 +18,34 @@
   <div id="notification" [class.show]="showNotification">
     {{ notificationMessage }}
   </div>
+
+  <!-- Attendee Details Modal -->
+<div *ngIf="showAttendeeModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-title" style="text-align: center;">Check-In Succesful!</h2>
+      <button class="close-button" (click)="closeAttendeeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="attendee-details">
+        <h2 style="text-align: center;">Attendee Details</h2>
+        <p *ngIf="attendee" class="attendee-info">
+          <strong>Name:</strong> {{ attendee.attendeeName }} {{ attendee.attendeeSurname }}
+        </p>
+        <p *ngIf="attendee" class="attendee-info">
+          <strong>Email:</strong> {{ attendee.attendeeEmail }}
+        </p>
+        <p *ngIf="attendee" class="attendee-info">
+          <strong>Phone:</strong> {{ attendee.attendeePhone }}
+        </p>
+      </div>
+      <div *ngIf="attendee" class="attendee-info" style="float: right;">
+        <img [src]="attendee.profileImageUrl ? attendee.profileImageUrl : 'https://example.com/default-image.jpg'" alt="Profile Image" class="rounded-circle" />
+    </div>
+    </div>
+  </div>
+</div>
+
  <!-- Help Modal -->
  <div class="modal" [ngClass]="{'show': showHelpModal}">
   <div class="modal-content">
@@ -25,7 +53,7 @@
     <h2>Help- Check In</h2>
     <p>This page allows you to check in event attendees on event day.</p>
         <ul>
-          <li>Enter the ticket barcode either by manually typing it on the input box or by using the keyboard/touchpad on screen</li>
+          <li>Scan the QR Code</li>
           <li>Click on the <strong>"Check in"</strong>button to check in the attendee. A successful check-in client message will appear </li>
           <li>Please note that you won't be able to check in the same ticket twice. An error message will appear.</li>
 
@@ -34,6 +62,10 @@
 </div>
 
 <style>
+  .rounded-circle {
+    border-radius: 50%;
+    object-fit: cover;
+  }
   .center-container {
   display: flex;
   flex-direction: column;
@@ -98,7 +130,58 @@
     text-decoration: none;
   }
   
- 
+ /* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Container */
+.modal-container {
+  background-color: white;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+  font-size: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 16px;
+}
+
+.attendee-info {
+  margin-bottom: 10px;
+}
+
   </style>
   
   

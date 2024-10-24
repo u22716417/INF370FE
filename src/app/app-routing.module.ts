@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { FullComponent } from './layouts/full/full.component';
 import { RegisterComponent } from './UserSubsystem/user/register/register.component';
 import { CheckInComponent } from './AdminSubsystem/check-in/check-in.component';
-import { VerificationComponent } from './AdminSubsystem/check-in/verification/verification.component';
 import { VenueService } from './AdminSubsystem/venue/service/venue-service.service';
 import { VenuesComponent } from './AdminSubsystem/venue/venues/venues.component';
 import { EquipmentListComponent } from './AdminSubsystem/equipment/equipment-list/equipment-list.component';

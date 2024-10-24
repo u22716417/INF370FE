@@ -114,7 +114,7 @@
               <td>{{item.serviceName}}</td>
               <td>{{item.start | date}} </td>
               <td>{{item.end | date}}</td>
-              <td>{{item.quotePrice}}</td>
+              <td>R {{item.quotePrice}}</td>
               <td *ngIf="item.approved ==null " >No Action</td>
               <td *ngIf="item.approved =='True' " >Approved</td>
               <td *ngIf="item.approved =='False' " >Rejected</td>
