@@ -8,6 +8,7 @@ import { UserManagementService } from 'src/app/AuthGuard/Authentication/UserMana
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignupComponent implements OnInit {
+  isLoading: boolean = false; 
   stage: number = 1;
   profileImage: string | ArrayBuffer | null = null;
   profileImagePreview: string | ArrayBuffer | null = null;
@@ -32,7 +33,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private userManagementService: UserManagementService, private route: Router) {}
   ngOnInit(): void {
-    this.message = 'Sign up Successful ';
+    this.message = '';
   }
 
   nextStage() {
@@ -48,7 +49,17 @@ export class SignupComponent implements OnInit {
   validateStage1(): boolean {
     return this.userDetails.firstName !=null && this.userDetails.lastName !=null && this.userDetails.email !=null && this.userDetails.phoneNumber !=null;
   }
+  startLoadingAnimation(): void {
+    this.isLoading = true; // Set isLoading to true
+    
+  }
 
+  stopLoadingAnimation(): void {
+   
+      this.message = ''; 
+      this.isLoading = false; // Set isLoading to false
+    
+  }
   onFileChange(event: any) {
     const file = event.target.files[0];
 
@@ -85,6 +96,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.startLoadingAnimation();
     if (this.loginDetails.password !== this.loginDetails.confirmPassword) {
       alert('Passwords do not match.');
       return;
@@ -102,8 +114,8 @@ export class SignupComponent implements OnInit {
         this.isPopupVisible = true;
       },
       error => {
-
-        this.message = error;
+        this.stopLoadingAnimation();
+        this.message = 'Sign up unsuccessful. Please try again.';
         // Handle signup error
       }
     );

@@ -63,6 +63,7 @@
             <input class="btn btn-success" (click)="openPopup()" type="button" value="Request Quote">
        </div>
        <div *ngIf="isEquipment">
+        <h2>Enter Equipment Details</h2>
 
         <div class="form-group">
           <label for="equipment">Equipment</label>
@@ -114,7 +115,7 @@
               <td>{{item.serviceName}}</td>
               <td>{{item.start | date}} </td>
               <td>{{item.end | date}}</td>
-              <td>{{item.quotePrice}}</td>
+              <td>R {{item.quotePrice}}</td>
               <td *ngIf="item.approved ==null " >No Action</td>
               <td *ngIf="item.approved =='True' " >Approved</td>
               <td *ngIf="item.approved =='False' " >Rejected</td>

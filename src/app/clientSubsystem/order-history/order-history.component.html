@@ -18,28 +18,34 @@
       </div>
     </div>
 
-    <!-- Order History Details in a responsive col -->
-    <div class="col-md-10 col-sm-9 col-12">
-      <h2>Order History</h2>
-      <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Help</a>
-      <ul class="list-group">
-        <li class="list-group-item" *ngFor="let order of orderHistory">
-          <div class="order-details">
-            <h5>{{ order.eventName }}</h5>
-            <p>Price: R {{ order.ticketPrice }}</p>
-            <p>Quantity: {{ order.ticketQuantity }}</p>
-            <p>Purchase Date: {{ order.purchaseDate | date:'short' }}</p>
+   <!-- Order History Details in a responsive col -->
+   <div class="col-md-10 col-sm-9 col-12">
+    <h2>Order History</h2>
+    <a href="javascript:void(0)" (click)="openHelpModal()" style="position: absolute; right: 0; top: 10px;">Help</a>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let order of orderHistory">
+        <div class="order-details">
+          <h5 *ngIf="order.eventName">{{ order.eventName }}</h5>
+          <p *ngIf="order.ticketPrice">Price: R {{ order.ticketPrice }}</p>
+          <p *ngIf="order.ticketQuantity">Quantity: {{ order.ticketQuantity }}</p>
+          <p *ngIf="order.serviceName">Service: {{ order.serviceName }}</p>
+          <p *ngIf="order.start">Service Start Date: {{ order.start | date:'short' }}</p>
+          <p *ngIf="order.end">Service End Date: {{ order.end | date:'short' }}</p>
+          <p *ngIf="order.equipmentName">Equipment: {{ order.equipmentName }}</p>
+          <p *ngIf="order.startDate">Equipment Start Date: {{ order.startDate | date:'short' }}</p>
+          <p *ngIf="order.endDate">Equipment End Date: {{ order.endDate | date:'short' }}</p>
+          <p>Purchase Date: {{ order.purchaseDate | date:'short' }}</p>
             <p>
               Rating:
               <span class="rating">
                 <span *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
                       (click)="updateRating(order, i + 1)" 
-                      [class.filled]="i < order.rating"
+                      [class.filled]="i < (order.rating || 0)"
                       [title]="getRatingDescription(i + 1)">
-                  {{ star <= order.rating ? '★' : '☆' }}
+                  {{ star <= (order.rating || 0) ? '★' : '☆' }}
                 </span>
               </span>
-              <span class="rating-description">{{ getRatingDescription(order.rating) }}</span>
+              <span class="rating-description">{{ getRatingDescription(order.rating || 0) }}</span>
             </p>
           </div>
         </li>
