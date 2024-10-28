@@ -123,15 +123,15 @@ export class HireServiceComponent implements OnInit {
     }
 
 
-  handleEquipmentChange(event: any) {
-    this.SelectedEquipment = +event.target.value;  // Convert to number
+//   handleEquipmentChange(event: any) {
+//     this.SelectedEquipment = +event.target.value;  // Convert to number
 
-    if (this.SelectedEquipment) {
-        this.fetchEquipmentBookingSchedule(this.SelectedEquipment);  // Load equipment-specific bookings
-    } else {
-        this.calendarOptions.events = [];  // Clear calendar if no equipment is selected
-    }
-}
+//     if (this.SelectedEquipment) {
+//         this.fetchEquipmentBookingSchedule(this.SelectedEquipment);  // Load equipment-specific bookings
+//     } else {
+//         this.calendarOptions.events = [];  // Clear calendar if no equipment is selected
+//     }
+// }
 fetchEquipmentBookingSchedule(equipmentId: number) {
   this.hireItemService.getHireItems().subscribe(
       (hireItems: HireItem[]) => {
