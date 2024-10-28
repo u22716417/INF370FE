@@ -50,6 +50,7 @@ export class HireServiceComponent implements OnInit {
   isService: boolean = false;
   errorMessage: string = ''; // Property to store error messages
   Equipmentid: number = 0;
+  SelectedEquipmentIds: number[] = [];
   showNotification: boolean = false;
   notificationMessage: string = '';
   SelectedEquipment: number = 0;
@@ -101,6 +102,27 @@ export class HireServiceComponent implements OnInit {
   closePaymentPopup() {
     this.showPaymentPopup = false;
   }
+    
+
+
+
+
+    isEquipmentSelected(equipmentId: number): boolean {
+      return this.SelectedEquipmentIds.includes(equipmentId);
+    }
+  
+   
+    handleEquipmentChange(event: any, equipment: any) {
+      if (event.target.checked) {
+        this.SelectedEquipmentIds.push(equipment.equipmentId);
+      } else {
+        this.SelectedEquipmentIds = this.SelectedEquipmentIds.filter(id => id !== equipment.equipmentId);
+      }
+  
+      this.fetchEquipmentBookingSchedule(equipment.equipmentId);
+    }
+
+
   handleEquipmentChange(event: any) {
     this.SelectedEquipment = +event.target.value;  // Convert to number
 
@@ -301,22 +323,24 @@ fetchEquipmentBookingSchedule(equipmentId: number) {
 
   onSubmit(): void {
    
+    console.log(this.SelectedEquipmentIds);
       const hireRequest: any = {
         HireEquipmentId: 0, 
+        EquipmentIds:this.SelectedEquipmentIds,
         EquipmentId: this.SelectedEquipment,
         ClientId: parseInt(sessionStorage.getItem('CurrentUserId') || '0', 10),
         HireStartDate: this.startDate,
         HireEndDate: this.endDate,
         Status: 'Pending'}
-      
+      console.log(hireRequest);
         this.hireItemService.createHireItem(hireRequest).subscribe(x=>{
           if(x)
           {
             this.closeEqPopup();
           }
-        })
-   
-    }
+        })
+   
+    }
   
   
 
