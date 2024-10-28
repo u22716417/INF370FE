@@ -81,6 +81,7 @@ import { DispenseHireItemsComponent } from './ServiceHireSubsystem/dispense-hire
 import { BackupAndRestoreComponent } from './AdminSubsystem/backup-and-restore/backup-and-restore/backup-and-restore.component';
 import { SalesAttendanceReportComponent } from './Reporting/sales-attendance-report/sales-attendance-report.component';
 import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/non-attendance-report.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -140,7 +141,8 @@ import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/
     DispenseHireItemsComponent,
     BackupAndRestoreComponent,
     SalesAttendanceReportComponent,
-    NonAttendanceReportComponent  
+    NonAttendanceReportComponent,
+    HomePageComponent  
     
   ],
   imports: [

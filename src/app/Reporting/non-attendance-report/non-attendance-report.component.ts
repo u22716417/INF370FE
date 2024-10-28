@@ -118,7 +118,7 @@ export class NonAttendanceReportComponent implements OnInit {
       series: [
         {
           name: 'Tickets Sold',
-          data: ticketsSold
+          data: ticketsSold,
         },
         {
           name: 'Non Attendance Count',

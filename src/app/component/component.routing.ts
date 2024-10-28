@@ -55,7 +55,7 @@ import { CreateUpdateComponent } from '../AdminSubsystem/venue/create-update/cre
 import { EquipmentCreateUpdateComponent } from '../AdminSubsystem/equipment/equipment-create-update/equipment-create-update.component';
 import { SalesAttendanceReportComponent } from '../Reporting/sales-attendance-report/sales-attendance-report.component';
 import { NonAttendanceReportComponent } from '../Reporting/non-attendance-report/non-attendance-report.component';
-
+import { HomePageComponent } from '../home-page/home-page.component';
 
 
 export const ComponentsRoutes: Routes = [
@@ -460,7 +460,14 @@ export const ComponentsRoutes: Routes = [
 				component: CreateUpdateComponent,
 				canActivate: [RoleBasedAuthGuard],
 				data: { roles: ['Admin','Owner'] } // Specify allowed roles here
+			},
+			{
+				path: 'home-page',
+				component: HomePageComponent,
+				canActivate: [RoleBasedAuthGuard],
+				data: { roles: ['Admin','Owner', 'Client'] } // Specify allowed roles here
 			}
+
 
 
 		]
