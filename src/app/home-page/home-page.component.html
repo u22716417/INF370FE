@@ -1,1 +1,29 @@
-<p>home-page works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
+    <div class="container">
+      <img src="c:\Users\User\Pictures\Saved Pictures\ProteaEventLogo.jpg" alt="Company Logo" style="height: 60px; margin-right: 20px; padding-left: 30px" />
+      <a class="navbar-brand" routerLink="/">Protea Events Management and Production</a>
+
+      <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation" title="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+          <li><a class="nav-link" routerLink="/">Home</a></li>
+          <li><a class="nav-link" routerLink="/about">About</a></li>
+          <li><a class="nav-link" routerLink="/contact">Contact</a></li>
+          <li><a class="nav-link" routerLink="/upcoming-events" (click)="getUpcomingEvents(); $event.preventDefault();">Upcoming Events</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</body>
+</html>

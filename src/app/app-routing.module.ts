@@ -29,7 +29,7 @@ import { ServiceCreateUpdateComponent } from './AdminSubsystem/service/service-c
 import { HelpComponent } from './HelpSubsystem/help/help.component';
 import { SalesAttendanceReportComponent } from './Reporting/sales-attendance-report/sales-attendance-report.component';
 import { NonAttendanceReportComponent } from './Reporting/non-attendance-report/non-attendance-report.component';
-
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const Approutes: Routes = [
   {
@@ -37,7 +37,8 @@ export const Approutes: Routes = [
     component: FullComponent,
     canActivate: [UserAuthGuard],
     children: [
-      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+       { path: '', redirectTo: '/home-page', pathMatch: 'full' }, // Change here
+      { path: 'home-page', component: HomePageComponent }, // Ensure HomePageComponent is accessible
         {
           path: 'dashboard',
           loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
