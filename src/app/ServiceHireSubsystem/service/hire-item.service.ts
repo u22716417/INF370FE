@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { HireItem } from '../HireItem';
+import { ExistingEquipmentResponse } from '../hireEquipment/existing-equipment-response';
 
 
 
@@ -44,8 +45,8 @@ export class HireItemService {
     return this.http.get<any[]>('https://localhost:7149/ClientCollectHireItems/'+id);
   }
 
-  createHireItem(hireItem: HireItem): Observable<HireItem> {
-    return this.http.post<HireItem>(this.apiUrl, hireItem);
+  createHireItem(hireItem: HireItem): Observable<ExistingEquipmentResponse> {
+    return this.http.post<ExistingEquipmentResponse>(this.apiUrl, hireItem);
   }
 
 

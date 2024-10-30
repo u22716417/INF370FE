@@ -14,6 +14,7 @@ import { filter } from 'rxjs';
 import { event } from 'jquery';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ExistingEquipmentResponse } from '../../hireEquipment/existing-equipment-response';
 
 @Component({
   selector: 'app-hire-service',
@@ -333,13 +334,16 @@ fetchEquipmentBookingSchedule(equipmentId: number) {
         HireEndDate: this.endDate,
         Status: 'Pending'}
       console.log(hireRequest);
-        this.hireItemService.createHireItem(hireRequest).subscribe(x=>{
-          if(x)
-          {
-            this.closeEqPopup();
-          }
-        })
-   
+      this.hireItemService.createHireItem(hireRequest).subscribe((response: ExistingEquipmentResponse) => {
+        console.log(response); 
+        if (response.message)
+           {  
+            alert(response.message);
+            this .closeEqPopup();
+           } 
+           else 
+           {this .closeEqPopup(); } 
+          });
     }
   
   
